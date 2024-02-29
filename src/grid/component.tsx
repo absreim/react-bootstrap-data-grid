@@ -1,7 +1,7 @@
 "use client";
 
 import { FC, useMemo } from "react";
-import { ColDef, RowDef } from "@/grid/types";
+import { ColDef, RowDef } from "./types";
 
 interface Props {
   rows: RowDef[];
@@ -15,12 +15,23 @@ const Grid: FC<Props> = ({ rows, cols }) => {
       nameToIndex.set(name, index);
     });
 
-    return rows.map((row) => {
+    return rows.map((row, index) => {
+      cols
+        .map(({ name }) => name)
+        .forEach((name) => {
+          if (!(name in row)) {
+            throw new Error(
+              `Column definition specifies a property named "${name}",
+              but it was no found in the row data object at index ${index}`,
+            );
+          }
+        });
+
       const displayRow: string[] = [];
       Object.keys(row).forEach((name) => {
         if (!nameToIndex.has(name)) {
-          throw new Error(`Row data contains a property named "${name}", but it was not found among
-                    the column definitions`);
+          throw new Error(`Row data contains a property named "${name}",
+          but it was not found among the column definitions`);
         }
         const index = nameToIndex.get(name)!;
         const formatter = cols[index].formatter;

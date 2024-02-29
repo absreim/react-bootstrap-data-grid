@@ -16,12 +16,23 @@ export default function Home() {
       </p>
       <h1>Getting Started</h1>
       <p>
-        React Bootstrap Data Grid is not yet published as an npm package, but
-        the following example illustrates the likely usage of the module once it
-        is published.
+        React Bootstrap Data Grid is published as an npm package with the name
+        {" "}<code>@absreim/react-bootstrap-data-grid</code>.
       </p>
+      <p>
+        To add the component to you project, install it with your package manager
+        of choice.
+      </p>
+      <p>For example:</p>
+      <p><code>npm install @absreim/react-bootstrap-data-grid</code></p>
+      <p>Once installed, define rows and columns for a grid according to the
+      following example:</p>
       <BasicSampleGrid />
       <h1>Change Log</h1>
+      <h2>0.1.2</h2>
+      <p>Mar. 14, 2024</p>
+      <p>Added automated tests and a build script to generate files meant for
+      publishing as an NPM package.</p>
       <h2>0.1.0</h2>
       <p>Feb. 27, 2024</p>
       <p>

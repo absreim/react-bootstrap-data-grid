@@ -1,0 +1,28 @@
+{
+  "name": "@absreim/react-bootstrap-data-grid",
+  "description": "Data grid UI component for use with web apps using React and Bootstrap",
+  "version": "0.1.2",
+  "license": "MIT",
+  "author": "Brook Li",
+  "homepage": "https://react-bootstrap-data-grid.vercel.app/",
+  "private": false,
+  "keywords": [
+    "react",
+    "bootstrap",
+    "data",
+    "table",
+    "grid"
+  ],
+  "peerDependencies": {
+    "react": "^18",
+    "react-dom": "^18"
+  },
+  "main": "./index.js",
+  "module": "./index.js",
+  "types": "./index.d.ts",
+  "repository": {
+    "type": "git",
+    "url": "https://github.com/absreim/react-bootstrap-data-grid.git",
+    "directory": "src/grid"
+  }
+}

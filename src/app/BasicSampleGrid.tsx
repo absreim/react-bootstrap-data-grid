@@ -121,12 +121,7 @@ const rows: RowDef[] = [
 
 const BasicGridExample: FC = () => {
   return (
-    <section>
-      <pre>
-        <code>{}</code>
-      </pre>
-      <Grid rows={rows} cols={cols} />
-    </section>
+    <Grid rows={rows} cols={cols} />
   );
 };`;
 

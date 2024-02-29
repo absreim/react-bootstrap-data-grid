@@ -2,6 +2,7 @@
 
 # editor local files
 .idea/
+.vscode/
 
 # dependencies
 /node_modules
@@ -37,3 +38,8 @@ yarn-error.log*
 # typescript
 *.tsbuildinfo
 next-env.d.ts
+
+# published package
+/src/grid/dist/*
+!/src/grid/dist/package.json
+!/src/grid/dist/README.md
