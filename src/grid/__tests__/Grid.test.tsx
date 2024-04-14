@@ -1,6 +1,8 @@
 import "@testing-library/jest-dom";
 import { render, screen, within } from "@testing-library/react";
-import Grid, { ColDef, RowDef } from "../index";
+import Grid, { ColDef, GridPaginationState, RowDef } from "../index";
+import { FC, useState } from "react";
+import userEvent from "@testing-library/user-event";
 
 const cols: ColDef[] = [
   {
@@ -46,6 +48,18 @@ const rows: RowDef[] = [
     date: Date(),
     datetime: Date(),
   },
+  {
+    strCol: "fourth row string",
+    numCol: 4,
+    date: Date(),
+    datetime: Date(),
+  },
+  {
+    strCol: "fifth row string",
+    numCol: 5,
+    date: Date(),
+    datetime: Date(),
+  },
 ];
 
 const extraFieldRow: RowDef[] = [
@@ -65,6 +79,15 @@ const missingFieldRow: RowDef[] = [
     date: Date(),
   },
 ];
+
+const paginationState: GridPaginationState = {
+  pageSizeOptions: [3, 5, 10],
+  pageSizeIndex: 0,
+  setPageSizeIndex: () => {},
+  currentPage: 2,
+  setCurrentPage: () => {},
+  maxPageButtons: 5,
+};
 
 it("Displays labels as column headings", () => {
   render(<Grid rows={rows} cols={cols} />);
@@ -97,4 +120,47 @@ it("Throws an error if a field in the column definition does not exist the data 
   expect(() => {
     render(<Grid rows={missingFieldRow} cols={cols} />);
   }).toThrow();
+});
+
+it("Displays the appropriate rows when pagination is enabled", () => {
+  render(<Grid rows={rows} cols={cols} pagination={paginationState} />);
+
+  const rowElements = screen.getAllByRole("row");
+  const firstDataRowCells = within(rowElements[1]).getAllByRole("cell");
+  const secondDataRowCells = within(rowElements[2]).getAllByRole("cell");
+
+  expect(rowElements.length).toBe(3);
+  expect(firstDataRowCells[0]).toHaveTextContent("fourth row string");
+  expect(secondDataRowCells[0]).toHaveTextContent("fifth row string");
+});
+
+const PaginationStateContainer: FC = () => {
+  const [pageSizeIndex, setPageSizeIndex] = useState(0);
+  const [currentPage, setCurrentPage] = useState(1);
+  const pageSizeOptions = [3, 5, 10];
+  const maxPageButtons = 5;
+
+  const paginationState: GridPaginationState = {
+    pageSizeOptions,
+    pageSizeIndex: pageSizeIndex,
+    setPageSizeIndex: setPageSizeIndex,
+    currentPage,
+    setCurrentPage,
+    maxPageButtons,
+  };
+
+  return <Grid rows={rows} cols={cols} pagination={paginationState} />;
+};
+
+it("Responds appropriately to a user selecting a different page size", async () => {
+  const user = userEvent.setup();
+  render(<PaginationStateContainer />);
+
+  await user.selectOptions(
+    screen.getByRole("combobox", { name: "Number of Rows per Page" }),
+    "1",
+  );
+  const rowElements = screen.getAllByRole("row");
+
+  expect(rowElements.length).toBe(6);
 });

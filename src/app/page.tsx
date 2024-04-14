@@ -2,7 +2,7 @@ import BasicSampleGrid from "@/app/BasicSampleGrid";
 
 export default function Home() {
   return (
-    <main>
+    <>
       <h1>Introduction</h1>
       <p>Welcome to documentation for React Boostrap Data Grid!</p>
       <p>
@@ -44,8 +44,8 @@ export default function Home() {
       </p>
       <p>
         If you are only including Bootstrap partially in your project, note that
-        React Bootstrap Data Grid currently only depends on the <i>tables</i> Sass
-        import among{" "}
+        React Bootstrap Data Grid currently only depends on the <i>tables</i>{" "}
+        Sass import among{" "}
         <a href="https://getbootstrap.com/docs/5.3/customize/optimize/">
           the list of Sass imports
         </a>
@@ -58,6 +58,11 @@ export default function Home() {
       </p>
       <BasicSampleGrid />
       <h1>Change Log</h1>
+      <h2>0.1.3</h2>
+      <p>Apr. 17, 2024</p>
+      <p>
+        Added pagination feature.
+      </p>
       <h2>0.1.2</h2>
       <p>Mar. 14, 2024</p>
       <p>
@@ -70,6 +75,6 @@ export default function Home() {
         Initial release with baseline row definition, column definition, and
         data display functionality.
       </p>
-    </main>
+    </>
   );
 }

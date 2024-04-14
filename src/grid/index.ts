@@ -1,2 +1,5 @@
 export * from "./types";
-export { default } from "./component";
+export * from "./Grid";
+export * from "./Pagination";
+
+export { default } from "./Grid";

@@ -28,7 +28,7 @@ tests are currently directly importing the source files for the data grid compon
 One can change the import to instead import the build products meant for distribution. Running tests this way can be
 useful if there is any concern about the fitness of the build products.
 
-Specifically, in `src/grid/__tests__/component.test.tsx`, one can change line 3 from
+Specifically, in `src/grid/__tests__/Grid.test.tsx`, one can change line 3 from
 
 ```tsx
 import Grid, { ColDef, RowDef } from "../index";
