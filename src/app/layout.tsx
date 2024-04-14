@@ -1,8 +1,7 @@
 import type { Metadata } from "next";
 import "./global.scss";
 import AppBar from "./AppBar";
-
-import Container from "react-bootstrap/Container";
+import ContentsNavbar from "@/app/ContentsNavbar";
 
 export const metadata: Metadata = {
   title: "React Bootstrap Data Grid Documentation",
@@ -19,9 +18,12 @@ export default function RootLayout({
     <html lang="en">
       <body>
         <AppBar />
-        <main>
-          <Container>{children}</Container>
-        </main>
+        <div className="container d-flex flex-row gap-2">
+          <div className="d-none d-lg-block">
+            <ContentsNavbar />
+          </div>
+          <main>{children}</main>
+        </div>
       </body>
     </html>
   );

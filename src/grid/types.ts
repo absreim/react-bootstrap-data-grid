@@ -1,5 +1,5 @@
-type ColDataType = string | number | Date;
-type ColDataTypeStrings = "string" | "number" | "date" | "datetime";
+export type ColDataType = string | number | Date;
+export type ColDataTypeStrings = "string" | "number" | "date" | "datetime";
 
 export interface ColDef {
   type: ColDataTypeStrings;
@@ -9,3 +9,13 @@ export interface ColDef {
 }
 
 export type RowDef = Record<string, ColDataType>;
+
+export type JustifyContentSetting =
+  | "start"
+  | "end"
+  | "center"
+  | "between"
+  | "around"
+  | "evenly";
+
+export type Size = "small" | "medium" | "large";

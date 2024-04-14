@@ -20,6 +20,18 @@ Run the `build:package` npm script to build the source files for the data grid c
 to the `src/grid/dist` directory. All files in the `src/grid/dist` directory are not meant to be checked into version
 control, except for `src/grid/dist/package.json` and `src/grid/dist/README.md`, which are maintained by hand.
 
+## Publishing
+
+To publish a package after successfully building it for distribution, change to the `src/grid/dist` subdirectory and
+use the NPM CLI:
+
+`cd ./src/grid/dist`
+
+`npm publish --access public`
+
+Note that one needs to be logged into via the NPM CLI to an account that has permission to publish to the specified
+scope.
+
 ## Automated tests
 
 One can run the automated tests in the `src/grid/dist/__tests__` by invoking the `test` or `test:watch` NPM script. The
@@ -28,7 +40,7 @@ tests are currently directly importing the source files for the data grid compon
 One can change the import to instead import the build products meant for distribution. Running tests this way can be
 useful if there is any concern about the fitness of the build products.
 
-Specifically, in `src/grid/__tests__/component.test.tsx`, one can change line 3 from
+Specifically, in `src/grid/__tests__/Grid.test.tsx`, one can change line 3 from
 
 ```tsx
 import Grid, { ColDef, RowDef } from "../index";
