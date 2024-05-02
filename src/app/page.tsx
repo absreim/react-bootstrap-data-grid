@@ -1,4 +1,5 @@
 import BasicSampleGrid from "@/app/BasicSampleGrid";
+import BasicSampleGridCode from "@/app/BasicSampleGridCode";
 
 export default function Home() {
   return (
@@ -56,7 +57,12 @@ export default function Home() {
         Once the React Bootstrap Data Grid and Bootstrap are both installed,
         define rows and columns for a grid according to the following example:
       </p>
-      <BasicSampleGrid />
+      <section>
+        <h3>Code</h3>
+        <BasicSampleGridCode />
+        <h3>Live Demo</h3>
+        <BasicSampleGrid />
+      </section>
       <h1>Change Log</h1>
       <h2>0.1.3</h2>
       <p>Apr. 18, 2024</p>
