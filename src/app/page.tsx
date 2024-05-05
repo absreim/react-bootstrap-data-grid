@@ -1,5 +1,6 @@
 import BasicSampleGrid from "@/app/BasicSampleGrid";
-import BasicSampleGridCode from "@/app/BasicSampleGridCode";
+import basicSampleGridCode from "@/app/BasicSampleGridCode";
+import HighlightedCodeBlock from "@/shared/HighlightedCodeBlock";
 
 export default function Home() {
   return (
@@ -59,7 +60,7 @@ export default function Home() {
       </p>
       <section>
         <h3>Code</h3>
-        <BasicSampleGridCode />
+        <HighlightedCodeBlock code={basicSampleGridCode} />
         <h3>Live Demo</h3>
         <BasicSampleGrid />
       </section>

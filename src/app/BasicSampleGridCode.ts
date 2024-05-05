@@ -1,9 +1,3 @@
-import { FC } from "react";
-import hljs from "highlight.js/lib/core"
-import typescript from "highlight.js/lib/languages/typescript"
-
-hljs.registerLanguage("typescript", typescript)
-
 const sampleCodeText = `
 import Grid from "@absreim/react-bootstrap-data-grid";
 import { FC } from "react";
@@ -70,14 +64,4 @@ const BasicGridExample: FC = () => {
   );
 };`;
 
-const BasicSampleGridCode: FC = () => {
-  const highlightedCode = hljs.highlight(sampleCodeText, { language: "typescript" }).value
-
-  return (
-    <pre>
-      <code dangerouslySetInnerHTML={{ __html: highlightedCode }} />
-    </pre>
-  )
-}
-
-export default BasicSampleGridCode;
+export default sampleCodeText

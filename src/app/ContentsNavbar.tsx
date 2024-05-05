@@ -5,22 +5,23 @@ import { usePathname } from "next/navigation";
 import Nav from "react-bootstrap/Nav";
 
 interface LinkDefinition {
-  id: number;
   name: string;
   path: string;
 }
 
 const linkDefs: LinkDefinition[] = [
   {
-    id: 1,
     name: "Introduction",
     path: "/",
   },
   {
-    id: 2,
     name: "Pagination",
     path: "/pagination",
   },
+  {
+    name: "Sorting",
+    path: "/sorting"
+  }
 ];
 
 const ContentsNavbar: FC = () => {
@@ -28,8 +29,8 @@ const ContentsNavbar: FC = () => {
 
   return (
     <Nav variant="underline" activeKey={pathname} className="flex-column">
-      {linkDefs.map(({ id, name, path }) => (
-        <Nav.Item key={id}>
+      {linkDefs.map(({ name, path }, index) => (
+        <Nav.Item key={index}>
           <Nav.Link href={path}>{name}</Nav.Link>
         </Nav.Item>
       ))}
