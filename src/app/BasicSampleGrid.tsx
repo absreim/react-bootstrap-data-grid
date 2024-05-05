@@ -60,9 +60,7 @@ const rows: RowDef[] = [
 ];
 
 const BasicSampleGrid: FC = () => {
-  return (
-    <Grid rows={rows} cols={cols} />
-  );
+  return <Grid rows={rows} cols={cols} />;
 };
 
 export default BasicSampleGrid;

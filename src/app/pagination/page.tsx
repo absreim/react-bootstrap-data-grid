@@ -1,14 +1,9 @@
 import { FC } from "react";
 import SamplePaginatedGrid from "@/app/pagination/SamplePaginatedGrid";
 import samplePaginatedGridCode from "@/app/pagination/samplePaginatedGridCode";
-import hljs from "highlight.js/lib/core"
-import typescript from "highlight.js/lib/languages/typescript"
-
-hljs.registerLanguage("typescript", typescript)
+import HighlightedCodeBlock from "@/shared/HighlightedCodeBlock";
 
 const Pagination: FC = () => {
-  const highlightedCode = hljs.highlight(samplePaginatedGridCode, { language: 'typescript' }).value
-
   return (
     <>
       <h1>Pagination</h1>
@@ -145,9 +140,7 @@ const Pagination: FC = () => {
       </table>
       <h2>Example</h2>
       <h3>Code</h3>
-      <pre>
-        <code dangerouslySetInnerHTML={{ __html: highlightedCode }} />
-      </pre>
+      <HighlightedCodeBlock code={samplePaginatedGridCode} />
       <h3>Live Demo</h3>
       <SamplePaginatedGrid />
     </>

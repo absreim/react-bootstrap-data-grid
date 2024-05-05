@@ -1,9 +1,17 @@
 "use client";
 
 import { ChangeEvent, FC, useMemo } from "react";
-import { ColDef, RowDef, Size } from "./types";
+import {
+  ColDataTypeStrings,
+  ColDef,
+  ColSortModel,
+  RowDef,
+  Size,
+  TableSortModel,
+} from "./types";
 import Pagination from "./Pagination";
 import classNames from "classnames";
+import ColHeaderCell from "./ColHeaderCell";
 
 export interface GridPaginationState {
   pageSizeOptions: number[];
@@ -19,20 +27,75 @@ export interface GridProps {
   rows: RowDef[];
   cols: ColDef[];
   pagination?: GridPaginationState;
+  sortModel?: TableSortModel;
 }
 
-const Grid: FC<GridProps> = ({ rows, cols, pagination }) => {
+const getTypeComparator: (
+  typeStr: ColDataTypeStrings,
+) => (a: any, b: any) => number = (typeStr) => {
+  if (typeStr === "date" || typeStr === "datetime") {
+    return (a: Date, b: Date) => a.valueOf() - b.valueOf();
+  }
+  if (typeStr === "number") {
+    return (a: number, b: number) => a - b;
+  }
+  return (a: string, b: string) => {
+    if (a < b) {
+      return -1;
+    }
+    if (a > b) {
+      return 1;
+    }
+    return 0;
+  };
+};
+
+const getRowComparator: (
+  comparator: (a: any, b: any) => number,
+  fieldName: string,
+) => (rowA: RowDef, rowB: RowDef) => number = (comparator, fieldName) => {
+  return (rowA, rowB) => comparator(rowA[fieldName], rowB[fieldName]);
+};
+
+const Grid: FC<GridProps> = ({ rows, cols, pagination, sortModel }) => {
+  const sortedRows: RowDef[] = useMemo(() => {
+    if (!sortModel || !sortModel.sortColDef) {
+      return rows;
+    }
+
+    const sortFieldName = sortModel.sortColDef.name;
+    const sortOrder = sortModel.sortColDef.order;
+
+    const sortColIndex = cols.findIndex(({ name }) => name === sortFieldName);
+    if (sortColIndex < 0) {
+      throw new Error(
+        `The sortModel for the grid specifies that the data should be sorted based on a column named ${sortFieldName}, but it was not found among the column definitions.`,
+      );
+    }
+
+    const typeStr = cols[sortColIndex].type;
+    const ascComparator = getTypeComparator(typeStr);
+
+    let rowComparator = getRowComparator(ascComparator, sortFieldName);
+    if (sortOrder === "desc") {
+      const descComparator: (a: any, b: any) => number = (a, b) =>
+        ascComparator(a, b) * -1;
+      rowComparator = getRowComparator(descComparator, sortFieldName);
+    }
+    return rows.slice().sort(rowComparator);
+  }, [rows, cols, sortModel]);
+
   const currentPageRows = useMemo(() => {
     if (pagination === undefined) {
-      return rows;
+      return sortedRows;
     }
 
     const { pageSizeOptions, pageSizeIndex, currentPage } = pagination;
     const pageSize = pageSizeOptions[pageSizeIndex];
     const lowerIndex = pageSize * (currentPage - 1);
     const upperIndex = lowerIndex + pageSize;
-    return rows.slice(lowerIndex, upperIndex);
-  }, [rows, pagination]);
+    return sortedRows.slice(lowerIndex, upperIndex);
+  }, [sortedRows, pagination]);
 
   const displayRows: string[][] = useMemo(() => {
     const nameToIndex = new Map<string, number>();
@@ -46,8 +109,7 @@ const Grid: FC<GridProps> = ({ rows, cols, pagination }) => {
         .forEach((name) => {
           if (!(name in row)) {
             throw new Error(
-              `Column definition specifies a property named "${name}",
-              but it was no found in the row data object at index ${index}`,
+              `Column definition specifies a property named "${name}", but it was not found in the row data object at index ${index}.`,
             );
           }
         });
@@ -55,8 +117,9 @@ const Grid: FC<GridProps> = ({ rows, cols, pagination }) => {
       const displayRow: string[] = [];
       Object.keys(row).forEach((name) => {
         if (!nameToIndex.has(name)) {
-          throw new Error(`Row data contains a property named "${name}",
-          but it was not found among the column definitions`);
+          throw new Error(
+            `Row data contains a property named "${name}", but it was not found among the column definitions.`,
+          );
         }
         const index = nameToIndex.get(name)!;
         const formatter = cols[index].formatter;
@@ -111,9 +174,27 @@ const Grid: FC<GridProps> = ({ rows, cols, pagination }) => {
       <table className="table">
         <thead>
           <tr>
-            {cols.map(({ name, label }) => (
-              <th key={name}>{label}</th>
-            ))}
+            {cols.map(({ name, label, sortable }) => {
+              const colSortModel: ColSortModel | undefined =
+                sortModel && sortable
+                  ? {
+                      sortOrder:
+                        sortModel.sortColDef?.name === name
+                          ? sortModel.sortColDef.order
+                          : null,
+                      setSortOrder: (order) => {
+                        sortModel.setSortColDef(order && { name, order });
+                      },
+                    }
+                  : undefined;
+              return (
+                <ColHeaderCell
+                  key={name}
+                  label={label}
+                  sortModel={colSortModel}
+                />
+              );
+            })}
           </tr>
         </thead>
         <tbody>
