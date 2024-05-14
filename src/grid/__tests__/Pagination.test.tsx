@@ -1,6 +1,6 @@
 import "@testing-library/jest-dom";
 import { render, screen, within } from "@testing-library/react";
-import Pagination, { PaginationProps } from "@/grid/Pagination";
+import Pagination, { PaginationProps } from "../Pagination";
 import userEvent from "@testing-library/user-event";
 import { FC, useEffect, useState } from "react";
 
@@ -19,7 +19,7 @@ const PaginationTestHarness: FC<PaginationTestHarnessProps> = ({
     <Pagination
       {...props}
       pageNum={currentPageNum}
-      setPageNum={(pageNum) => setCurrentPageNum(pageNum)}
+      setPageNum={(pageNum: number) => setCurrentPageNum(pageNum)}
     />
   );
 };
