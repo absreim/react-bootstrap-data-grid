@@ -4,12 +4,16 @@ test.beforeEach(async ({ page }) => {
   await page.goto("sorting/test");
 });
 
-test("unsortable column is sorted if initial model calls for it", async ({ page }) => {
+test("unsortable column is sorted if initial model calls for it", async ({
+  page,
+}) => {
   const unsortableSortedContainer = page.getByTestId(
     "sorted unsortable column test case",
   );
 
-  const firstRowCell = unsortableSortedContainer.locator('tr[aria-rowindex="2"] > td[aria-colindex="5"]');
+  const firstRowCell = unsortableSortedContainer.locator(
+    'tr[aria-rowindex="2"] > td[aria-colindex="5"]',
+  );
   const secondRowCell = unsortableSortedContainer.locator(
     'tr[aria-rowindex="3"] > td[aria-colindex="5"]',
   );
@@ -20,15 +24,18 @@ test("unsortable column is sorted if initial model calls for it", async ({ page 
   await expect(firstRowCell).toHaveText("z");
   await expect(secondRowCell).toHaveText("y");
   await expect(thirdRowCell).toHaveText("x");
-})
+});
 
-test("unsorted column becomes sorted after clicking on the header cell", async ({ page }) => {
+test("unsorted column becomes sorted after clicking on the header cell", async ({
+  page,
+}) => {
   const unsortedToSortedContainer = page.getByTestId(
     "unsorted to sorted test case",
   );
 
   const strColHeaderCell = unsortedToSortedContainer.getByRole("columnheader", {
-    name: "String Column", exact: true
+    name: "String Column",
+    exact: true,
   });
   await strColHeaderCell.click();
 
@@ -45,7 +52,7 @@ test("unsorted column becomes sorted after clicking on the header cell", async (
   await expect(firstRowCell).toHaveText("a");
   await expect(secondRowCell).toHaveText("b");
   await expect(thirdRowCell).toHaveText("c");
-})
+});
 
 test("asc sorted column becomes desc sorted after clicking on the header cell", async ({
   page,
@@ -100,9 +107,7 @@ test("desc sorted column becomes unsorted after clicking on the header cell", as
     'tr[aria-rowindex="4"] > td[aria-colindex="1"]',
   );
 
-  await expect(strColHeaderCell).toHaveAccessibleName(
-    "String Column",
-  );
+  await expect(strColHeaderCell).toHaveAccessibleName("String Column");
   // In Chrome, this name shows up as "String Column (sorted descending)", with the space before the left parenthesis
   await expect(firstRowCell).toHaveText("a");
   await expect(secondRowCell).toHaveText("c");

@@ -1,4 +1,4 @@
-"use client"
+"use client";
 
 import { FC } from "react";
 import { ColDef, RowDef } from "@/grid";
@@ -113,6 +113,6 @@ const Test: FC = () => {
       </div>
     </>
   );
-}
+};
 
 export default Test;

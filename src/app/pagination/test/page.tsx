@@ -1,4 +1,4 @@
-"use client"
+"use client";
 
 import { FC } from "react";
 import Pagination from "@/grid/Pagination";
@@ -92,6 +92,6 @@ const Test: FC = () => {
       </div>
     </>
   );
-}
+};
 
 export default Test;

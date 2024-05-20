@@ -6,7 +6,7 @@ export default function Home() {
   return (
     <>
       <h1>Introduction</h1>
-      <p>Welcome to documentation for React Boostrap Data Grid!</p>
+      <p>Welcome to the documentation for React Boostrap Data Grid!</p>
       <p>
         Inspired by{" "}
         <a href="https://react-bootstrap-table.github.io/react-bootstrap-table2/">
@@ -67,7 +67,7 @@ export default function Home() {
       <h1>Further information</h1>
       <ul>
         <li>
-          See the source code in the project's{" "}
+          See the source code in the project&apos;s{" "}
           <a href="https://github.com/absreim/react-bootstrap-data-grid">
             Github repo
           </a>

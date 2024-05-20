@@ -1,10 +1,11 @@
 "use client";
 
-import { ChangeEvent, FC, useMemo } from "react";
+import { ChangeEvent, FC, useMemo, useState } from "react";
 import {
   ColDataTypeStrings,
   ColDef,
   ColSortModel,
+  FilterModel,
   RowDef,
   Size,
   TableSortModel,
@@ -12,6 +13,10 @@ import {
 import Pagination from "./Pagination";
 import classNames from "classnames";
 import ColHeaderCell from "./ColHeaderCell";
+import useFilter from "./hooks/useFilter";
+import ToggleButton from "./ToggleButton";
+import FilterOptionsTable from "./FilterOptionsTable/FilterOptionsTable";
+import useFilterStateFromEditable from "./hooks/useFilterStateFromEditable";
 
 export interface GridPaginationState {
   pageSizeOptions: number[];
@@ -28,6 +33,7 @@ export interface GridProps {
   cols: ColDef[];
   pagination?: GridPaginationState;
   sortModel?: TableSortModel;
+  filterModel?: FilterModel;
 }
 
 const getTypeComparator: (
@@ -57,10 +63,20 @@ const getRowComparator: (
   return (rowA, rowB) => comparator(rowA[fieldName], rowB[fieldName]);
 };
 
-const Grid: FC<GridProps> = ({ rows, cols, pagination, sortModel }) => {
+const Grid: FC<GridProps> = ({
+  rows,
+  cols,
+  pagination,
+  sortModel,
+  filterModel,
+}) => {
+  const editableFilterState = filterModel?.tableFilterState || null;
+  const filterState = useFilterStateFromEditable(cols, editableFilterState);
+  const filteredRows = useFilter(rows, editableFilterState);
+
   const sortedRows: RowDef[] = useMemo(() => {
     if (!sortModel || !sortModel.sortColDef) {
-      return rows;
+      return filteredRows;
     }
 
     const sortFieldName = sortModel.sortColDef.name;
@@ -82,8 +98,8 @@ const Grid: FC<GridProps> = ({ rows, cols, pagination, sortModel }) => {
         ascComparator(a, b) * -1;
       rowComparator = getRowComparator(descComparator, sortFieldName);
     }
-    return rows.slice().sort(rowComparator);
-  }, [rows, cols, sortModel]);
+    return filteredRows.slice().sort(rowComparator);
+  }, [filteredRows, cols, sortModel]);
 
   const currentPageRows = useMemo(() => {
     if (pagination === undefined) {
@@ -149,6 +165,9 @@ const Grid: FC<GridProps> = ({ rows, cols, pagination, sortModel }) => {
     });
   }, [currentPageRows, cols]);
 
+  const [filterOptionsVisible, setFilterOptionsVisible] =
+    useState<boolean>(false);
+
   const handleSetPageNum: (pageNum: number) => void = (pageNum) => {
     if (pagination === undefined) {
       return;
@@ -167,12 +186,33 @@ const Grid: FC<GridProps> = ({ rows, cols, pagination, sortModel }) => {
     pagination.setPageSizeIndex(Number(event.target.value));
   };
 
+  const handleToggleFilterOptions = () => {
+    setFilterOptionsVisible(!filterOptionsVisible);
+  };
+
   // Once this component implements selection state, and if such interactivity is enabled, (conditionally) change the
   // aria role to "grid".
   // Array index is okay for the key for rows until some type of feature involving changing the index of rows, such as
   // sorting or pagination, is implemented.
+  // TODO: implement the above described features: conditionally changing aria role to grid and a key field other than
+  // index
   return (
     <div>
+      {filterState && filterModel && (
+        <div>
+          <ToggleButton
+            isActive={filterOptionsVisible}
+            label={`${filterOptionsVisible ? "Hide" : "Show "} Filter Options`}
+            onClick={handleToggleFilterOptions}
+          />
+          {filterOptionsVisible && (
+            <FilterOptionsTable
+              filterState={filterState}
+              setFilterState={filterModel.setTableFilterState}
+            />
+          )}
+        </div>
+      )}
       <table className="table">
         <thead>
           <tr aria-rowindex={1}>
