@@ -35,6 +35,7 @@ export interface TableSortModel {
   setSortColDef: (sortColDef: SortColDef | null) => void;
 }
 
+export type TableFilterState = Record<string, FilterState>
 export interface FilterState {
   enabled: boolean;
 }
