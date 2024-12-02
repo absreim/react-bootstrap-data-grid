@@ -35,12 +35,21 @@ export interface TableSortModel {
   setSortColDef: (sortColDef: SortColDef | null) => void;
 }
 
-export type TableFilterState = Record<string, FilterState>
-export interface FilterState {
+export type TableFilterState = Record<string, ColFilterState>;
+export type EditableTableFilterState = Record<string, ConcreteFilterState>;
+export interface ColFilterStateMetadata {
+  label: string
+}
+export interface ColFilterState {
+  editableState: ConcreteFilterState
+  metadata: ColFilterStateMetadata
+}
+export interface AbstractFilterState {
   enabled: boolean;
 }
 export type StringFilterScheme = "contains" | "startsWith" | "endsWith";
-export interface StringFilterState extends FilterState {
+export interface StringFilterState extends AbstractFilterState {
+  type: "string";
   scheme: StringFilterScheme;
   searchString: string;
 }
@@ -50,12 +59,14 @@ export type NumberFilterScheme =
   | "lessThan"
   | "greaterOrEqual"
   | "lessOrEqual";
-export interface NumberFilterState extends FilterState {
+export interface NumberFilterState extends AbstractFilterState {
+  type: "number";
   scheme: NumberFilterScheme;
   numInputValue: string;
 }
 export type DateFilterScheme = "startFrom" | "endAt" | "between";
-export interface DateFilterState extends FilterState {
+export interface DateFilterState extends AbstractFilterState {
+  type: "date" | "datetime";
   scheme: DateFilterScheme;
 }
 export interface StartDateFilterState extends DateFilterState {
@@ -71,3 +82,7 @@ export interface BetweenDatesFilterState extends DateFilterState {
   startDate: Date;
   endDate: Date;
 }
+export type ConcreteFilterState =
+  | StringFilterState
+  | NumberFilterState
+  | DateFilterState;
