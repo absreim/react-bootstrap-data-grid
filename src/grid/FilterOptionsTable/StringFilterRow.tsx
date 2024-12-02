@@ -30,7 +30,11 @@ const StringFilterRow: ForwardRefRenderFunction<
       <td>{columnLabel}</td>
       <td>String</td>
       <td>
-        <select className="form-select" value={filterState.scheme}>
+        <select
+          className="form-select"
+          value={filterState.scheme}
+          onChange={handleOpChange}
+        >
           <option value="contains">Contains</option>
           <option value="startsWith">Starts With</option>
           <option value="endsWith">Ends With</option>
@@ -46,9 +50,9 @@ const StringFilterRow: ForwardRefRenderFunction<
             ).current;
             if (el === null) {
               delete inputRefsByRow[columnName]["searchTerm"];
-              return
+              return;
             }
-            inputRefsByRow[columnName]["searchTerm"] = el
+            inputRefsByRow[columnName]["searchTerm"] = el;
           }}
         />
       </td>
