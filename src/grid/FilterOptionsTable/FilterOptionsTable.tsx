@@ -1,23 +1,22 @@
 import { FC, ReactNode } from "react";
 import {
-  ConcreteFilterState,
+  FilterState,
   EditableTableFilterState,
-  TableFilterState,
+  FilterModel,
 } from "../types";
 import StringFilterRow from "./StringFilterRow";
 
 interface FilterOptionsTableProps {
-  tableFilterState: TableFilterState;
-  setTableFilterState: (state: EditableTableFilterState) => void;
+  filterModel: FilterModel
 }
 
-const FilterOptionsTable: FC<FilterOptionsTableProps> = ({
+const FilterOptionsTable: FC<FilterOptionsTableProps> = ({ filterModel: {
   tableFilterState,
   setTableFilterState,
-}) => {
+} }) => {
   const getRows: () => ReactNode[] = () =>
     Object.keys(tableFilterState).map((colName) => {
-      function getColStateSetter<T extends ConcreteFilterState>(
+      function getColStateSetter<T extends FilterState>(
         colName: string,
       ): (filterState: T) => void {
         const editableState: EditableTableFilterState = Object.keys(

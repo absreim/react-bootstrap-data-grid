@@ -36,12 +36,12 @@ export interface TableSortModel {
 }
 
 export type TableFilterState = Record<string, ColFilterState>;
-export type EditableTableFilterState = Record<string, ConcreteFilterState>;
+export type EditableTableFilterState = Record<string, FilterState>;
 export interface ColFilterStateMetadata {
   label: string
 }
 export interface ColFilterState {
-  editableState: ConcreteFilterState
+  editableState: FilterState
   metadata: ColFilterStateMetadata
 }
 export interface AbstractFilterState {
@@ -65,24 +65,31 @@ export interface NumberFilterState extends AbstractFilterState {
   numInputValue: string;
 }
 export type DateFilterScheme = "startFrom" | "endAt" | "between";
-export interface DateFilterState extends AbstractFilterState {
+export interface AbstractDateFilterState extends AbstractFilterState {
   type: "date" | "datetime";
   scheme: DateFilterScheme;
 }
-export interface StartDateFilterState extends DateFilterState {
+export interface StartDateFilterState extends AbstractDateFilterState {
   scheme: "startFrom";
   startDate: Date;
 }
-export interface EndDateFilterState extends DateFilterState {
+export interface EndDateFilterState extends AbstractDateFilterState {
   scheme: "endAt";
   endDate: Date;
 }
-export interface BetweenDatesFilterState extends DateFilterState {
+export interface BetweenDatesFilterState extends AbstractDateFilterState {
   scheme: "between";
   startDate: Date;
   endDate: Date;
 }
-export type ConcreteFilterState =
+export type DateFilterState = StartDateFilterState | EndDateFilterState | BetweenDatesFilterState
+
+export type FilterState =
   | StringFilterState
   | NumberFilterState
   | DateFilterState;
+
+export interface FilterModel {
+  tableFilterState: TableFilterState;
+  setTableFilterState: (state: EditableTableFilterState) => void;
+}
