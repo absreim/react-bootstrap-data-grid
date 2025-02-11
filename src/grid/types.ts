@@ -6,7 +6,8 @@ export interface ColDef {
   name: string;
   label: string;
   formatter?: (value: any) => string;
-  sortable?: boolean;
+  sortable?: boolean; // default yes
+  filterable?: boolean; // default yes
 }
 
 export type RowDef = Record<string, ColDataType>;
@@ -47,24 +48,46 @@ export interface ColFilterState {
 export interface AbstractFilterState {
   enabled: boolean;
 }
-export type StringFilterScheme = "contains" | "startsWith" | "endsWith";
+
+export const stringFilterSchemes = ["contains", "startsWith", "endsWith"] as const;
+export type StringFilterScheme = typeof stringFilterSchemes[number];
+export const stringFilterSchemeNames: Record<StringFilterScheme, string> = {
+  contains: "Contains",
+  startsWith: "Starts With",
+  endsWith: "Ends With",
+}
 export interface StringFilterState extends AbstractFilterState {
   type: "string";
   scheme: StringFilterScheme;
   searchString: string;
 }
-export type NumberFilterScheme =
-  | "equals"
-  | "greaterThan"
-  | "lessThan"
-  | "greaterOrEqual"
-  | "lessOrEqual";
+
+export const numberFilterSchemes = ["equals"
+, "greaterThan"
+, "lessThan"
+, "greaterOrEqual"
+, "lessOrEqual"] as const;
+export type NumberFilterScheme = typeof numberFilterSchemes[number];
+export const numberFilterSchemeNames: Record<NumberFilterScheme, string> = {
+  equals: "=",
+  greaterThan: ">",
+  lessThan: "<",
+  greaterOrEqual: ">=",
+  lessOrEqual: "<=",
+}
 export interface NumberFilterState extends AbstractFilterState {
   type: "number";
   scheme: NumberFilterScheme;
   numInputValue: string;
 }
-export type DateFilterScheme = "startFrom" | "endAt" | "between";
+
+export const dateFilterSchemes = ["startFrom" , "endAt" , "between"] as const
+export type DateFilterScheme = typeof dateFilterSchemes[number];
+export const dateFilterSchemeNames: Record<DateFilterScheme, string> = {
+  startFrom: "Start Form",
+  endAt: "End At",
+  between: "Between"
+}
 export interface AbstractDateFilterState extends AbstractFilterState {
   type: "date" | "datetime";
   scheme: DateFilterScheme;

@@ -33,32 +33,32 @@ const rows: RowDef[] = [
   {
     strCol: "first row string",
     numCol: 1,
-    date: Date(),
-    datetime: Date(),
+    date: new Date(),
+    datetime: new Date(),
   },
   {
     strCol: "second row string",
     numCol: 2,
-    date: Date(),
-    datetime: Date(),
+    date: new Date(),
+    datetime: new Date(),
   },
   {
     strCol: "third row string",
     numCol: 3,
-    date: Date(),
-    datetime: Date(),
+    date: new Date(),
+    datetime: new Date(),
   },
   {
     strCol: "fourth row string",
     numCol: 4,
-    date: Date(),
-    datetime: Date(),
+    date: new Date(),
+    datetime: new Date(),
   },
   {
     strCol: "fifth row string",
     numCol: 5,
-    date: Date(),
-    datetime: Date(),
+    date: new Date(),
+    datetime: new Date(),
   },
 ];
 
@@ -66,8 +66,8 @@ const extraFieldRow: RowDef[] = [
   {
     strCol: "string",
     numCol: 0,
-    date: Date(),
-    datetime: Date(),
+    date: new Date(),
+    datetime: new Date(),
     extraField: "",
   },
 ];
@@ -76,7 +76,7 @@ const missingFieldRow: RowDef[] = [
   {
     strCol: "string",
     numCol: 0,
-    date: Date(),
+    date: new Date(),
   },
 ];
 

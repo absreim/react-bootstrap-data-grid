@@ -41,13 +41,13 @@ const FilterOptionsTable: FC<FilterOptionsTableProps> = ({ filterModel: {
           return (
             <StringFilterRow
               key={colName}
-              columnName={colName}
               columnLabel={colFilterState.metadata.label}
               filterState={colFilterState.editableState}
               setFilterState={getColStateSetter(colName)}
             />
           );
         }
+        // TODO: filter row UIs for other types
         default: {
           throw new Error(
             `Unknown column type ${colFilterState.editableState.type}`,
@@ -56,7 +56,20 @@ const FilterOptionsTable: FC<FilterOptionsTableProps> = ({ filterModel: {
       }
     });
 
-  return <table className="table">{getRows()}</table>;
+  return <table className="table">
+    <thead>
+      <tr>
+        <th>Enabled</th>
+        <th>Column</th>
+        <th>Type</th>
+        <th>Operator</th>
+        <th>Value</th>
+      </tr>
+    </thead>
+    <tbody>
+      {getRows()}
+    </tbody>
+  </table>;
 };
 
 export default FilterOptionsTable;
