@@ -1,21 +1,18 @@
 import {
   ChangeEventHandler,
-  ForwardRefRenderFunction,
-  MutableRefObject,
+  FC
 } from "react";
-import { StringFilterScheme, StringFilterState } from "../types";
+import { StringFilterScheme, stringFilterSchemeNames, stringFilterSchemes, StringFilterState } from "../types";
 
 interface StringFilterRowProps {
-  columnName: string;
   columnLabel: string;
   filterState: StringFilterState;
   setFilterState: (filterState: StringFilterState) => void;
 }
 
-const StringFilterRow: ForwardRefRenderFunction<
-  Record<string, Record<string, HTMLInputElement>>,
+const StringFilterRow: FC<
   StringFilterRowProps
-> = ({ columnName, columnLabel, filterState, setFilterState }, ref) => {
+> = ({ columnLabel, filterState, setFilterState }) => {
   const handleOpChange: ChangeEventHandler<HTMLSelectElement> = ({
     target,
   }) => {
@@ -25,35 +22,47 @@ const StringFilterRow: ForwardRefRenderFunction<
     });
   };
 
+  const handleEnabledChange: ChangeEventHandler<HTMLInputElement> = ({ target }) => {
+    setFilterState({
+      ...filterState,
+      enabled: target.checked
+    })
+  }
+
+  const handleSearchStringChange: ChangeEventHandler<HTMLInputElement> = ({ target }) => {
+    setFilterState({
+      ...filterState,
+      searchString: target.value
+    })
+  }
+
+  const { enabled, scheme, searchString } = filterState
+
   return (
     <tr>
+      <td><input type="checkbox" checked={enabled} name="enabled" onChange={handleEnabledChange} /></td>
       <td>{columnLabel}</td>
       <td>String</td>
       <td>
         <select
+          disabled={!enabled}
           className="form-select"
-          value={filterState.scheme}
+          value={scheme}
           onChange={handleOpChange}
         >
-          <option value="contains">Contains</option>
-          <option value="startsWith">Starts With</option>
-          <option value="endsWith">Ends With</option>
+          {
+            stringFilterSchemes.map((scheme) =>
+              <option key={scheme} value="contains">{stringFilterSchemeNames[scheme]}</option>
+            )
+          }
         </select>
       </td>
       <td>
         <input
-          ref={(el) => {
-            const inputRefsByRow = (
-              ref as MutableRefObject<
-                Record<string, Record<string, HTMLInputElement>>
-              >
-            ).current;
-            if (el === null) {
-              delete inputRefsByRow[columnName]["searchTerm"];
-              return;
-            }
-            inputRefsByRow[columnName]["searchTerm"] = el;
-          }}
+          required={enabled}
+          disabled={!enabled}
+          value={searchString}
+          onChange={handleSearchStringChange}
         />
       </td>
     </tr>

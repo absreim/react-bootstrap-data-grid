@@ -193,7 +193,9 @@ const Grid: FC<GridProps> = ({ rows, cols, pagination, sortModel, filterModel })
         filterModel && (
           <div>
             <ToggleButton isActive={filterOptionsVisible} label={"Filter Options"} onClick={handleToggleFilterOptions} />
-            <FilterOptionsTable filterModel={filterModel} />
+            {
+              filterOptionsVisible && <FilterOptionsTable filterModel={filterModel} />
+            }
           </div>
         )
       }
