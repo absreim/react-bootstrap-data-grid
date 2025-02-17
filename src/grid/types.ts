@@ -78,7 +78,7 @@ export const numberFilterSchemeNames: Record<NumberFilterScheme, string> = {
 export interface NumberFilterState extends AbstractFilterState {
   type: "number";
   scheme: NumberFilterScheme;
-  numInputValue: string;
+  numValue: number | null; // null corresponds to empty string in the input element
 }
 
 export const dateFilterSchemes = ["startFrom" , "endAt" , "between"] as const
@@ -92,18 +92,20 @@ export interface AbstractDateFilterState extends AbstractFilterState {
   type: "date" | "datetime";
   scheme: DateFilterScheme;
 }
+// Date and datetime input elements have an empty state. Null in the date fields
+// correspond to this empty state.
 export interface StartDateFilterState extends AbstractDateFilterState {
   scheme: "startFrom";
-  startDate: Date;
+  startDate: Date | null;
 }
 export interface EndDateFilterState extends AbstractDateFilterState {
   scheme: "endAt";
-  endDate: Date;
+  endDate: Date | null;
 }
 export interface BetweenDatesFilterState extends AbstractDateFilterState {
   scheme: "between";
-  startDate: Date;
-  endDate: Date;
+  startDate: Date | null;
+  endDate: Date | null;
 }
 export type DateFilterState = StartDateFilterState | EndDateFilterState | BetweenDatesFilterState
 

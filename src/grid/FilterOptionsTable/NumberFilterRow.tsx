@@ -5,11 +5,12 @@ import {
   numberFilterSchemes,
   NumberFilterState,
 } from "../types";
+import { NumberFormFilterState } from "./types";
 
 interface NumberFilterRowProps {
   columnLabel: string;
-  filterState: NumberFilterState;
-  setFilterState: (filterState: NumberFilterState) => void;
+  filterState: NumberFormFilterState;
+  setFilterState: (filterState: NumberFormFilterState) => void;
 }
 
 const NumberFilterRow: FC<NumberFilterRowProps> = ({ columnLabel, filterState, setFilterState }) => {
@@ -32,17 +33,18 @@ const NumberFilterRow: FC<NumberFilterRowProps> = ({ columnLabel, filterState, s
   const handleNumInputValueChange: ChangeEventHandler<HTMLInputElement> = ({ target }) => {
     setFilterState({
       ...filterState,
-      numInputValue: target.value
+      inputValue: target.value
     })
   }
 
-  const { enabled, scheme, numInputValue } = filterState
+  const { enabled, scheme, inputValue } = filterState
 
+  // TODO: Input labelling for accessibility
   return (
     <tr>
       <td><input type="checkbox" checked={enabled} name="enabled" onChange={handleEnabledChange} /></td>
       <td>{columnLabel}</td>
-      <td>String</td>
+      <td>Number</td>
       <td>
         <select
           disabled={!enabled}
@@ -60,7 +62,7 @@ const NumberFilterRow: FC<NumberFilterRowProps> = ({ columnLabel, filterState, s
           type="number"
           required={enabled}
           disabled={!enabled}
-          value={numInputValue}
+          value={inputValue}
           onChange={handleNumInputValueChange}
         />
       </td>
