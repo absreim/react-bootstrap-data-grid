@@ -38,6 +38,7 @@ const StringFilterRow: FC<
 
   const { enabled, scheme, searchString } = filterState
 
+  // TODO: Input labelling for accessibility
   return (
     <tr>
       <td><input type="checkbox" checked={enabled} name="enabled" onChange={handleEnabledChange} /></td>

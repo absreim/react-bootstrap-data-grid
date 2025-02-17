@@ -29,7 +29,7 @@ const useFilter: (rows: RowDef[], filterState: EditableTableFilterState | null) 
       }
 
       function checkIfPassesNumberFilter(value: number, state: NumberFilterState): boolean {
-        const numValue = Number(state.numInputValue) // Note that a blank string becomes 0
+        const numValue = Number(state.numValue) // Note that a blank string becomes 0
         switch (state.scheme) {
           case "equals":
             return value === numValue
@@ -47,11 +47,12 @@ const useFilter: (rows: RowDef[], filterState: EditableTableFilterState | null) 
       function checkIfPassesDateFilter(value: Date, state: DateFilterState): boolean {
         switch (state.scheme) {
           case "startFrom":
-            return value >= state.startDate
+            return state.startDate === null || value >= state.startDate
           case "endAt":
-            return value <= state.endDate
+            return state.endDate === null || value <= state.endDate
           case "between":
-            return value >= state.startDate && value <= state.endDate
+            return state.startDate === null || state.endDate === null ||
+              value >= state.startDate && value <= state.endDate
         }
       }
 

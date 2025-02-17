@@ -1,14 +1,14 @@
 import { ChangeEventHandler, FC } from "react";
 import {
   DateFilterScheme, dateFilterSchemeNames, dateFilterSchemes,
-  DateFilterState,
 } from "../types";
+import { DateFormFilterState } from "./types";
 
 interface DateFilterRowProps {
   includeTime: boolean;
   columnLabel: string;
-  filterState: DateFilterState;
-  setFilterState: (filterState: DateFilterState) => void;
+  filterState: DateFormFilterState;
+  setFilterState: (filterState: DateFormFilterState) => void;
 }
 
 const DateFilterRow: FC<DateFilterRowProps> = ({ includeTime, columnLabel, filterState, setFilterState }) => {
@@ -28,21 +28,28 @@ const DateFilterRow: FC<DateFilterRowProps> = ({ includeTime, columnLabel, filte
     })
   }
 
-  const handleNumInputValueChange: ChangeEventHandler<HTMLInputElement> = ({ target }) => {
+  const handleStartValueChange: ChangeEventHandler<HTMLInputElement> = ({ target }) => {
     setFilterState({
       ...filterState,
       startDate: target.value
     })
   }
 
-  const { enabled, scheme, numInputValue } = filterState
+  const handleEndValueChange: ChangeEventHandler<HTMLInputElement> = ({ target }) => {
+    setFilterState({
+      ...filterState,
+      endDate: target.value
+    })
+  }
+
+  const { enabled, scheme, startDate, endDate } = filterState
   const inputType = includeTime ? "datetime-local" : "date"
 
   return (
     <tr>
       <td><input type="checkbox" checked={enabled} name="enabled" onChange={handleEnabledChange} /></td>
       <td>{columnLabel}</td>
-      <td>String</td>
+      <td>{filterState.type === "date" ? "Date" : "Datetime"}</td>
       <td>
         <select
           disabled={!enabled}
@@ -57,15 +64,24 @@ const DateFilterRow: FC<DateFilterRowProps> = ({ includeTime, columnLabel, filte
       </td>
       <td>
         {
-
+          // TODO: Label both inputs in an accessible way
+          scheme !== "endAt" && <input
+            type={inputType}
+            required={enabled}
+            disabled={!enabled}
+            value={startDate}
+            onChange={handleStartValueChange}
+          />
         }
-        <input
-          type={inputType}
-          required={enabled}
-          disabled={!enabled}
-          value={numInputValue}
-          onChange={handleNumInputValueChange}
-        />
+        {
+          scheme !== "startFrom" && <input
+            type={inputType}
+            required={enabled}
+            disabled={!enabled}
+            value={endDate}
+            onChange={handleStartValueChange}
+          />
+        }
       </td>
     </tr>
   );
