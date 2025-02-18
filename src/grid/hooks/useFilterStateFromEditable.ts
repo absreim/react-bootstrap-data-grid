@@ -7,12 +7,16 @@ const useFilterStateFromEditable: (colDefs: ColDef[], editableFilterState: Edita
       return null
     }
 
-    const labelsByColumn: Record<string, string> = {}
+    const filterState: TableFilterState = {}
+
     colDefs.forEach(({ name, label }) => {
-      labelsByColumn[name] = label
+      filterState[name] = {
+        editableState: editableFilterState[name],
+        label
+      }
     })
 
-
+    return filterState
   }, [colDefs, editableFilterState])
 }
 
