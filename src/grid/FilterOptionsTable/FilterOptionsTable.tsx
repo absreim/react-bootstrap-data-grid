@@ -2,13 +2,71 @@ import { FC, ReactNode } from "react";
 import {
   FilterState,
   EditableTableFilterState,
-  FilterModel,
+  FilterModel, StartDateFilterState, EndDateFilterState
 } from "../types";
 import StringFilterRow from "./StringFilterRow";
+import { FilterFormState } from "./types";
+import { datetimeInputStrToUtc } from "../util/datetime";
 
 interface FilterOptionsTableProps {
   filterModel: FilterModel
 }
+
+const convertFilterFormStateToEditableState: (filterFormState: FilterFormState) => EditableTableFilterState = (filterFormState) => (
+  Object.keys(filterFormState).reduce((editableState, colName) => {
+    const rowFilterFormState = filterFormState[colName]
+    switch (rowFilterFormState.type) {
+      case "string": {
+        editableState[colName] = { ...rowFilterFormState }
+        break
+      }
+      case "number": {
+        editableState[colName] = {
+          type: rowFilterFormState.type,
+          enabled: rowFilterFormState.enabled,
+          scheme: rowFilterFormState.scheme,
+          numValue: rowFilterFormState.inputValue === "" ? null : Number(rowFilterFormState.inputValue)
+        }
+        break
+      }
+      default: { // date or datetime
+        const partialFilterState = {
+          type: rowFilterFormState.type,
+          enabled: rowFilterFormState.enabled,
+          scheme: rowFilterFormState.scheme,
+        }
+        const strModifierFn: (str: string) => string = rowFilterFormState.type === "date" ? (str) => str : datetimeInputStrToUtc
+        const inputStrToDate: (str: string) => (Date | null) = (str) => (
+          str === "" ? null : new Date(strModifierFn(str))
+        )
+        switch (rowFilterFormState.scheme) {
+          case "startFrom": {
+            editableState[colName] = {
+              ...partialFilterState,
+              startDate: inputStrToDate(rowFilterFormState.startDate)
+            } as StartDateFilterState
+            break
+          }
+          case "endAt": {
+            editableState[colName] = {
+              ...partialFilterState,
+              endDate: inputStrToDate(rowFilterFormState.endDate)
+            } as EndDateFilterState
+            break
+          }
+          default: {
+            editableState[colName] = {
+              ...partialFilterState,
+              startDate: inputStrToDate(rowFilterFormState.startDate),
+              endDate: inputStrToDate(rowFilterFormState.endDate)
+            }
+          }
+        }
+      }
+    }
+    return editableState
+  }, {} as EditableTableFilterState)
+)
 
 const FilterOptionsTable: FC<FilterOptionsTableProps> = ({ filterModel: {
   tableFilterState,
