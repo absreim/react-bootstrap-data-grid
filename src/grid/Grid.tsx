@@ -13,9 +13,9 @@ import Pagination from "./Pagination";
 import classNames from "classnames";
 import ColHeaderCell from "./ColHeaderCell";
 import useFilter from "./hooks/useFilter";
-import useEditableFromFilterState from "./hooks/useEditableFromFilterState";
 import ToggleButton from "./ToggleButton";
 import FilterOptionsTable from "./FilterOptionsTable/FilterOptionsTable";
+import useFilterStateFromEditable from "./hooks/useFilterStateFromEditable";
 
 export interface GridPaginationState {
   pageSizeOptions: number[];
@@ -63,7 +63,8 @@ const getRowComparator: (
 };
 
 const Grid: FC<GridProps> = ({ rows, cols, pagination, sortModel, filterModel }) => {
-  const editableFilterState = useEditableFromFilterState(filterModel?.tableFilterState || null)
+  const editableFilterState = filterModel?.tableFilterState || null
+  const filterState = useFilterStateFromEditable(cols, editableFilterState)
   const filteredRows = useFilter(rows, editableFilterState)
 
   const sortedRows: RowDef[] = useMemo(() => {
@@ -190,11 +191,11 @@ const Grid: FC<GridProps> = ({ rows, cols, pagination, sortModel, filterModel })
   return (
     <div>
       {
-        filterModel && (
+        filterState && filterModel && (
           <div>
             <ToggleButton isActive={filterOptionsVisible} label={"Filter Options"} onClick={handleToggleFilterOptions} />
             {
-              filterOptionsVisible && <FilterOptionsTable filterModel={filterModel} />
+              filterOptionsVisible && <FilterOptionsTable filterState={filterState} setFilterState={filterModel.setTableFilterState} />
             }
           </div>
         )

@@ -38,12 +38,9 @@ export interface TableSortModel {
 
 export type TableFilterState = Record<string, ColFilterState>;
 export type EditableTableFilterState = Record<string, FilterState>;
-export interface ColFilterStateMetadata {
-  label: string
-}
 export interface ColFilterState {
   editableState: FilterState
-  metadata: ColFilterStateMetadata
+  label: string
 }
 export interface AbstractFilterState {
   enabled: boolean;
@@ -115,6 +112,6 @@ export type FilterState =
   | DateFilterState;
 
 export interface FilterModel {
-  tableFilterState: TableFilterState;
+  tableFilterState: EditableTableFilterState;
   setTableFilterState: (state: EditableTableFilterState) => void;
 }

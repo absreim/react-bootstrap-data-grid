@@ -1,15 +1,18 @@
-import { FC, ReactNode } from "react";
+import { FC, FormEventHandler, ReactNode, useState } from "react";
 import {
-  FilterState,
   EditableTableFilterState,
-  FilterModel, StartDateFilterState, EndDateFilterState
+  TableFilterState
 } from "../types";
 import StringFilterRow from "./StringFilterRow";
-import { FilterFormState } from "./types";
+import { FilterFormRowState, FilterFormState } from "./types";
 import { datetimeInputStrToUtc } from "../util/datetime";
+import NumberFilterRow from "./NumberFilterRow";
+import useFormStateFromTableFilterState from "./useFormStateFromTableFilterState";
+import DateFilterRow from "./DateFilterRow";
 
 interface FilterOptionsTableProps {
-  filterModel: FilterModel
+  filterState: TableFilterState
+  setFilterState: (filterState: EditableTableFilterState) => void
 }
 
 const convertFilterFormStateToEditableState: (filterFormState: FilterFormState) => EditableTableFilterState = (filterFormState) => (
@@ -32,8 +35,7 @@ const convertFilterFormStateToEditableState: (filterFormState: FilterFormState) 
       default: { // date or datetime
         const partialFilterState = {
           type: rowFilterFormState.type,
-          enabled: rowFilterFormState.enabled,
-          scheme: rowFilterFormState.scheme,
+          enabled: rowFilterFormState.enabled
         }
         const strModifierFn: (str: string) => string = rowFilterFormState.type === "date" ? (str) => str : datetimeInputStrToUtc
         const inputStrToDate: (str: string) => (Date | null) = (str) => (
@@ -43,20 +45,23 @@ const convertFilterFormStateToEditableState: (filterFormState: FilterFormState) 
           case "startFrom": {
             editableState[colName] = {
               ...partialFilterState,
+              scheme: rowFilterFormState.scheme,
               startDate: inputStrToDate(rowFilterFormState.startDate)
-            } as StartDateFilterState
+            }
             break
           }
           case "endAt": {
             editableState[colName] = {
               ...partialFilterState,
+              scheme: rowFilterFormState.scheme,
               endDate: inputStrToDate(rowFilterFormState.endDate)
-            } as EndDateFilterState
+            }
             break
           }
           default: {
             editableState[colName] = {
               ...partialFilterState,
+              scheme: rowFilterFormState.scheme,
               startDate: inputStrToDate(rowFilterFormState.startDate),
               endDate: inputStrToDate(rowFilterFormState.endDate)
             }
@@ -68,53 +73,59 @@ const convertFilterFormStateToEditableState: (filterFormState: FilterFormState) 
   }, {} as EditableTableFilterState)
 )
 
-const FilterOptionsTable: FC<FilterOptionsTableProps> = ({ filterModel: {
-  tableFilterState,
-  setTableFilterState,
-} }) => {
+const FilterOptionsTable: FC<FilterOptionsTableProps> = ({ filterState, setFilterState
+}) => {
+  const formFilterState = useFormStateFromTableFilterState(filterState)
+  const [formState, setFormState] = useState(formFilterState)
+
   const getRows: () => ReactNode[] = () =>
-    Object.keys(tableFilterState).map((colName) => {
-      function getColStateSetter<T extends FilterState>(
+    Object.keys(formState).map((colName) => {
+      function getColStateSetter(
         colName: string,
-      ): (filterState: T) => void {
-        const editableState: EditableTableFilterState = Object.keys(
-          tableFilterState,
-        ).reduce(
-          (accumObj, currentColName) => ({
-            ...accumObj,
-            [currentColName]: tableFilterState[currentColName].editableState,
-          }),
-          {},
-        );
-        return (filterState) =>
-          setTableFilterState({
-            ...editableState,
-            [colName]: filterState,
+      ): (rowState: FilterFormRowState) => void {
+        return (rowState) =>
+          setFormState({
+            ...formState,
+            [colName]: rowState,
           });
       }
 
-      const colFilterState = tableFilterState[colName];
-      switch (colFilterState.editableState.type) {
+      const colLabel = filterState[colName].label
+      const colFilterState = formState[colName];
+      switch (colFilterState.type) {
         case "string": {
           return (
             <StringFilterRow
               key={colName}
-              columnLabel={colFilterState.metadata.label}
-              filterState={colFilterState.editableState}
+              columnLabel={colLabel}
+              filterState={colFilterState}
               setFilterState={getColStateSetter(colName)}
             />
           );
         }
-        // TODO: filter row UIs for other types
-        default: {
-          throw new Error(
-            `Unknown column type ${colFilterState.editableState.type}`,
-          );
+        case "number": {
+          return (
+            <NumberFilterRow key={colName} columnLabel={colLabel} filterState={colFilterState} setFilterState={getColStateSetter(colName)} />
+          )
+        }
+        default: { // date or datetime
+          return (
+            <DateFilterRow includeTime={colFilterState.type === "datetime"} columnLabel={colLabel} filterState={colFilterState} setFilterState={getColStateSetter(colName)} />
+          )
         }
       }
     });
 
-  return <table className="table">
+  const onSubmit: FormEventHandler<HTMLFormElement> = (event) => {
+    event.preventDefault()
+
+    const editableTableFilterState = convertFilterFormStateToEditableState(formState)
+    setFilterState(editableTableFilterState)
+  }
+
+  return (
+    <form onSubmit={onSubmit}>
+    <table className="table">
     <thead>
       <tr>
         <th>Enabled</th>
@@ -127,7 +138,9 @@ const FilterOptionsTable: FC<FilterOptionsTableProps> = ({ filterModel: {
     <tbody>
       {getRows()}
     </tbody>
-  </table>;
+  </table>
+      <button type="submit">Submit</button>
+    </form>)
 };
 
 export default FilterOptionsTable;
