@@ -66,6 +66,7 @@ const DateFilterRow: FC<DateFilterRowProps> = ({ includeTime, columnLabel, filte
         {
           // TODO: Label both inputs in an accessible way
           scheme !== "endAt" && <input
+            className="form-control"
             type={inputType}
             required={enabled}
             disabled={!enabled}
@@ -75,6 +76,7 @@ const DateFilterRow: FC<DateFilterRowProps> = ({ includeTime, columnLabel, filte
         }
         {
           scheme !== "startFrom" && <input
+            className="form-control"
             type={inputType}
             required={enabled}
             disabled={!enabled}

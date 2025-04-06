@@ -110,7 +110,7 @@ const FilterOptionsTable: FC<FilterOptionsTableProps> = ({ filterState, setFilte
         }
         default: { // date or datetime
           return (
-            <DateFilterRow includeTime={colFilterState.type === "datetime"} columnLabel={colLabel} filterState={colFilterState} setFilterState={getColStateSetter(colName)} />
+            <DateFilterRow key={colName} includeTime={colFilterState.type === "datetime"} columnLabel={colLabel} filterState={colFilterState} setFilterState={getColStateSetter(colName)} />
           )
         }
       }
@@ -139,7 +139,7 @@ const FilterOptionsTable: FC<FilterOptionsTableProps> = ({ filterState, setFilte
       {getRows()}
     </tbody>
   </table>
-      <button type="submit">Submit</button>
+      <button className="btn btn-secondary" type="submit">Submit</button>
     </form>)
 };
 
