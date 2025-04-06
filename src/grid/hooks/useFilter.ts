@@ -62,6 +62,10 @@ const useFilter: (rows: RowDef[], filterState: EditableTableFilterState | null) 
           continue
         }
 
+        if (!filterState[columnName].enabled) {
+          continue
+        }
+
         const columnFilterState = filterState[columnName]
         switch (columnFilterState.type) {
           case "string": {

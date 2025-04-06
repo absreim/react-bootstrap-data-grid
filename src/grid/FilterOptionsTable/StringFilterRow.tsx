@@ -60,6 +60,7 @@ const StringFilterRow: FC<
       </td>
       <td>
         <input
+          className="form-control"
           required={enabled}
           disabled={!enabled}
           value={searchString}

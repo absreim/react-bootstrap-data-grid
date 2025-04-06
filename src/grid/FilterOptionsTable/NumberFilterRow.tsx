@@ -59,6 +59,7 @@ const NumberFilterRow: FC<NumberFilterRowProps> = ({ columnLabel, filterState, s
       </td>
       <td>
         <input
+          className="form-control"
           type="number"
           required={enabled}
           disabled={!enabled}
