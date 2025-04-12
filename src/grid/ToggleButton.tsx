@@ -1,4 +1,4 @@
-"use client"
+"use client";
 
 import { FC } from "react";
 import classNames from "classnames";
@@ -10,16 +10,21 @@ export interface ToggleButtonProps {
 }
 
 const ToggleButton: FC<ToggleButtonProps> = ({ isActive, label, onClick }) => {
-  const baseClasses: string[] = ["btn", "btn-primary"]
+  const baseClasses: string[] = ["btn", "btn-primary"];
   const variableClasses: Record<string, boolean> = {
-    active: isActive
-  }
+    active: isActive,
+  };
 
   return (
-    <button type="button" className={classNames(baseClasses, variableClasses)} aria-pressed={isActive} onClick={onClick}>
+    <button
+      type="button"
+      className={classNames(baseClasses, variableClasses)}
+      aria-pressed={isActive}
+      onClick={onClick}
+    >
       {label}
     </button>
-  )
-}
+  );
+};
 
 export default ToggleButton;

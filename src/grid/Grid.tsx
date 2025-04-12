@@ -4,10 +4,11 @@ import { ChangeEvent, FC, useMemo, useState } from "react";
 import {
   ColDataTypeStrings,
   ColDef,
-  ColSortModel, FilterModel,
+  ColSortModel,
+  FilterModel,
   RowDef,
   Size,
-  TableSortModel
+  TableSortModel,
 } from "./types";
 import Pagination from "./Pagination";
 import classNames from "classnames";
@@ -62,10 +63,16 @@ const getRowComparator: (
   return (rowA, rowB) => comparator(rowA[fieldName], rowB[fieldName]);
 };
 
-const Grid: FC<GridProps> = ({ rows, cols, pagination, sortModel, filterModel }) => {
-  const editableFilterState = filterModel?.tableFilterState || null
-  const filterState = useFilterStateFromEditable(cols, editableFilterState)
-  const filteredRows = useFilter(rows, editableFilterState)
+const Grid: FC<GridProps> = ({
+  rows,
+  cols,
+  pagination,
+  sortModel,
+  filterModel,
+}) => {
+  const editableFilterState = filterModel?.tableFilterState || null;
+  const filterState = useFilterStateFromEditable(cols, editableFilterState);
+  const filteredRows = useFilter(rows, editableFilterState);
 
   const sortedRows: RowDef[] = useMemo(() => {
     if (!sortModel || !sortModel.sortColDef) {
@@ -158,7 +165,8 @@ const Grid: FC<GridProps> = ({ rows, cols, pagination, sortModel, filterModel })
     });
   }, [currentPageRows, cols]);
 
-  const [filterOptionsVisible, setFilterOptionsVisible] = useState<boolean>(false)
+  const [filterOptionsVisible, setFilterOptionsVisible] =
+    useState<boolean>(false);
 
   const handleSetPageNum: (pageNum: number) => void = (pageNum) => {
     if (pagination === undefined) {
@@ -179,8 +187,8 @@ const Grid: FC<GridProps> = ({ rows, cols, pagination, sortModel, filterModel })
   };
 
   const handleToggleFilterOptions = () => {
-    setFilterOptionsVisible(!filterOptionsVisible)
-  }
+    setFilterOptionsVisible(!filterOptionsVisible);
+  };
 
   // Once this component implements selection state, and if such interactivity is enabled, (conditionally) change the
   // aria role to "grid".
@@ -190,16 +198,21 @@ const Grid: FC<GridProps> = ({ rows, cols, pagination, sortModel, filterModel })
   // index
   return (
     <div>
-      {
-        filterState && filterModel && (
-          <div>
-            <ToggleButton isActive={filterOptionsVisible} label={`${filterOptionsVisible ? "Hide" : "Show"} Filter Options`} onClick={handleToggleFilterOptions} />
-            {
-              filterOptionsVisible && <FilterOptionsTable filterState={filterState} setFilterState={filterModel.setTableFilterState} />
-            }
-          </div>
-        )
-      }
+      {filterState && filterModel && (
+        <div>
+          <ToggleButton
+            isActive={filterOptionsVisible}
+            label={`${filterOptionsVisible ? "Hide" : "Show "} Filter Options`}
+            onClick={handleToggleFilterOptions}
+          />
+          {filterOptionsVisible && (
+            <FilterOptionsTable
+              filterState={filterState}
+              setFilterState={filterModel.setTableFilterState}
+            />
+          )}
+        </div>
+      )}
       <table className="table">
         <thead>
           <tr aria-rowindex={1}>

@@ -22,6 +22,10 @@ const linkDefs: LinkDefinition[] = [
     name: "Sorting",
     path: "/sorting",
   },
+  {
+    name: "Filtering",
+    path: "/filtering",
+  },
 ];
 
 const ContentsNavbar: FC = () => {

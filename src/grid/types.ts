@@ -39,52 +39,58 @@ export interface TableSortModel {
 export type TableFilterState = Record<string, ColFilterState>;
 export type EditableTableFilterState = Record<string, FilterState>;
 export interface ColFilterState {
-  editableState: FilterState
-  label: string
+  editableState: FilterState;
+  label: string;
 }
 export interface AbstractFilterState {
   enabled: boolean;
 }
 
-export const stringFilterSchemes = ["contains", "startsWith", "endsWith"] as const;
-export type StringFilterScheme = typeof stringFilterSchemes[number];
+export const stringFilterSchemes = [
+  "contains",
+  "startsWith",
+  "endsWith",
+] as const;
+export type StringFilterScheme = (typeof stringFilterSchemes)[number];
 export const stringFilterSchemeNames: Record<StringFilterScheme, string> = {
   contains: "Contains",
   startsWith: "Starts With",
   endsWith: "Ends With",
-}
+};
 export interface StringFilterState extends AbstractFilterState {
   type: "string";
   scheme: StringFilterScheme;
   searchString: string;
 }
 
-export const numberFilterSchemes = ["equals"
-, "greaterThan"
-, "lessThan"
-, "greaterOrEqual"
-, "lessOrEqual"] as const;
-export type NumberFilterScheme = typeof numberFilterSchemes[number];
+export const numberFilterSchemes = [
+  "equals",
+  "greaterThan",
+  "lessThan",
+  "greaterOrEqual",
+  "lessOrEqual",
+] as const;
+export type NumberFilterScheme = (typeof numberFilterSchemes)[number];
 export const numberFilterSchemeNames: Record<NumberFilterScheme, string> = {
   equals: "=",
   greaterThan: ">",
   lessThan: "<",
   greaterOrEqual: ">=",
   lessOrEqual: "<=",
-}
+};
 export interface NumberFilterState extends AbstractFilterState {
   type: "number";
   scheme: NumberFilterScheme;
   numValue: number | null; // null corresponds to empty string in the input element
 }
 
-export const dateFilterSchemes = ["startFrom" , "endAt" , "between"] as const
-export type DateFilterScheme = typeof dateFilterSchemes[number];
+export const dateFilterSchemes = ["startFrom", "endAt", "between"] as const;
+export type DateFilterScheme = (typeof dateFilterSchemes)[number];
 export const dateFilterSchemeNames: Record<DateFilterScheme, string> = {
   startFrom: "Start Form",
   endAt: "End At",
-  between: "Between"
-}
+  between: "Between",
+};
 export interface AbstractDateFilterState extends AbstractFilterState {
   type: "date" | "datetime";
   scheme: DateFilterScheme;
@@ -104,7 +110,10 @@ export interface BetweenDatesFilterState extends AbstractDateFilterState {
   startDate: Date | null;
   endDate: Date | null;
 }
-export type DateFilterState = StartDateFilterState | EndDateFilterState | BetweenDatesFilterState
+export type DateFilterState =
+  | StartDateFilterState
+  | EndDateFilterState
+  | BetweenDatesFilterState;
 
 export type FilterState =
   | StringFilterState

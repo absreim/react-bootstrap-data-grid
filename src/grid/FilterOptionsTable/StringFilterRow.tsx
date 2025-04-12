@@ -1,8 +1,10 @@
+import { ChangeEventHandler, FC } from "react";
 import {
-  ChangeEventHandler,
-  FC
-} from "react";
-import { StringFilterScheme, stringFilterSchemeNames, stringFilterSchemes, StringFilterState } from "../types";
+  StringFilterScheme,
+  stringFilterSchemeNames,
+  stringFilterSchemes,
+  StringFilterState,
+} from "../types";
 
 interface StringFilterRowProps {
   columnLabel: string;
@@ -10,9 +12,11 @@ interface StringFilterRowProps {
   setFilterState: (filterState: StringFilterState) => void;
 }
 
-const StringFilterRow: FC<
-  StringFilterRowProps
-> = ({ columnLabel, filterState, setFilterState }) => {
+const StringFilterRow: FC<StringFilterRowProps> = ({
+  columnLabel,
+  filterState,
+  setFilterState,
+}) => {
   const handleOpChange: ChangeEventHandler<HTMLSelectElement> = ({
     target,
   }) => {
@@ -22,26 +26,37 @@ const StringFilterRow: FC<
     });
   };
 
-  const handleEnabledChange: ChangeEventHandler<HTMLInputElement> = ({ target }) => {
+  const handleEnabledChange: ChangeEventHandler<HTMLInputElement> = ({
+    target,
+  }) => {
     setFilterState({
       ...filterState,
-      enabled: target.checked
-    })
-  }
+      enabled: target.checked,
+    });
+  };
 
-  const handleSearchStringChange: ChangeEventHandler<HTMLInputElement> = ({ target }) => {
+  const handleSearchStringChange: ChangeEventHandler<HTMLInputElement> = ({
+    target,
+  }) => {
     setFilterState({
       ...filterState,
-      searchString: target.value
-    })
-  }
+      searchString: target.value,
+    });
+  };
 
-  const { enabled, scheme, searchString } = filterState
+  const { enabled, scheme, searchString } = filterState;
 
   // TODO: Input labelling for accessibility
   return (
     <tr>
-      <td><input type="checkbox" checked={enabled} name="enabled" onChange={handleEnabledChange} /></td>
+      <td>
+        <input
+          type="checkbox"
+          checked={enabled}
+          name="enabled"
+          onChange={handleEnabledChange}
+        />
+      </td>
       <td>{columnLabel}</td>
       <td>String</td>
       <td>
@@ -51,11 +66,11 @@ const StringFilterRow: FC<
           value={scheme}
           onChange={handleOpChange}
         >
-          {
-            stringFilterSchemes.map((scheme) =>
-              <option key={scheme} value="contains">{stringFilterSchemeNames[scheme]}</option>
-            )
-          }
+          {stringFilterSchemes.map((scheme) => (
+            <option key={scheme} value="contains">
+              {stringFilterSchemeNames[scheme]}
+            </option>
+          ))}
         </select>
       </td>
       <td>
