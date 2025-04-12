@@ -13,36 +13,51 @@ interface NumberFilterRowProps {
   setFilterState: (filterState: NumberFormFilterState) => void;
 }
 
-const NumberFilterRow: FC<NumberFilterRowProps> = ({ columnLabel, filterState, setFilterState }) => {
+const NumberFilterRow: FC<NumberFilterRowProps> = ({
+  columnLabel,
+  filterState,
+  setFilterState,
+}) => {
   const handleOpChange: ChangeEventHandler<HTMLSelectElement> = ({
-                                                                   target,
-                                                                 }) => {
+    target,
+  }) => {
     setFilterState({
       ...filterState,
       scheme: target.value as NumberFilterScheme,
     });
   };
 
-  const handleEnabledChange: ChangeEventHandler<HTMLInputElement> = ({ target }) => {
+  const handleEnabledChange: ChangeEventHandler<HTMLInputElement> = ({
+    target,
+  }) => {
     setFilterState({
       ...filterState,
-      enabled: target.checked
-    })
-  }
+      enabled: target.checked,
+    });
+  };
 
-  const handleNumInputValueChange: ChangeEventHandler<HTMLInputElement> = ({ target }) => {
+  const handleNumInputValueChange: ChangeEventHandler<HTMLInputElement> = ({
+    target,
+  }) => {
     setFilterState({
       ...filterState,
-      inputValue: target.value
-    })
-  }
+      inputValue: target.value,
+    });
+  };
 
-  const { enabled, scheme, inputValue } = filterState
+  const { enabled, scheme, inputValue } = filterState;
 
   // TODO: Input labelling for accessibility
   return (
     <tr>
-      <td><input type="checkbox" checked={enabled} name="enabled" onChange={handleEnabledChange} /></td>
+      <td>
+        <input
+          type="checkbox"
+          checked={enabled}
+          name="enabled"
+          onChange={handleEnabledChange}
+        />
+      </td>
       <td>{columnLabel}</td>
       <td>Number</td>
       <td>
@@ -52,9 +67,11 @@ const NumberFilterRow: FC<NumberFilterRowProps> = ({ columnLabel, filterState, s
           value={scheme}
           onChange={handleOpChange}
         >
-          {
-            numberFilterSchemes.map((scheme) => <option key={scheme} value={scheme}>{numberFilterSchemeNames[scheme]}</option>)
-          }
+          {numberFilterSchemes.map((scheme) => (
+            <option key={scheme} value={scheme}>
+              {numberFilterSchemeNames[scheme]}
+            </option>
+          ))}
         </select>
       </td>
       <td>
@@ -69,6 +86,6 @@ const NumberFilterRow: FC<NumberFilterRowProps> = ({ columnLabel, filterState, s
       </td>
     </tr>
   );
-}
+};
 
 export default NumberFilterRow;

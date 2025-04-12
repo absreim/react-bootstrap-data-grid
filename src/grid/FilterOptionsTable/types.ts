@@ -3,7 +3,7 @@ import {
   AbstractFilterState,
   DateFilterScheme,
   NumberFilterScheme,
-  StringFilterState
+  StringFilterState,
 } from "../types";
 
 export interface NumberFormFilterState extends AbstractFilterState {
@@ -25,6 +25,9 @@ export interface DateFormFilterState extends AbstractDateFilterState {
 // The string type in JavaScript already encompasses the full range of possibilities of the
 // value of HTML text inputs. Therefore, unlike NumberFilterState and DateFilterState,
 // StringFilterState is usable as it is to represent the state of a form input.
-export type FilterFormRowState = StringFilterState | NumberFormFilterState | DateFormFilterState;
+export type FilterFormRowState =
+  | StringFilterState
+  | NumberFormFilterState
+  | DateFormFilterState;
 
-export type FilterFormState = Record<string, FilterFormRowState>
+export type FilterFormState = Record<string, FilterFormRowState>;

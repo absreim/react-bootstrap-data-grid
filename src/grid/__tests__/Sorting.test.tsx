@@ -250,7 +250,7 @@ it("Sorts number columns by value rather than lexicographically", () => {
   expect(numColRowOneCell).toHaveTextContent("1");
   expect(numColRowTwoCell).toHaveTextContent("2");
   expect(numColRowThreeCell).toHaveTextContent("10");
-})
+});
 
 it("Sorts date columns by value rather than formatted string", () => {
   render(
@@ -275,7 +275,7 @@ it("Sorts date columns by value rather than formatted string", () => {
   expect(dateColRowOneCell).toHaveTextContent("1");
   expect(dateColRowTwoCell).toHaveTextContent("2");
   expect(dateColRowThreeCell).toHaveTextContent("10");
-})
+});
 
 it("Sorts datetime columns by value rather than formatted string", () => {
   render(
@@ -300,4 +300,4 @@ it("Sorts datetime columns by value rather than formatted string", () => {
   expect(datetimeColRowOneCell).toHaveTextContent("1");
   expect(datetimeColRowTwoCell).toHaveTextContent("2");
   expect(datetimeColRowThreeCell).toHaveTextContent("10");
-})
+});

@@ -7,7 +7,7 @@ const Filtering: FC = () => {
       <h1>Filtering</h1>
       <SampleFilteredGrid />
     </>
-  )
-}
+  );
+};
 
 export default Filtering;

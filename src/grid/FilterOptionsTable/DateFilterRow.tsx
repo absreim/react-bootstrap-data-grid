@@ -1,8 +1,11 @@
-import { ChangeEventHandler, FC } from "react";
+import { ChangeEventHandler, FC, useMemo } from "react";
 import {
-  DateFilterScheme, dateFilterSchemeNames, dateFilterSchemes,
+  DateFilterScheme,
+  dateFilterSchemeNames,
+  dateFilterSchemes,
 } from "../types";
 import { DateFormFilterState } from "./types";
+import { nanoid } from "nanoid/non-secure";
 
 interface DateFilterRowProps {
   includeTime: boolean;
@@ -11,43 +14,65 @@ interface DateFilterRowProps {
   setFilterState: (filterState: DateFormFilterState) => void;
 }
 
-const DateFilterRow: FC<DateFilterRowProps> = ({ includeTime, columnLabel, filterState, setFilterState }) => {
+const DateFilterRow: FC<DateFilterRowProps> = ({
+  includeTime,
+  columnLabel,
+  filterState,
+  setFilterState,
+}) => {
   const handleOpChange: ChangeEventHandler<HTMLSelectElement> = ({
-                                                                   target,
-                                                                 }) => {
+    target,
+  }) => {
     setFilterState({
       ...filterState,
       scheme: target.value as DateFilterScheme,
     });
   };
 
-  const handleEnabledChange: ChangeEventHandler<HTMLInputElement> = ({ target }) => {
+  const handleEnabledChange: ChangeEventHandler<HTMLInputElement> = ({
+    target,
+  }) => {
     setFilterState({
       ...filterState,
-      enabled: target.checked
-    })
-  }
+      enabled: target.checked,
+    });
+  };
 
-  const handleStartValueChange: ChangeEventHandler<HTMLInputElement> = ({ target }) => {
+  const handleStartValueChange: ChangeEventHandler<HTMLInputElement> = ({
+    target,
+  }) => {
     setFilterState({
       ...filterState,
-      startDate: target.value
-    })
-  }
+      startDate: target.value,
+    });
+  };
 
-  const handleEndValueChange: ChangeEventHandler<HTMLInputElement> = ({ target }) => {
+  const handleEndValueChange: ChangeEventHandler<HTMLInputElement> = ({
+    target,
+  }) => {
     setFilterState({
       ...filterState,
-      endDate: target.value
-    })
-  }
+      endDate: target.value,
+    });
+  };
 
-  const { enabled, scheme, startDate, endDate } = filterState
-  const inputType = includeTime ? "datetime-local" : "date"
+  const { enabled, scheme, startDate, endDate } = filterState;
+  const inputType = includeTime ? "datetime-local" : "date";
+
+  const inputId = useMemo(() => nanoid(), []);
+  const startDateInputId = `$startDate-${inputId}`;
+  const endDateInputId = `$endDate-${inputId}`;
 
   return (
     <tr>
-      <td><input type="checkbox" checked={enabled} name="enabled" onChange={handleEnabledChange} /></td>
+      <td>
+        <input
+          type="checkbox"
+          checked={enabled}
+          name="enabled"
+          onChange={handleEnabledChange}
+        />
+      </td>
       <td>{columnLabel}</td>
       <td>{filterState.type === "date" ? "Date" : "Datetime"}</td>
       <td>
@@ -57,36 +82,50 @@ const DateFilterRow: FC<DateFilterRowProps> = ({ includeTime, columnLabel, filte
           value={scheme}
           onChange={handleOpChange}
         >
-          {
-            dateFilterSchemes.map((scheme) => <option key={scheme} value={scheme}>{dateFilterSchemeNames[scheme]}</option>)
-          }
+          {dateFilterSchemes.map((scheme) => (
+            <option key={scheme} value={scheme}>
+              {dateFilterSchemeNames[scheme]}
+            </option>
+          ))}
         </select>
       </td>
       <td>
-        {
-          // TODO: Label both inputs in an accessible way
-          scheme !== "endAt" && <input
-            className="form-control"
-            type={inputType}
-            required={enabled}
-            disabled={!enabled}
-            value={startDate}
-            onChange={handleStartValueChange}
-          />
-        }
-        {
-          scheme !== "startFrom" && <input
-            className="form-control"
-            type={inputType}
-            required={enabled}
-            disabled={!enabled}
-            value={endDate}
-            onChange={handleStartValueChange}
-          />
-        }
+        {scheme !== "endAt" && (
+          <>
+            {scheme === "between" && (
+              <label htmlFor={startDateInputId}>Start Date</label>
+            )}
+            <input
+              id={startDateInputId}
+              className="form-control"
+              type={inputType}
+              required={enabled}
+              disabled={!enabled}
+              value={startDate}
+              onChange={handleStartValueChange}
+              aria-label="Start Date"
+            />
+          </>
+        )}
+        {scheme !== "startFrom" && (
+          <>
+            {scheme === "between" && (
+              <label htmlFor={endDateInputId}>End Date</label>
+            )}
+            <input
+              className="form-control"
+              type={inputType}
+              required={enabled}
+              disabled={!enabled}
+              value={endDate}
+              onChange={handleEndValueChange}
+              aria-label="End Date"
+            />
+          </>
+        )}
       </td>
     </tr>
   );
-}
+};
 
 export default DateFilterRow;
