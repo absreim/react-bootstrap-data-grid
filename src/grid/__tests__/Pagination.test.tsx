@@ -1,4 +1,4 @@
-import "@testing-library/jest-dom";
+import { expect, test } from 'vitest'
 import { render, screen, within } from "@testing-library/react";
 import Pagination, { PaginationProps } from "../Pagination";
 import userEvent from "@testing-library/user-event";
@@ -24,7 +24,7 @@ const PaginationTestHarness: FC<PaginationTestHarnessProps> = ({
   );
 };
 
-it("Renders a number of index links equal to the number specified if possible", () => {
+test("Renders a number of index links equal to the number specified if possible", () => {
   render(
     <Pagination
       numPages={10}
@@ -42,7 +42,7 @@ it("Renders a number of index links equal to the number specified if possible", 
   screen.getByRole("link", { name: "7" });
 });
 
-it("Renders the maximum number of index links possible if there are fewer pages than numButtons", () => {
+test("Renders the maximum number of index links possible if there are fewer pages than numButtons", () => {
   render(
     <Pagination
       numPages={3}
@@ -59,7 +59,7 @@ it("Renders the maximum number of index links possible if there are fewer pages 
   screen.getByRole("link", { name: "3" });
 });
 
-it("Renders an equal number of index links on each side of the selected link if possible", () => {
+test("Renders an equal number of index links on each side of the selected link if possible", () => {
   render(
     <Pagination
       numPages={10}
@@ -76,7 +76,7 @@ it("Renders an equal number of index links on each side of the selected link if 
   screen.getByRole("link", { name: "6" });
 });
 
-it("Renders a number of index links equal to numButtons even if one side of the selected link has more links than the other", () => {
+test("Renders a number of index links equal to numButtons even if one side of the selected link has more links than the other", () => {
   render(
     <Pagination
       numPages={10}
@@ -95,7 +95,7 @@ it("Renders a number of index links equal to numButtons even if one side of the 
   screen.getByRole("link", { name: "5" });
 });
 
-it("Displays a link to the first page if the first page is not already shown as an index button", () => {
+test("Displays a link to the first page if the first page is not already shown as an index button", () => {
   render(
     <Pagination
       numPages={10}
@@ -108,7 +108,7 @@ it("Displays a link to the first page if the first page is not already shown as 
   screen.getByRole("link", { name: "First" });
 });
 
-it("Displays a link to the previous page if not already on the first page", () => {
+test("Displays a link to the previous page if not already on the first page", () => {
   render(
     <Pagination
       numPages={10}
@@ -121,7 +121,7 @@ it("Displays a link to the previous page if not already on the first page", () =
   screen.getByRole("link", { name: "Previous" });
 });
 
-it("Displays a link to the last page if the last page is not already shown as an index button", () => {
+test("Displays a link to the last page if the last page is not already shown as an index button", () => {
   render(
     <Pagination
       numPages={10}
@@ -134,7 +134,7 @@ it("Displays a link to the last page if the last page is not already shown as an
   screen.getByRole("link", { name: "Last" });
 });
 
-it("Displays a link to the next page if not already on the last page", () => {
+test("Displays a link to the next page if not already on the last page", () => {
   render(
     <Pagination
       numPages={10}
@@ -147,7 +147,7 @@ it("Displays a link to the next page if not already on the last page", () => {
   screen.getByRole("link", { name: "Next" });
 });
 
-it("Responds correctly to a click on an index link", async () => {
+test("Responds correctly to a click on an index link", async () => {
   const user = userEvent.setup();
   render(<PaginationTestHarness numPages={5} pageNum={1} numButtons={5} />);
 
@@ -158,7 +158,7 @@ it("Responds correctly to a click on an index link", async () => {
   });
 });
 
-it("Responds correctly to a click a Previous link", async () => {
+test("Responds correctly to a click a Previous link", async () => {
   const user = userEvent.setup();
   render(<PaginationTestHarness numPages={10} pageNum={2} numButtons={5} />);
 
@@ -169,7 +169,7 @@ it("Responds correctly to a click a Previous link", async () => {
   });
 });
 
-it("Responds correctly to a click on a First link", async () => {
+test("Responds correctly to a click on a First link", async () => {
   const user = userEvent.setup();
   render(<PaginationTestHarness numPages={10} pageNum={5} numButtons={3} />);
 
@@ -180,7 +180,7 @@ it("Responds correctly to a click on a First link", async () => {
   });
 });
 
-it("Responds correctly to a click a Next link", async () => {
+test("Responds correctly to a click a Next link", async () => {
   const user = userEvent.setup();
   render(<PaginationTestHarness numPages={10} pageNum={2} numButtons={5} />);
 
@@ -191,7 +191,7 @@ it("Responds correctly to a click a Next link", async () => {
   });
 });
 
-it("Responds correctly to a click on a Last link", async () => {
+test("Responds correctly to a click on a Last link", async () => {
   const user = userEvent.setup();
   render(<PaginationTestHarness numPages={10} pageNum={5} numButtons={3} />);
 

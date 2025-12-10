@@ -1,8 +1,10 @@
-import "@testing-library/jest-dom";
+import { expect, test } from 'vitest'
 import { render, screen, within } from "@testing-library/react";
 import Grid, { ColDef, GridPaginationState, RowDef } from "../index";
 import { FC, useState } from "react";
 import userEvent from "@testing-library/user-event";
+
+/// <reference types="@vitest/browser/context" />
 
 const cols: ColDef[] = [
   {
@@ -89,7 +91,7 @@ const paginationState: GridPaginationState = {
   maxPageButtons: 5,
 };
 
-it("Displays labels as column headings", () => {
+test("Displays labels as column headings", () => {
   render(<Grid rows={rows} cols={cols} />);
 
   const colHeaderCells = screen.getAllByRole("columnheader");
@@ -99,7 +101,7 @@ it("Displays labels as column headings", () => {
   expect(colHeaderCells[3]).toHaveTextContent("Datetime Column");
 });
 
-it("Applies formatters to values", () => {
+test("Applies formatters to values", () => {
   render(<Grid rows={rows} cols={cols} />);
 
   const rowElements = screen.getAllByRole("row");
@@ -110,19 +112,19 @@ it("Applies formatters to values", () => {
   expect(firstDataRowCells[3]).toHaveTextContent("(A datetime)");
 });
 
-it("Throws an error if a row object field does not exist in the column definition", () => {
+test("Throws an error if a row object field does not exist in the column definition", () => {
   expect(() => {
     render(<Grid rows={extraFieldRow} cols={cols} />);
   }).toThrow();
 });
 
-it("Throws an error if a field in the column definition does not exist the data for a row", () => {
+test("Throws an error if a field in the column definition does not exist the data for a row", () => {
   expect(() => {
     render(<Grid rows={missingFieldRow} cols={cols} />);
   }).toThrow();
 });
 
-it("Displays the appropriate rows when pagination is enabled", () => {
+test("Displays the appropriate rows when pagination is enabled", () => {
   render(<Grid rows={rows} cols={cols} pagination={paginationState} />);
 
   const rowElements = screen.getAllByRole("row");
@@ -152,7 +154,7 @@ const PaginationStateContainer: FC = () => {
   return <Grid rows={rows} cols={cols} pagination={paginationState} />;
 };
 
-it("Responds appropriately to a user selecting a different page size", async () => {
+test("Responds appropriately to a user selecting a different page size", async () => {
   const user = userEvent.setup();
   render(<PaginationStateContainer />);
 

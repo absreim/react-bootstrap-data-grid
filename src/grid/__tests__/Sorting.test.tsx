@@ -1,4 +1,4 @@
-import "@testing-library/jest-dom";
+import { expect, test } from 'vitest'
 import { render, screen, within } from "@testing-library/react";
 import Grid, { ColDef, RowDef, SortColDef, TableSortModel } from "@/grid";
 import { FC, useState } from "react";
@@ -86,7 +86,7 @@ const SortTestHarness: FC<SortTestHarnessProps> = ({
   return <Grid rows={rows} cols={cols} sortModel={tableSortModel} />;
 };
 
-it("Sorts unsortable columns if the initial model calls for it to be sorted", () => {
+test("Sorts unsortable columns if the initial model calls for it to be sorted", () => {
   render(
     <SortTestHarness
       cols={cols}
@@ -108,7 +108,7 @@ it("Sorts unsortable columns if the initial model calls for it to be sorted", ()
   expect(unsortableRowThreeCell).toHaveTextContent("x");
 });
 
-it("Does not change sort order after clicking on an unsortable column", async () => {
+test("Does not change sort order after clicking on an unsortable column", async () => {
   const user = userEvent.setup();
   render(
     <SortTestHarness
@@ -140,7 +140,7 @@ it("Does not change sort order after clicking on an unsortable column", async ()
   expect(unsortableRowThreeCell).toHaveTextContent("y");
 });
 
-it("Sorts an unsorted column in ascending order after first clicking on it", async () => {
+test("Sorts an unsorted column in ascending order after first clicking on it", async () => {
   const user = userEvent.setup();
   render(<SortTestHarness cols={cols} rows={rows} initialSortDef={null} />);
 
@@ -165,7 +165,7 @@ it("Sorts an unsorted column in ascending order after first clicking on it", asy
   expect(strColRowThreeCell).toHaveTextContent("c");
 });
 
-it("Sorts a column starting in ascending order to descending order after clicking on it", async () => {
+test("Sorts a column starting in ascending order to descending order after clicking on it", async () => {
   const user = userEvent.setup();
   render(
     <SortTestHarness
@@ -196,7 +196,7 @@ it("Sorts a column starting in ascending order to descending order after clickin
   expect(strColRowThreeCell).toHaveTextContent("a");
 });
 
-it("Stops sorting after clicking on a column heading for which the column is being sorted in descending order", async () => {
+test("Stops sorting after clicking on a column heading for which the column is being sorted in descending order", async () => {
   const user = userEvent.setup();
   render(
     <SortTestHarness
@@ -227,7 +227,7 @@ it("Stops sorting after clicking on a column heading for which the column is bei
   expect(strColRowThreeCell).toHaveTextContent("b");
 });
 
-it("Sorts number columns by value rather than lexicographically", () => {
+test("Sorts number columns by value rather than lexicographically", () => {
   render(
     <SortTestHarness
       cols={cols}
@@ -252,7 +252,7 @@ it("Sorts number columns by value rather than lexicographically", () => {
   expect(numColRowThreeCell).toHaveTextContent("10");
 });
 
-it("Sorts date columns by value rather than formatted string", () => {
+test("Sorts date columns by value rather than formatted string", () => {
   render(
     <SortTestHarness
       cols={cols}
@@ -277,7 +277,7 @@ it("Sorts date columns by value rather than formatted string", () => {
   expect(dateColRowThreeCell).toHaveTextContent("10");
 });
 
-it("Sorts datetime columns by value rather than formatted string", () => {
+test("Sorts datetime columns by value rather than formatted string", () => {
   render(
     <SortTestHarness
       cols={cols}
