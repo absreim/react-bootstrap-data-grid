@@ -65,6 +65,20 @@ export default function Home() {
         <BasicSampleGrid />
       </section>
       <h1>Change Log</h1>
+      <h2>1.0.0</h2>
+      <p>December 17, 2025</p>
+      <p>
+        Added <i>aria-colindex</i> and <i>aria-rowindex</i> attributes to
+        improve accessibility and facilitate testing.
+      </p>
+      <p>
+        Bumped peer dependency of package to React 19.{" "}
+        <b>This change may break projects still using React 18.</b>
+      </p>
+      <p>
+        Migrated tests to Playwright due to limitations introduced by more
+        recent versions of React Testing Library.
+      </p>
       <h2>0.1.4</h2>
       <p>May 9, 2024</p>
       <p>Added sorting feature.</p>

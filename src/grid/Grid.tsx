@@ -117,10 +117,12 @@ const Grid: FC<GridProps> = ({ rows, cols, pagination, sortModel }) => {
       const displayRow: string[] = [];
       Object.keys(row).forEach((name) => {
         if (!nameToIndex.has(name)) {
-          throw new Error(
-            `Row data contains a property named "${name}", but it was not found among the column definitions.`,
+          console.error(
+            `Warning: row data contains a property named "${name}", but it was not found among the column definitions.`,
           );
+          return;
         }
+
         const index = nameToIndex.get(name)!;
         const formatter = cols[index].formatter;
         const typeString = cols[index].type;
@@ -173,8 +175,8 @@ const Grid: FC<GridProps> = ({ rows, cols, pagination, sortModel }) => {
     <div>
       <table className="table">
         <thead>
-          <tr>
-            {cols.map(({ name, label, sortable }) => {
+          <tr aria-rowindex={1}>
+            {cols.map(({ name, label, sortable }, index) => {
               const colSortModel: ColSortModel | undefined =
                 sortModel && sortable
                   ? {
@@ -192,6 +194,7 @@ const Grid: FC<GridProps> = ({ rows, cols, pagination, sortModel }) => {
                   key={name}
                   label={label}
                   sortModel={colSortModel}
+                  ariaColIndex={index + 1}
                 />
               );
             })}
@@ -199,9 +202,11 @@ const Grid: FC<GridProps> = ({ rows, cols, pagination, sortModel }) => {
         </thead>
         <tbody>
           {displayRows.map((row, index) => (
-            <tr key={index}>
+            <tr key={index} aria-rowindex={index + 2}>
               {row.map((value, index) => (
-                <td key={index}>{value}</td>
+                <td key={index} aria-colindex={index + 1}>
+                  {value}
+                </td>
               ))}
             </tr>
           ))}

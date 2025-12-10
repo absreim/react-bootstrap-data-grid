@@ -7,6 +7,7 @@ import classNames from "classnames";
 interface ColHeaderCellProps {
   label: string;
   sortModel?: ColSortModel;
+  ariaColIndex: number;
 }
 
 const getUpArrow = (grayed: boolean) => (
@@ -74,7 +75,11 @@ const placeholder = (
   ></svg>
 );
 
-const ColHeaderCell: FC<ColHeaderCellProps> = ({ label, sortModel }) => {
+const ColHeaderCell: FC<ColHeaderCellProps> = ({
+  label,
+  sortModel,
+  ariaColIndex,
+}) => {
   const [isHovering, setIsHovering] = useState(false);
   const handleMouseOver: MouseEventHandler<HTMLTableCellElement> = () =>
     setIsHovering(true);
@@ -131,6 +136,7 @@ const ColHeaderCell: FC<ColHeaderCellProps> = ({ label, sortModel }) => {
           : "Column header that can be clicked to change the sorting mode"
       }
       style={{ cursor: sortModel ? "pointer" : "default" }}
+      aria-colindex={ariaColIndex}
     >
       {label}
       {getSortSymbol()}

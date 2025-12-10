@@ -34,22 +34,24 @@ scope.
 
 ## Automated tests
 
-One can run the automated tests in the `src/grid/dist/__tests__` by invoking the `test` or `test:watch` NPM script. The
-tests are currently directly importing the source files for the data grid component (rooted at `src/grid/index.ts`).
+One can run the automated tests in the `tests` subdirectory by invoking the `test` NPM script. The
+tests are currently being run against pages specifically built as targets for Playwright tests. The pages are in hidden
+paths in the documentation site.
 
-One can change the import to instead import the build products meant for distribution. Running tests this way can be
+The pages meant as test targets currently import from the code source directory `src/grid`. One can change the import to
+instead import the build products meant for distribution. Running tests this way can be
 useful if there is any concern about the fitness of the build products.
 
-Specifically, in `src/grid/__tests__/Grid.test.tsx`, one can change line 3 from
+Specifically, in `src/app/test/page.tsx`, one can change line 3 from
 
 ```tsx
-import Grid, { ColDef, RowDef } from "../index";
+import Grid, { ColDef, RowDef } from "@/grid";
 ```
 
 to
 
 ```tsx
-import Grid, { ColDef, RowDef } from "../dist";
+import Grid, { ColDef, RowDef } from "@/grid/dist";
 ```
 
 Of course, since the build products are not checked into version control, one must first build the build products from
@@ -84,5 +86,4 @@ bun dev
 Then, open [http://localhost:3000](http://localhost:3000) with your browser to see the result.
 
 After modifying the files for documentation site and/or the data grid component, you should be able to see the results
-in your browser as the NextJS development server automatically refreshes the page your browser in response to changes
-in the files.
+in your browser as the Next.js development server automatically refreshes the page your browser in response to changes.

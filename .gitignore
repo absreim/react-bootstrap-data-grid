@@ -43,3 +43,11 @@ next-env.d.ts
 /src/grid/dist/*
 !/src/grid/dist/package.json
 !/src/grid/dist/README.md
+
+# Playwright
+node_modules/
+/test-results/
+/playwright-report/
+/blob-report/
+/playwright/.cache/
+/playwright/.auth/
