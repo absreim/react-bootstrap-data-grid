@@ -2,6 +2,7 @@
 
 import { FC } from "react";
 import Grid, { ColDef, RowDef } from "@/grid";
+import { ErrorBoundary } from "react-error-boundary";
 
 const cols: ColDef[] = [
   {
@@ -85,8 +86,30 @@ const Test: FC = () => {
       <div data-testid="functioning grid container">
         <Grid rows={rows} cols={cols}></Grid>
       </div>
-      <div data-testid="extra field grid container"></div>
-      <div data-testid="missing field grid container"></div>
+      <div data-testid="extra field grid container">
+        <ErrorBoundary
+          fallback={
+            <p>
+              As expected, an error occurred when rendering extra field test
+              case
+            </p>
+          }
+        >
+          <Grid rows={extraFieldRows} cols={cols}></Grid>
+        </ErrorBoundary>
+      </div>
+      <div data-testid="missing field grid container">
+        <ErrorBoundary
+          fallback={
+            <p>
+              As expected, an error occurred when rendering missing field test
+              case
+            </p>
+          }
+        >
+          <Grid rows={missingFieldRows} cols={cols}></Grid>
+        </ErrorBoundary>
+      </div>
     </>
   );
 }
