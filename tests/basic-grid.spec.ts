@@ -6,41 +6,50 @@ test.beforeEach(async ({ page }) => {
 
 test('grid displays correct column headings', async ({ page }) => {
   const workingGridContainer = page.getByTestId("functioning grid container");
-  // TODO: it appears that there is no way to have Playwright retry assertions on arrays of locators.
-  // Find some way to locate columns, rows, and cells directly. May require modifying the grid's code.
-  const allColumnsLocator = await workingGridContainer.getByRole("columnheader").all();
-  expect(allColumnsLocator).toHaveLength(4);
-  const allColumns = allColumnsLocator;
+  const theadLocator = workingGridContainer.getByRole("rowgroup");
 
-  await expect(allColumns[0]).toHaveText("String Column");
-  await expect(allColumns[1]).toHaveText("Number Column");
-  await expect(allColumns[2]).toHaveText("Date Column");
-  await expect(allColumns[3]).toHaveText("Datetime Column");
+  await expect(theadLocator.getByText("String Column")).toHaveAttribute("aria-colindex", "1");
+  await expect(theadLocator.getByText("Number Column")).toHaveAttribute("aria-colindex", "2");
+  await expect(theadLocator.getByText("Date Column")).toHaveAttribute("aria-colindex", "3");
+  await expect(theadLocator.getByText("Datetime Column")).toHaveAttribute("aria-colindex", "4");
 })
 
 test("displays values correctly with or without formatters", async ({ page }) => {
   const workingGridContainer = page.getByTestId("functioning grid container");
-  const rows = await workingGridContainer.getByRole("row");
-  const allRows = await rows.all();
-  const firstDataRow = allRows[1];
-  const cells = await firstDataRow.getByRole("cell").all();
+  const firstRow = workingGridContainer.locator('tbody > tr[aria-rowindex="2"]');
 
-  await expect(cells[0]).toHaveText("first row string");
-  await expect(cells[1]).toHaveText("1");
-  await expect(cells[2]).toHaveText("(A date)");
-  await expect(cells[3]).toHaveText("(A datetime)");
+  await expect(firstRow.getByText("first row string")).toHaveAttribute(
+    "aria-colindex",
+    "1",
+  );
+  await expect(firstRow.getByText("1")).toHaveAttribute("aria-colindex", "2");
+  await expect(firstRow.getByText("(A date)")).toHaveAttribute(
+    "aria-colindex",
+    "3",
+  );
+  await expect(firstRow.getByText("(A datetime)")).toHaveAttribute(
+    "aria-colindex",
+    "4",
+  );
 });
 
 test("displays rows in the correct order", async ({ page }) => {
   const workingGridContainer = page.getByTestId("functioning grid container");
-  const rows = await workingGridContainer.getByRole("row").all();
-  const thirdDataRow = rows[3];
-  const thirdDataRowCells = await thirdDataRow.getByRole("cell").all();
-  const lastDataRow = rows[5];
-  const lastDataRowCells = await lastDataRow.getByRole("cell").all();
+  const thirdDataRow = workingGridContainer.locator(
+    'tbody > tr[aria-rowindex="4"]',
+  );
+  const lastDataRow = workingGridContainer.locator(
+    'tbody > tr[aria-rowindex="6"]',
+  );
 
-  await expect(thirdDataRowCells[0]).toHaveText("third row string");
-  await expect(lastDataRowCells[1]).toHaveText("5");
+  await expect(thirdDataRow.getByText("third row string")).toHaveAttribute(
+    "aria-colindex",
+    "1",
+  );
+  await expect(lastDataRow.getByText("5")).toHaveAttribute(
+    "aria-colindex",
+    "2",
+  );;
 })
 
 test("throws an error when encountering an extra column", async ({ page }) => {

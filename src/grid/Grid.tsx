@@ -173,8 +173,8 @@ const Grid: FC<GridProps> = ({ rows, cols, pagination, sortModel }) => {
     <div>
       <table className="table">
         <thead>
-          <tr>
-            {cols.map(({ name, label, sortable }) => {
+          <tr aria-rowindex={1}>
+            {cols.map(({ name, label, sortable }, index) => {
               const colSortModel: ColSortModel | undefined =
                 sortModel && sortable
                   ? {
@@ -192,6 +192,7 @@ const Grid: FC<GridProps> = ({ rows, cols, pagination, sortModel }) => {
                   key={name}
                   label={label}
                   sortModel={colSortModel}
+                  ariaColIndex={index + 1}
                 />
               );
             })}
@@ -199,9 +200,9 @@ const Grid: FC<GridProps> = ({ rows, cols, pagination, sortModel }) => {
         </thead>
         <tbody>
           {displayRows.map((row, index) => (
-            <tr key={index}>
+            <tr key={index} aria-rowindex={index + 2}>
               {row.map((value, index) => (
-                <td key={index}>{value}</td>
+                <td key={index} aria-colindex={index + 1}>{value}</td>
               ))}
             </tr>
           ))}
