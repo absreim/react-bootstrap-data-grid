@@ -117,7 +117,9 @@ const Grid: FC<GridProps> = ({ rows, cols, pagination, sortModel }) => {
       const displayRow: string[] = [];
       Object.keys(row).forEach((name) => {
         if (!nameToIndex.has(name)) {
-          console.error(`Warning: row data contains a property named "${name}", but it was not found among the column definitions.`);
+          console.error(
+            `Warning: row data contains a property named "${name}", but it was not found among the column definitions.`,
+          );
           return;
         }
 
@@ -202,7 +204,9 @@ const Grid: FC<GridProps> = ({ rows, cols, pagination, sortModel }) => {
           {displayRows.map((row, index) => (
             <tr key={index} aria-rowindex={index + 2}>
               {row.map((value, index) => (
-                <td key={index} aria-colindex={index + 1}>{value}</td>
+                <td key={index} aria-colindex={index + 1}>
+                  {value}
+                </td>
               ))}
             </tr>
           ))}
