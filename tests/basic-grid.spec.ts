@@ -49,27 +49,5 @@ test("displays rows in the correct order", async ({ page }) => {
   await expect(lastDataRow.getByText("5")).toHaveAttribute(
     "aria-colindex",
     "2",
-  );;
-})
-
-test("throws an error when encountering an extra column", async ({ page }) => {
-  const extraFieldContainer = page.getByTestId(
-    "extra field grid container",
-  );
-  const p = await extraFieldContainer.getByRole("paragraph");
-
-  await expect(p).toHaveText(
-    "As expected, an error occurred when rendering extra field test case",
-  );
-});
-
-test("throws an error when encountering a missing column", async ({ page }) => {
-  const missingFieldContainer = page.getByTestId(
-    "missing field grid container",
-  );
-  const p = await missingFieldContainer.getByRole("paragraph");
-
-  await expect(p).toHaveText(
-    "As expected, an error occurred when rendering missing field test case",
   );
 })

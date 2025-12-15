@@ -117,10 +117,10 @@ const Grid: FC<GridProps> = ({ rows, cols, pagination, sortModel }) => {
       const displayRow: string[] = [];
       Object.keys(row).forEach((name) => {
         if (!nameToIndex.has(name)) {
-          throw new Error(
-            `Row data contains a property named "${name}", but it was not found among the column definitions.`,
-          );
+          console.error(`Warning: row data contains a property named "${name}", but it was not found among the column definitions.`);
+          return;
         }
+
         const index = nameToIndex.get(name)!;
         const formatter = cols[index].formatter;
         const typeString = cols[index].type;
