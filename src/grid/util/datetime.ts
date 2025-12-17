@@ -1,4 +1,4 @@
-import * as dayjs from "dayjs";
+import dayjs from "dayjs";
 
 export const dateToInputStr = (date: Date) => dayjs(date).format("YYYY-MM-DD");
 
