@@ -2,6 +2,9 @@ import { FC } from "react";
 import TypeSpecTable from "@/shared/TypeSpecTable";
 import { tableSortModel, sortColDef } from "@/shared/typeSpecs";
 import SampleSortedGrid from "@/app/sorting/SampleSortedGrid";
+import samplePaginatedGridCode from "@/app/pagination/samplePaginatedGridCode";
+import HighlightedCodeBlock from "@/shared/HighlightedCodeBlock";
+import sampleSortedGridCode from "@/app/sorting/sampleSortedGridCode";
 
 const Sorting: FC = () => {
   return (
@@ -57,6 +60,8 @@ const Sorting: FC = () => {
         caption="Type specification for SortColDef, which is part of TableSortModel"
       />
       <h2>Example</h2>
+      <h3>Code</h3>
+      <HighlightedCodeBlock code={sampleSortedGridCode} />
       <h3>Live Demo</h3>
       <SampleSortedGrid />
     </>
