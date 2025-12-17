@@ -67,7 +67,7 @@ const StringFilterRow: FC<StringFilterRowProps> = ({
           onChange={handleOpChange}
         >
           {stringFilterSchemes.map((scheme) => (
-            <option key={scheme} value="contains">
+            <option key={scheme} value={scheme}>
               {stringFilterSchemeNames[scheme]}
             </option>
           ))}
