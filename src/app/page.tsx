@@ -64,6 +64,30 @@ export default function Home() {
         <h3>Live Demo</h3>
         <BasicSampleGrid />
       </section>
+      <h1>Further information</h1>
+      <ul>
+        <li>
+          See the source code in the project's{" "}
+          <a href="https://github.com/absreim/react-bootstrap-data-grid">
+            Github repo
+          </a>
+          .
+        </li>
+        <li>
+          The project is under active development. See the{" "}
+          <a href="https://github.com/users/absreim/projects/2/views/1">
+            development roadmap
+          </a>
+          .
+        </li>
+        <li>
+          See the{" "}
+          <a href="https://www.npmjs.com/package/@absreim/react-bootstrap-data-grid">
+            page for the published NPM package
+          </a>{" "}
+          in case you are curious about download statistics.
+        </li>
+      </ul>
       <h1>Change Log</h1>
       <h2>1.0.0</h2>
       <p>December 17, 2025</p>

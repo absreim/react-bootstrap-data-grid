@@ -25,9 +25,10 @@ control, except for `src/grid/dist/package.json` and `src/grid/dist/README.md`, 
 To publish a package after successfully building it for distribution, change to the `src/grid/dist` subdirectory and
 use the NPM CLI:
 
-`cd ./src/grid/dist`
-
-`npm publish --access public`
+```bash
+cd ./src/grid/dist
+npm publish --access public
+```
 
 Note that one needs to be logged into via the NPM CLI to an account that has permission to publish to the specified
 scope.
@@ -71,16 +72,11 @@ the documentation site. For example, if one were to add a new feature to the dat
 entry in the documentation site documenting that change. Doing so serves the dual purpose of writing documentation for
 the feature and manually testing the feature.
 
-To run the development server run one of the following, depending on your package manager of choice:
+This repository officially only supports NPM as a package manager at the moment. To start the development server, run
+the following command:
 
 ```bash
 npm run dev
-# or
-yarn dev
-# or
-pnpm dev
-# or
-bun dev
 ```
 
 Then, open [http://localhost:3000](http://localhost:3000) with your browser to see the result.
