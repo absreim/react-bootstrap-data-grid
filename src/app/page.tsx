@@ -67,7 +67,7 @@ export default function Home() {
       <h1>Further information</h1>
       <ul>
         <li>
-          See the source code in the project's{" "}
+          See the source code in the project&apos;s{" "}
           <a href="https://github.com/absreim/react-bootstrap-data-grid">
             Github repo
           </a>

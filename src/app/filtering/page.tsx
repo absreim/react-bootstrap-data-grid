@@ -80,18 +80,21 @@ const Filtering: FC = () => {
       <dl>
         <dt>contains</dt>
         <dd>
-          Does not filter out the column if the substring is present anywhere in
-          the cell's value
+          {
+            "Does not filter out the column if the substring is present anywhere in the cells value"
+          }
         </dd>
         <dt>startsWith</dt>
         <dd>
-          Filters out the column unless the cell's value starts with the
-          specified string
+          {
+            "Filters out the column unless the cell's value starts with the specified string"
+          }
         </dd>
         <dt>endsWith</dt>
         <dd>
-          Filters out the column unless the cell's value ends with the specified
-          string
+          {
+            "Filters out the column unless the cell's value ends with the specified string"
+          }
         </dd>
       </dl>
       <h3>NumberFilterState</h3>
@@ -106,28 +109,33 @@ const Filtering: FC = () => {
       <dl>
         <dt>equals</dt>
         <dd>
-          Filters out the column unless the cell's value is equal to the
-          specified value
+          {
+            "Filters out the column unless the cell's value is equal to the specified value"
+          }
         </dd>
         <dt>greaterThan</dt>
         <dd>
-          Filters out the column unless the cell's value is greater than the
-          specified value
+          {
+            "Filters out the column unless the cell's value is greater than the specified value"
+          }
         </dd>
         <dt>lessThan</dt>
         <dd>
-          Filters out the column unless the cell's value is less than the
-          specified value
+          {
+            "Filters out the column unless the cell's value is less than the specified value"
+          }
         </dd>
         <dt>greaterOrEqual</dt>
         <dd>
-          Filters out the column unless the cell's value is greater than or
-          equal to the specified value
+          {
+            "Filters out the column unless the cell's value is greater than or equal to the specified value"
+          }
         </dd>
         <dt>lessOrEqual</dt>
         <dd>
-          Filters out the column unless the cell's value is less than or equal
-          to the specified value
+          {
+            "Filters out the column unless the cell's value is less than or equal to the specified value"
+          }
         </dd>
       </dl>
       <h3>DateFilterState</h3>
@@ -138,18 +146,21 @@ const Filtering: FC = () => {
       <dl>
         <dt>StartDateFilterState</dt>
         <dd>
-          The row is filtered out unless the cell's value is the same as or
-          after the specified date.
+          {
+            "The row is filtered out unless the cell's value is the same as or after the specified date."
+          }
         </dd>
         <dt>EndDateFilterState</dt>
         <dd>
-          The row is filtered out unless the cell's value is the same as or
-          before the specified date.
+          {
+            "The row is filtered out unless the cell's value is the same as or before the specified date."
+          }
         </dd>
         <dt>BetweenDatesFilterState</dt>
         <dd>
-          The row is filtered out unless the cell's value is between the
-          specified dates, inclusive.
+          {
+            "The row is filtered out unless the cell's value is between the specified dates, inclusive."
+          }
         </dd>
       </dl>
       <h3>AbstractDateFilterState</h3>

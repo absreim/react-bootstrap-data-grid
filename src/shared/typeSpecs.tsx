@@ -101,7 +101,8 @@ export const numberFilterState: SpecTableRow[] = [
     propertyName: "numValue",
     typeDefinition: "number | null",
     isRequired: true,
-    description: "The number with which to apply the filter. A null value represents an empty number input value.",
+    description:
+      "The number with which to apply the filter. A null value represents an empty number input value.",
   },
 ];
 
@@ -133,7 +134,8 @@ export const startDateFilterState: SpecTableRow[] = [
     propertyName: "startDate",
     typeDefinition: "Date | null",
     isRequired: true,
-    description: "The starting date or datetime for the filter to apply. A null value represents an empty date input value.",
+    description:
+      "The starting date or datetime for the filter to apply. A null value represents an empty date input value.",
   },
 ];
 

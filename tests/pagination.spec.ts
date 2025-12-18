@@ -161,9 +161,7 @@ test("pagination component responds correctly to click on first link", async ({
   const firstInteractionContainer = page.getByTestId(
     "first link click test case",
   );
-  await firstInteractionContainer
-    .getByRole("link", { name: "First" })
-    .click();
+  await firstInteractionContainer.getByRole("link", { name: "First" }).click();
 
   await expect(
     firstInteractionContainer
