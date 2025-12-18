@@ -6,8 +6,7 @@ export interface ColDef {
   name: string;
   label: string;
   formatter?: (value: any) => string;
-  sortable?: boolean; // default yes
-  filterable?: boolean; // default yes
+  sortable?: boolean; // default false
 }
 
 export type RowDef = Record<string, ColDataType>;
@@ -22,6 +21,8 @@ export type JustifyContentSetting =
 
 export type Size = "small" | "medium" | "large";
 
+/* Sorting */
+
 export type SortOrder = "asc" | "desc";
 export interface SortColDef {
   name: string;
@@ -35,6 +36,8 @@ export interface TableSortModel {
   sortColDef: SortColDef | null;
   setSortColDef: (sortColDef: SortColDef | null) => void;
 }
+
+/* Filtering */
 
 export type TableFilterState = Record<string, ColFilterState>;
 export type EditableTableFilterState = Record<string, FilterState>;

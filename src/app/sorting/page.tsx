@@ -2,7 +2,6 @@ import { FC } from "react";
 import TypeSpecTable from "@/shared/TypeSpecTable";
 import { tableSortModel, sortColDef } from "@/shared/typeSpecs";
 import SampleSortedGrid from "@/app/sorting/SampleSortedGrid";
-import samplePaginatedGridCode from "@/app/pagination/samplePaginatedGridCode";
 import HighlightedCodeBlock from "@/shared/HighlightedCodeBlock";
 import sampleSortedGridCode from "@/app/sorting/sampleSortedGridCode";
 
