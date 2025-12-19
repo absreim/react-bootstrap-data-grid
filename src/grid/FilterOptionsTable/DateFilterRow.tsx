@@ -63,13 +63,19 @@ const DateFilterRow: FC<DateFilterRowProps> = ({
   const startDateInputId = `$startDate-${inputId}`;
   const endDateInputId = `$endDate-${inputId}`;
 
+  const checkboxLabel = `${columnLabel} Column Filter Toggle`;
+  const opSelectLabel = `${columnLabel} Column Filter Operator Selection`;
+  const startDateInputLabel = `${columnLabel} Column Filter Start Date`;
+  const endDateInputLabel = `${columnLabel} Column Filter End Date`;
+
   return (
     <tr>
       <td>
         <input
+          name={checkboxLabel}
+          aria-label={checkboxLabel}
           type="checkbox"
           checked={enabled}
-          name="enabled"
           onChange={handleEnabledChange}
         />
       </td>
@@ -77,6 +83,8 @@ const DateFilterRow: FC<DateFilterRowProps> = ({
       <td>{filterState.type === "date" ? "Date" : "Datetime"}</td>
       <td>
         <select
+          name={opSelectLabel}
+          aria-label={opSelectLabel}
           disabled={!enabled}
           className="form-select"
           value={scheme}
@@ -103,7 +111,7 @@ const DateFilterRow: FC<DateFilterRowProps> = ({
               disabled={!enabled}
               value={startDate}
               onChange={handleStartValueChange}
-              aria-label="Start Date"
+              aria-label={startDateInputLabel}
             />
           </>
         )}
@@ -113,13 +121,14 @@ const DateFilterRow: FC<DateFilterRowProps> = ({
               <label htmlFor={endDateInputId}>End Date</label>
             )}
             <input
+              id={endDateInputId}
               className="form-control"
               type={inputType}
               required={enabled}
               disabled={!enabled}
               value={endDate}
               onChange={handleEndValueChange}
-              aria-label="End Date"
+              aria-label={endDateInputLabel}
             />
           </>
         )}

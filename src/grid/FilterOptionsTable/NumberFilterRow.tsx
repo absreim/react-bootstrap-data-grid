@@ -47,14 +47,18 @@ const NumberFilterRow: FC<NumberFilterRowProps> = ({
 
   const { enabled, scheme, inputValue } = filterState;
 
-  // TODO: Input labelling for accessibility
+  const checkboxLabel = `${columnLabel} Column Filter Toggle`;
+  const opSelectLabel = `${columnLabel} Column Filter Operator Selection`;
+  const valueInputLabel = `${columnLabel} Column Filter Value`;
+
   return (
     <tr>
       <td>
         <input
+          name={checkboxLabel}
+          aria-label={checkboxLabel}
           type="checkbox"
           checked={enabled}
-          name="enabled"
           onChange={handleEnabledChange}
         />
       </td>
@@ -62,6 +66,8 @@ const NumberFilterRow: FC<NumberFilterRowProps> = ({
       <td>Number</td>
       <td>
         <select
+          name={opSelectLabel}
+          aria-label={opSelectLabel}
           disabled={!enabled}
           className="form-select"
           value={scheme}
@@ -76,6 +82,8 @@ const NumberFilterRow: FC<NumberFilterRowProps> = ({
       </td>
       <td>
         <input
+          name={valueInputLabel}
+          aria-label={valueInputLabel}
           className="form-control"
           type="number"
           required={enabled}

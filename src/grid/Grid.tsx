@@ -213,7 +213,7 @@ const Grid: FC<GridProps> = ({
           )}
         </div>
       )}
-      <table className="table">
+      <table className="table" aria-rowcount={filteredRows.length + 1}>
         <thead>
           <tr aria-rowindex={1}>
             {cols.map(({ name, label, sortable }, index) => {

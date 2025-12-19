@@ -46,14 +46,18 @@ const StringFilterRow: FC<StringFilterRowProps> = ({
 
   const { enabled, scheme, searchString } = filterState;
 
-  // TODO: Input labelling for accessibility
+  const checkboxLabel = `${columnLabel} Column Filter Toggle`;
+  const opSelectLabel = `${columnLabel} Column Filter Operator Selection`;
+  const valueInputLabel = `${columnLabel} Column Filter Value`;
+
   return (
     <tr>
       <td>
         <input
+          name={checkboxLabel}
+          aria-label={checkboxLabel}
           type="checkbox"
           checked={enabled}
-          name="enabled"
           onChange={handleEnabledChange}
         />
       </td>
@@ -61,6 +65,8 @@ const StringFilterRow: FC<StringFilterRowProps> = ({
       <td>String</td>
       <td>
         <select
+          name={opSelectLabel}
+          aria-label={opSelectLabel}
           disabled={!enabled}
           className="form-select"
           value={scheme}
@@ -75,6 +81,8 @@ const StringFilterRow: FC<StringFilterRowProps> = ({
       </td>
       <td>
         <input
+          name={valueInputLabel}
+          aria-label={valueInputLabel}
           className="form-control"
           required={enabled}
           disabled={!enabled}
