@@ -1,7 +1,6 @@
 import { useMemo } from "react";
 import {
   AugRowDef,
-  ColDataType,
   ColDataTypeStrings,
   ColDef,
   TableSortModel,

@@ -74,7 +74,7 @@ const useFilter: (
         }
       }
 
-      const columnNames = Object.keys(row);
+      const columnNames = Object.keys(row.data);
       for (const columnName of columnNames) {
         if (!(columnName in filterState)) {
           continue;

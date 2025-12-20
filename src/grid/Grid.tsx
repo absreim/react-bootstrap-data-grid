@@ -52,7 +52,7 @@ const Grid: FC<GridProps> = ({
   const augmentedRows = useAugmentedRows(rows);
   const filteredRows = useFilter(augmentedRows, editableFilterState);
 
-  const sortedRows = useSortedRows(augmentedRows, cols, sortModel);
+  const sortedRows = useSortedRows(filteredRows, cols, sortModel);
 
   const currentPageRows = useMemo(() => {
     if (pagination === undefined) {

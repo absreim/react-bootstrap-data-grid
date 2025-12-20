@@ -1,4 +1,4 @@
-import { AugRowDef, FormattedRow, ColDef} from "../types";
+import { AugRowDef, FormattedRow, ColDef } from "../types";
 import { useMemo } from "react";
 
 const useDisplayRows: (
