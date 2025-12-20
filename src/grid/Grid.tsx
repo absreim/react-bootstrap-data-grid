@@ -6,6 +6,7 @@ import {
   ColDef,
   ColSortModel,
   FilterModel,
+  FormattedRow,
   RowDef,
   Size,
   TableSortModel,
@@ -17,6 +18,9 @@ import useFilter from "./hooks/useFilter";
 import ToggleButton from "./ToggleButton";
 import FilterOptionsTable from "./FilterOptionsTable/FilterOptionsTable";
 import useFilterStateFromEditable from "./hooks/useFilterStateFromEditable";
+import useAugmentedRows from "./hooks/useAugmentedRows";
+import useSortedRows from "./hooks/useSortedRows";
+import useDisplayRows from "./hooks/useDisplayRows";
 
 export interface GridPaginationState {
   pageSizeOptions: number[];
@@ -36,33 +40,6 @@ export interface GridProps {
   filterModel?: FilterModel;
 }
 
-const getTypeComparator: (
-  typeStr: ColDataTypeStrings,
-) => (a: any, b: any) => number = (typeStr) => {
-  if (typeStr === "date" || typeStr === "datetime") {
-    return (a: Date, b: Date) => a.valueOf() - b.valueOf();
-  }
-  if (typeStr === "number") {
-    return (a: number, b: number) => a - b;
-  }
-  return (a: string, b: string) => {
-    if (a < b) {
-      return -1;
-    }
-    if (a > b) {
-      return 1;
-    }
-    return 0;
-  };
-};
-
-const getRowComparator: (
-  comparator: (a: any, b: any) => number,
-  fieldName: string,
-) => (rowA: RowDef, rowB: RowDef) => number = (comparator, fieldName) => {
-  return (rowA, rowB) => comparator(rowA[fieldName], rowB[fieldName]);
-};
-
 const Grid: FC<GridProps> = ({
   rows,
   cols,
@@ -72,34 +49,10 @@ const Grid: FC<GridProps> = ({
 }) => {
   const editableFilterState = filterModel?.tableFilterState || null;
   const filterState = useFilterStateFromEditable(cols, editableFilterState);
-  const filteredRows = useFilter(rows, editableFilterState);
+  const augmentedRows = useAugmentedRows(rows);
+  const filteredRows = useFilter(augmentedRows, editableFilterState);
 
-  const sortedRows: RowDef[] = useMemo(() => {
-    if (!sortModel || !sortModel.sortColDef) {
-      return filteredRows;
-    }
-
-    const sortFieldName = sortModel.sortColDef.name;
-    const sortOrder = sortModel.sortColDef.order;
-
-    const sortColIndex = cols.findIndex(({ name }) => name === sortFieldName);
-    if (sortColIndex < 0) {
-      throw new Error(
-        `The sortModel for the grid specifies that the data should be sorted based on a column named ${sortFieldName}, but it was not found among the column definitions.`,
-      );
-    }
-
-    const typeStr = cols[sortColIndex].type;
-    const ascComparator = getTypeComparator(typeStr);
-
-    let rowComparator = getRowComparator(ascComparator, sortFieldName);
-    if (sortOrder === "desc") {
-      const descComparator: (a: any, b: any) => number = (a, b) =>
-        ascComparator(a, b) * -1;
-      rowComparator = getRowComparator(descComparator, sortFieldName);
-    }
-    return filteredRows.slice().sort(rowComparator);
-  }, [filteredRows, cols, sortModel]);
+  const sortedRows = useSortedRows(augmentedRows, cols, sortModel);
 
   const currentPageRows = useMemo(() => {
     if (pagination === undefined) {
@@ -113,57 +66,7 @@ const Grid: FC<GridProps> = ({
     return sortedRows.slice(lowerIndex, upperIndex);
   }, [sortedRows, pagination]);
 
-  const displayRows: string[][] = useMemo(() => {
-    const nameToIndex = new Map<string, number>();
-    cols.forEach(({ name }, index) => {
-      nameToIndex.set(name, index);
-    });
-
-    return currentPageRows.map((row, index) => {
-      cols
-        .map(({ name }) => name)
-        .forEach((name) => {
-          if (!(name in row)) {
-            throw new Error(
-              `Column definition specifies a property named "${name}", but it was not found in the row data object at index ${index}.`,
-            );
-          }
-        });
-
-      const displayRow: string[] = [];
-      Object.keys(row).forEach((name) => {
-        if (!nameToIndex.has(name)) {
-          console.error(
-            `Warning: row data contains a property named "${name}", but it was not found among the column definitions.`,
-          );
-          return;
-        }
-
-        const index = nameToIndex.get(name)!;
-        const formatter = cols[index].formatter;
-        const typeString = cols[index].type;
-        const value = row[name];
-        if (formatter) {
-          displayRow[index] = formatter(value);
-          return;
-        }
-        if (typeString === "date") {
-          displayRow[index] = (value as Date).toDateString();
-          return;
-        }
-        if (typeString === "datetime") {
-          displayRow[index] = (value as Date).toLocaleString();
-          return;
-        }
-        if (typeString === "number") {
-          displayRow[index] = (value as number).toLocaleString();
-          return;
-        }
-        displayRow[index] = value as string;
-      });
-      return displayRow;
-    });
-  }, [currentPageRows, cols]);
+  const displayRows: FormattedRow[] = useDisplayRows(currentPageRows, cols);
 
   const [filterOptionsVisible, setFilterOptionsVisible] =
     useState<boolean>(false);
@@ -192,10 +95,7 @@ const Grid: FC<GridProps> = ({
 
   // Once this component implements selection state, and if such interactivity is enabled, (conditionally) change the
   // aria role to "grid".
-  // Array index is okay for the key for rows until some type of feature involving changing the index of rows, such as
-  // sorting or pagination, is implemented.
-  // TODO: implement the above described features: conditionally changing aria role to grid and a key field other than
-  // index
+  // TODO: implement the above described features: conditionally changing aria role to grid
   return (
     <div>
       {filterState && filterModel && (
@@ -242,8 +142,8 @@ const Grid: FC<GridProps> = ({
         </thead>
         <tbody>
           {displayRows.map((row, index) => (
-            <tr key={index} aria-rowindex={index + 2}>
-              {row.map((value, index) => (
+            <tr key={row.origIndex} aria-rowindex={index + 2}>
+              {row.contents.map((value, index) => (
                 <td key={index} aria-colindex={index + 1}>
                   {value}
                 </td>

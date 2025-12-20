@@ -1,4 +1,5 @@
 import {
+  AugRowDef,
   DateFilterState,
   EditableTableFilterState,
   NumberFilterState,
@@ -8,9 +9,9 @@ import {
 import { useMemo } from "react";
 
 const useFilter: (
-  rows: RowDef[],
+  rows: AugRowDef[],
   filterState: EditableTableFilterState | null,
-) => RowDef[] = (rows, filterState) => {
+) => AugRowDef[] = (rows, filterState) => {
   return useMemo(() => {
     if (filterState === null) {
       return rows;
@@ -38,7 +39,9 @@ const useFilter: (
         value: number,
         state: NumberFilterState,
       ): boolean {
-        const numValue = Number(state.numValue); // Note that a blank string becomes 0
+        // Note that a blank string becomes 0. This situation should usually be
+        // prevented by form validation.
+        const numValue = Number(state.numValue);
         switch (state.scheme) {
           case "equals":
             return value === numValue;
@@ -86,7 +89,7 @@ const useFilter: (
           case "string": {
             if (
               !checkIfPassesStringFilter(
-                row[columnName] as string,
+                row.data[columnName] as string,
                 columnFilterState,
               )
             ) {
@@ -97,7 +100,7 @@ const useFilter: (
           case "number": {
             if (
               !checkIfPassesNumberFilter(
-                row[columnName] as number,
+                row.data[columnName] as number,
                 columnFilterState,
               )
             ) {
@@ -108,7 +111,7 @@ const useFilter: (
           default: {
             if (
               !checkIfPassesDateFilter(
-                row[columnName] as Date,
+                row.data[columnName] as Date,
                 columnFilterState,
               )
             ) {

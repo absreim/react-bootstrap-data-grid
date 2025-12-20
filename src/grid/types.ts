@@ -11,6 +11,20 @@ export interface ColDef {
 
 export type RowDef = Record<string, ColDataType>;
 
+export interface RowMetadata {
+  origIndex: number;
+}
+
+export interface AugRowDef {
+  data: RowDef;
+  meta: RowMetadata;
+}
+
+export interface FormattedRow {
+  contents: string[];
+  origIndex: number;
+}
+
 export type JustifyContentSetting =
   | "start"
   | "end"

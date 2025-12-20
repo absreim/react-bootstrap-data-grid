@@ -89,6 +89,12 @@ export default function Home() {
         </li>
       </ul>
       <h1>Change Log</h1>
+      <h2>1.1.1</h2>
+      <p>December 20, 2025</p>
+      <p>
+        Change React keys of rows to be based on original ordering in order to
+        improve rendering performance when using pagination and sorting.
+      </p>
       <h2>1.1.0</h2>
       <p>December 18, 2025</p>
       <p>Added filtering feature.</p>
