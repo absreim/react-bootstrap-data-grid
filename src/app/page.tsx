@@ -89,6 +89,9 @@ export default function Home() {
         </li>
       </ul>
       <h1>Change Log</h1>
+      <h2>1.1.2</h2>
+      <p>December 20, 2025</p>
+      <p>Fixed bug that prevented filtering from working at all.</p>
       <h2>1.1.1</h2>
       <p>December 20, 2025</p>
       <p>
