@@ -89,6 +89,12 @@ export default function Home() {
         </li>
       </ul>
       <h1>Change Log</h1>
+      <h2>1.1.3</h2>
+      <p>December 23, 2025</p>
+      <p>
+        Fixed bug with datetime filter functionality involving timezones and
+        updated documentation to explain how filtering works with timezones.
+      </p>
       <h2>1.1.2</h2>
       <p>December 20, 2025</p>
       <p>Fixed bug that prevented filtering from working at all.</p>

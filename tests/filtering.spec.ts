@@ -314,8 +314,11 @@ test("between datetimes filter works correctly", async ({ page }) => {
     .fill("2024-04-19T00:00");
   await container.getByRole("button", { name: "Submit" }).click();
 
-  const newGridTable = container.locator('table[aria-rowcount="2"]');
-  const expectedSubsequentContents: string[][] = [["2023-01-15T20:00"]];
+  const newGridTable = container.locator('table[aria-rowcount="3"]');
+  const expectedSubsequentContents: string[][] = [
+    ["2023-01-15T10:00"],
+    ["2023-01-15T20:00"],
+  ];
   const newTbody = newGridTable.locator("tbody");
   await validateGridContents(newTbody, expectedSubsequentContents);
 });

@@ -2,7 +2,6 @@ import { FC, FormEventHandler, ReactNode, useState } from "react";
 import { EditableTableFilterState, TableFilterState } from "../types";
 import StringFilterRow from "./StringFilterRow";
 import { FilterFormRowState, FilterFormState } from "./types";
-import { datetimeInputStrToUtc } from "../util/datetime";
 import NumberFilterRow from "./NumberFilterRow";
 import useFormStateFromTableFilterState from "./useFormStateFromTableFilterState";
 import DateFilterRow from "./DateFilterRow";
@@ -40,12 +39,8 @@ const convertFilterFormStateToEditableState: (
           type: rowFilterFormState.type,
           enabled: rowFilterFormState.enabled,
         };
-        const strModifierFn: (str: string) => string =
-          rowFilterFormState.type === "date"
-            ? (str) => str
-            : datetimeInputStrToUtc;
         const inputStrToDate: (str: string) => Date | null = (str) =>
-          str === "" ? null : new Date(strModifierFn(str));
+          str === "" ? null : new Date(str);
         switch (rowFilterFormState.scheme) {
           case "startFrom": {
             editableState[colName] = {

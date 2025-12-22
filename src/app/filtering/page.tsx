@@ -163,6 +163,20 @@ const Filtering: FC = () => {
           }
         </dd>
       </dl>
+      <p>
+        Note that in terms of timezones, the grid follows the{" "}
+        <a href="https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/Date#:~:text=When%20the%20time%20zone%20offset%20is%20absent%2C%20date%2Donly%20forms%20are%20interpreted%20as%20a%20UTC%20time%20and%20date%2Dtime%20forms%20are%20interpreted%20as%20a%20local%20time.">
+          default behavior of the JavaScript Date constructor when parsing the
+          values from browser date and datetime-local inputs.
+        </a>{" "}
+        In particular, the <code>Date</code> objects used for comparing dates{" "}
+        <i>are in UTC</i> while the <code>Date</code> objects for comparing
+        datetimes <i>are in the client browser&apos;s local timezone.</i> This
+        means that when supplying the <code>Grid</code> with date and datetime
+        data, you probably want to use <code>Date</code> objects for dates in
+        UTC and <code>Date</code> objects for datetimes in the client&apos;s
+        local timezone.
+      </p>
       <h3>AbstractDateFilterState</h3>
       <p>
         All three date filter state types inherit from{" "}
