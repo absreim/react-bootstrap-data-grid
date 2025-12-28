@@ -2,7 +2,7 @@
 
 import { FC } from "react";
 import Pagination from "@/grid/Pagination";
-import PaginationTestHarness from "@/app/pagination/test/PaginationTestHarness";
+import PaginationTestHarness from "@/app/pagination/test/component/PaginationTestHarness";
 
 const Test: FC = () => {
   return (

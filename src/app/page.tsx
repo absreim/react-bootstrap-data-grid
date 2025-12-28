@@ -89,6 +89,13 @@ export default function Home() {
         </li>
       </ul>
       <h1>Change Log</h1>
+      <h2>1.1.4</h2>
+      <p>December 29, 2025</p>
+      <p>
+        Changed behavior of pagination feature when selecting a new page size
+        that would make the existing index out-of-bounds. The index will be set
+        to the maximum available for the page size.
+      </p>
       <h2>1.1.3</h2>
       <p>December 23, 2025</p>
       <p>
