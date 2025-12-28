@@ -86,7 +86,13 @@ const Grid: FC<GridProps> = ({
       return;
     }
 
-    pagination.setPageSizeIndex(Number(event.target.value));
+    const newPageSizeIndex = Number(event.target.value);
+    const newPageSize = pagination.pageSizeOptions[newPageSizeIndex];
+    const maxPages = Math.ceil(filteredRows.length / newPageSize);
+    pagination.setPageSizeIndex(newPageSizeIndex);
+    if (pagination.currentPage > maxPages) {
+      pagination.setCurrentPage(maxPages);
+    }
   };
 
   const handleToggleFilterOptions = () => {
@@ -142,7 +148,7 @@ const Grid: FC<GridProps> = ({
         </thead>
         <tbody>
           {displayRows.map((row, index) => (
-            <tr key={row.origIndex} aria-rowindex={index + 2}>
+            <tr key={row.origIndex} aria-rowindex={index + 2} data-rowindex={row.origIndex}>
               {row.contents.map((value, index) => (
                 <td key={index} aria-colindex={index + 1}>
                   {value}
