@@ -5,8 +5,9 @@ import {
   ColDef,
   ColSortModel,
   FilterModel,
-  FormattedRow,
+  FormattedRow, MultiSelectModel,
   RowDef,
+  SelectModel,
   Size,
   TableSortModel,
 } from "./types";
@@ -20,6 +21,7 @@ import useFilterStateFromEditable from "./hooks/useFilterStateFromEditable";
 import useAugmentedRows from "./hooks/useAugmentedRows";
 import useSortedRows from "./hooks/useSortedRows";
 import useDisplayRows from "./hooks/useDisplayRows";
+import SelectAllButton from "./SelectAllButton";
 
 export interface GridPaginationState {
   pageSizeOptions: number[];
@@ -37,6 +39,7 @@ export interface GridProps {
   pagination?: GridPaginationState;
   sortModel?: TableSortModel;
   filterModel?: FilterModel;
+  selectModel?: SelectModel;
 }
 
 const Grid: FC<GridProps> = ({
@@ -45,6 +48,7 @@ const Grid: FC<GridProps> = ({
   pagination,
   sortModel,
   filterModel,
+  selectModel,
 }) => {
   const editableFilterState = filterModel?.tableFilterState || null;
   const filterState = useFilterStateFromEditable(cols, editableFilterState);
@@ -98,6 +102,38 @@ const Grid: FC<GridProps> = ({
     setFilterOptionsVisible(!filterOptionsVisible);
   };
 
+  const existingSelection =
+    (selectModel &&
+    ((selectModel.type === "single" && selectModel.selected !== null) ||
+      (selectModel.type === "multi" &&
+        (selectModel as MultiSelectModel).selected.length > 0))) || false;
+
+  const selectAllOnClick: () => void = () => {
+    if (!selectModel) {
+      return;
+    }
+
+    if (existingSelection && selectModel.type === "single") {
+      selectModel.setSelected(null);
+      return;
+    }
+
+    if (existingSelection && selectModel.type === "multi") {
+      selectModel.setSelected([]);
+      return;
+    }
+
+    if (!existingSelection && selectModel.type === "multi") {
+      const allFilteredRowIndices = filteredRows.map(
+        (def) => def.meta.origIndex,
+      );
+      selectModel.setSelected(allFilteredRowIndices);
+    }
+
+    // button should be disabled in the case of existingSelection &&
+    // selectModel.type === "single"
+  }
+
   // Once this component implements selection state, and if such interactivity is enabled, (conditionally) change the
   // aria role to "grid".
   // TODO: implement the above described features: conditionally changing aria role to grid
@@ -121,6 +157,13 @@ const Grid: FC<GridProps> = ({
       <table className="table" aria-rowcount={filteredRows.length + 1}>
         <thead>
           <tr aria-rowindex={1}>
+            {selectModel && selectModel.mode !== "row" && (
+              <SelectAllButton
+                selectType={selectModel.type}
+                onClick={selectAllOnClick}
+                existingSelection={existingSelection}
+              />
+            )}
             {cols.map(({ name, label, sortable }, index) => {
               const colSortModel: ColSortModel | undefined =
                 sortModel && sortable
@@ -147,7 +190,11 @@ const Grid: FC<GridProps> = ({
         </thead>
         <tbody>
           {displayRows.map((row, index) => (
-            <tr key={row.origIndex} aria-rowindex={index + 2} data-rowindex={row.origIndex}>
+            <tr
+              key={row.origIndex}
+              aria-rowindex={index + 2}
+              data-rowindex={row.origIndex}
+            >
               {row.contents.map((value, index) => (
                 <td key={index} aria-colindex={index + 1}>
                   {value}

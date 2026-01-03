@@ -148,6 +148,7 @@ export interface FilterModel {
 // row = selection column is hidden and selection can be done by clicking anywhere in a row
 // both = selection can be done by either clicking on the input or row
 type SelectMode = "column" | "row" | "both"
+export type SelectType = "single" | "multi"
 
 export interface MultiSelectModel {
   mode: SelectMode;
