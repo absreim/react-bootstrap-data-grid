@@ -2,7 +2,6 @@
 
 import { ChangeEvent, FC, useMemo, useState } from "react";
 import {
-  ColDataTypeStrings,
   ColDef,
   ColSortModel,
   FilterModel,
