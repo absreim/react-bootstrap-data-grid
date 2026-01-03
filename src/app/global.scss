@@ -1,2 +1,24 @@
 @import "~bootstrap/scss/bootstrap";
 @import "highlight.js/scss/default";
+
+.cursor-pointer {
+  cursor: pointer;
+}
+
+.select-header-cell {
+  .svg-icon {
+    background-color: var(--bs-btn-bg)
+  }
+  .svg-icon-foreground {
+    color: var(--bs-btn-color)
+  }
+
+  &:hover {
+    .svg-icon {
+      background-color: var(--bs-btn-hover-bg)
+    }
+    .svg-icon-foreground {
+      color: var(--bs-btn-hover-color)
+    }
+  }
+}

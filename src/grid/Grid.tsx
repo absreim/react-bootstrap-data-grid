@@ -1,18 +1,17 @@
 "use client";
 
-import { ChangeEvent, FC, useMemo, useState } from "react";
+import { FC, MouseEventHandler, useMemo, useState } from "react";
 import {
-  ColDataTypeStrings,
   ColDef,
   ColSortModel,
   FilterModel,
   FormattedRow,
+  MultiSelectModel,
   RowDef,
+  SelectModel,
   Size,
   TableSortModel,
 } from "./types";
-import Pagination from "./Pagination";
-import classNames from "classnames";
 import ColHeaderCell from "./ColHeaderCell";
 import useFilter from "./hooks/useFilter";
 import ToggleButton from "./ToggleButton";
@@ -21,6 +20,12 @@ import useFilterStateFromEditable from "./hooks/useFilterStateFromEditable";
 import useAugmentedRows from "./hooks/useAugmentedRows";
 import useSortedRows from "./hooks/useSortedRows";
 import useDisplayRows from "./hooks/useDisplayRows";
+import SelectAllHeaderCell from "./selection/SelectAllHeaderCell";
+import SelectionInput, {
+  SelectionInputModel,
+} from "./selection/SelectionInput";
+import Pagination from "./pagination/Pagination";
+import classNames from "classnames";
 
 export interface GridPaginationState {
   pageSizeOptions: number[];
@@ -38,6 +43,7 @@ export interface GridProps {
   pagination?: GridPaginationState;
   sortModel?: TableSortModel;
   filterModel?: FilterModel;
+  selectModel?: SelectModel;
 }
 
 const Grid: FC<GridProps> = ({
@@ -46,6 +52,7 @@ const Grid: FC<GridProps> = ({
   pagination,
   sortModel,
   filterModel,
+  selectModel,
 }) => {
   const editableFilterState = filterModel?.tableFilterState || null;
   const filterState = useFilterStateFromEditable(cols, editableFilterState);
@@ -71,32 +78,130 @@ const Grid: FC<GridProps> = ({
   const [filterOptionsVisible, setFilterOptionsVisible] =
     useState<boolean>(false);
 
-  const handleSetPageNum: (pageNum: number) => void = (pageNum) => {
-    if (pagination === undefined) {
-      return;
-    }
-
-    pagination.setCurrentPage(pageNum);
-  };
-
-  const handleSetPageSize: (event: ChangeEvent<HTMLSelectElement>) => void = (
-    event,
-  ) => {
-    if (pagination === undefined) {
-      return;
-    }
-
-    const newPageSizeIndex = Number(event.target.value);
-    const newPageSize = pagination.pageSizeOptions[newPageSizeIndex];
-    const maxPages = Math.ceil(filteredRows.length / newPageSize);
-    pagination.setPageSizeIndex(newPageSizeIndex);
-    if (pagination.currentPage > maxPages) {
-      pagination.setCurrentPage(maxPages);
-    }
-  };
-
   const handleToggleFilterOptions = () => {
     setFilterOptionsVisible(!filterOptionsVisible);
+  };
+
+  const getSelectionExists: () => boolean = () => {
+    if (!selectModel) {
+      return false;
+    }
+
+    if (selectModel.type === "single") {
+      return selectModel.selected !== null;
+    }
+
+    return (selectModel as MultiSelectModel).selected.length > 0;
+  };
+  const selectionExists = getSelectionExists();
+
+  const selectAllOnClick: () => void = () => {
+    if (!selectModel) {
+      return;
+    }
+
+    if (selectionExists && selectModel.type === "single") {
+      selectModel.setSelected(null);
+      return;
+    }
+
+    if (selectionExists && selectModel.type === "multi") {
+      selectModel.setSelected([]);
+      return;
+    }
+
+    if (!selectionExists && selectModel.type === "multi") {
+      const allFilteredRowIndices = filteredRows.map(
+        (def) => def.meta.origIndex,
+      );
+      selectModel.setSelected(allFilteredRowIndices);
+    }
+
+    // Button should be disabled in the case of selectionExists &&
+    // selectModel.type === "single", so function execution should never get
+    // to this point.
+  };
+
+  const getSelectHandler: (index: number) => () => void = (index) => () => {
+    if (!selectModel) {
+      return;
+    }
+
+    if (selectModel.type === "single") {
+      selectModel.setSelected(index);
+      return;
+    }
+
+    selectModel.setSelected(selectModel.selected.concat(index));
+  };
+
+  const getDeselectHandler: (index: number) => () => void = (index) => () => {
+    if (!selectModel || selectModel.type === "single") {
+      return;
+    }
+
+    selectModel.setSelected(
+      selectModel.selected.filter((num) => num !== index),
+    );
+  };
+  // used to group radio buttons for selection
+  const getSelectInputModel: (
+    index: number,
+    selectModel: SelectModel,
+  ) => SelectionInputModel = (index, selectModel) => {
+    if (selectModel.type === "single") {
+      return {
+        type: "radio",
+        name: selectModel.groupName,
+      };
+    }
+
+    return {
+      type: "checkbox",
+      deselectCallback: getDeselectHandler(index),
+    };
+  };
+
+  const showSelectCol = selectModel && selectModel.mode !== "row";
+
+  const selectedSet = new Set<number>();
+  if (selectModel && selectModel.type === "multi") {
+    selectModel.selected.forEach((value) => selectedSet.add(value));
+  }
+  if (
+    selectModel &&
+    selectModel.type === "single" &&
+    selectModel.selected !== null
+  ) {
+    selectedSet.add(selectModel.selected);
+  }
+
+  const rowsAreSelectable = !!(selectModel && selectModel.mode !== "column");
+
+  const getRowClickHandler: (
+    index: number,
+  ) => MouseEventHandler<HTMLTableRowElement> = (index) => (event) => {
+    event.preventDefault();
+    if (!rowsAreSelectable) {
+      return;
+    }
+
+    if (selectedSet.has(index)) {
+      getDeselectHandler(index)();
+      return;
+    }
+
+    getSelectHandler(index)();
+  };
+
+  const getAriaSelectedValue: (
+    index: number,
+  ) => "true" | "false" | undefined = (index) => {
+    if (!selectModel) {
+      return undefined;
+    }
+
+    return String(selectedSet.has(index)) as "true" | "false";
   };
 
   // Once this component implements selection state, and if such interactivity is enabled, (conditionally) change the
@@ -119,9 +224,21 @@ const Grid: FC<GridProps> = ({
           )}
         </div>
       )}
-      <table className="table" aria-rowcount={filteredRows.length + 1}>
+      <table
+        className={classNames("table", {
+          "table-hover": rowsAreSelectable,
+        })}
+        aria-rowcount={filteredRows.length + 1}
+      >
         <thead>
           <tr aria-rowindex={1}>
+            {showSelectCol && (
+              <SelectAllHeaderCell
+                selectType={selectModel.type}
+                onClick={selectAllOnClick}
+                selectionExists={selectionExists}
+              />
+            )}
             {cols.map(({ name, label, sortable }, index) => {
               const colSortModel: ColSortModel | undefined =
                 sortModel && sortable
@@ -140,7 +257,7 @@ const Grid: FC<GridProps> = ({
                   key={name}
                   label={label}
                   sortModel={colSortModel}
-                  ariaColIndex={index + 1}
+                  ariaColIndex={index + 1 + (showSelectCol ? 1 : 0)}
                 />
               );
             })}
@@ -148,7 +265,28 @@ const Grid: FC<GridProps> = ({
         </thead>
         <tbody>
           {displayRows.map((row, index) => (
-            <tr key={row.origIndex} aria-rowindex={index + 2} data-rowindex={row.origIndex}>
+            <tr
+              onClick={getRowClickHandler(row.origIndex)}
+              className={classNames({
+                "table-active": selectedSet.has(row.origIndex),
+              })}
+              key={row.origIndex}
+              aria-rowindex={index + 2}
+              data-rowindex={row.origIndex}
+              aria-selected={getAriaSelectedValue(row.origIndex)}
+            >
+              {showSelectCol && (
+                <td>
+                  <SelectionInput
+                    selected={selectedSet.has(row.origIndex)}
+                    selectionInputModel={getSelectInputModel(
+                      row.origIndex,
+                      selectModel,
+                    )}
+                    selectCallback={getSelectHandler(row.origIndex)}
+                  />
+                </td>
+              )}
               {row.contents.map((value, index) => (
                 <td key={index} aria-colindex={index + 1}>
                   {value}
@@ -159,36 +297,16 @@ const Grid: FC<GridProps> = ({
         </tbody>
       </table>
       {pagination && (
-        <div className="d-flex justify-content-end gap-2">
-          <div>
-            <select
-              className={classNames({
-                "form-select": true,
-                "form-select-lg": pagination.componentSize === "large",
-                "form-select-sm": pagination.componentSize === "small",
-              })}
-              value={pagination.pageSizeIndex}
-              aria-label="Number of Rows per Page"
-              onChange={handleSetPageSize}
-            >
-              {pagination.pageSizeOptions.map((numRows, index) => (
-                <option key={index} value={index}>
-                  {numRows}
-                </option>
-              ))}
-            </select>
-          </div>
-          <Pagination
-            numPages={Math.ceil(
-              rows.length /
-                pagination.pageSizeOptions[pagination.pageSizeIndex],
-            )}
-            pageNum={pagination.currentPage}
-            numButtons={pagination.maxPageButtons}
-            setPageNum={handleSetPageNum}
-            size={pagination.componentSize || "medium"}
-          />
-        </div>
+        <Pagination
+          componentSize={pagination.componentSize || "medium"}
+          pageSizeOptions={pagination.pageSizeOptions}
+          pageSizeIndex={pagination.pageSizeIndex}
+          handleSetPageSizeIndex={pagination.setPageSizeIndex}
+          handleSetPageNum={pagination.setCurrentPage}
+          prePagingNumRows={sortedRows.length}
+          maxPageButtons={pagination.maxPageButtons}
+          currentPage={pagination.currentPage}
+        />
       )}
     </div>
   );

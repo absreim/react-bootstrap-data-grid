@@ -1,6 +1,6 @@
 "use client";
 
-import { JustifyContentSetting, Size } from "./types";
+import { JustifyContentSetting, Size } from "../types";
 import { FC, ReactNode, useMemo } from "react";
 import classNames from "classnames";
 
@@ -25,7 +25,7 @@ export interface PaginationProps {
  * @param alignment - Flexbox justify-content setting on the <ul> element
  * @param size - Size variant of the <ul> element
  */
-const Pagination: FC<PaginationProps> = ({
+const PageSelector: FC<PaginationProps> = ({
   numPages,
   numButtons,
   pageNum,
@@ -188,4 +188,4 @@ const Pagination: FC<PaginationProps> = ({
   );
 };
 
-export default Pagination;
+export default PageSelector;

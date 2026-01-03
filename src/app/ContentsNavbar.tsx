@@ -26,6 +26,10 @@ const linkDefs: LinkDefinition[] = [
     name: "Filtering",
     path: "/filtering",
   },
+  {
+    name: "Selection (Experimental)",
+    path: "/selection",
+  }
 ];
 
 const ContentsNavbar: FC = () => {
