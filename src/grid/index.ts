@@ -1,5 +1,5 @@
 export * from "./types";
 export * from "./Grid";
-export * from "./Pagination";
+export * from "./pagination/PageSelector";
 
 export { default } from "./Grid";

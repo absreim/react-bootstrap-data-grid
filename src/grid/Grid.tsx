@@ -1,17 +1,18 @@
 "use client";
 
-import { ChangeEvent, FC, useMemo, useState } from "react";
+import { FC, useMemo, useState } from "react";
 import {
   ColDef,
   ColSortModel,
   FilterModel,
-  FormattedRow, MultiSelectModel,
+  FormattedRow,
+  MultiSelectModel,
   RowDef,
   SelectModel,
   Size,
   TableSortModel,
 } from "./types";
-import Pagination from "./Pagination";
+import PageSelector from "./pagination/PageSelector";
 import { nanoid } from "nanoid/non-secure";
 import ColHeaderCell from "./ColHeaderCell";
 import useFilter from "./hooks/useFilter";
@@ -22,8 +23,10 @@ import useAugmentedRows from "./hooks/useAugmentedRows";
 import useSortedRows from "./hooks/useSortedRows";
 import useDisplayRows from "./hooks/useDisplayRows";
 import SelectAllButton from "./selection/SelectAllButton";
-import SelectionInput, { SelectionInputModel } from "./selection/SelectionInput";
-import classNames from "classnames";
+import SelectionInput, {
+  SelectionInputModel,
+} from "./selection/SelectionInput";
+import PageSizeSelector from "./pagination/PageSizeSelector";
 
 export interface GridPaginationState {
   pageSizeOptions: number[];
@@ -84,14 +87,11 @@ const Grid: FC<GridProps> = ({
     pagination.setCurrentPage(pageNum);
   };
 
-  const handleSetPageSize: (event: ChangeEvent<HTMLSelectElement>) => void = (
-    event,
-  ) => {
+  const handleSetPageSize: (newPageSizeIndex: number) => void = (newPageSizeIndex) => {
     if (pagination === undefined) {
       return;
     }
 
-    const newPageSizeIndex = Number(event.target.value);
     const newPageSize = pagination.pageSizeOptions[newPageSizeIndex];
     const maxPages = Math.ceil(filteredRows.length / newPageSize);
     pagination.setPageSizeIndex(newPageSizeIndex);
@@ -106,9 +106,10 @@ const Grid: FC<GridProps> = ({
 
   const existingSelection =
     (selectModel &&
-    ((selectModel.type === "single" && selectModel.selected !== null) ||
-      (selectModel.type === "multi" &&
-        (selectModel as MultiSelectModel).selected.length > 0))) || false;
+      ((selectModel.type === "single" && selectModel.selected !== null) ||
+        (selectModel.type === "multi" &&
+          (selectModel as MultiSelectModel).selected.length > 0))) ||
+    false;
 
   const selectAllOnClick: () => void = () => {
     if (!selectModel) {
@@ -134,7 +135,7 @@ const Grid: FC<GridProps> = ({
 
     // button should be disabled in the case of existingSelection &&
     // selectModel.type === "single"
-  }
+  };
 
   const getSelectHandler: (index: number) => () => void = (index) => () => {
     if (!selectModel) {
@@ -147,30 +148,35 @@ const Grid: FC<GridProps> = ({
     }
 
     selectModel.setSelected(selectModel.selected.concat(index));
-  }
+  };
 
   const getDeselectHandler: (index: number) => () => void = (index) => () => {
     if (!selectModel || selectModel.type === "single") {
       return;
     }
 
-    selectModel.setSelected(selectModel.selected.filter((num) => num !== index))
-  }
+    selectModel.setSelected(
+      selectModel.selected.filter((num) => num !== index),
+    );
+  };
 
   const gridName = nanoid(); // used to group radio buttons for selection
-  const getSelectInputModel: (index: number, selectModel: SelectModel) => SelectionInputModel = (index, selectModel) => {
+  const getSelectInputModel: (
+    index: number,
+    selectModel: SelectModel,
+  ) => SelectionInputModel = (index, selectModel) => {
     if (selectModel.type === "single") {
-      return ({
+      return {
         type: "radio",
-        name: gridName
-      })
+        name: gridName,
+      };
     }
 
-    return ({
+    return {
       type: "checkbox",
-      deselectCallback: getDeselectHandler(index)
-    })
-  }
+      deselectCallback: getDeselectHandler(index),
+    };
+  };
 
   const showSelectCol = selectModel && selectModel.mode !== "row";
 
@@ -178,8 +184,12 @@ const Grid: FC<GridProps> = ({
   if (selectModel && selectModel.type === "multi") {
     selectModel.selected.forEach((value) => selectedSet.add(value));
   }
-  if (selectModel && selectModel.type === "single" && selectModel.selected !== null) {
-    selectedSet.add(selectModel.selected)
+  if (
+    selectModel &&
+    selectModel.type === "single" &&
+    selectModel.selected !== null
+  ) {
+    selectedSet.add(selectModel.selected);
   }
 
   // Once this component implements selection state, and if such interactivity is enabled, (conditionally) change the
@@ -246,7 +256,10 @@ const Grid: FC<GridProps> = ({
               {showSelectCol && (
                 <SelectionInput
                   selected={selectedSet.has(row.origIndex)}
-                  selectionInputModel={getSelectInputModel(row.origIndex, selectModel)}
+                  selectionInputModel={getSelectInputModel(
+                    row.origIndex,
+                    selectModel,
+                  )}
                   selectCallback={getSelectHandler(row.origIndex)}
                 />
               )}
@@ -261,25 +274,13 @@ const Grid: FC<GridProps> = ({
       </table>
       {pagination && (
         <div className="d-flex justify-content-end gap-2">
-          <div>
-            <select
-              className={classNames({
-                "form-select": true,
-                "form-select-lg": pagination.componentSize === "large",
-                "form-select-sm": pagination.componentSize === "small",
-              })}
-              value={pagination.pageSizeIndex}
-              aria-label="Number of Rows per Page"
-              onChange={handleSetPageSize}
-            >
-              {pagination.pageSizeOptions.map((numRows, index) => (
-                <option key={index} value={index}>
-                  {numRows}
-                </option>
-              ))}
-            </select>
-          </div>
-          <Pagination
+          <PageSizeSelector
+            componentSize={pagination.componentSize || "medium"}
+            pageSizeOptions={pagination.pageSizeOptions}
+            pageSizeIndex={pagination.pageSizeIndex}
+            handleSetPageSize={handleSetPageSize}
+          />
+          <PageSelector
             numPages={Math.ceil(
               rows.length /
                 pagination.pageSizeOptions[pagination.pageSizeIndex],
