@@ -12,7 +12,7 @@ import {
   TableSortModel,
 } from "./types";
 import Pagination from "./Pagination";
-import classNames from "classnames";
+import { nanoid } from "nanoid/non-secure";
 import ColHeaderCell from "./ColHeaderCell";
 import useFilter from "./hooks/useFilter";
 import ToggleButton from "./ToggleButton";
@@ -21,7 +21,9 @@ import useFilterStateFromEditable from "./hooks/useFilterStateFromEditable";
 import useAugmentedRows from "./hooks/useAugmentedRows";
 import useSortedRows from "./hooks/useSortedRows";
 import useDisplayRows from "./hooks/useDisplayRows";
-import SelectAllButton from "./SelectAllButton";
+import SelectAllButton from "./selection/SelectAllButton";
+import SelectionInput, { SelectionInputModel } from "./selection/SelectionInput";
+import classNames from "classnames";
 
 export interface GridPaginationState {
   pageSizeOptions: number[];
@@ -134,6 +136,52 @@ const Grid: FC<GridProps> = ({
     // selectModel.type === "single"
   }
 
+  const getSelectHandler: (index: number) => () => void = (index) => () => {
+    if (!selectModel) {
+      return;
+    }
+
+    if (selectModel.type === "single") {
+      selectModel.setSelected(index);
+      return;
+    }
+
+    selectModel.setSelected(selectModel.selected.concat(index));
+  }
+
+  const getDeselectHandler: (index: number) => () => void = (index) => () => {
+    if (!selectModel || selectModel.type === "single") {
+      return;
+    }
+
+    selectModel.setSelected(selectModel.selected.filter((num) => num !== index))
+  }
+
+  const gridName = nanoid(); // used to group radio buttons for selection
+  const getSelectInputModel: (index: number, selectModel: SelectModel) => SelectionInputModel = (index, selectModel) => {
+    if (selectModel.type === "single") {
+      return ({
+        type: "radio",
+        name: gridName
+      })
+    }
+
+    return ({
+      type: "checkbox",
+      deselectCallback: getDeselectHandler(index)
+    })
+  }
+
+  const showSelectCol = selectModel && selectModel.mode !== "row";
+
+  const selectedSet = new Set<number>();
+  if (selectModel && selectModel.type === "multi") {
+    selectModel.selected.forEach((value) => selectedSet.add(value));
+  }
+  if (selectModel && selectModel.type === "single" && selectModel.selected !== null) {
+    selectedSet.add(selectModel.selected)
+  }
+
   // Once this component implements selection state, and if such interactivity is enabled, (conditionally) change the
   // aria role to "grid".
   // TODO: implement the above described features: conditionally changing aria role to grid
@@ -157,7 +205,7 @@ const Grid: FC<GridProps> = ({
       <table className="table" aria-rowcount={filteredRows.length + 1}>
         <thead>
           <tr aria-rowindex={1}>
-            {selectModel && selectModel.mode !== "row" && (
+            {showSelectCol && (
               <SelectAllButton
                 selectType={selectModel.type}
                 onClick={selectAllOnClick}
@@ -195,6 +243,13 @@ const Grid: FC<GridProps> = ({
               aria-rowindex={index + 2}
               data-rowindex={row.origIndex}
             >
+              {showSelectCol && (
+                <SelectionInput
+                  selected={selectedSet.has(row.origIndex)}
+                  selectionInputModel={getSelectInputModel(row.origIndex, selectModel)}
+                  selectCallback={getSelectHandler(row.origIndex)}
+                />
+              )}
               {row.contents.map((value, index) => (
                 <td key={index} aria-colindex={index + 1}>
                   {value}

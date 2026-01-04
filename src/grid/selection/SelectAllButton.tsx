@@ -1,4 +1,4 @@
-import { SelectType } from "./types";
+import { SelectType } from "../types";
 import { FC } from "react";
 import { Button } from "react-bootstrap";
 
