@@ -12,7 +12,6 @@ import {
   Size,
   TableSortModel,
 } from "./types";
-import PageSelector from "./pagination/PageSelector";
 import { nanoid } from "nanoid/non-secure";
 import ColHeaderCell from "./ColHeaderCell";
 import useFilter from "./hooks/useFilter";
@@ -26,7 +25,7 @@ import SelectAllButton from "./selection/SelectAllButton";
 import SelectionInput, {
   SelectionInputModel,
 } from "./selection/SelectionInput";
-import PageSizeSelector from "./pagination/PageSizeSelector";
+import Pagination from "./pagination/Pagination";
 
 export interface GridPaginationState {
   pageSizeOptions: number[];
@@ -78,27 +77,6 @@ const Grid: FC<GridProps> = ({
 
   const [filterOptionsVisible, setFilterOptionsVisible] =
     useState<boolean>(false);
-
-  const handleSetPageNum: (pageNum: number) => void = (pageNum) => {
-    if (pagination === undefined) {
-      return;
-    }
-
-    pagination.setCurrentPage(pageNum);
-  };
-
-  const handleSetPageSize: (newPageSizeIndex: number) => void = (newPageSizeIndex) => {
-    if (pagination === undefined) {
-      return;
-    }
-
-    const newPageSize = pagination.pageSizeOptions[newPageSizeIndex];
-    const maxPages = Math.ceil(filteredRows.length / newPageSize);
-    pagination.setPageSizeIndex(newPageSizeIndex);
-    if (pagination.currentPage > maxPages) {
-      pagination.setCurrentPage(maxPages);
-    }
-  };
 
   const handleToggleFilterOptions = () => {
     setFilterOptionsVisible(!filterOptionsVisible);
@@ -273,24 +251,16 @@ const Grid: FC<GridProps> = ({
         </tbody>
       </table>
       {pagination && (
-        <div className="d-flex justify-content-end gap-2">
-          <PageSizeSelector
-            componentSize={pagination.componentSize || "medium"}
-            pageSizeOptions={pagination.pageSizeOptions}
-            pageSizeIndex={pagination.pageSizeIndex}
-            handleSetPageSize={handleSetPageSize}
-          />
-          <PageSelector
-            numPages={Math.ceil(
-              rows.length /
-                pagination.pageSizeOptions[pagination.pageSizeIndex],
-            )}
-            pageNum={pagination.currentPage}
-            numButtons={pagination.maxPageButtons}
-            setPageNum={handleSetPageNum}
-            size={pagination.componentSize || "medium"}
-          />
-        </div>
+        <Pagination
+          componentSize={pagination.componentSize || "medium"}
+          pageSizeOptions={pagination.pageSizeOptions}
+          pageSizeIndex={pagination.pageSizeIndex}
+          handleSetPageSizeIndex={pagination.setPageSizeIndex}
+          handleSetPageNum={pagination.setCurrentPage}
+          prePagingNumRows={sortedRows.length}
+          maxPageButtons={pagination.maxPageButtons}
+          currentPage={pagination.currentPage}
+        />
       )}
     </div>
   );
