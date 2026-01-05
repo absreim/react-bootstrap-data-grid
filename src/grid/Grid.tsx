@@ -26,6 +26,7 @@ import SelectionInput, {
   SelectionInputModel,
 } from "./selection/SelectionInput";
 import Pagination from "./pagination/Pagination";
+import classNames from "classnames";
 
 export interface GridPaginationState {
   pageSizeOptions: number[];
@@ -82,37 +83,44 @@ const Grid: FC<GridProps> = ({
     setFilterOptionsVisible(!filterOptionsVisible);
   };
 
-  const existingSelection =
-    (selectModel &&
-      ((selectModel.type === "single" && selectModel.selected !== null) ||
-        (selectModel.type === "multi" &&
-          (selectModel as MultiSelectModel).selected.length > 0))) ||
-    false;
+  const getSelectionExists: () => boolean = () => {
+    if (!selectModel) {
+      return false;
+    }
+
+    if (selectModel.type === "single") {
+      return selectModel.selected !== null;
+    }
+
+    return (selectModel as MultiSelectModel).selected.length > 0;
+  }
+  const selectionExists = getSelectionExists()
 
   const selectAllOnClick: () => void = () => {
     if (!selectModel) {
       return;
     }
 
-    if (existingSelection && selectModel.type === "single") {
+    if (selectionExists && selectModel.type === "single") {
       selectModel.setSelected(null);
       return;
     }
 
-    if (existingSelection && selectModel.type === "multi") {
+    if (selectionExists && selectModel.type === "multi") {
       selectModel.setSelected([]);
       return;
     }
 
-    if (!existingSelection && selectModel.type === "multi") {
+    if (!selectionExists && selectModel.type === "multi") {
       const allFilteredRowIndices = filteredRows.map(
         (def) => def.meta.origIndex,
       );
       selectModel.setSelected(allFilteredRowIndices);
     }
 
-    // button should be disabled in the case of existingSelection &&
-    // selectModel.type === "single"
+    // Button should be disabled in the case of selectionExists &&
+    // selectModel.type === "single", so function execution should never get
+    // to this point.
   };
 
   const getSelectHandler: (index: number) => () => void = (index) => () => {
@@ -194,11 +202,13 @@ const Grid: FC<GridProps> = ({
         <thead>
           <tr aria-rowindex={1}>
             {showSelectCol && (
-              <SelectAllButton
-                selectType={selectModel.type}
-                onClick={selectAllOnClick}
-                existingSelection={existingSelection}
-              />
+              <td>
+                <SelectAllButton
+                  selectType={selectModel.type}
+                  onClick={selectAllOnClick}
+                  selectionExists={selectionExists}
+                />
+              </td>
             )}
             {cols.map(({ name, label, sortable }, index) => {
               const colSortModel: ColSortModel | undefined =
@@ -227,19 +237,24 @@ const Grid: FC<GridProps> = ({
         <tbody>
           {displayRows.map((row, index) => (
             <tr
+              className={classNames({
+                "table-active": selectedSet.has(row.origIndex),
+              })}
               key={row.origIndex}
               aria-rowindex={index + 2}
               data-rowindex={row.origIndex}
             >
               {showSelectCol && (
-                <SelectionInput
-                  selected={selectedSet.has(row.origIndex)}
-                  selectionInputModel={getSelectInputModel(
-                    row.origIndex,
-                    selectModel,
-                  )}
-                  selectCallback={getSelectHandler(row.origIndex)}
-                />
+                <td>
+                  <SelectionInput
+                    selected={selectedSet.has(row.origIndex)}
+                    selectionInputModel={getSelectInputModel(
+                      row.origIndex,
+                      selectModel,
+                    )}
+                    selectCallback={getSelectHandler(row.origIndex)}
+                  />
+                </td>
               )}
               {row.contents.map((value, index) => (
                 <td key={index} aria-colindex={index + 1}>

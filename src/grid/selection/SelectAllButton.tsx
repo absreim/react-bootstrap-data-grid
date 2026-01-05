@@ -5,7 +5,7 @@ import { Button } from "react-bootstrap";
 interface SelectAllButtonProps {
   onClick: () => void;
   selectType: SelectType;
-  existingSelection: boolean;
+  selectionExists: boolean;
 }
 
 const getButtonLabel: (selectMode: SelectType, existingSelection: boolean) => string = (selectMode, existingSelection) => {
@@ -22,10 +22,10 @@ const getButtonLabel: (selectMode: SelectType, existingSelection: boolean) => st
 }
 
 // TODO: make this button SVG-icon based and similar to the one used by MUI-X
-const SelectAllButton: FC<SelectAllButtonProps> = ({ onClick, selectType, existingSelection }) => {
+const SelectAllButton: FC<SelectAllButtonProps> = ({ onClick, selectType, selectionExists }) => {
   return (
-    <Button onClick={onClick} disabled={selectType === "single" && !existingSelection}>
-      {getButtonLabel(selectType, existingSelection)}
+    <Button onClick={onClick} disabled={selectType === "single" && !selectionExists}>
+      {getButtonLabel(selectType, selectionExists)}
     </Button>
   )
 }
