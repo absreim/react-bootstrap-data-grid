@@ -59,16 +59,16 @@ const rows: RowDef[] = [
   },
 ];
 
-const SampleSelectableGrid: FC = () => {
-  const [selected, setSelected] = useState<number[]>([])
+const SampleMultiSelectGrid: FC = () => {
+  const [selected, setSelected] = useState<number[]>([]);
   const selectModel: MultiSelectModel = {
     mode: "column",
     type: "multi",
     selected,
-    setSelected
-  }
+    setSelected,
+  };
 
   return <Grid rows={rows} cols={cols} selectModel={selectModel} />;
 };
 
-export default SampleSelectableGrid;
+export default SampleMultiSelectGrid;

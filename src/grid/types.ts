@@ -162,6 +162,9 @@ export interface SingleSelectModel {
   type: "single";
   selected: number | null;
   setSelected: (selected: number | null) => void;
+  // string to uniquely identify the group of radio buttons
+  // must be unique across all radio button groups on the web page
+  groupName: string;
 }
 
 // Selected indices are based on the original index of the input rows. If

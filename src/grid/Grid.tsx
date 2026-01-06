@@ -12,7 +12,6 @@ import {
   Size,
   TableSortModel,
 } from "./types";
-import { nanoid } from "nanoid/non-secure";
 import ColHeaderCell from "./ColHeaderCell";
 import useFilter from "./hooks/useFilter";
 import ToggleButton from "./ToggleButton";
@@ -145,8 +144,7 @@ const Grid: FC<GridProps> = ({
       selectModel.selected.filter((num) => num !== index),
     );
   };
-
-  const gridName = nanoid(); // used to group radio buttons for selection
+  // used to group radio buttons for selection
   const getSelectInputModel: (
     index: number,
     selectModel: SelectModel,
@@ -154,7 +152,7 @@ const Grid: FC<GridProps> = ({
     if (selectModel.type === "single") {
       return {
         type: "radio",
-        name: gridName,
+        name: selectModel.groupName,
       };
     }
 
