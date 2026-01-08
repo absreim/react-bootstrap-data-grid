@@ -194,6 +194,14 @@ const Grid: FC<GridProps> = ({
     getSelectHandler(index)()
   }
 
+  const getAriaSelectedValue: (index: number) => "true" | "false" | undefined = (index) => {
+    if (!selectModel) {
+      return undefined;
+    }
+
+    return String(selectedSet.has(index)) as ("true" | "false")
+  }
+
   // Once this component implements selection state, and if such interactivity is enabled, (conditionally) change the
   // aria role to "grid".
   // TODO: implement the above described features: conditionally changing aria role to grid
@@ -258,13 +266,14 @@ const Grid: FC<GridProps> = ({
         <tbody>
           {displayRows.map((row, index) => (
             <tr
-              onClick={getRowClickHandler(index)}
+              onClick={getRowClickHandler(row.origIndex)}
               className={classNames({
                 "table-active": selectedSet.has(row.origIndex),
               })}
               key={row.origIndex}
               aria-rowindex={index + 2}
               data-rowindex={row.origIndex}
+              aria-selected={getAriaSelectedValue(row.origIndex)}
             >
               {showSelectCol && (
                 <td>
