@@ -50,7 +50,7 @@ const rows: RowDef[] = [
 const SampleSingleSelectGrid: FC = () => {
   const [selected, setSelected] = useState<number | null>(null);
   const selectModel: SingleSelectModel = {
-    mode: "column",
+    mode: "both",
     type: "single",
     selected,
     setSelected,

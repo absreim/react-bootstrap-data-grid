@@ -1,6 +1,6 @@
 "use client";
 
-import { FC, useMemo, useState } from "react";
+import { FC, MouseEventHandler, useMemo, useState } from "react";
 import {
   ColDef,
   ColSortModel,
@@ -92,8 +92,8 @@ const Grid: FC<GridProps> = ({
     }
 
     return (selectModel as MultiSelectModel).selected.length > 0;
-  }
-  const selectionExists = getSelectionExists()
+  };
+  const selectionExists = getSelectionExists();
 
   const selectAllOnClick: () => void = () => {
     if (!selectModel) {
@@ -176,6 +176,24 @@ const Grid: FC<GridProps> = ({
     selectedSet.add(selectModel.selected);
   }
 
+  const rowsAreSelectable = !!(
+    selectModel && selectModel.mode !== "column"
+  );
+
+  const getRowClickHandler: (index: number) => MouseEventHandler<HTMLTableRowElement> = (index) => (event) => {
+    event.preventDefault();
+    if (!rowsAreSelectable) {
+      return;
+    }
+
+    if (selectedSet.has(index)) {
+      getDeselectHandler(index)()
+      return;
+    }
+
+    getSelectHandler(index)()
+  }
+
   // Once this component implements selection state, and if such interactivity is enabled, (conditionally) change the
   // aria role to "grid".
   // TODO: implement the above described features: conditionally changing aria role to grid
@@ -196,7 +214,12 @@ const Grid: FC<GridProps> = ({
           )}
         </div>
       )}
-      <table className="table" aria-rowcount={filteredRows.length + 1}>
+      <table
+        className={classNames("table", {
+          "table-hover": rowsAreSelectable,
+        })}
+        aria-rowcount={filteredRows.length + 1}
+      >
         <thead>
           <tr aria-rowindex={1}>
             {showSelectCol && (
@@ -235,6 +258,7 @@ const Grid: FC<GridProps> = ({
         <tbody>
           {displayRows.map((row, index) => (
             <tr
+              onClick={getRowClickHandler(index)}
               className={classNames({
                 "table-active": selectedSet.has(row.origIndex),
               })}

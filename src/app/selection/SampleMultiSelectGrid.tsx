@@ -62,7 +62,7 @@ const rows: RowDef[] = [
 const SampleMultiSelectGrid: FC = () => {
   const [selected, setSelected] = useState<number[]>([]);
   const selectModel: MultiSelectModel = {
-    mode: "column",
+    mode: "both",
     type: "multi",
     selected,
     setSelected,
