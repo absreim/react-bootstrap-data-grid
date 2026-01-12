@@ -20,7 +20,7 @@ import useFilterStateFromEditable from "./hooks/useFilterStateFromEditable";
 import useAugmentedRows from "./hooks/useAugmentedRows";
 import useSortedRows from "./hooks/useSortedRows";
 import useDisplayRows from "./hooks/useDisplayRows";
-import SelectAllButton from "./selection/SelectAllButton";
+import SelectAllHeaderCell from "./selection/SelectAllHeaderCell";
 import SelectionInput, {
   SelectionInputModel,
 } from "./selection/SelectionInput";
@@ -176,31 +176,33 @@ const Grid: FC<GridProps> = ({
     selectedSet.add(selectModel.selected);
   }
 
-  const rowsAreSelectable = !!(
-    selectModel && selectModel.mode !== "column"
-  );
+  const rowsAreSelectable = !!(selectModel && selectModel.mode !== "column");
 
-  const getRowClickHandler: (index: number) => MouseEventHandler<HTMLTableRowElement> = (index) => (event) => {
+  const getRowClickHandler: (
+    index: number,
+  ) => MouseEventHandler<HTMLTableRowElement> = (index) => (event) => {
     event.preventDefault();
     if (!rowsAreSelectable) {
       return;
     }
 
     if (selectedSet.has(index)) {
-      getDeselectHandler(index)()
+      getDeselectHandler(index)();
       return;
     }
 
-    getSelectHandler(index)()
-  }
+    getSelectHandler(index)();
+  };
 
-  const getAriaSelectedValue: (index: number) => "true" | "false" | undefined = (index) => {
+  const getAriaSelectedValue: (
+    index: number,
+  ) => "true" | "false" | undefined = (index) => {
     if (!selectModel) {
       return undefined;
     }
 
-    return String(selectedSet.has(index)) as ("true" | "false")
-  }
+    return String(selectedSet.has(index)) as "true" | "false";
+  };
 
   // Once this component implements selection state, and if such interactivity is enabled, (conditionally) change the
   // aria role to "grid".
@@ -231,13 +233,11 @@ const Grid: FC<GridProps> = ({
         <thead>
           <tr aria-rowindex={1}>
             {showSelectCol && (
-              <td>
-                <SelectAllButton
-                  selectType={selectModel.type}
-                  onClick={selectAllOnClick}
-                  selectionExists={selectionExists}
-                />
-              </td>
+              <SelectAllHeaderCell
+                selectType={selectModel.type}
+                onClick={selectAllOnClick}
+                selectionExists={selectionExists}
+              />
             )}
             {cols.map(({ name, label, sortable }, index) => {
               const colSortModel: ColSortModel | undefined =
