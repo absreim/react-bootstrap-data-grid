@@ -257,7 +257,7 @@ const Grid: FC<GridProps> = ({
                   key={name}
                   label={label}
                   sortModel={colSortModel}
-                  ariaColIndex={index + 1}
+                  ariaColIndex={index + 1 + (showSelectCol ? 1 : 0)}
                 />
               );
             })}

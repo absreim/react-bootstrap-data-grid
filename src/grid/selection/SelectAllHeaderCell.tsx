@@ -52,6 +52,7 @@ const SelectAllHeaderCell: FC<SelectAllHeaderCellProps> = ({
 
   return (
     <th
+      aria-colindex={1}
       aria-description={getCellAriaDescription(selectType, selectionExists)}
       className={classNames({ "cursor-pointer": !disabled })}
       onClick={onClick}
