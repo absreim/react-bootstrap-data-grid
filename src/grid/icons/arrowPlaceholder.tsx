@@ -10,7 +10,6 @@ const arrowPlaceholder = (
     fill="currentColor"
     viewBox="0 0 16 16"
   >
-    <title>(sorting not performed on this column)</title>
     <desc>
       Empty transparent square for styling purposes
     </desc>

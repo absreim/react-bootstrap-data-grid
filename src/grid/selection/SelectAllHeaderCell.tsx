@@ -32,15 +32,15 @@ const getCellAriaDescription: (
   existingSelection: boolean,
 ) => string = (selectMode, existingSelection) => {
   if (existingSelection) {
-    return "Header cell that can be clicked to deselect all rows";
+    return "Deselect all rows";
   }
 
   if (selectMode === "multi" && !existingSelection) {
-    return "Header cell that can be clicked to select all rows";
+    return "Select all rows";
   }
 
   // Single select mode and none selected means that the button is disabled
-  return "Header cell for column of selection inputs"
+  return "Selection input header cell";
 };
 
 const SelectAllHeaderCell: FC<SelectAllHeaderCellProps> = ({
@@ -50,11 +50,16 @@ const SelectAllHeaderCell: FC<SelectAllHeaderCellProps> = ({
 }) => {
   const disabled = selectType === "single" && !selectionExists;
 
+  const description = getCellAriaDescription(selectType, selectionExists);
+
   return (
     <th
       aria-colindex={1}
-      aria-description={getCellAriaDescription(selectType, selectionExists)}
-      className={classNames({ "cursor-pointer": !disabled })}
+      title={description}
+      aria-description={description}
+      className={classNames("select-header-cell", "btn-primary", {
+        "cursor-pointer": !disabled,
+      })}
       onClick={onClick}
     >
       {getSelectIcon(selectType, selectionExists)}
