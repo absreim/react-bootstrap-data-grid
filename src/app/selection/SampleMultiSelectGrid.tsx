@@ -1,7 +1,11 @@
 "use client";
 
-import Grid, { ColDef, MultiSelectModel, RowDef } from "@/grid";
+import Grid, { ColDef, MultiSelectModel, RowDef, SelectMode } from "@/grid";
 import { FC, useMemo, useState } from "react";
+
+export interface SampleMultiSelectGridProps {
+  mode: SelectMode;
+}
 
 const cols: ColDef[] = [
   {
@@ -59,10 +63,10 @@ const rows: RowDef[] = [
   },
 ];
 
-const SampleMultiSelectGrid: FC = () => {
+const SampleMultiSelectGrid: FC<SampleMultiSelectGridProps> = ({ mode }) => {
   const [selected, setSelected] = useState<number[]>([]);
   const selectModel: MultiSelectModel = {
-    mode: "both",
+    mode,
     type: "multi",
     selected,
     setSelected,

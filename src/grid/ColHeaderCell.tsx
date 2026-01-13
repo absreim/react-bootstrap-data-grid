@@ -19,7 +19,8 @@ const ColHeaderCell: FC<ColHeaderCellProps> = ({
   sortModel,
   ariaColIndex,
 }) => {
-  const {isHovering, handleMouseOver, handleMouseOut} = useControlledHover<HTMLTableCellElement>();
+  const { isHovering, handleMouseOver, handleMouseOut } =
+    useControlledHover<HTMLTableCellElement>();
   const handleClick: () => void = () => {
     if (!sortModel) {
       return;
@@ -65,7 +66,7 @@ const ColHeaderCell: FC<ColHeaderCellProps> = ({
     <th
       className={classNames({
         "cursor-pointer": sortModel,
-        "table-active": sortModel?.sortOrder
+        "table-active": sortModel?.sortOrder,
       })}
       onClick={sortModel && handleClick}
       onMouseOver={handleMouseOver}
