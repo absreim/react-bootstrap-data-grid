@@ -288,7 +288,10 @@ const Grid: FC<GridProps> = ({
                 </td>
               )}
               {row.contents.map((value, index) => (
-                <td key={index} aria-colindex={index + 1}>
+                <td
+                  key={index}
+                  aria-colindex={index + 1 + (showSelectCol ? 1 : 0)}
+                >
                   {value}
                 </td>
               ))}

@@ -147,10 +147,10 @@ export interface FilterModel {
 // column = can only select by clicking on radio or checkbox input in special column
 // row = selection column is hidden and selection can be done by clicking anywhere in a row
 // both = selection can be done by either clicking on the input or row
-export type SelectMode = "column" | "row" | "both"
+export type SelectMode = "column" | "row" | "both";
 
 // Equivalent to the options for the "type" field in SelectModel
-export type SelectType = "single" | "multi"
+export type SelectType = "single" | "multi";
 
 export interface MultiSelectModel {
   mode: SelectMode;
@@ -176,3 +176,12 @@ export interface SingleSelectModel {
 // One may consider designing the parent component that provides the selection
 // and filtering models to reset selections whenever a new filter is applied.
 export type SelectModel = SingleSelectModel | MultiSelectModel;
+
+export type MultiSelectModelInitialState = Omit<
+  MultiSelectModel,
+  "setSelected"
+>;
+export type SingleSelectModelInitialState = Omit<
+  SingleSelectModel,
+  "setSelected"
+>;

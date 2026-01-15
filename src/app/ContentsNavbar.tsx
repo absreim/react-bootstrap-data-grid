@@ -27,7 +27,7 @@ const linkDefs: LinkDefinition[] = [
     path: "/filtering",
   },
   {
-    name: "Selection (Experimental)",
+    name: "Selection",
     path: "/selection",
   }
 ];

@@ -89,11 +89,16 @@ export default function Home() {
         </li>
       </ul>
       <h1>Change Log</h1>
+      <h2>1.2.1</h2>
+      <p>January 16, 2026</p>
+      <p>
+        Selection feature no longer in experimental state due to it now having
+        an automated test suite. Fixed a bug involving accessibility for the
+        selection feature.
+      </p>
       <h2>1.2.0</h2>
       <p>January 14, 2026</p>
-      <p>
-        Added Selection feature, but in an experimental state.
-      </p>
+      <p>Added Selection feature, but in an experimental state.</p>
       <h2>1.1.4</h2>
       <p>December 29, 2025</p>
       <p>

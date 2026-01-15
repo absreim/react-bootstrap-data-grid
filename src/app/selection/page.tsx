@@ -13,11 +13,7 @@ import Alert from "react-bootstrap/Alert";
 const Selection: FC = () => {
   return (
     <>
-      <h1>Selection (Experimental)</h1>
-      <Alert variant="warning">
-        The selection feature has not been thoroughly tested and is in an
-        experimental state. Use with caution.
-      </Alert>
+      <h1>Selection</h1>
       <p>
         React Bootstrap Data Grid provides functionality for the user to select
         and deselect rows in a <code>Grid</code> component.

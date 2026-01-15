@@ -1,7 +1,7 @@
 {
   "name": "@absreim/react-bootstrap-data-grid-monorepo",
   "description": "Monorepo containing a documentation site as well as the component's code for a data grid UI component for use with web apps using React and Bootstrap.",
-  "version": "1.2.0",
+  "version": "1.2.1",
   "author": "Brook Li",
   "homepage": "https://react-bootstrap-data-grid.vercel.app/",
   "private": true,
