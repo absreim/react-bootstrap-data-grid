@@ -49,6 +49,7 @@ const SelectionInput: FC<SelectionInputProps> = ({
 
   return (
     <input
+      aria-description="input to select the current row"
       onClick={(event) => {
         event.stopPropagation();
       }}
