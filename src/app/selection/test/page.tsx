@@ -3,6 +3,7 @@
 import { FC } from "react";
 import { ColDef, RowDef } from "@/grid";
 import MultiSelectionTestHarness from "@/app/selection/test/MultiSelectionTestHarness";
+import SingleSelectionTestHarness from "@/app/selection/test/SingleSelectionTestHarness";
 
 const cols: ColDef[] = [
   {
@@ -84,6 +85,65 @@ const Test: FC = () => {
             mode: "row",
             type: "multi",
             selected: [],
+          }}
+        />
+      </div>
+      <div data-testid="multi select both mode initial selections test container">
+        <MultiSelectionTestHarness
+          rows={rows}
+          cols={cols}
+          initialState={{
+            mode: "both",
+            type: "multi",
+            selected: [1, 2],
+          }}
+        />
+      </div>
+      <div data-testid="single select column mode initial selections test container">
+        <SingleSelectionTestHarness
+          rows={rows}
+          cols={cols}
+          initialState={{
+            mode: "column",
+            type: "single",
+            selected: 1,
+            groupName: "single-col-selected",
+          }}
+        />
+      </div>
+      <div data-testid="single select column mode no initial selections test container">
+        <SingleSelectionTestHarness
+          rows={rows}
+          cols={cols}
+          initialState={{
+            mode: "column",
+            type: "single",
+            selected: null,
+            groupName: "single-col-none-selected",
+          }}
+        />
+      </div>
+      <div data-testid="single select row mode initial selections test container">
+        <SingleSelectionTestHarness
+          rows={rows}
+          cols={cols}
+          initialState={{
+            mode: "row",
+            type: "single",
+            selected: 1,
+            groupName: "single-row-selected",
+          }}
+        />
+      </div>
+      <div data-testid="single select both mode no initial selections test container">
+        <SingleSelectionTestHarness
+          rows={rows}
+          cols={cols}
+          initialState={{
+            mode: "both",
+            type: "single",
+            selected: null,
+            groupName: "single-row-selected",
           }}
         />
       </div>
