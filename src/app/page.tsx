@@ -1,6 +1,11 @@
 import BasicSampleGrid from "@/app/BasicSampleGrid";
 import basicSampleGridCode from "@/app/BasicSampleGridCode";
-import HighlightedCodeBlock from "@/shared/HighlightedCodeBlock";
+import HighlightedTsCodeBlock from "@/shared/HighlightedTsCodeBlock";
+import HighlightScssCodeBlock from "@/shared/HighlightScssCodeBlock";
+import bootstrapScssImportCode from "@/app/bootstrapScssImportCode";
+import styleScssImportCode from "@/app/styleScssImportCode";
+import styleScssDirectImportCode from "@/app/styleScssDirectImportCode";
+import styleCssDirectImportCode from "@/app/styleCssDirectImportCode";
 
 export default function Home() {
   return (
@@ -46,13 +51,25 @@ export default function Home() {
       </p>
       <p>
         If you are only including Bootstrap partially in your project, note that
-        React Bootstrap Data Grid currently only depends on the <i>tables</i>{" "}
-        Sass import among{" "}
+        React Bootstrap Data Grid currently depends on the following Sass
+        imports among{" "}
         <a href="https://getbootstrap.com/docs/5.3/customize/optimize/">
           the list of Sass imports
         </a>
         .
       </p>
+      <HighlightScssCodeBlock code={bootstrapScssImportCode} />
+      <h2>Styles Specific to React Bootstrap Data Grid</h2>
+      React Bootstrap Data Grid contains styles of it's own that are distributed
+      as an SCSS file and CSS file. Depending on whether your project is using
+      SCSS or CSS, add in the appropriate import. The following code examples
+      are for NextJS. Only one of the following three options is needed.
+      <h3>Import the SCSS file in another SCSS file</h3>
+      <HighlightScssCodeBlock code={styleScssImportCode} />
+      <h3>Import the SCSS file in a TSX file</h3>
+      <HighlightedTsCodeBlock code={styleScssDirectImportCode} />
+      <h3>Import the CSS file in a TSX file</h3>
+      <HighlightedTsCodeBlock code={styleCssDirectImportCode} />
       <h2>Using the Component in Your Project</h2>
       <p>
         Once the React Bootstrap Data Grid and Bootstrap are both installed,
@@ -60,7 +77,7 @@ export default function Home() {
       </p>
       <section>
         <h3>Code</h3>
-        <HighlightedCodeBlock code={basicSampleGridCode} />
+        <HighlightedTsCodeBlock code={basicSampleGridCode} />
         <h3>Live Demo</h3>
         <BasicSampleGrid />
       </section>
@@ -89,6 +106,28 @@ export default function Home() {
         </li>
       </ul>
       <h1>Change Log</h1>
+      <h2>1.2.2</h2>
+      <p>January 19, 2026</p>
+      <p>
+        This release contains bug fixes, documentation updates, and other
+        enhancements.
+      </p>
+      <ul>
+        <li>
+          Fixed an issue where the distributed NPM package was not working
+          NextJS due to the output preserving JSX sytnax
+        </li>
+        <li>
+          Styles specific to React Bootstrap Data Grid were not being
+          distributed with the NPM package. They are now included, and
+          documentation has been updated to give examples on how to import them.
+        </li>
+        <li>
+          Adjusted class names for styles specific to React Bootstrap Data Grid
+          to have a "rbdg" prefix to distinguish them from class names from
+          other sources.
+        </li>
+      </ul>
       <h2>1.2.1</h2>
       <p>January 16, 2026</p>
       <p>

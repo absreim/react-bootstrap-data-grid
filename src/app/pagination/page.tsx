@@ -1,7 +1,7 @@
 import { FC } from "react";
 import SamplePaginatedGrid from "@/app/pagination/SamplePaginatedGrid";
 import samplePaginatedGridCode from "@/app/pagination/samplePaginatedGridCode";
-import HighlightedCodeBlock from "@/shared/HighlightedCodeBlock";
+import HighlightedTsCodeBlock from "@/shared/HighlightedTsCodeBlock";
 
 const Pagination: FC = () => {
   return (
@@ -140,7 +140,7 @@ const Pagination: FC = () => {
       </table>
       <h2>Example</h2>
       <h3>Code</h3>
-      <HighlightedCodeBlock code={samplePaginatedGridCode} />
+      <HighlightedTsCodeBlock code={samplePaginatedGridCode} />
       <h3>Live Demo</h3>
       <SamplePaginatedGrid />
     </>

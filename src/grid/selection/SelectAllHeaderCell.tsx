@@ -64,8 +64,8 @@ const SelectAllHeaderCell: FC<SelectAllHeaderCellProps> = ({
       aria-colindex={1}
       title={description}
       aria-description={description}
-      className={classNames("select-header-cell", "btn-primary", {
-        "cursor-pointer": !disabled,
+      className={classNames("rbdg-select-header-cell", "btn-primary", {
+        "rbdg-clickable-grid-header-cell": !disabled,
       })}
       onClick={onClick}
     >

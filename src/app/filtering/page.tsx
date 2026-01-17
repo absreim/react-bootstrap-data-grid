@@ -1,6 +1,6 @@
 import { FC } from "react";
 import SampleFilteredGrid from "@/app/filtering/SampleFilteredGrid";
-import HighlightedCodeBlock from "@/shared/HighlightedCodeBlock";
+import HighlightedTsCodeBlock from "@/shared/HighlightedTsCodeBlock";
 import sampleFilteredGridCode from "@/app/filtering/sampleFilteredGridCode";
 import TypeSpecTable from "@/shared/TypeSpecTable";
 import {
@@ -196,7 +196,7 @@ const Filtering: FC = () => {
       <TypeSpecTable rows={betweenDatesFilterState} />
       <h2>Example</h2>
       <h3>Code</h3>
-      <HighlightedCodeBlock code={sampleFilteredGridCode} />
+      <HighlightedTsCodeBlock code={sampleFilteredGridCode} />
       <h3>Live Demo</h3>
       <SampleFilteredGrid />
     </>

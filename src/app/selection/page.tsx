@@ -1,7 +1,7 @@
 import { FC } from "react";
 import SampleMultiSelectGridContainer from "@/app/selection/SampleMultiSelectGridContainer";
 import SampleSingleSelectGridContainer from "@/app/selection/SampleSingleSelectGridContainer";
-import HighlightedCodeBlock from "@/shared/HighlightedCodeBlock";
+import HighlightedTsCodeBlock from "@/shared/HighlightedTsCodeBlock";
 import sampleMultiSelectGridCode from "@/app/selection/sampleMultiSelectGridCode";
 import sampleSingleSelectGridCode from "@/app/selection/sampleSingleSelectGridCode";
 import TypeSpecTable from "@/shared/TypeSpecTable";
@@ -86,17 +86,17 @@ const Selection: FC = () => {
         something with it.
       </p>
       <h4>Code</h4>
-      <HighlightedCodeBlock code={externalInteractionExampleCode} />
+      <HighlightedTsCodeBlock code={externalInteractionExampleCode} />
       <h4>Live Demo</h4>
       <ExternalInteractionExample />
       <h3>Multiple Selection Mode</h3>
       <h4>Code</h4>
-      <HighlightedCodeBlock code={sampleMultiSelectGridCode} />
+      <HighlightedTsCodeBlock code={sampleMultiSelectGridCode} />
       <h4>Live Demo</h4>
       <SampleMultiSelectGridContainer />
       <h3>Single Selection Mode</h3>
       <h4>Code</h4>
-      <HighlightedCodeBlock code={sampleSingleSelectGridCode} />
+      <HighlightedTsCodeBlock code={sampleSingleSelectGridCode} />
       <h4>Live Demo</h4>
       <SampleSingleSelectGridContainer />
     </>

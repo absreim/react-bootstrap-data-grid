@@ -2,7 +2,7 @@ import { FC } from "react";
 import TypeSpecTable from "@/shared/TypeSpecTable";
 import { tableSortModel, sortColDef } from "@/shared/typeSpecs";
 import SampleSortedGrid from "@/app/sorting/SampleSortedGrid";
-import HighlightedCodeBlock from "@/shared/HighlightedCodeBlock";
+import HighlightedTsCodeBlock from "@/shared/HighlightedTsCodeBlock";
 import sampleSortedGridCode from "@/app/sorting/sampleSortedGridCode";
 
 const Sorting: FC = () => {
@@ -60,7 +60,7 @@ const Sorting: FC = () => {
       />
       <h2>Example</h2>
       <h3>Code</h3>
-      <HighlightedCodeBlock code={sampleSortedGridCode} />
+      <HighlightedTsCodeBlock code={sampleSortedGridCode} />
       <h3>Live Demo</h3>
       <SampleSortedGrid />
     </>

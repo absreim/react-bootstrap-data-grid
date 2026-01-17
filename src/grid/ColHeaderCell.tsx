@@ -65,7 +65,7 @@ const ColHeaderCell: FC<ColHeaderCellProps> = ({
   return (
     <th
       className={classNames({
-        "cursor-pointer": sortModel,
+        "rbdg-clickable-grid-header-cell": sortModel,
         "table-active": sortModel?.sortOrder,
       })}
       onClick={sortModel && handleClick}

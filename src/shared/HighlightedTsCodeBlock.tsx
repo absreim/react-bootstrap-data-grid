@@ -8,7 +8,7 @@ interface Props {
   code: string;
 }
 
-const HighlightedCodeBlock: FC<Props> = ({ code }) => {
+const HighlightedTsCodeBlock: FC<Props> = ({ code }) => {
   const highlightedCode = hljs.highlight(code, {
     language: "typescript",
   }).value;
@@ -20,4 +20,4 @@ const HighlightedCodeBlock: FC<Props> = ({ code }) => {
   );
 };
 
-export default HighlightedCodeBlock;
+export default HighlightedTsCodeBlock;
