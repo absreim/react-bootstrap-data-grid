@@ -1,0 +1,41 @@
+.rbdg-clickable-grid-header-cell {
+  cursor: pointer;
+}
+
+.rbdg-select-header-cell {
+  .rdbg-svg-icon {
+    background-color: var(--bs-btn-bg)
+  }
+  .rdbg-svg-icon-foreground {
+    color: var(--bs-btn-color)
+  }
+
+  &:hover {
+    .rdbg-svg-icon {
+      background-color: var(--bs-btn-hover-bg)
+    }
+    .rdbg-svg-icon-foreground {
+      color: var(--bs-btn-hover-color)
+    }
+  }
+}
+
+.rbdg-grid {
+  display: table;
+}
+
+.rbdg-grid-head {
+  display: table-header-group;
+}
+
+.rbdg-grid-body {
+  display: table-row-group;
+}
+
+.rbdg-grid-row {
+  display: table-row;
+}
+
+.rbdg-grid-cell {
+  display: table-cell;
+}
