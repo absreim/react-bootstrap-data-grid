@@ -2,6 +2,15 @@ import BasicSampleGrid from "@/app/BasicSampleGrid";
 import basicSampleGridCode from "@/app/BasicSampleGridCode";
 import HighlightedCodeBlock from "@/shared/HighlightedCodeBlock";
 
+// TODO: the documentation on selectively importing Bootstrap is likely no
+// longer accurate. Discover what imports are needed and update the
+// documentation.
+//
+// In addition, certain styles used in the documentation site that are also
+// necessary when the module is used externally are not currently being
+// exported to the distribution package. Modify the build scripts to generate
+// files that contain the styles and update the documentation to advise the
+// user to import them.
 export default function Home() {
   return (
     <>
