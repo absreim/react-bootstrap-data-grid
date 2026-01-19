@@ -224,14 +224,15 @@ const Grid: FC<GridProps> = ({
           )}
         </div>
       )}
-      <table
-        className={classNames("table", {
+      <div
+        role="grid"
+        className={classNames("table", "rbdg-grid", {
           "table-hover": rowsAreSelectable,
         })}
         aria-rowcount={filteredRows.length + 1}
       >
-        <thead>
-          <tr aria-rowindex={1}>
+        <div role="rowgroup" className="rbdg-grid-head">
+          <div role="columnheader" className="rbdg-grid-row" aria-rowindex={1}>
             {showSelectCol && (
               <SelectAllHeaderCell
                 selectType={selectModel.type}
@@ -261,13 +262,14 @@ const Grid: FC<GridProps> = ({
                 />
               );
             })}
-          </tr>
-        </thead>
-        <tbody>
+          </div>
+        </div>
+        <div role="rowgroup" className="rbdg-grid-body">
           {displayRows.map((row, index) => (
-            <tr
+            <div
+              role="row"
               onClick={getRowClickHandler(row.origIndex)}
-              className={classNames({
+              className={classNames("rbdg-grid-row", {
                 "table-active": selectedSet.has(row.origIndex),
               })}
               key={row.origIndex}
@@ -276,7 +278,7 @@ const Grid: FC<GridProps> = ({
               aria-selected={getAriaSelectedValue(row.origIndex)}
             >
               {showSelectCol && (
-                <td>
+                <div role="gridcell" className="rbdg-grid-cell">
                   <SelectionInput
                     selected={selectedSet.has(row.origIndex)}
                     selectionInputModel={getSelectInputModel(
@@ -285,20 +287,22 @@ const Grid: FC<GridProps> = ({
                     )}
                     selectCallback={getSelectHandler(row.origIndex)}
                   />
-                </td>
+                </div>
               )}
               {row.contents.map((value, index) => (
-                <td
+                <div
+                  role="gridcell"
+                  className="rbdg-grid-cell"
                   key={index}
                   aria-colindex={index + 1 + (showSelectCol ? 1 : 0)}
                 >
                   {value}
-                </td>
+                </div>
               ))}
-            </tr>
+            </div>
           ))}
-        </tbody>
-      </table>
+        </div>
+      </div>
       {pagination && (
         <Pagination
           componentSize={pagination.componentSize || "medium"}

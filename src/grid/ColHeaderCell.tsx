@@ -63,8 +63,9 @@ const ColHeaderCell: FC<ColHeaderCellProps> = ({
   };
 
   return (
-    <th
-      className={classNames({
+    <div
+      role="columnheader"
+      className={classNames("rbdg-grid-cell", {
         "rbdg-clickable-grid-header-cell": sortModel,
         "table-active": sortModel?.sortOrder,
       })}
@@ -80,7 +81,7 @@ const ColHeaderCell: FC<ColHeaderCellProps> = ({
     >
       {label}
       {getSortSymbol()}
-    </th>
+    </div>
   );
 };
 

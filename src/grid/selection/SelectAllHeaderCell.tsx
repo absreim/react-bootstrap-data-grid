@@ -60,17 +60,18 @@ const SelectAllHeaderCell: FC<SelectAllHeaderCellProps> = ({
   const description = getCellAriaDescription(selectType, selectionExists);
 
   return (
-    <th
+    <div
+      role="columnheader"
       aria-colindex={1}
       title={description}
       aria-description={description}
-      className={classNames("rbdg-select-header-cell", "btn-primary", {
+      className={classNames("rbdg-grid-cell", "rbdg-select-header-cell", "btn-primary", {
         "rbdg-clickable-grid-header-cell": !disabled,
       })}
       onClick={onClick}
     >
       {getSelectIcon(selectType, selectionExists)}
-    </th>
+    </div>
   );
 };
 
