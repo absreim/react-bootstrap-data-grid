@@ -65,7 +65,7 @@ const ColHeaderCell: FC<ColHeaderCellProps> = ({
   return (
     <div
       role="columnheader"
-      className={classNames("rbdg-grid-cell", {
+      className={classNames("rbdg-grid-cell", "rbdg-grid-header-cell", {
         "rbdg-clickable-grid-header-cell": sortModel,
         "table-active": sortModel?.sortOrder,
       })}

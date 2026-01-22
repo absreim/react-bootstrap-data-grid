@@ -232,7 +232,7 @@ const Grid: FC<GridProps> = ({
         aria-rowcount={filteredRows.length + 1}
       >
         <div role="rowgroup" className="rbdg-grid-head">
-          <div role="columnheader" className="rbdg-grid-row" aria-rowindex={1}>
+          <div role="row" className="rbdg-grid-row" aria-rowindex={1}>
             {showSelectCol && (
               <SelectAllHeaderCell
                 selectType={selectModel.type}

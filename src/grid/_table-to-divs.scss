@@ -1,0 +1,85 @@
+/* Classes to label div equivalents of table, thead, tbody, tr, th, and td tags. td and th tags have the same class for
+now but are differentiated by ARIA role. */
+
+.rbdg-grid {
+  display: table;
+}
+
+.rbdg-grid-head {
+  display: table-header-group;
+}
+
+.rbdg-grid-body {
+  display: table-row-group;
+}
+
+.rbdg-grid-row {
+  display: table-row;
+}
+
+.rbdg-grid-cell {
+  display: table-cell;
+}
+
+.rbdg-grid-header-cell {
+  font-weight: bold; // Mimic the effect of the Chrome user agent stylesheet for th elements
+}
+
+/* Adaptations from Bootstrap's _tables.scss and _reset.scss are below. While it is good idea to test this projects
+compatibility with new versions of Bootstrap in general, this section may deserve extra scrutiny due to the
+reverse-engineering involved.*/
+
+/* From _tables.scss */
+
+.table {
+  > .rbdg-grid-body {
+    vertical-align: inherit;
+  }
+
+  > .rbdg-grid-head {
+    vertical-align: bottom;
+  }
+}
+
+// Zebra-striping
+//
+// Default zebra-stripe styles (alternating gray and transparent backgrounds)
+
+// For rows
+.table-striped {
+  > .rbdg-grid-body > .rbdg-grid-row:nth-of-type(#{$table-striped-order}) > * {
+    --#{$prefix}table-color-type: var(--#{$prefix}table-striped-color);
+    --#{$prefix}table-bg-type: var(--#{$prefix}table-striped-bg);
+  }
+}
+
+// For columns
+.table-striped-columns {
+  > :not(caption) > .rbdg-grid-row > :nth-child(#{$table-striped-columns-order}) {
+    --#{$prefix}table-color-type: var(--#{$prefix}table-striped-color);
+    --#{$prefix}table-bg-type: var(--#{$prefix}table-striped-bg);
+  }
+}
+
+// Hover effect
+//
+// Placed here since it has to come after the potential zebra striping
+
+.table-hover {
+  > .rbdg-grid-body > .rbdg-grid-row:hover > * {
+    --#{$prefix}table-color-state: var(--#{$prefix}table-hover-color);
+    --#{$prefix}table-bg-state: var(--#{$prefix}table-hover-bg);
+  }
+}
+
+/* From _reset.scss */
+
+// It may the necessary to add the equivalent of tfoot once the project supports table footers
+.rbdg-grid-head,
+.rbdg-grid-body,
+.rbdg-grid-row,
+.rbdg-grid-cell {
+  border-color: inherit;
+  border-style: solid;
+  border-width: 0;
+}

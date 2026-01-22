@@ -1,3 +1,5 @@
+@import "table-to-divs";
+
 .rbdg-clickable-grid-header-cell {
   cursor: pointer;
 }
@@ -18,24 +20,4 @@
       color: var(--bs-btn-hover-color)
     }
   }
-}
-
-.rbdg-grid {
-  display: table;
-}
-
-.rbdg-grid-head {
-  display: table-header-group;
-}
-
-.rbdg-grid-body {
-  display: table-row-group;
-}
-
-.rbdg-grid-row {
-  display: table-row;
-}
-
-.rbdg-grid-cell {
-  display: table-cell;
 }
