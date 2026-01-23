@@ -248,3 +248,20 @@ export const singleSelectMode: SpecTableRow[] = [
       "A string used for the 'name' property of radio input elements. It must be unique across the entire page to avoid unexpected behavior.",
   },
 ];
+
+export const editModel: SpecTableRow[] = [
+  {
+    propertyName: "getUpdateCallback",
+    typeDefinition: "UpdateCallbackGenerator",
+    isRequired: true,
+    description:
+      "A function that takes the original index of a row and returns a callback function for updating a row.",
+  },
+  {
+    propertyName: "getDeleteCallback",
+    typeDefinition: "(origIndex: number) => () => void",
+    isRequired: false,
+    description:
+      "A function takes the original index of a row and returns a callback function for deleting the row. Omitting this property disables the UI for deletions.",
+  },
+];

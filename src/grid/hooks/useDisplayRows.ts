@@ -1,10 +1,38 @@
-import { AugRowDef, FormattedRow, ColDef } from "../types";
+import {
+  AugRowDef,
+  FormattedRow,
+  ColDef,
+  CellData,
+  ColDataType,
+  ColDataTypeStrings,
+} from "../types";
 import { useMemo } from "react";
+
+const getFormattedValue: (
+  value: ColDataType,
+  formatter: ((value: any) => string) | undefined,
+  typeString: ColDataTypeStrings,
+) => string = (value, formatter, typeString) => {
+  if (formatter) {
+    return formatter(value);
+  }
+  if (typeString === "date") {
+    return (value as Date).toDateString();
+  }
+  if (typeString === "datetime") {
+    return (value as Date).toLocaleString();
+  }
+  if (typeString === "number") {
+    return (value as number).toLocaleString();
+  }
+  return value as string;
+};
 
 const useDisplayRows: (
   currentPageRows: AugRowDef[],
   cols: ColDef[],
-) => FormattedRow[] = (currentPageRows, cols) =>
+  ariaColIndexOffset: number,
+) => FormattedRow[] = (currentPageRows, cols, ariaColIndexOffset) =>
   useMemo(() => {
     const nameToIndex = new Map<string, number>();
     cols.forEach(({ name }, index) => {
@@ -22,7 +50,7 @@ const useDisplayRows: (
           }
         });
 
-      const displayRow: string[] = [];
+      const displayRow: CellData[] = [];
       Object.keys(row.data).forEach((name) => {
         if (!nameToIndex.has(name)) {
           console.error(
@@ -32,29 +60,22 @@ const useDisplayRows: (
         }
 
         const index = nameToIndex.get(name)!;
-        const formatter = cols[index].formatter;
-        const typeString = cols[index].type;
+        const col = cols[index];
+        const formatter = col.formatter;
+        const typeString = col.type;
         const value = row.data[name];
-        if (formatter) {
-          displayRow[index] = formatter(value);
-          return;
-        }
-        if (typeString === "date") {
-          displayRow[index] = (value as Date).toDateString();
-          return;
-        }
-        if (typeString === "datetime") {
-          displayRow[index] = (value as Date).toLocaleString();
-          return;
-        }
-        if (typeString === "number") {
-          displayRow[index] = (value as number).toLocaleString();
-          return;
-        }
-        displayRow[index] = value as string;
+
+        displayRow[index] = {
+          fieldName: cols[index].name,
+          value,
+          type: typeString,
+          ariaColIndex: index + 1 + ariaColIndexOffset,
+          formattedValue: getFormattedValue(value, formatter, typeString),
+          label: cols[index].label,
+        };
       });
       return { contents: displayRow, origIndex: row.meta.origIndex };
     });
-  }, [currentPageRows, cols]);
+  }, [currentPageRows, cols, ariaColIndexOffset]);
 
 export default useDisplayRows;

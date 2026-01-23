@@ -17,16 +17,16 @@ const SingleSelectionTestHarness: FC<SingleSelectionTestHarnessProps> = ({
   cols,
   initialState,
 }) => {
-  const [selected, setSelected] = useState<number | null>(initialState.selected);
+  const [selected, setSelected] = useState<number | null>(
+    initialState.selected,
+  );
   const model: SingleSelectModel = {
     ...initialState,
     selected,
-    setSelected
-  }
+    setSelected,
+  };
 
-  return (
-    <Grid rows={rows} cols={cols} selectModel={model} />
-  )
+  return <Grid rows={rows} cols={cols} selectModel={model} />;
 };
 
 export default SingleSelectionTestHarness;

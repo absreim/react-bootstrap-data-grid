@@ -67,3 +67,10 @@ test("displays rows in the correct order", async ({ page }) => {
     "2",
   );
 });
+
+test("displays the specified caption", async ({ page }) => {
+  const workingGridContainer = page.getByTestId("functioning grid container");
+
+  const captionElement = workingGridContainer.getByRole("caption");
+  await expect(captionElement).toHaveText("basic test grid");
+})

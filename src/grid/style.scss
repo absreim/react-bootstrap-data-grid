@@ -4,18 +4,18 @@
 
 .rbdg-select-header-cell {
   .rdbg-svg-icon {
-    background-color: var(--bs-btn-bg)
+    background-color: var(--bs-btn-bg);
   }
   .rdbg-svg-icon-foreground {
-    color: var(--bs-btn-color)
+    color: var(--bs-btn-color);
   }
 
   &:hover {
     .rdbg-svg-icon {
-      background-color: var(--bs-btn-hover-bg)
+      background-color: var(--bs-btn-hover-bg);
     }
     .rdbg-svg-icon-foreground {
-      color: var(--bs-btn-hover-color)
+      color: var(--bs-btn-hover-color);
     }
   }
 }

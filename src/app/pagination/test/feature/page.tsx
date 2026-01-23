@@ -1,8 +1,10 @@
-"use client"
+"use client";
 
-import { FC } from "react"
+import { FC } from "react";
 import { ColDef, RowDef } from "@/grid";
-import PaginationFeatureTestHarness, { PaginationFeatureTestHarnessProps } from "@/app/pagination/test/feature/PaginationFeatureTestHarness";
+import PaginationFeatureTestHarness, {
+  PaginationFeatureTestHarnessProps,
+} from "@/app/pagination/test/feature/PaginationFeatureTestHarness";
 
 const cols: ColDef[] = [
   {
@@ -13,9 +15,12 @@ const cols: ColDef[] = [
   },
 ];
 
-const rows: RowDef[] = Array(15).keys().toArray().map((key) => ({
-  numCol: String(key + 1)
-}))
+const rows: RowDef[] = Array(15)
+  .keys()
+  .toArray()
+  .map((key) => ({
+    numCol: String(key + 1),
+  }));
 
 const harnessProps: PaginationFeatureTestHarnessProps = {
   rows,
@@ -23,8 +28,8 @@ const harnessProps: PaginationFeatureTestHarnessProps = {
   pageSizeOptions: [5, 10, 15],
   initialPageSizeIndex: 0,
   initialPage: 1,
-  maxPageButtons: 5
-}
+  maxPageButtons: 5,
+};
 
 const edgeButtonTestHarnessProps: PaginationFeatureTestHarnessProps = {
   rows,
@@ -46,6 +51,6 @@ const Test: FC = () => {
       </div>
     </>
   );
-}
+};
 
 export default Test;

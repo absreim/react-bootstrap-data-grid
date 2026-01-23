@@ -26,7 +26,9 @@ const Pagination: FC<PaginationProps> = ({
 }) => {
   const numPages = Math.ceil(prePagingNumRows / pageSizeOptions[pageSizeIndex]);
 
-  const pageIndexAwarePageSizeSetter: (pageSizeIndex: number) => void = (newPageSizeIndex) => {
+  const pageIndexAwarePageSizeSetter: (pageSizeIndex: number) => void = (
+    newPageSizeIndex,
+  ) => {
     const newPageSize = pageSizeOptions[newPageSizeIndex];
     const maxPages = Math.ceil(prePagingNumRows / newPageSize);
     handleSetPageSizeIndex(newPageSizeIndex);
@@ -37,7 +39,7 @@ const Pagination: FC<PaginationProps> = ({
     if (currentPage > maxPages) {
       handleSetPageNum(maxPages);
     }
-  }
+  };
 
   return (
     <div className="d-flex justify-content-end gap-2">

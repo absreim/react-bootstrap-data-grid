@@ -60,10 +60,11 @@ export default function Home() {
       </p>
       <HighlightScssCodeBlock code={bootstrapScssImportCode} />
       <h2>Styles Specific to React Bootstrap Data Grid</h2>
-      React Bootstrap Data Grid contains styles of it's own that are distributed
-      as an SCSS file and CSS file. Depending on whether your project is using
-      SCSS or CSS, add in the appropriate import. The following code examples
-      are for NextJS. Only one of the following three options is needed.
+      React Bootstrap Data Grid contains styles of it&apos;s own that are
+      distributed as an SCSS file and CSS file. Depending on whether your
+      project is using SCSS or CSS, add in the appropriate import. The following
+      code examples are for NextJS. Only one of the following three options is
+      needed.
       <h3>Import the SCSS file in another SCSS file</h3>
       <HighlightScssCodeBlock code={styleScssImportCode} />
       <h3>Import the SCSS file in a TSX file</h3>
@@ -86,7 +87,7 @@ export default function Home() {
         <li>
           See the source code in the project&apos;s{" "}
           <a href="https://github.com/absreim/react-bootstrap-data-grid">
-            Github repo
+            GitHub repo
           </a>
           .
         </li>
@@ -104,8 +105,22 @@ export default function Home() {
           </a>{" "}
           in case you are curious about download statistics.
         </li>
+        <li>
+          If you have a question, concern, or suggestion, feel free to create a
+          GitHub issue on the repo's{" "}
+          <a href="https://github.com/absreim/react-bootstrap-data-grid/issues">
+            issue page
+          </a>
+          .
+        </li>
       </ul>
       <h1>Change Log</h1>
+      <h2>1.3.0</h2>
+      <p>January 28, 2026</p>
+      <p>
+        This release adds a feature that allows a user to edit the contents of
+        rows.
+      </p>
       <h2>1.2.2</h2>
       <p>January 19, 2026</p>
       <p>
@@ -124,8 +139,8 @@ export default function Home() {
         </li>
         <li>
           Adjusted class names for styles specific to React Bootstrap Data Grid
-          to have a "rbdg" prefix to distinguish them from class names from
-          other sources.
+          to have a &quot;rbdg&quot; prefix to distinguish them from class names
+          from other sources.
         </li>
       </ul>
       <h2>1.2.1</h2>
