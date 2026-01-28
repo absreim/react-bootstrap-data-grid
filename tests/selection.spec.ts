@@ -130,7 +130,9 @@ test("for grids of multi select type and row mode, clicking on a selected row de
   await expect(modifiedRow).toBeVisible();
 });
 
-test("for multi select grids, selection via both input and row clicking are possible", async ({ page }) => {
+test("for multi select grids, selection via both input and row clicking are possible", async ({
+  page,
+}) => {
   const container = page.getByTestId(
     "multi select both mode initial selections test container",
   );
@@ -156,9 +158,11 @@ test("for multi select grids, selection via both input and row clicking are poss
 
   await expect(deselectedRow3).toBeVisible();
   await expect(selectedRow1).toBeVisible();
-})
+});
 
-test("for multi select grids in both mode, the select all control should work", async ({ page }) => {
+test("for multi select grids in both mode, the select all control should work", async ({
+  page,
+}) => {
   const container = page.getByTestId(
     "multi select both mode initial selections test container",
   );
@@ -172,7 +176,7 @@ test("for multi select grids in both mode, the select all control should work", 
     const row = container.locator(`tbody > tr[aria-rowindex="${i + 2}"]`);
     await expect(row).toHaveAttribute("aria-selected", "false");
   }
-})
+});
 
 // Single select type
 
@@ -313,4 +317,3 @@ test("for single select grids, selection via row clicking is possible", async ({
 
   await expect(selectedRow).toBeVisible();
 });
-

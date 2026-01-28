@@ -4,6 +4,7 @@ import { FC, MouseEventHandler, useMemo, useState } from "react";
 import {
   ColDef,
   ColSortModel,
+  EditModel,
   FilterModel,
   FormattedRow,
   MultiSelectModel,
@@ -15,7 +16,7 @@ import {
 import ColHeaderCell from "./ColHeaderCell";
 import useFilter from "./hooks/useFilter";
 import ToggleButton from "./ToggleButton";
-import FilterOptionsTable from "./FilterOptionsTable/FilterOptionsTable";
+import FilterOptionsTable from "./filtering/FilterOptionsTable";
 import useFilterStateFromEditable from "./hooks/useFilterStateFromEditable";
 import useAugmentedRows from "./hooks/useAugmentedRows";
 import useSortedRows from "./hooks/useSortedRows";
@@ -26,6 +27,8 @@ import SelectionInput, {
 } from "./selection/SelectionInput";
 import Pagination from "./pagination/Pagination";
 import classNames from "classnames";
+import EditableRow from "./editing/EditableRow";
+import inputStrsToRowDef from "./editing/inputStrsToRowDef";
 
 export interface GridPaginationState {
   pageSizeOptions: number[];
@@ -44,6 +47,8 @@ export interface GridProps {
   sortModel?: TableSortModel;
   filterModel?: FilterModel;
   selectModel?: SelectModel;
+  editModel?: EditModel;
+  caption?: string;
 }
 
 const Grid: FC<GridProps> = ({
@@ -53,6 +58,8 @@ const Grid: FC<GridProps> = ({
   sortModel,
   filterModel,
   selectModel,
+  editModel,
+  caption,
 }) => {
   const editableFilterState = filterModel?.tableFilterState || null;
   const filterState = useFilterStateFromEditable(cols, editableFilterState);
@@ -73,7 +80,14 @@ const Grid: FC<GridProps> = ({
     return sortedRows.slice(lowerIndex, upperIndex);
   }, [sortedRows, pagination]);
 
-  const displayRows: FormattedRow[] = useDisplayRows(currentPageRows, cols);
+  const showSelectCol = selectModel && selectModel.mode !== "row";
+  const ariaColIndexOffset = showSelectCol ? 1 : 0;
+
+  const displayRows: FormattedRow[] = useDisplayRows(
+    currentPageRows,
+    cols,
+    ariaColIndexOffset,
+  );
 
   const [filterOptionsVisible, setFilterOptionsVisible] =
     useState<boolean>(false);
@@ -162,8 +176,6 @@ const Grid: FC<GridProps> = ({
     };
   };
 
-  const showSelectCol = selectModel && selectModel.mode !== "row";
-
   const selectedSet = new Set<number>();
   if (selectModel && selectModel.type === "multi") {
     selectModel.selected.forEach((value) => selectedSet.add(value));
@@ -181,7 +193,6 @@ const Grid: FC<GridProps> = ({
   const getRowClickHandler: (
     index: number,
   ) => MouseEventHandler<HTMLTableRowElement> = (index) => (event) => {
-    event.preventDefault();
     if (!rowsAreSelectable) {
       return;
     }
@@ -204,9 +215,18 @@ const Grid: FC<GridProps> = ({
     return String(selectedSet.has(index)) as "true" | "false";
   };
 
-  // Once this component implements selection state, and if such interactivity is enabled, (conditionally) change the
-  // aria role to "grid".
-  // TODO: implement the above described features: conditionally changing aria role to grid
+  const getInputStrSubmitCallback:
+    | ((origIndex: number) => (inputStrs: string[]) => void)
+    | undefined =
+    editModel &&
+    ((origIndex) => {
+      const indexSpecificCallback = editModel.getUpdateCallback(origIndex);
+      return (inputStrs: string[]) => {
+        const rowDef: RowDef = inputStrsToRowDef(cols, inputStrs);
+        indexSpecificCallback(rowDef);
+      };
+    });
+
   return (
     <div>
       {filterState && filterModel && (
@@ -230,6 +250,7 @@ const Grid: FC<GridProps> = ({
         })}
         aria-rowcount={filteredRows.length + 1}
       >
+        {caption !== undefined && <caption>{caption}</caption>}
         <thead>
           <tr aria-rowindex={1}>
             {showSelectCol && (
@@ -261,42 +282,51 @@ const Grid: FC<GridProps> = ({
                 />
               );
             })}
+            {editModel && (
+              <th aria-colindex={cols.length + 1 + (showSelectCol ? 1 : 0)}>
+                Edit Controls
+              </th>
+            )}
           </tr>
         </thead>
         <tbody>
-          {displayRows.map((row, index) => (
-            <tr
-              onClick={getRowClickHandler(row.origIndex)}
-              className={classNames({
-                "table-active": selectedSet.has(row.origIndex),
-              })}
-              key={row.origIndex}
-              aria-rowindex={index + 2}
-              data-rowindex={row.origIndex}
-              aria-selected={getAriaSelectedValue(row.origIndex)}
-            >
-              {showSelectCol && (
-                <td>
-                  <SelectionInput
-                    selected={selectedSet.has(row.origIndex)}
-                    selectionInputModel={getSelectInputModel(
-                      row.origIndex,
-                      selectModel,
-                    )}
-                    selectCallback={getSelectHandler(row.origIndex)}
-                  />
-                </td>
-              )}
-              {row.contents.map((value, index) => (
-                <td
-                  key={index}
-                  aria-colindex={index + 1 + (showSelectCol ? 1 : 0)}
-                >
-                  {value}
-                </td>
-              ))}
-            </tr>
-          ))}
+          {displayRows.map((row, index) => {
+            return (
+              <EditableRow
+                onClick={getRowClickHandler(row.origIndex)}
+                className={classNames({
+                  "table-active": selectedSet.has(row.origIndex),
+                })}
+                key={row.origIndex}
+                aria-rowindex={index + 2}
+                dataRowIndex={row.origIndex}
+                aria-selected={getAriaSelectedValue(row.origIndex)}
+                ariaColIndexOffset={ariaColIndexOffset}
+                cellData={row.contents}
+                updateCallback={
+                  getInputStrSubmitCallback &&
+                  getInputStrSubmitCallback(row.origIndex)
+                }
+                deleteCallback={
+                  editModel?.getDeleteCallback &&
+                  editModel.getDeleteCallback(row.origIndex)
+                }
+              >
+                {showSelectCol && (
+                  <td>
+                    <SelectionInput
+                      selected={selectedSet.has(row.origIndex)}
+                      selectionInputModel={getSelectInputModel(
+                        row.origIndex,
+                        selectModel,
+                      )}
+                      selectCallback={getSelectHandler(row.origIndex)}
+                    />
+                  </td>
+                )}
+              </EditableRow>
+            );
+          })}
         </tbody>
       </table>
       {pagination && (

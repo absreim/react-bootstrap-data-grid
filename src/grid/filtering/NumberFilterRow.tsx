@@ -3,7 +3,6 @@ import {
   NumberFilterScheme,
   numberFilterSchemeNames,
   numberFilterSchemes,
-  NumberFilterState,
 } from "../types";
 import { NumberFormFilterState } from "./types";
 

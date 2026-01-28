@@ -65,7 +65,7 @@ const Test: FC = () => {
   return (
     <>
       <div data-testid="functioning grid container">
-        <Grid rows={rows} cols={cols}></Grid>
+        <Grid rows={rows} cols={cols} caption="basic test grid"></Grid>
       </div>
     </>
   );

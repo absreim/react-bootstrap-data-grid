@@ -30,13 +30,14 @@ const Selection: FC = () => {
         respectively) for each row, or both.
       </p>
       <p>
-        If radio or checkbox selection is enabled (including the "both" option),
-        the header cell for the column that contains radio or checkbox selection
-        inputs will be clickable. Clicking on it will deselect any existing
-        selected rows if there is currently one or more rows selected. If no
-        rows are selected, clicking on the header cell selects all rows if
-        multiple selection is enabled. If single selection is enabled while no
-        existing row is selected, clicking on the header cell does nothing.
+        If radio or checkbox selection is enabled (including the
+        &quot;both&quot; option), the header cell for the column that contains
+        radio or checkbox selection inputs will be clickable. Clicking on it
+        will deselect any existing selected rows if there is currently one or
+        more rows selected. If no rows are selected, clicking on the header cell
+        selects all rows if multiple selection is enabled. If single selection
+        is enabled while no existing row is selected, clicking on the header
+        cell does nothing.
       </p>
       <h2>Type Definitions</h2>
       <h3>SelectModel</h3>

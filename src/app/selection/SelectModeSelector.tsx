@@ -15,7 +15,7 @@ const SelectModeSelector: FC<SelectModeSelectorProps> = ({
 }) => {
   const onChange: ChangeEventHandler<HTMLInputElement> = (event) => {
     setMode(event.target.value as SelectMode);
-  }
+  };
 
   return (
     <Form>

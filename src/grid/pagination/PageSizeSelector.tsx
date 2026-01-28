@@ -18,7 +18,7 @@ const PageSizeSelector: FC<PageSizeSelectorProps> = ({
   const onChange: ChangeEventHandler<HTMLSelectElement> = (event) => {
     const pageSizeIndex = Number(event.target.value);
     handleSetPageSize(pageSizeIndex);
-  }
+  };
 
   return (
     <div>

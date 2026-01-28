@@ -10,9 +10,7 @@ const arrowPlaceholder = (
     fill="currentColor"
     viewBox="0 0 16 16"
   >
-    <desc>
-      Empty transparent square for styling purposes
-    </desc>
+    <desc>Empty transparent square for styling purposes</desc>
   </svg>
 );
 

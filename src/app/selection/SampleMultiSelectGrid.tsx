@@ -65,12 +65,15 @@ const rows: RowDef[] = [
 
 const SampleMultiSelectGrid: FC<SampleMultiSelectGridProps> = ({ mode }) => {
   const [selected, setSelected] = useState<number[]>([]);
-  const selectModel: MultiSelectModel = useMemo(() => ({
-    mode,
-    type: "multi",
-    selected,
-    setSelected,
-  }), [mode, selected]);
+  const selectModel: MultiSelectModel = useMemo(
+    () => ({
+      mode,
+      type: "multi",
+      selected,
+      setSelected,
+    }),
+    [mode, selected],
+  );
 
   return <Grid rows={rows} cols={cols} selectModel={selectModel} />;
 };

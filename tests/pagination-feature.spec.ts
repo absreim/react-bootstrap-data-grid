@@ -10,7 +10,13 @@ test("numerical buttons work correctly", async ({ page }) => {
   const gridTable = container.locator('table[aria-rowcount="16"]');
   const tbody = gridTable.locator("tbody");
 
-  const expectedInitialContents: string[][] = [["1"], ["2"], ["3"], ["4"], ["5"]];
+  const expectedInitialContents: string[][] = [
+    ["1"],
+    ["2"],
+    ["3"],
+    ["4"],
+    ["5"],
+  ];
   await validateGridContents(tbody, expectedInitialContents);
 
   await container.getByRole("link", { name: "2" }).click();
@@ -34,7 +40,7 @@ test("numerical buttons work correctly", async ({ page }) => {
     ["15"],
   ];
   await validateGridContents(tbody, expectedThirdPageContents);
-})
+});
 
 test("next and previous buttons work correctly", async ({ page }) => {
   const container = page.getByTestId("15-row test container");
@@ -75,9 +81,11 @@ test("next and previous buttons work correctly", async ({ page }) => {
   await container.getByRole("link", { name: "Previous" }).click();
   await expect(container.locator('tr[data-rowindex="5"]')).toBeVisible();
   await validateGridContents(tbody, expectedSecondPageContents);
-})
+});
 
-test("feature preserves page index when possible when selecting new page size", async ({ page }) => {
+test("feature preserves page index when possible when selecting new page size", async ({
+  page,
+}) => {
   const container = page.getByTestId("15-row test container");
   const gridTable = container.locator('table[aria-rowcount="16"]');
   const tbody = gridTable.locator("tbody");
@@ -92,7 +100,9 @@ test("feature preserves page index when possible when selecting new page size", 
   ];
   await validateGridContents(tbody, expectedSecondPageContents);
 
-  await container.locator('select[aria-label="Number of Rows per Page"]').selectOption("1");
+  await container
+    .locator('select[aria-label="Number of Rows per Page"]')
+    .selectOption("1");
   await expect(container.locator('tr[data-rowindex="14"]')).toBeVisible();
 
   const expectedTenSizeSecondPageContents: string[][] = [
@@ -109,9 +119,11 @@ test("feature preserves page index when possible when selecting new page size", 
     .selectOption("0");
   await expect(container.locator('tr[data-rowindex="9"]')).toBeVisible();
   await validateGridContents(tbody, expectedSecondPageContents);
-})
+});
 
-test("feature snaps to largest possible index if new page size would cause index to be too large", async ({ page }) => {
+test("feature snaps to largest possible index if new page size would cause index to be too large", async ({
+  page,
+}) => {
   const container = page.getByTestId("15-row test container");
   const gridTable = container.locator('table[aria-rowcount="16"]');
   const tbody = gridTable.locator("tbody");
@@ -152,7 +164,7 @@ test("feature snaps to largest possible index if new page size would cause index
   const activeLi = container.locator('li[aria-current="page"]');
   await expect(activeLi).toHaveClass("page-item active");
   await expect(activeLi.getByRole("link", { name: "1" })).toBeVisible();
-})
+});
 
 test("first and last buttons work correctly", async ({ page }) => {
   const container = page.getByTestId("edge button test container");
@@ -160,11 +172,7 @@ test("first and last buttons work correctly", async ({ page }) => {
 
   const tbody = gridTable.locator("tbody");
 
-  const expectedInitialContents: string[][] = [
-    ["1"],
-    ["2"],
-    ["3"],
-  ];
+  const expectedInitialContents: string[][] = [["1"], ["2"], ["3"]];
   await validateGridContents(tbody, expectedInitialContents);
 
   await container.getByRole("link", { name: "Last" }).click();
@@ -175,4 +183,4 @@ test("first and last buttons work correctly", async ({ page }) => {
   await container.getByRole("link", { name: "First" }).click();
   await expect(container.locator('tr[data-rowindex="0"]')).toBeVisible();
   await validateGridContents(tbody, expectedInitialContents);
-})
+});
