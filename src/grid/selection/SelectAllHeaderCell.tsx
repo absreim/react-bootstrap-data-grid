@@ -1,14 +1,15 @@
-import { SelectType } from "../types";
 import { FC, ReactNode } from "react";
-import deselectAll from "../icons/deselectAll";
-import selectAll from "../icons/selectAll";
-import arrowPlaceholder from "../icons/arrowPlaceholder";
+import deselectAll from "./deselectAll";
+import selectAll from "./selectAll";
+import arrowPlaceholder from "../sorting/arrowPlaceholder";
 import classNames from "classnames";
+import { SelectType } from "./types";
 
 interface SelectAllHeaderCellProps {
   onClick: () => void;
   selectType: SelectType;
   selectionExists: boolean;
+  additionalClasses?: string[];
 }
 
 // It seems like React does not support setting indeterminate states on
@@ -54,6 +55,7 @@ const SelectAllHeaderCell: FC<SelectAllHeaderCellProps> = ({
   onClick,
   selectType,
   selectionExists,
+  additionalClasses,
 }) => {
   const disabled = selectType === "single" && !selectionExists;
 
@@ -64,9 +66,14 @@ const SelectAllHeaderCell: FC<SelectAllHeaderCellProps> = ({
       aria-colindex={1}
       title={description}
       aria-description={description}
-      className={classNames("rbdg-select-header-cell", "btn-primary", {
-        "rbdg-clickable-grid-header-cell": !disabled,
-      })}
+      className={classNames(
+        "rbdg-select-header-cell",
+        {
+          "btn-primary": !additionalClasses || additionalClasses.length === 0,
+          "rbdg-clickable-grid-header-cell": !disabled,
+        },
+        additionalClasses || [],
+      )}
       onClick={onClick}
     >
       {getSelectIcon(selectType, selectionExists)}

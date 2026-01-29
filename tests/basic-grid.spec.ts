@@ -73,4 +73,4 @@ test("displays the specified caption", async ({ page }) => {
 
   const captionElement = workingGridContainer.getByRole("caption");
   await expect(captionElement).toHaveText("basic test grid");
-})
+});

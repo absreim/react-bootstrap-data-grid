@@ -2,7 +2,7 @@
 
 import { FC } from "react";
 import PageSelector from "@/grid/pagination/PageSelector";
-import PaginationTestHarness from "@/app/pagination/test/component/PaginationTestHarness";
+import PageSelectorTestHarness from "@/app/pagination/test/component/PageSelectorTestHarness";
 
 const Test: FC = () => {
   return (
@@ -75,19 +75,19 @@ const Test: FC = () => {
       </div>
       <div data-testid="pagination interaction test container">
         <div data-testid="index link click test case">
-          <PaginationTestHarness numPages={5} pageNum={1} numButtons={5} />
+          <PageSelectorTestHarness numPages={5} pageNum={1} numButtons={5} />
         </div>
         <div data-testid="prev link click test case">
-          <PaginationTestHarness numPages={10} pageNum={2} numButtons={5} />
+          <PageSelectorTestHarness numPages={10} pageNum={2} numButtons={5} />
         </div>
         <div data-testid="first link click test case">
-          <PaginationTestHarness numPages={10} pageNum={5} numButtons={3} />
+          <PageSelectorTestHarness numPages={10} pageNum={5} numButtons={3} />
         </div>
         <div data-testid="next link click test case">
-          <PaginationTestHarness numPages={10} pageNum={2} numButtons={5} />
+          <PageSelectorTestHarness numPages={10} pageNum={2} numButtons={5} />
         </div>
         <div data-testid="last link click test case">
-          <PaginationTestHarness numPages={10} pageNum={5} numButtons={3} />
+          <PageSelectorTestHarness numPages={10} pageNum={5} numButtons={3} />
         </div>
       </div>
     </>

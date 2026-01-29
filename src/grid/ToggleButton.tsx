@@ -7,10 +7,16 @@ export interface ToggleButtonProps {
   isActive: boolean;
   label: string;
   onClick: () => void;
+  classes?: string[];
 }
 
-const ToggleButton: FC<ToggleButtonProps> = ({ isActive, label, onClick }) => {
-  const baseClasses: string[] = ["btn", "btn-primary"];
+const ToggleButton: FC<ToggleButtonProps> = ({
+  isActive,
+  label,
+  onClick,
+  classes,
+}) => {
+  const baseClasses: string[] = ["btn"];
   const variableClasses: Record<string, boolean> = {
     active: isActive,
   };
@@ -18,7 +24,9 @@ const ToggleButton: FC<ToggleButtonProps> = ({ isActive, label, onClick }) => {
   return (
     <button
       type="button"
-      className={classNames(baseClasses, variableClasses)}
+      className={classNames(baseClasses, variableClasses, classes, {
+        "btn-primary": !(classes && classes.length > 0),
+      })}
       aria-pressed={isActive}
       onClick={onClick}
     >

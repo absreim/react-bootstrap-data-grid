@@ -1,7 +1,7 @@
 import { FC } from "react";
 import PageSizeSelector from "./PageSizeSelector";
 import PageSelector from "./PageSelector";
-import { Size } from "../types";
+import { JustifyContentSetting, Size } from "../types";
 
 export interface PaginationProps {
   componentSize: Size;
@@ -12,6 +12,8 @@ export interface PaginationProps {
   prePagingNumRows: number;
   maxPageButtons: number;
   currentPage: number;
+  pageSelectorAriaLabel?: string; // aria-label of the nav element
+  pageSelectorJustifyContent?: JustifyContentSetting;
 }
 
 const Pagination: FC<PaginationProps> = ({
@@ -23,6 +25,8 @@ const Pagination: FC<PaginationProps> = ({
   prePagingNumRows,
   maxPageButtons,
   currentPage,
+  pageSelectorAriaLabel,
+  pageSelectorJustifyContent,
 }) => {
   const numPages = Math.ceil(prePagingNumRows / pageSizeOptions[pageSizeIndex]);
 
@@ -55,6 +59,8 @@ const Pagination: FC<PaginationProps> = ({
         numButtons={maxPageButtons}
         setPageNum={handleSetPageNum}
         size={componentSize}
+        ariaLabel={pageSelectorAriaLabel}
+        alignment={pageSelectorJustifyContent}
       />
     </div>
   );

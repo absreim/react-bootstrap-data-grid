@@ -2,11 +2,11 @@ import {
   AugRowDef,
   FormattedRow,
   ColDef,
-  CellData,
   ColDataType,
   ColDataTypeStrings,
 } from "../types";
 import { useMemo } from "react";
+import { CellData } from "../editing/types";
 
 const getFormattedValue: (
   value: ColDataType,

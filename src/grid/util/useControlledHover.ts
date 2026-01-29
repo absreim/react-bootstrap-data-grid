@@ -7,7 +7,7 @@ export interface UseControlledHoverHook<T> {
   handleMouseOut: MouseEventHandler<T>;
 }
 
-const useControlledHover: <T>() => UseControlledHoverHook<T> = <T,>() => {
+const useControlledHover: <T>() => UseControlledHoverHook<T> = <T>() => {
   const [isHovering, setIsHovering] = useState(false);
   const handleMouseOver: MouseEventHandler<T> = () => setIsHovering(true);
   const handleMouseOut: MouseEventHandler<T> = () => setIsHovering(false);

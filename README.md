@@ -22,16 +22,26 @@ control, except for `src/grid/dist/package.json` and `src/grid/dist/README.md`, 
 
 ## Publishing
 
-To publish a package after successfully building it for distribution, change to the `src/grid/dist` subdirectory and
+To publish a package after successfully building it for distribution, change to the `dist` subdirectory and
 use the NPM CLI:
 
 ```bash
-cd ./src/grid/dist
+cd ./dist
+```
+
+Login with the NPM CLI. Run the following command and click the login link to log in with your browser.
+
+```bash
+npm login
+```
+
+Then publish with npm. You will once again need to log in via the link displayed by the command below:
+
+```bash
 npm publish --access public
 ```
 
-Note that one needs to be logged into via the NPM CLI to an account that has permission to publish to the specified
-scope.
+Note that for the above steps to work, one needs to have permission to publish to the specified scope.
 
 ## Automated tests
 

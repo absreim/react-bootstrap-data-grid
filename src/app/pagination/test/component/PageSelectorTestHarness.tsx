@@ -1,10 +1,11 @@
-import { PaginationProps } from "@/grid";
 import { FC, useEffect, useState } from "react";
-import PageSelector from "@/grid/pagination/PageSelector";
+import PageSelector, {
+  PageSelectorProps,
+} from "@/grid/pagination/PageSelector";
 
-type PaginationTestHarnessProps = Omit<PaginationProps, "setPageNum">;
+type PageSelectorTestHarnessProps = Omit<PageSelectorProps, "setPageNum">;
 
-const PaginationTestHarness: FC<PaginationTestHarnessProps> = ({
+const PageSelectorTestHarness: FC<PageSelectorTestHarnessProps> = ({
   pageNum,
   ...props
 }) => {
@@ -22,4 +23,4 @@ const PaginationTestHarness: FC<PaginationTestHarnessProps> = ({
   );
 };
 
-export default PaginationTestHarness;
+export default PageSelectorTestHarness;

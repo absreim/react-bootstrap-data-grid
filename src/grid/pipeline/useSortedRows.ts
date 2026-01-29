@@ -1,10 +1,6 @@
 import { useMemo } from "react";
-import {
-  AugRowDef,
-  ColDataTypeStrings,
-  ColDef,
-  TableSortModel,
-} from "../types";
+import { AugRowDef, ColDataTypeStrings, ColDef } from "../types";
+import { TableSortModel } from "../sorting/types";
 
 const getTypeComparator: (
   typeStr: ColDataTypeStrings,

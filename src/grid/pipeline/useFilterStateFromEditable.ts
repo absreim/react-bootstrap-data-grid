@@ -1,5 +1,6 @@
 import { useMemo } from "react";
-import { ColDef, EditableTableFilterState, TableFilterState } from "../types";
+import { ColDef } from "../types";
+import { EditableTableFilterState, TableFilterState } from "../filtering/types";
 
 const useFilterStateFromEditable: (
   colDefs: ColDef[],

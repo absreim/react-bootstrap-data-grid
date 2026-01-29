@@ -4,7 +4,7 @@ import { JustifyContentSetting, Size } from "../types";
 import { FC, ReactNode, useMemo } from "react";
 import classNames from "classnames";
 
-export interface PaginationProps {
+export interface PageSelectorProps {
   numPages: number;
   pageNum: number;
   numButtons: number; // max number of indices to display in the UI at any one time
@@ -25,7 +25,7 @@ export interface PaginationProps {
  * @param alignment - Flexbox justify-content setting on the <ul> element
  * @param size - Size variant of the <ul> element
  */
-const PageSelector: FC<PaginationProps> = ({
+const PageSelector: FC<PageSelectorProps> = ({
   numPages,
   numButtons,
   pageNum,

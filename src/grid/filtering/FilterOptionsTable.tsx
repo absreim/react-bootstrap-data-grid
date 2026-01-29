@@ -1,14 +1,23 @@
-import { FC, FormEventHandler, ReactNode, useState } from "react";
-import { EditableTableFilterState, TableFilterState } from "../types";
+import { FC, FormEventHandler, ReactNode, useMemo, useState } from "react";
 import StringFilterRow from "./StringFilterRow";
-import { FilterFormRowState, FilterFormState } from "./types";
+import {
+  EditableTableFilterState,
+  FilterFormRowState,
+  FilterFormState,
+  TableFilterState,
+} from "./types";
 import NumberFilterRow from "./NumberFilterRow";
 import useFormStateFromTableFilterState from "./useFormStateFromTableFilterState";
 import DateFilterRow from "./DateFilterRow";
+import classNames from "classnames";
+import { unwrapFilterInputTableStyleModel } from "../styling/styleModelUnwrappers";
+import { FilterInputTableStyleModel } from "../styling/types";
 
 interface FilterOptionsTableProps {
   filterState: TableFilterState;
   setFilterState: (filterState: EditableTableFilterState) => void;
+  caption?: string;
+  styleModel?: FilterInputTableStyleModel;
 }
 
 const convertFilterFormStateToEditableState: (
@@ -75,12 +84,19 @@ const convertFilterFormStateToEditableState: (
 const FilterOptionsTable: FC<FilterOptionsTableProps> = ({
   filterState,
   setFilterState,
+  caption,
+  styleModel,
 }) => {
   const formFilterState = useFormStateFromTableFilterState(filterState);
   const [formState, setFormState] = useState(formFilterState);
 
+  const unwrappedStyleModel = useMemo(
+    () => unwrapFilterInputTableStyleModel(styleModel),
+    [styleModel],
+  );
+
   const getRows: () => ReactNode[] = () =>
-    Object.keys(formState).map((colName) => {
+    Object.keys(formState).map((colName, index) => {
       function getColStateSetter(
         colName: string,
       ): (rowState: FilterFormRowState) => void {
@@ -97,20 +113,42 @@ const FilterOptionsTable: FC<FilterOptionsTableProps> = ({
         case "string": {
           return (
             <StringFilterRow
+              ariaRowIndex={index + 2}
               key={colName}
               columnLabel={colLabel}
               filterState={colFilterState}
               setFilterState={getColStateSetter(colName)}
+              schemeSelectClasses={unwrappedStyleModel.schemeSelectionInput(
+                index,
+              )}
+              enableInputClasses={unwrappedStyleModel.enablementInput(index)}
+              searchStringInputClasses={unwrappedStyleModel.searchStringInput(
+                index,
+              )}
+              trClasses={unwrappedStyleModel.tbodyTr(index)}
+              tdClasses={(colIndex) =>
+                unwrappedStyleModel.tbodyTd(index, colIndex)
+              }
             />
           );
         }
         case "number": {
           return (
             <NumberFilterRow
+              ariaRowIndex={index + 2}
               key={colName}
               columnLabel={colLabel}
               filterState={colFilterState}
               setFilterState={getColStateSetter(colName)}
+              schemeSelectClasses={unwrappedStyleModel.schemeSelectionInput(
+                index,
+              )}
+              enableInputClasses={unwrappedStyleModel.enablementInput(index)}
+              numberInputClasses={unwrappedStyleModel.numberInput(index)}
+              trClasses={unwrappedStyleModel.tbodyTr(index)}
+              tdClasses={(colIndex) =>
+                unwrappedStyleModel.tbodyTd(index, colIndex)
+              }
             />
           );
         }
@@ -118,11 +156,22 @@ const FilterOptionsTable: FC<FilterOptionsTableProps> = ({
           // date or datetime
           return (
             <DateFilterRow
+              ariaRowIndex={index + 2}
               key={colName}
               includeTime={colFilterState.type === "datetime"}
               columnLabel={colLabel}
               filterState={colFilterState}
               setFilterState={getColStateSetter(colName)}
+              schemeSelectClasses={unwrappedStyleModel.schemeSelectionInput(
+                index,
+              )}
+              enableInputClasses={unwrappedStyleModel.enablementInput(index)}
+              startDateInputClasses={unwrappedStyleModel.startDateInput(index)}
+              endDateInputClasses={unwrappedStyleModel.endDateInput(index)}
+              trClasses={unwrappedStyleModel.tbodyTr(index)}
+              tdClasses={(colIndex) =>
+                unwrappedStyleModel.tbodyTd(index, colIndex)
+              }
             />
           );
         }
@@ -137,21 +186,41 @@ const FilterOptionsTable: FC<FilterOptionsTableProps> = ({
     setFilterState(editableTableFilterState);
   };
 
+  // TODO: consider using an accordion to show and hide this component
   return (
     <form onSubmit={onSubmit}>
-      <table className="table">
-        <thead>
-          <tr>
-            <th>Enabled</th>
-            <th>Column</th>
-            <th>Type</th>
-            <th>Operator</th>
-            <th>Value</th>
+      <table className={classNames("table", ...unwrappedStyleModel.table)}>
+        {caption && (
+          <caption className={classNames(unwrappedStyleModel.caption)}>
+            {caption}
+          </caption>
+        )}
+        <thead className={classNames(...unwrappedStyleModel.thead)}>
+          <tr className={classNames(...unwrappedStyleModel.theadTr)}>
+            {["Enabled", "Column", "Type", "Operator", "Value"].map(
+              (colName, index) => (
+                <th
+                  key={index}
+                  className={classNames(...unwrappedStyleModel.theadTh(index))}
+                >
+                  {colName}
+                </th>
+              ),
+            )}
           </tr>
         </thead>
-        <tbody>{getRows()}</tbody>
+        <tbody className={classNames(...unwrappedStyleModel.tbody)}>
+          {getRows()}
+        </tbody>
       </table>
-      <button className="btn btn-secondary" type="submit">
+      <button
+        className={classNames(
+          "btn",
+          { "btn-secondary": unwrappedStyleModel.submitButton.length === 0 },
+          unwrappedStyleModel.submitButton,
+        )}
+        type="submit"
+      >
         Submit
       </button>
     </form>

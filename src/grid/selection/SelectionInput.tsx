@@ -1,4 +1,5 @@
 import { ChangeEventHandler, FC } from "react";
+import classNames from "classnames";
 
 export interface RadioSelectionInputModel {
   type: "radio";
@@ -22,12 +23,14 @@ export interface SelectionInputProps {
   selected: boolean;
   selectionInputModel: SelectionInputModel;
   selectCallback: () => void;
+  additionalClasses?: string[];
 }
 
 const SelectionInput: FC<SelectionInputProps> = ({
   selectionInputModel,
   selected,
   selectCallback,
+  additionalClasses,
 }) => {
   const type = selectionInputModel.type;
 
@@ -49,7 +52,8 @@ const SelectionInput: FC<SelectionInputProps> = ({
 
   return (
     <input
-      aria-label="input to select the current row"
+      className={classNames(additionalClasses || [])}
+      aria-label="Input to select the current row"
       onClick={(event) => {
         event.stopPropagation();
       }}

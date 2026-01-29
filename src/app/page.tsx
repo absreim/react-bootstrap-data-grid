@@ -107,7 +107,7 @@ export default function Home() {
         </li>
         <li>
           If you have a question, concern, or suggestion, feel free to create a
-          GitHub issue on the repo's{" "}
+          GitHub issue on the repo&apos;s{" "}
           <a href="https://github.com/absreim/react-bootstrap-data-grid/issues">
             issue page
           </a>
@@ -115,6 +115,14 @@ export default function Home() {
         </li>
       </ul>
       <h1>Change Log</h1>
+      <h2>1.4.0</h2>
+      <p>February 9, 2026</p>
+      <p>
+        This release adds a feature that allows the developer to specify CSS
+        classes for various components of the Grid. Details can be found under
+        the <i>Styling</i> section of the documentation.
+      </p>
+      <p>This release also contains various relatively minor bug fixes.</p>
       <h2>1.3.0</h2>
       <p>January 28, 2026</p>
       <p>

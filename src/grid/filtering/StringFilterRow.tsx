@@ -1,21 +1,32 @@
-import { ChangeEventHandler, FC } from "react";
+import { ChangeEventHandler, FC, ReactNode } from "react";
+import FilterRow, { CommonFilterRowStyleProps } from "./FilterRow";
+import classNames from "classnames";
 import {
   StringFilterScheme,
   stringFilterSchemeNames,
-  stringFilterSchemes,
   StringFilterState,
-} from "../types";
+} from "./types";
 
-interface StringFilterRowProps {
+type StringFilterRowProps = {
+  ariaRowIndex: number;
   columnLabel: string;
   filterState: StringFilterState;
   setFilterState: (filterState: StringFilterState) => void;
-}
+  schemeSelectClasses: string[];
+  enableInputClasses: string[];
+  searchStringInputClasses: string[];
+} & CommonFilterRowStyleProps;
 
 const StringFilterRow: FC<StringFilterRowProps> = ({
+  ariaRowIndex,
   columnLabel,
   filterState,
   setFilterState,
+  schemeSelectClasses,
+  enableInputClasses,
+  searchStringInputClasses,
+  tdClasses,
+  trClasses,
 }) => {
   const handleOpChange: ChangeEventHandler<HTMLSelectElement> = ({
     target,
@@ -46,51 +57,36 @@ const StringFilterRow: FC<StringFilterRowProps> = ({
 
   const { enabled, scheme, searchString } = filterState;
 
-  const checkboxLabel = `${columnLabel} Column Filter Toggle`;
-  const opSelectLabel = `${columnLabel} Column Filter Operator Selection`;
   const valueInputLabel = `${columnLabel} Column Filter Value`;
 
+  const searchStringInputCellContents = (
+    <input
+      name={valueInputLabel}
+      aria-label={valueInputLabel}
+      className={classNames("form-control", searchStringInputClasses)}
+      required={enabled}
+      disabled={!enabled}
+      value={searchString}
+      onChange={handleSearchStringChange}
+    />
+  );
+
   return (
-    <tr>
-      <td>
-        <input
-          name={checkboxLabel}
-          aria-label={checkboxLabel}
-          type="checkbox"
-          checked={enabled}
-          onChange={handleEnabledChange}
-        />
-      </td>
-      <td>{columnLabel}</td>
-      <td>String</td>
-      <td>
-        <select
-          name={opSelectLabel}
-          aria-label={opSelectLabel}
-          disabled={!enabled}
-          className="form-select"
-          value={scheme}
-          onChange={handleOpChange}
-        >
-          {stringFilterSchemes.map((scheme) => (
-            <option key={scheme} value={scheme}>
-              {stringFilterSchemeNames[scheme]}
-            </option>
-          ))}
-        </select>
-      </td>
-      <td>
-        <input
-          name={valueInputLabel}
-          aria-label={valueInputLabel}
-          className="form-control"
-          required={enabled}
-          disabled={!enabled}
-          value={searchString}
-          onChange={handleSearchStringChange}
-        />
-      </td>
-    </tr>
+    <FilterRow
+      ariaRowIndex={ariaRowIndex}
+      columnLabel={columnLabel}
+      typeLabel="String"
+      enabled={enabled}
+      enabledChangeHandler={handleEnabledChange}
+      currentScheme={scheme}
+      handleSchemeChange={handleOpChange}
+      schemesToLabels={stringFilterSchemeNames}
+      searchStringInputCellContents={searchStringInputCellContents}
+      trClasses={trClasses}
+      tdClasses={tdClasses}
+      inputClasses={enableInputClasses}
+      selectClasses={schemeSelectClasses}
+    />
   );
 };
 

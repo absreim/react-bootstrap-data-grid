@@ -8,7 +8,7 @@ const { execSync } = require("child_process");
 // CONFIG
 // --------------------
 const root = path.resolve(__dirname, "./src/grid");
-const distDir = path.join(root, "dist");
+const distDir = "./dist";
 
 const keepFiles = new Set(["package.json", "README.md"]);
 

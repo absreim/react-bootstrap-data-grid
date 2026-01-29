@@ -67,7 +67,8 @@ export const stringFilterState: SpecTableRow[] = [
     typeDefinition: "'string'",
     isRequired: true,
     description:
-      "A type discriminator used to differentiate between different column types. Note that the type is the literal string 'string', not the JavaScript string type.",
+      "A type discriminator used to differentiate between different column types. " +
+      "Note that the type is the literal string 'string', not the JavaScript string type.",
   },
   {
     propertyName: "scheme",
@@ -89,7 +90,8 @@ export const numberFilterState: SpecTableRow[] = [
     typeDefinition: "'number'",
     isRequired: true,
     description:
-      "A type discriminator used to differentiate between different column types. Note that the type is the literal string 'number', not the JavaScript number type.",
+      "A type discriminator used to differentiate between different column types. " +
+      "Note that the type is the literal string 'number', not the JavaScript number type.",
   },
   {
     propertyName: "scheme",
