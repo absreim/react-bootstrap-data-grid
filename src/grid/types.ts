@@ -210,26 +210,26 @@ export interface EditModel {
 
 /* Styling */
 
-export interface StyleClassModel {
-  table?: Record<string, boolean>;
-  tbody?: Record<string, boolean>;
-  thead?: Record<string, boolean>;
-  theadTr?: Record<string, boolean>;
-  theadTh?: (colIndex: number) => Record<string, boolean>;
-  tbodyTr?: (
-    origIndex: number,
-    displayIndex: number,
-  ) => Record<string, boolean>;
+export interface StyleModel {
+  mainTableStyleModel?: TableStyleModel;
+  filterInputTableStyleModel?: TableStyleModel;
+}
+
+export interface TableStyleModel {
+  table?: string[];
+  tbody?: string[];
+  thead?: string[];
+  theadTr?: string[];
+  theadTh?: (colIndex: number) => string[];
+  tbodyTr?: (origIndex: number, displayIndex: number) => string[];
   tbodyTd?: (
     origRowIndex: number,
     displayRowIndex: number,
     colIndex: number,
-  ) => Record<string, boolean>;
-  caption?: Record<string, boolean>;
-  filterFormInput?: (colIndex: number) => Record<string, boolean>;
-  filterFormPrimaryButton?: Record<string, boolean>;
-  filterFormSecondaryButton?: Record<string, boolean>;
-  editInput?: (colIndex: number) => Record<string, boolean>;
-  editPrimaryButton?: Record<string, boolean>;
-  editSecondaryButton?: Record<string, boolean>;
+  ) => string[];
+  caption?: string[];
+  editInput?: (colIndex: number) => string[];
+  editSelect?: (colIndex: number) => string[];
+  editPrimaryButton?: string[];
+  editSecondaryButton?: string[];
 }

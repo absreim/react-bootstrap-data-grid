@@ -1,14 +1,21 @@
-import { FC, FormEventHandler, ReactNode, useState } from "react";
-import { EditableTableFilterState, TableFilterState } from "../types";
+import { FC, FormEventHandler, ReactNode, useMemo, useState } from "react";
+import {
+  EditableTableFilterState,
+  TableFilterState,
+  TableStyleModel,
+} from "../types";
 import StringFilterRow from "./StringFilterRow";
 import { FilterFormRowState, FilterFormState } from "./types";
 import NumberFilterRow from "./NumberFilterRow";
 import useFormStateFromTableFilterState from "./useFormStateFromTableFilterState";
 import DateFilterRow from "./DateFilterRow";
+import classNames from "classnames";
+import unwrapTableStyleModel from "../styling/unwrapTableStyleModel";
 
 interface FilterOptionsTableProps {
   filterState: TableFilterState;
   setFilterState: (filterState: EditableTableFilterState) => void;
+  tableStyleModel?: TableStyleModel;
 }
 
 const convertFilterFormStateToEditableState: (
@@ -75,9 +82,15 @@ const convertFilterFormStateToEditableState: (
 const FilterOptionsTable: FC<FilterOptionsTableProps> = ({
   filterState,
   setFilterState,
+  tableStyleModel,
 }) => {
   const formFilterState = useFormStateFromTableFilterState(filterState);
   const [formState, setFormState] = useState(formFilterState);
+
+  const unwrappedTableStyleModel = useMemo(
+    () => unwrapTableStyleModel(tableStyleModel),
+    [tableStyleModel],
+  );
 
   const getRows: () => ReactNode[] = () =>
     Object.keys(formState).map((colName) => {
@@ -137,21 +150,39 @@ const FilterOptionsTable: FC<FilterOptionsTableProps> = ({
     setFilterState(editableTableFilterState);
   };
 
+  // TODO: consider using an accordion to show and hide this component
+  // TODO: pass down styles to tbody rows
   return (
     <form onSubmit={onSubmit}>
-      <table className="table">
-        <thead>
-          <tr>
-            <th>Enabled</th>
-            <th>Column</th>
-            <th>Type</th>
-            <th>Operator</th>
-            <th>Value</th>
+      <table className={classNames("table", ...unwrappedTableStyleModel.table)}>
+        <thead className={classNames(...unwrappedTableStyleModel.thead)}>
+          <tr className={classNames(...unwrappedTableStyleModel.theadTr)}>
+            {["Enabled", "Column", "Type", "Operator", "Value"].map(
+              (colName, index) => (
+                <th
+                  key={index}
+                  className={classNames(
+                    ...unwrappedTableStyleModel.theadTh(index),
+                  )}
+                >
+                  {colName}
+                </th>
+              ),
+            )}
           </tr>
         </thead>
-        <tbody>{getRows()}</tbody>
+        <tbody className={classNames(...unwrappedTableStyleModel.tbody)}>
+          {getRows()}
+        </tbody>
       </table>
-      <button className="btn btn-secondary" type="submit">
+      <button
+        className={classNames(
+          "btn",
+          "btn-secondary",
+          ...unwrappedTableStyleModel.editSecondaryButton,
+        )}
+        type="submit"
+      >
         Submit
       </button>
     </form>

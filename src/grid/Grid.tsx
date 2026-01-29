@@ -11,6 +11,7 @@ import {
   RowDef,
   SelectModel,
   Size,
+  StyleModel,
   TableSortModel,
 } from "./types";
 import ColHeaderCell from "./ColHeaderCell";
@@ -49,6 +50,7 @@ export interface GridProps {
   selectModel?: SelectModel;
   editModel?: EditModel;
   caption?: string;
+  styleModel?: StyleModel;
 }
 
 const Grid: FC<GridProps> = ({
@@ -60,6 +62,7 @@ const Grid: FC<GridProps> = ({
   selectModel,
   editModel,
   caption,
+  styleModel
 }) => {
   const editableFilterState = filterModel?.tableFilterState || null;
   const filterState = useFilterStateFromEditable(cols, editableFilterState);
@@ -240,6 +243,7 @@ const Grid: FC<GridProps> = ({
             <FilterOptionsTable
               filterState={filterState}
               setFilterState={filterModel.setTableFilterState}
+              tableStyleModel={styleModel?.filterInputTableStyleModel}
             />
           )}
         </div>
