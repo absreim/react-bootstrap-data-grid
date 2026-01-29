@@ -207,3 +207,29 @@ export interface EditModel {
   // in which case the Delete button will not appear in the UI
   getDeleteCallback?: (origIndex: number) => () => void;
 }
+
+/* Styling */
+
+export interface StyleClassModel {
+  table?: Record<string, boolean>;
+  tbody?: Record<string, boolean>;
+  thead?: Record<string, boolean>;
+  theadTr?: Record<string, boolean>;
+  theadTh?: (colIndex: number) => Record<string, boolean>;
+  tbodyTr?: (
+    origIndex: number,
+    displayIndex: number,
+  ) => Record<string, boolean>;
+  tbodyTd?: (
+    origRowIndex: number,
+    displayRowIndex: number,
+    colIndex: number,
+  ) => Record<string, boolean>;
+  caption?: Record<string, boolean>;
+  filterFormInput?: (colIndex: number) => Record<string, boolean>;
+  filterFormPrimaryButton?: Record<string, boolean>;
+  filterFormSecondaryButton?: Record<string, boolean>;
+  editInput?: (colIndex: number) => Record<string, boolean>;
+  editPrimaryButton?: Record<string, boolean>;
+  editSecondaryButton?: Record<string, boolean>;
+}
