@@ -2,20 +2,29 @@ import { ChangeEventHandler, FC } from "react";
 import {
   NumberFilterScheme,
   numberFilterSchemeNames,
-  numberFilterSchemes,
 } from "../types";
 import { NumberFormFilterState } from "./types";
+import FilterRow, { CommonFilterRowStyleProps } from "./FilterRow";
+import classNames from "classnames";
 
-interface NumberFilterRowProps {
+export type NumberFilterRowProps = {
   columnLabel: string;
   filterState: NumberFormFilterState;
   setFilterState: (filterState: NumberFormFilterState) => void;
-}
+  schemeSelectClasses: string[];
+  enableInputClasses: string[];
+  numberInputClasses: string[];
+} & CommonFilterRowStyleProps;
 
 const NumberFilterRow: FC<NumberFilterRowProps> = ({
   columnLabel,
   filterState,
   setFilterState,
+  schemeSelectClasses,
+  enableInputClasses,
+  numberInputClasses,
+  tdClasses,
+  trClasses,
 }) => {
   const handleOpChange: ChangeEventHandler<HTMLSelectElement> = ({
     target,
@@ -46,52 +55,36 @@ const NumberFilterRow: FC<NumberFilterRowProps> = ({
 
   const { enabled, scheme, inputValue } = filterState;
 
-  const checkboxLabel = `${columnLabel} Column Filter Toggle`;
-  const opSelectLabel = `${columnLabel} Column Filter Operator Selection`;
   const valueInputLabel = `${columnLabel} Column Filter Value`;
 
+  const searchStringInputCellContents = (
+    <input
+      name={valueInputLabel}
+      aria-label={valueInputLabel}
+      className={classNames("form-control", numberInputClasses)}
+      type="number"
+      required={enabled}
+      disabled={!enabled}
+      value={inputValue}
+      onChange={handleNumInputValueChange}
+    />
+  );
+
   return (
-    <tr>
-      <td>
-        <input
-          name={checkboxLabel}
-          aria-label={checkboxLabel}
-          type="checkbox"
-          checked={enabled}
-          onChange={handleEnabledChange}
-        />
-      </td>
-      <td>{columnLabel}</td>
-      <td>Number</td>
-      <td>
-        <select
-          name={opSelectLabel}
-          aria-label={opSelectLabel}
-          disabled={!enabled}
-          className="form-select"
-          value={scheme}
-          onChange={handleOpChange}
-        >
-          {numberFilterSchemes.map((scheme) => (
-            <option key={scheme} value={scheme}>
-              {numberFilterSchemeNames[scheme]}
-            </option>
-          ))}
-        </select>
-      </td>
-      <td>
-        <input
-          name={valueInputLabel}
-          aria-label={valueInputLabel}
-          className="form-control"
-          type="number"
-          required={enabled}
-          disabled={!enabled}
-          value={inputValue}
-          onChange={handleNumInputValueChange}
-        />
-      </td>
-    </tr>
+    <FilterRow
+      columnLabel={columnLabel}
+      typeLabel="Number"
+      enabled={enabled}
+      enabledChangeHandler={handleEnabledChange}
+      currentScheme={scheme}
+      handleSchemeChange={handleOpChange}
+      schemesToLabels={numberFilterSchemeNames}
+      searchStringInputCellContents={searchStringInputCellContents}
+      trClasses={trClasses}
+      tdClasses={tdClasses}
+      inputClasses={enableInputClasses}
+      selectClasses={schemeSelectClasses}
+    />
   );
 };
 

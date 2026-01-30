@@ -1,8 +1,8 @@
 import { FC, FormEventHandler, ReactNode, useMemo, useState } from "react";
 import {
   EditableTableFilterState,
+  FilterInputTableStyleModel,
   TableFilterState,
-  TableStyleModel,
 } from "../types";
 import StringFilterRow from "./StringFilterRow";
 import { FilterFormRowState, FilterFormState } from "./types";
@@ -10,12 +10,12 @@ import NumberFilterRow from "./NumberFilterRow";
 import useFormStateFromTableFilterState from "./useFormStateFromTableFilterState";
 import DateFilterRow from "./DateFilterRow";
 import classNames from "classnames";
-import unwrapTableStyleModel from "../styling/unwrapTableStyleModel";
+import { unwrapFilterInputTableStyleModel } from "../styling/styleModelUnwrappers";
 
 interface FilterOptionsTableProps {
   filterState: TableFilterState;
   setFilterState: (filterState: EditableTableFilterState) => void;
-  tableStyleModel?: TableStyleModel;
+  styleModel?: FilterInputTableStyleModel;
 }
 
 const convertFilterFormStateToEditableState: (
@@ -82,18 +82,18 @@ const convertFilterFormStateToEditableState: (
 const FilterOptionsTable: FC<FilterOptionsTableProps> = ({
   filterState,
   setFilterState,
-  tableStyleModel,
+  styleModel,
 }) => {
   const formFilterState = useFormStateFromTableFilterState(filterState);
   const [formState, setFormState] = useState(formFilterState);
 
-  const unwrappedTableStyleModel = useMemo(
-    () => unwrapTableStyleModel(tableStyleModel),
-    [tableStyleModel],
+  const unwrappedStyleModel = useMemo(
+    () => unwrapFilterInputTableStyleModel(styleModel),
+    [styleModel],
   );
 
   const getRows: () => ReactNode[] = () =>
-    Object.keys(formState).map((colName) => {
+    Object.keys(formState).map((colName, index) => {
       function getColStateSetter(
         colName: string,
       ): (rowState: FilterFormRowState) => void {
@@ -114,6 +114,13 @@ const FilterOptionsTable: FC<FilterOptionsTableProps> = ({
               columnLabel={colLabel}
               filterState={colFilterState}
               setFilterState={getColStateSetter(colName)}
+              schemeSelectClasses={unwrappedStyleModel.schemeSelectionInput}
+              enableInputClasses={unwrappedStyleModel.enablementInput}
+              searchStringInputClasses={unwrappedStyleModel.searchStringInput}
+              trClasses={unwrappedStyleModel.tbodyTr(index)}
+              tdClasses={(colIndex) =>
+                unwrappedStyleModel.tbodyTd(index, colIndex)
+              }
             />
           );
         }
@@ -124,6 +131,13 @@ const FilterOptionsTable: FC<FilterOptionsTableProps> = ({
               columnLabel={colLabel}
               filterState={colFilterState}
               setFilterState={getColStateSetter(colName)}
+              schemeSelectClasses={unwrappedStyleModel.numberInput}
+              enableInputClasses={unwrappedStyleModel.enablementInput}
+              numberInputClasses={unwrappedStyleModel.numberInput}
+              trClasses={unwrappedStyleModel.tbodyTr(index)}
+              tdClasses={(colIndex) =>
+                unwrappedStyleModel.tbodyTd(index, colIndex)
+              }
             />
           );
         }
@@ -136,6 +150,14 @@ const FilterOptionsTable: FC<FilterOptionsTableProps> = ({
               columnLabel={colLabel}
               filterState={colFilterState}
               setFilterState={getColStateSetter(colName)}
+              schemeSelectClasses={unwrappedStyleModel.schemeSelectionInput}
+              enableInputClasses={unwrappedStyleModel.enablementInput}
+              startDateInputClasses={unwrappedStyleModel.startDateInput}
+              endDateInputClasses={unwrappedStyleModel.endDateInput}
+              trClasses={unwrappedStyleModel.tbodyTr(index)}
+              tdClasses={(colIndex) =>
+                unwrappedStyleModel.tbodyTd(index, colIndex)
+              }
             />
           );
         }
@@ -154,16 +176,14 @@ const FilterOptionsTable: FC<FilterOptionsTableProps> = ({
   // TODO: pass down styles to tbody rows
   return (
     <form onSubmit={onSubmit}>
-      <table className={classNames("table", ...unwrappedTableStyleModel.table)}>
-        <thead className={classNames(...unwrappedTableStyleModel.thead)}>
-          <tr className={classNames(...unwrappedTableStyleModel.theadTr)}>
+      <table className={classNames("table", ...unwrappedStyleModel.table)}>
+        <thead className={classNames(...unwrappedStyleModel.thead)}>
+          <tr className={classNames(...unwrappedStyleModel.theadTr)}>
             {["Enabled", "Column", "Type", "Operator", "Value"].map(
               (colName, index) => (
                 <th
                   key={index}
-                  className={classNames(
-                    ...unwrappedTableStyleModel.theadTh(index),
-                  )}
+                  className={classNames(...unwrappedStyleModel.theadTh(index))}
                 >
                   {colName}
                 </th>
@@ -171,7 +191,7 @@ const FilterOptionsTable: FC<FilterOptionsTableProps> = ({
             )}
           </tr>
         </thead>
-        <tbody className={classNames(...unwrappedTableStyleModel.tbody)}>
+        <tbody className={classNames(...unwrappedStyleModel.tbody)}>
           {getRows()}
         </tbody>
       </table>
@@ -179,7 +199,7 @@ const FilterOptionsTable: FC<FilterOptionsTableProps> = ({
         className={classNames(
           "btn",
           "btn-secondary",
-          ...unwrappedTableStyleModel.editSecondaryButton,
+          ...unwrappedStyleModel.editSecondaryButton,
         )}
         type="submit"
       >

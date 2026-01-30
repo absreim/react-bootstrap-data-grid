@@ -212,24 +212,38 @@ export interface EditModel {
 
 export interface StyleModel {
   mainTableStyleModel?: TableStyleModel;
-  filterInputTableStyleModel?: TableStyleModel;
+  filterInputTableStyleModel?: FilterInputTableStyleModel;
 }
 
-export interface TableStyleModel {
+export interface SharedTableStyleModel {
   table?: string[];
   tbody?: string[];
   thead?: string[];
   theadTr?: string[];
   theadTh?: (colIndex: number) => string[];
-  tbodyTr?: (origIndex: number, displayIndex: number) => string[];
-  tbodyTd?: (
-    origRowIndex: number,
-    displayRowIndex: number,
-    colIndex: number,
-  ) => string[];
   caption?: string[];
   editInput?: (colIndex: number) => string[];
   editSelect?: (colIndex: number) => string[];
   editPrimaryButton?: string[];
   editSecondaryButton?: string[];
 }
+
+export type TableStyleModel = SharedTableStyleModel & {
+  tbodyTr?: (origIndex: number, displayIndex: number) => string[];
+  tbodyTd?: (
+    origRowIndex: number,
+    displayRowIndex: number,
+    colIndex: number,
+  ) => string[];
+};
+
+export type FilterInputTableStyleModel = SharedTableStyleModel & {
+  tbodyTr?: (index: number) => string[];
+  tbodyTd?: (index: number, colIndex: number) => string[];
+  enablementInput?: string[];
+  schemeSelectionInput?: string[];
+  searchStringInput?: string[];
+  numberInput?: string[];
+  startDateInput?: string[];
+  endDateInput?: string[];
+};

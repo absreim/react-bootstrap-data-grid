@@ -2,23 +2,34 @@ import { ChangeEventHandler, FC, useMemo } from "react";
 import {
   DateFilterScheme,
   dateFilterSchemeNames,
-  dateFilterSchemes,
 } from "../types";
 import { DateFormFilterState } from "./types";
 import { nanoid } from "nanoid/non-secure";
+import FilterRow, { CommonFilterRowStyleProps } from "./FilterRow";
+import classNames from "classnames";
 
-interface DateFilterRowProps {
+export type DateFilterRowProps = {
   includeTime: boolean;
   columnLabel: string;
   filterState: DateFormFilterState;
   setFilterState: (filterState: DateFormFilterState) => void;
-}
+  schemeSelectClasses: string[];
+  enableInputClasses: string[];
+  startDateInputClasses: string[];
+  endDateInputClasses: string[];
+} & CommonFilterRowStyleProps;
 
 const DateFilterRow: FC<DateFilterRowProps> = ({
   includeTime,
   columnLabel,
   filterState,
   setFilterState,
+  schemeSelectClasses,
+  enableInputClasses,
+  startDateInputClasses,
+  endDateInputClasses,
+  tdClasses,
+  trClasses,
 }) => {
   const handleOpChange: ChangeEventHandler<HTMLSelectElement> = ({
     target,
@@ -63,77 +74,63 @@ const DateFilterRow: FC<DateFilterRowProps> = ({
   const startDateInputId = `$startDate-${inputId}`;
   const endDateInputId = `$endDate-${inputId}`;
 
-  const checkboxLabel = `${columnLabel} Column Filter Toggle`;
-  const opSelectLabel = `${columnLabel} Column Filter Operator Selection`;
   const startDateInputLabel = `${columnLabel} Column Filter Start Date`;
   const endDateInputLabel = `${columnLabel} Column Filter End Date`;
 
+  const searchStringInputCellContents = (
+    <>
+      {scheme !== "endAt" && (
+        <>
+          {scheme === "between" && (
+            <label htmlFor={startDateInputId}>Start Date</label>
+          )}
+          <input
+            id={startDateInputId}
+            className={classNames("form-control", startDateInputClasses)}
+            type={inputType}
+            required={enabled}
+            disabled={!enabled}
+            value={startDate}
+            onChange={handleStartValueChange}
+            aria-label={startDateInputLabel}
+          />
+        </>
+      )}
+      {scheme !== "startFrom" && (
+        <>
+          {scheme === "between" && (
+            <label htmlFor={endDateInputId}>End Date</label>
+          )}
+          <input
+            id={endDateInputId}
+            className={classNames("form-control", endDateInputClasses)}
+            type={inputType}
+            required={enabled}
+            disabled={!enabled}
+            value={endDate}
+            onChange={handleEndValueChange}
+            aria-label={endDateInputLabel}
+          />
+        </>
+      )}
+    </>
+  );
+
   return (
-    <tr>
-      <td>
-        <input
-          name={checkboxLabel}
-          aria-label={checkboxLabel}
-          type="checkbox"
-          checked={enabled}
-          onChange={handleEnabledChange}
-        />
-      </td>
-      <td>{columnLabel}</td>
-      <td>{filterState.type === "date" ? "Date" : "Datetime"}</td>
-      <td>
-        <select
-          name={opSelectLabel}
-          aria-label={opSelectLabel}
-          disabled={!enabled}
-          className="form-select"
-          value={scheme}
-          onChange={handleOpChange}
-        >
-          {dateFilterSchemes.map((scheme) => (
-            <option key={scheme} value={scheme}>
-              {dateFilterSchemeNames[scheme]}
-            </option>
-          ))}
-        </select>
-      </td>
-      <td>
-        {scheme !== "endAt" && (
-          <>
-            {scheme === "between" && (
-              <label htmlFor={startDateInputId}>Start Date</label>
-            )}
-            <input
-              id={startDateInputId}
-              className="form-control"
-              type={inputType}
-              required={enabled}
-              disabled={!enabled}
-              value={startDate}
-              onChange={handleStartValueChange}
-              aria-label={startDateInputLabel}
-            />
-          </>
-        )}
-        {scheme !== "startFrom" && (
-          <>
-            {scheme === "between" && (
-              <label htmlFor={endDateInputId}>End Date</label>
-            )}
-            <input
-              id={endDateInputId}
-              className="form-control"
-              type={inputType}
-              required={enabled}
-              disabled={!enabled}
-              value={endDate}
-              onChange={handleEndValueChange}
-              aria-label={endDateInputLabel}
-            />
-          </>
-        )}
-      </td>
-    </tr>
+    <FilterRow
+      columnLabel={columnLabel}
+      typeLabel={filterState.type === "date" ? "Date" : "Datetime"}
+      enabled={enabled}
+      enabledChangeHandler={handleEnabledChange}
+      currentScheme={scheme}
+      handleSchemeChange={handleOpChange}
+      schemesToLabels={dateFilterSchemeNames}
+      searchStringInputCellContents={searchStringInputCellContents}
+      trClasses={trClasses}
+      tdClasses={tdClasses}
+      inputClasses={enableInputClasses}
+      selectClasses={schemeSelectClasses}
+    />
   );
 };
 
