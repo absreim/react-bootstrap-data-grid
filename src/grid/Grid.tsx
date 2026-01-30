@@ -243,7 +243,7 @@ const Grid: FC<GridProps> = ({
             <FilterOptionsTable
               filterState={filterState}
               setFilterState={filterModel.setTableFilterState}
-              tableStyleModel={styleModel?.filterInputTableStyleModel}
+              styleModel={styleModel?.filterInputTableStyleModel}
             />
           )}
         </div>
