@@ -35,6 +35,20 @@ export type JustifyContentSetting =
 
 export type Size = "small" | "medium" | "large";
 
+/* Pagination */
+
+export interface GridPaginationState {
+  pageSizeOptions: number[];
+  pageSizeIndex: number;
+  setPageSizeIndex: (pageSizeIndex: number) => void;
+  currentPage: number;
+  setCurrentPage: (pageNum: number) => void;
+  maxPageButtons: number;
+  componentSize?: Size;
+  pageSelectorAriaLabel?: string; // aria-label of the nav element
+  pageSelectorJustifyContent?: JustifyContentSetting;
+}
+
 /* Sorting */
 
 export type SortOrder = "asc" | "desc";
@@ -210,11 +224,6 @@ export interface EditModel {
 
 /* Styling */
 
-export interface StyleModel {
-  mainTableStyleModel?: TableStyleModel;
-  filterInputTableStyleModel?: FilterInputTableStyleModel;
-}
-
 export interface SharedTableStyleModel {
   table?: string[];
   tbody?: string[];
@@ -222,10 +231,6 @@ export interface SharedTableStyleModel {
   theadTr?: string[];
   theadTh?: (colIndex: number) => string[];
   caption?: string[];
-  editInput?: (colIndex: number) => string[];
-  editSelect?: (colIndex: number) => string[];
-  editPrimaryButton?: string[];
-  editSecondaryButton?: string[];
 }
 
 export type TableStyleModel = SharedTableStyleModel & {
@@ -235,6 +240,18 @@ export type TableStyleModel = SharedTableStyleModel & {
     displayRowIndex: number,
     colIndex: number,
   ) => string[];
+  tbodyTdInput?: (
+    origRowIndex: number,
+    displayRowIndex: number,
+    colIndex: number,
+  ) => string[];
+  editColTh?: string[];
+  editColTd?: (origIndex: number, displayIndex: number) => string[];
+  selectColTh?: string[];
+  selectColTd?: (origIndex: number, displayIndex: number) => string[];
+  selectInput?: (origIndex: number, displayIndex: number) => string[];
+  editPrimaryButton?: string[];
+  editSecondaryButton?: string[];
 };
 
 export type FilterInputTableStyleModel = SharedTableStyleModel & {
@@ -246,4 +263,15 @@ export type FilterInputTableStyleModel = SharedTableStyleModel & {
   numberInput?: string[];
   startDateInput?: string[];
   endDateInput?: string[];
+  submitButton?: string[];
 };
+
+export interface AdditionalComponentsStyleModel {
+  filterUiToggleButton?: string[];
+}
+
+export interface StyleModel {
+  mainTableStyleModel?: TableStyleModel;
+  filterInputTableStyleModel?: FilterInputTableStyleModel;
+  additionalComponentsStyleModel?: AdditionalComponentsStyleModel;
+}

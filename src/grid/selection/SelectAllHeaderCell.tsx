@@ -9,6 +9,7 @@ interface SelectAllHeaderCellProps {
   onClick: () => void;
   selectType: SelectType;
   selectionExists: boolean;
+  additionalClasses?: string[];
 }
 
 // It seems like React does not support setting indeterminate states on
@@ -54,6 +55,7 @@ const SelectAllHeaderCell: FC<SelectAllHeaderCellProps> = ({
   onClick,
   selectType,
   selectionExists,
+  additionalClasses
 }) => {
   const disabled = selectType === "single" && !selectionExists;
 
@@ -66,7 +68,7 @@ const SelectAllHeaderCell: FC<SelectAllHeaderCellProps> = ({
       aria-description={description}
       className={classNames("rbdg-select-header-cell", "btn-primary", {
         "rbdg-clickable-grid-header-cell": !disabled,
-      })}
+      }, additionalClasses || [])}
       onClick={onClick}
     >
       {getSelectIcon(selectType, selectionExists)}

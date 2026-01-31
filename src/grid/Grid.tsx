@@ -7,10 +7,10 @@ import {
   EditModel,
   FilterModel,
   FormattedRow,
+  GridPaginationState,
   MultiSelectModel,
   RowDef,
   SelectModel,
-  Size,
   StyleModel,
   TableSortModel,
 } from "./types";
@@ -30,16 +30,10 @@ import Pagination from "./pagination/Pagination";
 import classNames from "classnames";
 import EditableRow from "./editing/EditableRow";
 import inputStrsToRowDef from "./editing/inputStrsToRowDef";
-
-export interface GridPaginationState {
-  pageSizeOptions: number[];
-  pageSizeIndex: number;
-  setPageSizeIndex: (pageSizeIndex: number) => void;
-  currentPage: number;
-  setCurrentPage: (pageNum: number) => void;
-  maxPageButtons: number;
-  componentSize?: Size;
-}
+import {
+  UnwrappedTableStyleModel,
+  unwrapTableStyleModel,
+} from "./styling/styleModelUnwrappers";
 
 export interface GridProps {
   rows: RowDef[];
@@ -62,7 +56,7 @@ const Grid: FC<GridProps> = ({
   selectModel,
   editModel,
   caption,
-  styleModel
+  styleModel,
 }) => {
   const editableFilterState = filterModel?.tableFilterState || null;
   const filterState = useFilterStateFromEditable(cols, editableFilterState);
@@ -161,6 +155,7 @@ const Grid: FC<GridProps> = ({
       selectModel.selected.filter((num) => num !== index),
     );
   };
+
   // used to group radio buttons for selection
   const getSelectInputModel: (
     index: number,
@@ -230,6 +225,11 @@ const Grid: FC<GridProps> = ({
       };
     });
 
+  const unwrappedTableModel: UnwrappedTableStyleModel = useMemo(
+    () => unwrapTableStyleModel(styleModel?.mainTableStyleModel),
+    [styleModel?.mainTableStyleModel],
+  );
+
   return (
     <div>
       {filterState && filterModel && (
@@ -238,6 +238,9 @@ const Grid: FC<GridProps> = ({
             isActive={filterOptionsVisible}
             label={`${filterOptionsVisible ? "Hide" : "Show "} Filter Options`}
             onClick={handleToggleFilterOptions}
+            additionalClasses={
+              styleModel?.additionalComponentsStyleModel?.filterUiToggleButton
+            }
           />
           {filterOptionsVisible && (
             <FilterOptionsTable
@@ -249,19 +252,27 @@ const Grid: FC<GridProps> = ({
         </div>
       )}
       <table
-        className={classNames("table", {
-          "table-hover": rowsAreSelectable,
-        })}
+        className={classNames(
+          "table",
+          {
+            "table-hover": rowsAreSelectable,
+          },
+          unwrappedTableModel.table,
+        )}
         aria-rowcount={filteredRows.length + 1}
       >
         {caption !== undefined && <caption>{caption}</caption>}
-        <thead>
-          <tr aria-rowindex={1}>
+        <thead className={classNames(unwrappedTableModel.thead)}>
+          <tr
+            aria-rowindex={1}
+            className={classNames(unwrappedTableModel.theadTr)}
+          >
             {showSelectCol && (
               <SelectAllHeaderCell
                 selectType={selectModel.type}
                 onClick={selectAllOnClick}
                 selectionExists={selectionExists}
+                additionalClasses={unwrappedTableModel.selectColTh}
               />
             )}
             {cols.map(({ name, label, sortable }, index) => {
@@ -283,24 +294,31 @@ const Grid: FC<GridProps> = ({
                   label={label}
                   sortModel={colSortModel}
                   ariaColIndex={index + 1 + (showSelectCol ? 1 : 0)}
+                  additionalClasses={unwrappedTableModel.theadTh(index)}
                 />
               );
             })}
             {editModel && (
-              <th aria-colindex={cols.length + 1 + (showSelectCol ? 1 : 0)}>
+              <th
+                aria-colindex={cols.length + 1 + (showSelectCol ? 1 : 0)}
+                className={classNames(unwrappedTableModel.editColTh)}
+              >
                 Edit Controls
               </th>
             )}
           </tr>
         </thead>
-        <tbody>
+        <tbody className={classNames(unwrappedTableModel.tbody)}>
           {displayRows.map((row, index) => {
             return (
               <EditableRow
                 onClick={getRowClickHandler(row.origIndex)}
-                className={classNames({
-                  "table-active": selectedSet.has(row.origIndex),
-                })}
+                className={classNames(
+                  {
+                    "table-active": selectedSet.has(row.origIndex),
+                  },
+                  unwrappedTableModel.tbodyTr(row.origIndex, index),
+                )}
                 key={row.origIndex}
                 aria-rowindex={index + 2}
                 dataRowIndex={row.origIndex}
@@ -315,9 +333,24 @@ const Grid: FC<GridProps> = ({
                   editModel?.getDeleteCallback &&
                   editModel.getDeleteCallback(row.origIndex)
                 }
+                dataCellClasses={(colIndex) =>
+                  unwrappedTableModel.tbodyTd(row.origIndex, index, colIndex)
+                }
+                dataCellInputClasses={(colIndex) =>
+                  unwrappedTableModel.tbodyTdInput(row.origIndex, index, colIndex)}
+                editControlsCellClasses={unwrappedTableModel.editColTd(
+                  row.origIndex,
+                  index,
+                )}
+                primaryButtonClasses={unwrappedTableModel.editPrimaryButton}
+                secondaryButtonClasses={unwrappedTableModel.editSecondaryButton}
               >
                 {showSelectCol && (
-                  <td>
+                  <td
+                    className={classNames(
+                      unwrappedTableModel.selectColTd(row.origIndex, index),
+                    )}
+                  >
                     <SelectionInput
                       selected={selectedSet.has(row.origIndex)}
                       selectionInputModel={getSelectInputModel(
@@ -325,6 +358,10 @@ const Grid: FC<GridProps> = ({
                         selectModel,
                       )}
                       selectCallback={getSelectHandler(row.origIndex)}
+                      additionalClasses={unwrappedTableModel.selectInput(
+                        row.origIndex,
+                        index,
+                      )}
                     />
                   </td>
                 )}

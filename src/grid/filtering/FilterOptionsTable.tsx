@@ -173,7 +173,6 @@ const FilterOptionsTable: FC<FilterOptionsTableProps> = ({
   };
 
   // TODO: consider using an accordion to show and hide this component
-  // TODO: pass down styles to tbody rows
   return (
     <form onSubmit={onSubmit}>
       <table className={classNames("table", ...unwrappedStyleModel.table)}>
@@ -199,7 +198,7 @@ const FilterOptionsTable: FC<FilterOptionsTableProps> = ({
         className={classNames(
           "btn",
           "btn-secondary",
-          ...unwrappedStyleModel.editSecondaryButton,
+          ...unwrappedStyleModel.submitButton,
         )}
         type="submit"
       >

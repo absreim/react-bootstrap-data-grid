@@ -11,10 +11,6 @@ export interface UnwrappedSharedTableStyleModel {
   theadTr: string[];
   theadTh: (colIndex: number) => string[];
   caption: string[];
-  editInput: (colIndex: number) => string[];
-  editSelect: (colIndex: number) => string[];
-  editPrimaryButton: string[];
-  editSecondaryButton: string[];
 }
 
 export type UnwrappedTableStyleModel = UnwrappedSharedTableStyleModel & {
@@ -24,18 +20,32 @@ export type UnwrappedTableStyleModel = UnwrappedSharedTableStyleModel & {
     displayRowIndex: number,
     colIndex: number,
   ) => string[];
+  tbodyTdInput: (
+    origRowIndex: number,
+    displayRowIndex: number,
+    colIndex: number,
+  ) => string[];
+  editColTh: string[];
+  editColTd: (origIndex: number, displayIndex: number) => string[];
+  selectColTh: string[];
+  selectColTd: (origIndex: number, displayIndex: number) => string[];
+  selectInput: (origIndex: number, displayIndex: number) => string[];
+  editPrimaryButton: string[];
+  editSecondaryButton: string[];
 };
 
-export type UnwrappedFilterInputTableStyleModel = UnwrappedSharedTableStyleModel & {
-  tbodyTr: (index: number) => string[];
-  tbodyTd: (index: number, colIndex: number) => string[];
-  enablementInput: string[];
-  schemeSelectionInput: string[];
-  searchStringInput: string[];
-  numberInput: string[];
-  startDateInput: string[];
-  endDateInput: string[];
-};
+export type UnwrappedFilterInputTableStyleModel =
+  UnwrappedSharedTableStyleModel & {
+    tbodyTr: (index: number) => string[];
+    tbodyTd: (index: number, colIndex: number) => string[];
+    enablementInput: string[];
+    schemeSelectionInput: string[];
+    searchStringInput: string[];
+    numberInput: string[];
+    startDateInput: string[];
+    endDateInput: string[];
+    submitButton: string[];
+  };
 
 const unwrapSharedStyleModel: (
   sharedStyleModel: SharedTableStyleModel | undefined,
@@ -46,14 +56,6 @@ const unwrapSharedStyleModel: (
   theadTr: sharedStyleModel?.theadTr || [],
   theadTh: sharedStyleModel?.theadTh ? sharedStyleModel.theadTh : () => [],
   caption: sharedStyleModel?.caption || [],
-  editInput: sharedStyleModel?.editInput
-    ? sharedStyleModel.editInput
-    : () => [],
-  editSelect: sharedStyleModel?.editSelect
-    ? sharedStyleModel.editSelect
-    : () => [],
-  editPrimaryButton: sharedStyleModel?.editPrimaryButton || [],
-  editSecondaryButton: sharedStyleModel?.editSecondaryButton || [],
 });
 
 export const unwrapTableStyleModel: (
@@ -62,6 +64,20 @@ export const unwrapTableStyleModel: (
   ...unwrapSharedStyleModel(tableStyleModel),
   tbodyTr: tableStyleModel?.tbodyTr ? tableStyleModel.tbodyTr : () => [],
   tbodyTd: tableStyleModel?.tbodyTd ? tableStyleModel.tbodyTd : () => [],
+  tbodyTdInput: tableStyleModel?.tbodyTdInput
+    ? tableStyleModel.tbodyTdInput
+    : () => [],
+  editPrimaryButton: tableStyleModel?.editPrimaryButton || [],
+  editSecondaryButton: tableStyleModel?.editSecondaryButton || [],
+  editColTh: tableStyleModel?.editColTh || [],
+  editColTd: tableStyleModel?.editColTd ? tableStyleModel.editColTd : () => [],
+  selectColTh: tableStyleModel?.selectColTh || [],
+  selectColTd: tableStyleModel?.selectColTd
+    ? tableStyleModel.selectColTd
+    : () => [],
+  selectInput: tableStyleModel?.selectInput
+    ? tableStyleModel.selectInput
+    : () => [],
 });
 
 export const unwrapFilterInputTableStyleModel: (
@@ -80,4 +96,5 @@ export const unwrapFilterInputTableStyleModel: (
   numberInput: filterTableStyleModel?.numberInput || [],
   startDateInput: filterTableStyleModel?.startDateInput || [],
   endDateInput: filterTableStyleModel?.endDateInput || [],
+  submitButton: filterTableStyleModel?.submitButton || [],
 });

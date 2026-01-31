@@ -5,6 +5,7 @@ import { dateToDatetimeInputStr, dateToInputStr } from "../util/datetime";
 import { CellData, ColDataType, ColDataTypeStrings } from "../types";
 import EditControlsCell from "./EditControlsCell";
 import React from "react";
+import classNames from "classnames";
 
 export type EditableRowProps = Pick<
   React.ComponentProps<"tr">,
@@ -16,6 +17,11 @@ export type EditableRowProps = Pick<
   cellData: CellData[]; // contains initial values and metadata
   updateCallback?: (values: string[]) => void; // undefined here means row is not editable at all
   deleteCallback?: () => void;
+  dataCellClasses: (colIndex: number) => string[];
+  dataCellInputClasses: (colIndex: number) => string[];
+  editControlsCellClasses: string[];
+  primaryButtonClasses: string[];
+  secondaryButtonClasses: string[];
 };
 
 const initValueToFormValue: (
@@ -60,6 +66,11 @@ const EditableRow: FC<EditableRowProps> = ({
   "aria-rowindex": ariaRowIndex,
   "aria-selected": ariaSelected,
   dataRowIndex,
+  dataCellClasses,
+  dataCellInputClasses,
+  editControlsCellClasses,
+  primaryButtonClasses,
+  secondaryButtonClasses,
 }) => {
   const trRef = useRef<HTMLTableRowElement>(null);
   const [isEditing, setIsEditing] = useState<boolean>(false);
@@ -107,12 +118,16 @@ const EditableRow: FC<EditableRowProps> = ({
     >
       {children}
       {cellData.map(({ type, value, formattedValue, label }, index) => (
-        <td key={index} aria-colindex={index + ariaColIndexOffset + 1}>
+        <td
+          key={index}
+          aria-colindex={index + ariaColIndexOffset + 1}
+          className={classNames(dataCellClasses(index))}
+        >
           {isEditing && !!updateCallback ? (
             <input
               aria-label={label}
               name={`editable-cell-input-${dataRowIndex}-${index}`}
-              className="form-control"
+              className={classNames("form-control", dataCellInputClasses(index))}
               type={colDataTypeToInputType(type)}
               defaultValue={initValueToFormValue(value, type)}
               required={type !== "string"}
@@ -130,6 +145,9 @@ const EditableRow: FC<EditableRowProps> = ({
           isEditing={isEditing}
           saveCallback={handleSave}
           deleteCallback={deleteCallback}
+          editControlsCellClasses={editControlsCellClasses}
+          primaryButtonClasses={primaryButtonClasses}
+          secondaryButtonClasses={secondaryButtonClasses}
         />
       )}
     </tr>
