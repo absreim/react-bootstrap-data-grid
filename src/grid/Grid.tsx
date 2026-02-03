@@ -396,6 +396,8 @@ const Grid: FC<GridProps> = ({
           prePagingNumRows={sortedRows.length}
           maxPageButtons={pagination.maxPageButtons}
           currentPage={pagination.currentPage}
+          pageSelectorJustifyContent={pagination.pageSelectorJustifyContent}
+          pageSelectorAriaLabel={pagination.pageSelectorAriaLabel}
         />
       )}
     </div>

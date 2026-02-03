@@ -46,7 +46,7 @@ export interface GridPaginationState {
   maxPageButtons: number;
   componentSize?: Size;
   pageSelectorAriaLabel?: string; // aria-label of the nav element
-  pageSelectorJustifyContent?: JustifyContentSetting;
+  pageSelectorJustifyContent?: JustifyContentSetting; // TODO: update documentation to include this setting and aria label setting
 }
 
 /* Sorting */

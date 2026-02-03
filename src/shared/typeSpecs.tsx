@@ -319,22 +319,34 @@ export const tableStyleModel: SpecTableRow[] = [
     propertyName: "tbody",
     typeDefinition: "string[]",
     isRequired: false,
-    description:
-      "Specifies additional CSS classes for the tbody element of the main table.",
+    description: (
+      <>
+        Specifies additional CSS classes for the <i>tbody</i> element of
+        the main table.
+      </>
+    ),
   },
   {
     propertyName: "thead",
     typeDefinition: "string[]",
     isRequired: false,
-    description:
-      "Specifies additional CSS classes for the thead element of the main table.",
+    description: (
+      <>
+        Specifies additional CSS classes for the <i>thead</i> element of
+        the main table.
+      </>
+    ),
   },
   {
     propertyName: "theadTr",
     typeDefinition: "string[]",
     isRequired: false,
-    description:
-      "Specifies additional CSS classes for the sole tr element of the thead element of the main table.",
+    description: (
+      <>
+        Specifies additional CSS classes for the sole <i>tr</i> element of the{" "}
+        <i>thead</i> element of the main table.
+      </>
+    ),
   },
   {
     propertyName: "theadTh",
@@ -343,12 +355,11 @@ export const tableStyleModel: SpecTableRow[] = [
     description: (
       <>
         Specifies additional CSS classes for <i>th</i> elements inside the{" "}
-        <i>thead</i> element of the main table. The <code>colIndex</code>{" "}
-        parameter starts at 0 and corresponds to the index of columns in an
-        array of <code>ColDef</code> objects passed as the <code>cols</code>{" "}
-        prop of the <code>Grid</code> component. Columns not corresponding to a{" "}
-        <code>ColDef</code>, such as the selection input column, are not
-        included in the columns styled by the this property.
+        <i>thead</i> element of the main table. For columns are currently being
+        used for sorting, the <code>Grid</code> will automatically apply the{" "}
+        <code>table-active</code> class. In addition, if a column is available
+        as an option for sorting, the <code>Grid</code> will use a CSS class
+        (specific to this project) to set the cursor to be a pointer.
       </>
     ),
   },
@@ -462,5 +473,166 @@ export const tableStyleModel: SpecTableRow[] = [
         the <code>btn-secondary</code> class to these buttons.
       </>
     ),
+  },
+];
+
+export const filterInputTableStyleModel: SpecTableRow[] = [
+  {
+    propertyName: "table",
+    typeDefinition: "string[]",
+    isRequired: false,
+    description: (
+      <>
+        Specifies additional CSS classes for the <i>table</i> element of filter
+        options interface. This element always has the <code>table</code> class
+        to apply Bootstrap styles.
+      </>
+    ),
+  },
+  {
+    propertyName: "tbody",
+    typeDefinition: "string[]",
+    isRequired: false,
+    description: (
+      <>
+        Specifies additional CSS classes for the <i>tbody</i> element of the
+        filter options table.
+      </>
+    ),
+  },
+  {
+    propertyName: "thead",
+    typeDefinition: "string[]",
+    isRequired: false,
+    description: (
+      <>
+        Specifies additional CSS classes for the <i>thead</i> element of the
+        filter options table.
+      </>
+    ),
+  },
+  {
+    propertyName: "theadTr",
+    typeDefinition: "string[]",
+    isRequired: false,
+    description: (
+      <>
+        Specifies additional CSS classes for the sole <i>tr</i> element of the{" "}
+        <i>thead</i> element of the filter options table.
+      </>
+    ),
+  },
+  {
+    propertyName: "theadTh",
+    typeDefinition: "(colIndex: number) => string[]",
+    isRequired: false,
+    description: (
+      <>
+        Specifies additional CSS classes for <i>th</i> elements inside the{" "}
+        <i>thead</i> element of the filter options table.
+      </>
+    ),
+  },
+  {
+    propertyName: "caption",
+    typeDefinition: "string[]",
+    isRequired: false,
+    description:
+      "Specifies additional CSS classes for the caption element of the filter options table.",
+  },
+  {
+    propertyName: "tbodyTr",
+    typeDefinition: "(index: number) => string[]",
+    isRequired: false,
+    description: (
+      <>
+        Specifies additional CSS classes for <i>tr</i> elements inside the{" "}
+        <i>tbody</i> element of the filter options table.
+      </>
+    ),
+  },
+  {
+    propertyName: "tbodyTd",
+    typeDefinition: "(index: number, colIndex: number) => string[]",
+    isRequired: false,
+    description: (
+      <>
+        Specifies additional CSS classes for <i>td</i> elements in side the{" "}
+        <i>tbody</i> element of the filter options table.
+      </>
+    ),
+  },
+  {
+    propertyName: "enablementInput",
+    typeDefinition: "string[]",
+    isRequired: false,
+    description: (
+      <>
+        Specifies additional CSS classes for <i>input</i> checkbox elements that
+        enable and disable filtering based on certain fields.
+      </>
+    ),
+  },
+  {
+    propertyName: "schemeSelectionInput",
+    typeDefinition: "string[]",
+    isRequired: false,
+    description: (
+      <>
+        Specifies additional CSS classes for the <i>select</i> elements that are
+        used to adjust the operators used for filtering for a field.
+      </>
+    ),
+  },
+  {
+    propertyName: "searchStringInput",
+    typeDefinition: "string[]",
+    isRequired: false,
+    description: (
+      <>
+        Specifies additional CSS classes for the <i>input</i> elements used to
+        specify string values on which to filter.
+      </>
+    ),
+  },
+  {
+    propertyName: "numberInput",
+    typeDefinition: "string[]",
+    isRequired: false,
+    description: (
+      <>
+        Specifies additional CSS classes for the <i>input</i> elements used to
+        specify the number values on which to filter.
+      </>
+    ),
+  },
+  {
+    propertyName: "startDateInput",
+    typeDefinition: "string[]",
+    isRequired: false,
+    description: (
+      <>
+        Specifies additional CSS classes for the <i>input</i> elements used to
+        specify the starting dates or datetimes on which to filter.
+      </>
+    ),
+  },
+  {
+    propertyName: "endDateInput",
+    typeDefinition: "string[]",
+    isRequired: false,
+    description: (
+      <>
+        Specifies additional CSS classes for the <i>input</i> elements used to
+        specify the ending dates or datetimes on which to filter.
+      </>
+    ),
+  },
+  {
+    propertyName: "submitButton",
+    typeDefinition: "string[]",
+    isRequired: false,
+    description:
+      "Specifies additional CSS classes for the submit button used to save changes to the filter criteria.",
   },
 ];

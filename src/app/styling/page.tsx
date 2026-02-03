@@ -1,6 +1,10 @@
 import { FC } from "react";
 import TypeSpecTable from "@/shared/TypeSpecTable";
-import { styleModel, tableStyleModel } from "@/shared/typeSpecs";
+import {
+  filterInputTableStyleModel,
+  styleModel,
+  tableStyleModel,
+} from "@/shared/typeSpecs";
 
 const Styling: FC = () => {
   return (
@@ -89,6 +93,53 @@ const Styling: FC = () => {
         </dd>
       </dl>
       <TypeSpecTable rows={tableStyleModel} />
+      <h4>FilterInputTableStyleModel</h4>
+      <p>
+        Properties of this type are used to inject custom CSS classes into the
+        filter options table of the <code>Grid</code> component.
+      </p>
+      <p>
+        Like the <code>TableStyleModel</code> type, for certain kinds of
+        elements there are more than one of that kind and function parameters
+        are used to specify classes differently for different elements.
+      </p>
+      <dl>
+        <dt>
+          <code>index</code>
+        </dt>
+        <dd>
+          Zero-based index that refers to the row of filter options as it
+          appears in the UI. The order in which the rows appear is the same as
+          the order corresponding columns in the <code>cols</code> prop to the{" "}
+          <code>Grid</code> component, except that only filterable rows are
+          included.
+        </dd>
+        <dt>
+          <code>colIndex</code>
+        </dt>
+        <dd>
+          Zero-based index that refers to the columns of the filter options
+          table. The columns are fixed regardless of the contents of options
+          passed to the <code>Grid</code> and are as follows:
+          <ol start={0}>
+            <li>
+              Enabled - contains checkbox controls to enable or disable
+              filtering on a column
+            </li>
+            <li>Column - contains the name of the column</li>
+            <li>
+              Type - contains a string indicating the type of the column (e.g.
+              String or Date)
+            </li>
+            <li>
+              Operator - contains a selection input to choose operator used to
+              apply filtering
+            </li>
+            <li>Value - contains inputs to adjust the values to filter on</li>
+          </ol>
+        </dd>
+      </dl>
+      <TypeSpecTable rows={filterInputTableStyleModel} />
     </>
   );
 };
