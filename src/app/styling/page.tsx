@@ -1,6 +1,6 @@
 import { FC } from "react";
 import TypeSpecTable from "@/shared/TypeSpecTable";
-import { styleModel } from "@/shared/typeSpecs";
+import { styleModel, tableStyleModel } from "@/shared/typeSpecs";
 
 const Styling: FC = () => {
   return (
@@ -52,9 +52,43 @@ const Styling: FC = () => {
       <h4>StyleModel</h4>
       <p>
         A prop of this type is optionally passed to the <code>Grid</code>{" "}
-        component enable injection of custom CSS classes.
+        component to enable injection of custom CSS classes.
       </p>
       <TypeSpecTable rows={styleModel} />
+      <h4>TableStyleModel</h4>
+      <p>
+        Properties of this type are used to inject custom CSS classes into the
+        main table of the <code>Grid</code> component.
+      </p>
+      <p>
+        When more than one of a certain kind of element exists, a function is
+        used to specify different classes based on the index of the element.
+        Certain parameters are common to many different properties:
+      </p>
+      <dl>
+        <dt>
+          <code>origIndex</code> and <code>origRowIndex</code>
+        </dt>
+        <dd>
+          Refers to the index of a row as it is passed into the{" "}
+          <code>rows</code> prop of the <code>Grid</code> component.
+        </dd>
+        <dt>
+          <code>displayIndex</code>
+        </dt>
+        <dd>
+          Refers to the index of the row as it is displayed in the table, after
+          sorting, pagination, and filtering are applied.
+        </dd>
+        <dt>
+          <code>colIndex</code>
+        </dt>
+        <dd>
+          Refers to the index of a column as it corresponds to the{" "}
+          <code>cols</code> prop passed into the <code>Grid</code> component.
+        </dd>
+      </dl>
+      <TypeSpecTable rows={tableStyleModel} />
     </>
   );
 };

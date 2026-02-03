@@ -273,8 +273,12 @@ export const styleModel: SpecTableRow[] = [
     propertyName: "mainTableStyleModel",
     typeDefinition: "TableStyleModel",
     isRequired: false,
-    description:
-      "Properties to apply custom CSS classes to elements of the main table of the Grid component",
+    description: (
+      <>
+        Properties to apply custom CSS classes to elements of the main table of
+        the <code>Grid</code> component
+      </>
+    ),
   },
   {
     propertyName: "filterInputTableStyleModel",
@@ -287,8 +291,12 @@ export const styleModel: SpecTableRow[] = [
     propertyName: "additionalComponentsStyleModel",
     typeDefinition: "AdditionalComponentsStyleModel",
     isRequired: false,
-    description:
-      "Properties to apply custom CSS classes for any elements not covered by the other properties in StyleModel",
+    description: (
+      <>
+        Properties to apply custom CSS classes for any elements not covered by
+        the other properties in <code>StyleModel</code>
+      </>
+    ),
   },
 ];
 
@@ -297,10 +305,162 @@ export const tableStyleModel: SpecTableRow[] = [
     propertyName: "table",
     typeDefinition: "string[]",
     isRequired: false,
+    description: (
+      <>
+        Specifies additional CSS classes for the main table element. This
+        element always has the <code>table</code> class to apply Bootstrap
+        styles. In addition, when row selection mode is enabled, the table will
+        have the <code>table-hover</code> class to indicate that the rows are
+        selectable by clicking on them.
+      </>
+    ),
+  },
+  {
+    propertyName: "tbody",
+    typeDefinition: "string[]",
+    isRequired: false,
     description:
-      'Specifies additional CSS classes for the main table element. ' +
-      'This element always has the "table" class to apply Bootstrap styles. ' +
-      'In addition, when row selection mode is enabled, the table will have the ' +
-      '"table-hover" class to indicate that the rows are selectable by clicking on them.',
+      "Specifies additional CSS classes for the tbody element of the main table.",
+  },
+  {
+    propertyName: "thead",
+    typeDefinition: "string[]",
+    isRequired: false,
+    description:
+      "Specifies additional CSS classes for the thead element of the main table.",
+  },
+  {
+    propertyName: "theadTr",
+    typeDefinition: "string[]",
+    isRequired: false,
+    description:
+      "Specifies additional CSS classes for the sole tr element of the thead element of the main table.",
+  },
+  {
+    propertyName: "theadTh",
+    typeDefinition: "(colIndex: number) => string[]",
+    isRequired: false,
+    description: (
+      <>
+        Specifies additional CSS classes for <i>th</i> elements inside the{" "}
+        <i>thead</i> element of the main table. The <code>colIndex</code>{" "}
+        parameter starts at 0 and corresponds to the index of columns in an
+        array of <code>ColDef</code> objects passed as the <code>cols</code>{" "}
+        prop of the <code>Grid</code> component. Columns not corresponding to a{" "}
+        <code>ColDef</code>, such as the selection input column, are not
+        included in the columns styled by the this property.
+      </>
+    ),
+  },
+  {
+    propertyName: "caption",
+    typeDefinition: "string[]",
+    isRequired: false,
+    description:
+      "Specifies additional CSS classes for the caption element of the main table.",
+  },
+  {
+    propertyName: "tbodyTr",
+    typeDefinition: "(origIndex: number, displayIndex: number) => string[]",
+    isRequired: false,
+    description: (
+      <>
+        Specifies additional CSS classes for <i>tr</i> elements inside the{" "}
+        <i>tbody</i> element of the main table. The <code>Grid</code> component
+        will automatically apply the <code>table-active</code> class to selected
+        rows.
+      </>
+    ),
+  },
+  {
+    propertyName: "tbodyTd",
+    typeDefinition:
+      "(origRowIndex: number, displayRowIndex: number, colIndex: number) => string[]",
+    isRequired: false,
+    description: (
+      <>
+        Specifies additional CSS classes for <i>td</i> elements in side the{" "}
+        <i>tbody</i> element of the main table.
+      </>
+    ),
+  },
+  {
+    propertyName: "editColTh",
+    typeDefinition: "string[]",
+    isRequired: false,
+    description: (
+      <>
+        Specifies additional CSS classes for the <i>th</i> element of the
+        editing controls column.
+      </>
+    ),
+  },
+  {
+    propertyName: "editColTd",
+    typeDefinition: "(origIndex: number, displayIndex: number) => string[]",
+    isRequired: false,
+    description: (
+      <>
+        Specifies additional CSS classes for the <i>td</i> elements of the
+        editing controls column.
+      </>
+    ),
+  },
+  {
+    propertyName: "selectColTh",
+    typeDefinition: "string[]",
+    isRequired: false,
+    description: (
+      <>
+        Specifies additional CSS classes for the <i>th</i> element of the
+        selection controls column.
+      </>
+    ),
+  },
+  {
+    propertyName: "selectColTd",
+    typeDefinition: "(origIndex: number, displayIndex: number) => string[]",
+    isRequired: false,
+    description: (
+      <>
+        Specifies additional CSS classes for the <i>td</i> elements of the
+        selection controls column.
+      </>
+    ),
+  },
+  {
+    propertyName: "selectInput",
+    typeDefinition: "(origIndex: number, displayIndex: number) => string[]",
+    isRequired: false,
+    description: (
+      <>
+        Specifies additional CSS classes for the <i>input</i> elements inside
+        the <i>td</i> elements of the selection controls column.
+      </>
+    ),
+  },
+  {
+    propertyName: "editPrimaryButton",
+    typeDefinition: "string[]",
+    isRequired: false,
+    description: (
+      <>
+        Specifies the styles for all <i>Edit</i> and <i>Save</i> buttons of the
+        editing controls column. The <code>Grid</code> automatically applies the{" "}
+        <code>btn-primary</code> class to these buttons.
+      </>
+    ),
+  },
+  {
+    propertyName: "editSecondaryButton",
+    typeDefinition: "string[]",
+    isRequired: false,
+    description: (
+      <>
+        Specifies the styles for all <i>Delete</i> and <i>Cancel</i> buttons of
+        the editing controls column. The <code>Grid</code> automatically applies
+        the <code>btn-secondary</code> class to these buttons.
+      </>
+    ),
   },
 ];
