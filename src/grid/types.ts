@@ -267,6 +267,7 @@ export type FilterInputTableStyleModel = SharedTableStyleModel & {
 };
 
 export interface AdditionalComponentsStyleModel {
+  topLevelDiv?: string[];
   filterUiToggleButton?: string[];
 }
 

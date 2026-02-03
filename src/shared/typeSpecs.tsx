@@ -67,7 +67,8 @@ export const stringFilterState: SpecTableRow[] = [
     typeDefinition: "'string'",
     isRequired: true,
     description:
-      "A type discriminator used to differentiate between different column types. Note that the type is the literal string 'string', not the JavaScript string type.",
+      "A type discriminator used to differentiate between different column types. " +
+      "Note that the type is the literal string 'string', not the JavaScript string type.",
   },
   {
     propertyName: "scheme",
@@ -89,7 +90,8 @@ export const numberFilterState: SpecTableRow[] = [
     typeDefinition: "'number'",
     isRequired: true,
     description:
-      "A type discriminator used to differentiate between different column types. Note that the type is the literal string 'number', not the JavaScript number type.",
+      "A type discriminator used to differentiate between different column types. " +
+      "Note that the type is the literal string 'number', not the JavaScript number type.",
   },
   {
     propertyName: "scheme",
@@ -263,5 +265,42 @@ export const editModel: SpecTableRow[] = [
     isRequired: false,
     description:
       "A function takes the original index of a row and returns a callback function for deleting the row. Omitting this property disables the UI for deletions.",
+  },
+];
+
+export const styleModel: SpecTableRow[] = [
+  {
+    propertyName: "mainTableStyleModel",
+    typeDefinition: "TableStyleModel",
+    isRequired: false,
+    description:
+      "Properties to apply custom CSS classes to elements of the main table of the Grid component",
+  },
+  {
+    propertyName: "filterInputTableStyleModel",
+    typeDefinition: "FilterInputTableStyleModel",
+    isRequired: false,
+    description:
+      "Properties to apply custom CSS classes to elements of the filter inputs table",
+  },
+  {
+    propertyName: "additionalComponentsStyleModel",
+    typeDefinition: "AdditionalComponentsStyleModel",
+    isRequired: false,
+    description:
+      "Properties to apply custom CSS classes for any elements not covered by the other properties in StyleModel",
+  },
+];
+
+export const tableStyleModel: SpecTableRow[] = [
+  {
+    propertyName: "table",
+    typeDefinition: "string[]",
+    isRequired: false,
+    description:
+      'Specifies additional CSS classes for the main table element. ' +
+      'This element always has the "table" class to apply Bootstrap styles. ' +
+      'In addition, when row selection mode is enabled, the table will have the ' +
+      '"table-hover" class to indicate that the rows are selectable by clicking on them.',
   },
 ];

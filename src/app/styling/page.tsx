@@ -1,5 +1,6 @@
 import { FC } from "react";
-import { GridPaginationState } from "@/grid";
+import TypeSpecTable from "@/shared/TypeSpecTable";
+import { styleModel } from "@/shared/typeSpecs";
 
 const Styling: FC = () => {
   return (
@@ -46,6 +47,14 @@ const Styling: FC = () => {
           strings.
         </dd>
       </dl>
+      <h2>Injection of Custom Classes</h2>
+      <h3>Type Definitions</h3>
+      <h4>StyleModel</h4>
+      <p>
+        A prop of this type is optionally passed to the <code>Grid</code>{" "}
+        component enable injection of custom CSS classes.
+      </p>
+      <TypeSpecTable rows={styleModel} />
     </>
   );
 };

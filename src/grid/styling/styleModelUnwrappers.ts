@@ -1,55 +1,13 @@
 import {
+  AdditionalComponentsStyleModel,
   FilterInputTableStyleModel,
   SharedTableStyleModel,
   TableStyleModel,
 } from "../types";
 
-export interface UnwrappedSharedTableStyleModel {
-  table: string[];
-  tbody: string[];
-  thead: string[];
-  theadTr: string[];
-  theadTh: (colIndex: number) => string[];
-  caption: string[];
-}
-
-export type UnwrappedTableStyleModel = UnwrappedSharedTableStyleModel & {
-  tbodyTr: (origIndex: number, displayIndex: number) => string[];
-  tbodyTd: (
-    origRowIndex: number,
-    displayRowIndex: number,
-    colIndex: number,
-  ) => string[];
-  tbodyTdInput: (
-    origRowIndex: number,
-    displayRowIndex: number,
-    colIndex: number,
-  ) => string[];
-  editColTh: string[];
-  editColTd: (origIndex: number, displayIndex: number) => string[];
-  selectColTh: string[];
-  selectColTd: (origIndex: number, displayIndex: number) => string[];
-  selectInput: (origIndex: number, displayIndex: number) => string[];
-  editPrimaryButton: string[];
-  editSecondaryButton: string[];
-};
-
-export type UnwrappedFilterInputTableStyleModel =
-  UnwrappedSharedTableStyleModel & {
-    tbodyTr: (index: number) => string[];
-    tbodyTd: (index: number, colIndex: number) => string[];
-    enablementInput: string[];
-    schemeSelectionInput: string[];
-    searchStringInput: string[];
-    numberInput: string[];
-    startDateInput: string[];
-    endDateInput: string[];
-    submitButton: string[];
-  };
-
 const unwrapSharedStyleModel: (
   sharedStyleModel: SharedTableStyleModel | undefined,
-) => UnwrappedSharedTableStyleModel = (sharedStyleModel) => ({
+) => Required<SharedTableStyleModel> = (sharedStyleModel) => ({
   table: sharedStyleModel?.table || [],
   tbody: sharedStyleModel?.tbody || [],
   thead: sharedStyleModel?.thead || [],
@@ -60,7 +18,7 @@ const unwrapSharedStyleModel: (
 
 export const unwrapTableStyleModel: (
   tableStyleModel: TableStyleModel | undefined,
-) => UnwrappedTableStyleModel = (tableStyleModel) => ({
+) => Required<TableStyleModel> = (tableStyleModel) => ({
   ...unwrapSharedStyleModel(tableStyleModel),
   tbodyTr: tableStyleModel?.tbodyTr ? tableStyleModel.tbodyTr : () => [],
   tbodyTd: tableStyleModel?.tbodyTd ? tableStyleModel.tbodyTd : () => [],
@@ -82,7 +40,7 @@ export const unwrapTableStyleModel: (
 
 export const unwrapFilterInputTableStyleModel: (
   filterTableStyleModel: FilterInputTableStyleModel | undefined,
-) => UnwrappedFilterInputTableStyleModel = (filterTableStyleModel) => ({
+) => Required<FilterInputTableStyleModel> = (filterTableStyleModel) => ({
   ...unwrapSharedStyleModel(filterTableStyleModel),
   tbodyTr: filterTableStyleModel?.tbodyTr
     ? filterTableStyleModel.tbodyTr
@@ -97,4 +55,11 @@ export const unwrapFilterInputTableStyleModel: (
   startDateInput: filterTableStyleModel?.startDateInput || [],
   endDateInput: filterTableStyleModel?.endDateInput || [],
   submitButton: filterTableStyleModel?.submitButton || [],
+});
+
+export const unwrapAdditionalComponentsStyleModel: (
+  styleModel: AdditionalComponentsStyleModel | undefined,
+) => Required<AdditionalComponentsStyleModel> = (styleModel) => ({
+  topLevelDiv: styleModel?.topLevelDiv || [],
+  filterUiToggleButton: styleModel?.filterUiToggleButton || [],
 });

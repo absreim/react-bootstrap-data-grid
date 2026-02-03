@@ -2,6 +2,7 @@
 
 import { FC, MouseEventHandler, useMemo, useState } from "react";
 import {
+  AdditionalComponentsStyleModel,
   ColDef,
   ColSortModel,
   EditModel,
@@ -13,6 +14,7 @@ import {
   SelectModel,
   StyleModel,
   TableSortModel,
+  TableStyleModel,
 } from "./types";
 import ColHeaderCell from "./ColHeaderCell";
 import useFilter from "./hooks/useFilter";
@@ -31,7 +33,7 @@ import classNames from "classnames";
 import EditableRow from "./editing/EditableRow";
 import inputStrsToRowDef from "./editing/inputStrsToRowDef";
 import {
-  UnwrappedTableStyleModel,
+  unwrapAdditionalComponentsStyleModel,
   unwrapTableStyleModel,
 } from "./styling/styleModelUnwrappers";
 
@@ -225,13 +227,22 @@ const Grid: FC<GridProps> = ({
       };
     });
 
-  const unwrappedTableModel: UnwrappedTableStyleModel = useMemo(
+  const unwrappedTableModel: Required<TableStyleModel> = useMemo(
     () => unwrapTableStyleModel(styleModel?.mainTableStyleModel),
     [styleModel?.mainTableStyleModel],
   );
 
+  const unwrappedAdditionalStyleModel: Required<AdditionalComponentsStyleModel> =
+    useMemo(
+      () =>
+        unwrapAdditionalComponentsStyleModel(
+          styleModel?.additionalComponentsStyleModel,
+        ),
+      [styleModel?.additionalComponentsStyleModel],
+    );
+
   return (
-    <div>
+    <div className={classNames(unwrappedAdditionalStyleModel.topLevelDiv)}>
       {filterState && filterModel && (
         <div>
           <ToggleButton
@@ -239,7 +250,7 @@ const Grid: FC<GridProps> = ({
             label={`${filterOptionsVisible ? "Hide" : "Show "} Filter Options`}
             onClick={handleToggleFilterOptions}
             additionalClasses={
-              styleModel?.additionalComponentsStyleModel?.filterUiToggleButton
+              unwrappedAdditionalStyleModel.filterUiToggleButton
             }
           />
           {filterOptionsVisible && (
@@ -337,7 +348,12 @@ const Grid: FC<GridProps> = ({
                   unwrappedTableModel.tbodyTd(row.origIndex, index, colIndex)
                 }
                 dataCellInputClasses={(colIndex) =>
-                  unwrappedTableModel.tbodyTdInput(row.origIndex, index, colIndex)}
+                  unwrappedTableModel.tbodyTdInput(
+                    row.origIndex,
+                    index,
+                    colIndex,
+                  )
+                }
                 editControlsCellClasses={unwrappedTableModel.editColTd(
                   row.origIndex,
                   index,
