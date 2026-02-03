@@ -5,6 +5,7 @@ import {
   styleModel,
   tableStyleModel,
 } from "@/shared/typeSpecs";
+import { additionalComponentsStyleModel } from "@/app/styling/typeSpecs";
 
 const Styling: FC = () => {
   return (
@@ -140,6 +141,8 @@ const Styling: FC = () => {
         </dd>
       </dl>
       <TypeSpecTable rows={filterInputTableStyleModel} />
+      <h4>AdditionalComponentsStyleModel</h4>
+      <TypeSpecTable rows={additionalComponentsStyleModel} />
     </>
   );
 };
