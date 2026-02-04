@@ -68,7 +68,7 @@ const placeholderText =
   "the effects of vertical alignment. If cell being vertically aligned is the " +
   "tallest column for a row, then vertical alignment will have no effect. " +
   "There should be enough text here to demonstrate the effect even at the " +
-  "largest breakpoint."
+  "largest breakpoint.";
 
 const getComputedTableColors: (variants: string[]) => string[] = (variants) => {
   const table: HTMLTableElement = document.createElement("table");
@@ -111,6 +111,8 @@ const getRows: (partialRows: PartialRow[], colors: string[]) => RowDef[] = (
   }));
 
 const tableStyleModel: TableStyleModel = {
+  caption: ["caption-top"],
+  table: ["table-bordered", "border-primary"],
   tbodyTr: (origIndex) => [\`table-\${partialRows[origIndex].variant}\`],
   tbodyTd: (origRowIndex, _, colIndex) =>
     colIndex === 2 ? [\`align-\${partialRows[origRowIndex].alignment}\`] : [],
@@ -120,6 +122,10 @@ const styleModel: StyleModel = {
   mainTableStyleModel: tableStyleModel,
 };
 
+const caption: string =
+  "Table demonstrating various ways of customizing " +
+  "styling with classes built into Bootstrap";
+
 const SampleStyledGrid: FC = () => {
   const rows = useMemo(() => {
     const variants = partialRows.map(({ variant }) => variant);
@@ -127,7 +133,9 @@ const SampleStyledGrid: FC = () => {
     return getRows(partialRows, colors);
   }, []);
 
-  return <Grid rows={rows} cols={cols} styleModel={styleModel} />;
+  return (
+    <Grid rows={rows} cols={cols} styleModel={styleModel} caption={caption} />
+  );
 };
 
 export default SampleStyledGrid;

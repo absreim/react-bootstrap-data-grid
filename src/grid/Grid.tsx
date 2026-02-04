@@ -272,7 +272,11 @@ const Grid: FC<GridProps> = ({
         )}
         aria-rowcount={filteredRows.length + 1}
       >
-        {caption !== undefined && <caption>{caption}</caption>}
+        {caption !== undefined && (
+          <caption className={classNames(unwrappedTableModel.caption)}>
+            {caption}
+          </caption>
+        )}
         <thead className={classNames(unwrappedTableModel.thead)}>
           <tr
             aria-rowindex={1}
