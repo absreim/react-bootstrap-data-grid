@@ -1,3 +1,5 @@
+"use client";
+
 import { FC } from "react";
 import TypeSpecTable from "@/shared/TypeSpecTable";
 import {
@@ -6,6 +8,14 @@ import {
   tableStyleModel,
 } from "@/shared/typeSpecs";
 import { additionalComponentsStyleModel } from "@/app/styling/typeSpecs";
+import HighlightedTsCodeBlock from "@/shared/HighlightedTsCodeBlock";
+import sampleStyledGridCode from "@/app/styling/sampleStyledGridCode";
+import dynamic from "next/dynamic";
+
+const SampleStyledGrid = dynamic(
+  () => import("@/app/styling/SampleStyledGrid"),
+  { ssr: false },
+);
 
 const Styling: FC = () => {
   return (
@@ -143,6 +153,11 @@ const Styling: FC = () => {
       <TypeSpecTable rows={filterInputTableStyleModel} />
       <h4>AdditionalComponentsStyleModel</h4>
       <TypeSpecTable rows={additionalComponentsStyleModel} />
+      <h3>Example</h3>
+      <h4>Code</h4>
+      <HighlightedTsCodeBlock code={sampleStyledGridCode} />
+      <h4>Live Demo</h4>
+      <SampleStyledGrid />
     </>
   );
 };

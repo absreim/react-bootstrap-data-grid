@@ -8,7 +8,6 @@ import TypeSpecTable from "@/shared/TypeSpecTable";
 import { multiSelectMode, singleSelectMode } from "@/shared/typeSpecs";
 import ExternalInteractionExample from "@/app/selection/ExternalInteractionExample";
 import externalInteractionExampleCode from "@/app/selection/externalInteractionExampleCode";
-import Alert from "react-bootstrap/Alert";
 
 const Selection: FC = () => {
   return (
