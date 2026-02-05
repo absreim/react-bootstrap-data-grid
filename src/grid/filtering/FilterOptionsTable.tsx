@@ -1,7 +1,6 @@
 import { FC, FormEventHandler, ReactNode, useMemo, useState } from "react";
 import {
   EditableTableFilterState,
-  FilterInputTableStyleModel,
   TableFilterState,
 } from "../types";
 import StringFilterRow from "./StringFilterRow";
@@ -11,6 +10,7 @@ import useFormStateFromTableFilterState from "./useFormStateFromTableFilterState
 import DateFilterRow from "./DateFilterRow";
 import classNames from "classnames";
 import { unwrapFilterInputTableStyleModel } from "../styling/styleModelUnwrappers";
+import { FilterInputTableStyleModel } from "../styling/types";
 
 interface FilterOptionsTableProps {
   filterState: TableFilterState;

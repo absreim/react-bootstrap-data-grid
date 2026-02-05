@@ -40,9 +40,9 @@ yarn-error.log*
 next-env.d.ts
 
 # published package
-/src/grid/dist/*
-!/src/grid/dist/package.json
-!/src/grid/dist/README.md
+/dist/*
+!/dist/package.json
+!/dist/README.md
 
 # Playwright
 node_modules/

@@ -2,7 +2,6 @@
 
 import { FC, MouseEventHandler, useMemo, useState } from "react";
 import {
-  AdditionalComponentsStyleModel,
   ColDef,
   ColSortModel,
   EditModel,
@@ -12,9 +11,8 @@ import {
   MultiSelectModel,
   RowDef,
   SelectModel,
-  StyleModel,
   TableSortModel,
-  TableStyleModel,
+
 } from "./types";
 import ColHeaderCell from "./ColHeaderCell";
 import useFilter from "./hooks/useFilter";
@@ -36,6 +34,11 @@ import {
   unwrapAdditionalComponentsStyleModel,
   unwrapTableStyleModel,
 } from "./styling/styleModelUnwrappers";
+import {
+  AdditionalComponentsStyleModel,
+  StyleModel,
+  TableStyleModel,
+} from "./styling/types";
 
 export interface GridProps {
   rows: RowDef[];

@@ -1,9 +1,10 @@
+
 import {
   AdditionalComponentsStyleModel,
   FilterInputTableStyleModel,
   SharedTableStyleModel,
   TableStyleModel,
-} from "../types";
+} from "./types";
 
 const unwrapSharedStyleModel: (
   sharedStyleModel: SharedTableStyleModel | undefined,

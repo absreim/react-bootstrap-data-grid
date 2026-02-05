@@ -26,7 +26,7 @@ To publish a package after successfully building it for distribution, change to 
 use the NPM CLI:
 
 ```bash
-cd ./src/grid/dist
+cd ./dist
 npm publish --access public
 ```
 
