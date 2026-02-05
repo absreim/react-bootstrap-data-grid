@@ -154,6 +154,7 @@ export type FilterState =
 export interface FilterModel {
   tableFilterState: EditableTableFilterState;
   setTableFilterState: (state: EditableTableFilterState) => void;
+  filterTableCaption?: string;
 }
 
 /* Selection */

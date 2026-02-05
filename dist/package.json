@@ -11,7 +11,8 @@
     "bootstrap",
     "data",
     "table",
-    "grid"
+    "grid",
+    "datagrid"
   ],
   "dependencies": {
     "classnames": "^2.5.1",

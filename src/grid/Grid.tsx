@@ -14,13 +14,13 @@ import {
   TableSortModel,
 } from "./types";
 import ColHeaderCell from "./ColHeaderCell";
-import useFilter from "./hooks/useFilter";
+import useFilter from "./pipeline/useFilter";
 import ToggleButton from "./ToggleButton";
 import FilterOptionsTable from "./filtering/FilterOptionsTable";
-import useFilterStateFromEditable from "./hooks/useFilterStateFromEditable";
-import useAugmentedRows from "./hooks/useAugmentedRows";
-import useSortedRows from "./hooks/useSortedRows";
-import useDisplayRows from "./hooks/useDisplayRows";
+import useFilterStateFromEditable from "./pipeline/useFilterStateFromEditable";
+import useAugmentedRows from "./pipeline/useAugmentedRows";
+import useSortedRows from "./pipeline/useSortedRows";
+import useDisplayRows from "./pipeline/useDisplayRows";
 import SelectAllHeaderCell from "./selection/SelectAllHeaderCell";
 import SelectionInput, {
   SelectionInputModel,
@@ -38,6 +38,7 @@ import {
   StyleModel,
   TableStyleModel,
 } from "./styling/types";
+import useCurrentPageRows from "./pipeline/useCurrentPageRows";
 
 export interface GridProps {
   rows: RowDef[];
@@ -69,17 +70,7 @@ const Grid: FC<GridProps> = ({
 
   const sortedRows = useSortedRows(filteredRows, cols, sortModel);
 
-  const currentPageRows = useMemo(() => {
-    if (pagination === undefined) {
-      return sortedRows;
-    }
-
-    const { pageSizeOptions, pageSizeIndex, currentPage } = pagination;
-    const pageSize = pageSizeOptions[pageSizeIndex];
-    const lowerIndex = pageSize * (currentPage - 1);
-    const upperIndex = lowerIndex + pageSize;
-    return sortedRows.slice(lowerIndex, upperIndex);
-  }, [sortedRows, pagination]);
+  const currentPageRows = useCurrentPageRows(sortedRows, pagination);
 
   const showSelectCol = selectModel && selectModel.mode !== "row";
   const ariaColIndexOffset = showSelectCol ? 1 : 0;
@@ -253,8 +244,8 @@ const Grid: FC<GridProps> = ({
             isActive={filterOptionsVisible}
             label={`${filterOptionsVisible ? "Hide" : "Show "} Filter Options`}
             onClick={handleToggleFilterOptions}
-            additionalClasses={
-              unwrappedAdditionalStyleModel.filterUiToggleButton
+            classes={
+              styleModel?.additionalComponentsStyleModel?.filterUiToggleButton
             }
           />
           {filterOptionsVisible && (
@@ -367,14 +358,26 @@ const Grid: FC<GridProps> = ({
                       colIndex,
                     )
                   }
-                  editControlsCellClasses={unwrappedTableModel.editColTd(
+                  editCellClasses={unwrappedTableModel.editColTd(
                     row.origIndex,
                     index,
                   )}
-                  primaryButtonClasses={unwrappedTableModel.editPrimaryButton}
-                  secondaryButtonClasses={
-                    unwrappedTableModel.editSecondaryButton
-                  }
+                  saveButtonClasses={unwrappedTableModel.editSaveButton(
+                    row.origIndex,
+                    index,
+                  )}
+                  deleteButtonClasses={unwrappedTableModel.editDeleteButton(
+                    row.origIndex,
+                    index,
+                  )}
+                  startButtonClasses={unwrappedTableModel.editStartButton(
+                    row.origIndex,
+                    index,
+                  )}
+                  cancelButtonClasses={unwrappedTableModel.editCancelButton(
+                    row.origIndex,
+                    index,
+                  )}
                 >
                   {showSelectCol && (
                     <td

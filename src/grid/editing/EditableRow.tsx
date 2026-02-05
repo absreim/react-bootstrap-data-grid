@@ -6,6 +6,7 @@ import { CellData, ColDataType, ColDataTypeStrings } from "../types";
 import EditControlsCell from "./EditControlsCell";
 import React from "react";
 import classNames from "classnames";
+import { TableStyleModel } from "../styling/types";
 
 export type EditableRowProps = Pick<
   React.ComponentProps<"tr">,
@@ -19,9 +20,11 @@ export type EditableRowProps = Pick<
   deleteCallback?: () => void;
   dataCellClasses: (colIndex: number) => string[];
   dataCellInputClasses: (colIndex: number) => string[];
-  editControlsCellClasses: string[];
-  primaryButtonClasses: string[];
-  secondaryButtonClasses: string[];
+  editCellClasses: string[];
+  deleteButtonClasses: string[];
+  cancelButtonClasses: string[];
+  startButtonClasses: string[];
+  saveButtonClasses: string[];
 };
 
 const initValueToFormValue: (
@@ -68,9 +71,11 @@ const EditableRow: FC<EditableRowProps> = ({
   dataRowIndex,
   dataCellClasses,
   dataCellInputClasses,
-  editControlsCellClasses,
-  primaryButtonClasses,
-  secondaryButtonClasses,
+  editCellClasses,
+  saveButtonClasses,
+  startButtonClasses,
+  cancelButtonClasses,
+  deleteButtonClasses,
 }) => {
   const trRef = useRef<HTMLTableRowElement>(null);
   const [isEditing, setIsEditing] = useState<boolean>(false);
@@ -148,9 +153,11 @@ const EditableRow: FC<EditableRowProps> = ({
           isEditing={isEditing}
           saveCallback={handleSave}
           deleteCallback={deleteCallback}
-          editControlsCellClasses={editControlsCellClasses}
-          primaryButtonClasses={primaryButtonClasses}
-          secondaryButtonClasses={secondaryButtonClasses}
+          editControlsCellClasses={editCellClasses}
+          startButtonClasses={startButtonClasses}
+          deleteButtonClasses={deleteButtonClasses}
+          cancelButtonClasses={cancelButtonClasses}
+          saveButtonClasses={saveButtonClasses}
         />
       )}
     </tr>

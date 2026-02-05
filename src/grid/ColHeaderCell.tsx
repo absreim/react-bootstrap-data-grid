@@ -6,7 +6,7 @@ import downArrow from "./icons/downArrow";
 import upArrow from "./icons/upArrow";
 import arrowPlaceholder from "./icons/arrowPlaceholder";
 import classNames from "classnames";
-import useControlledHover from "./hooks/useControlledHover";
+import useControlledHover from "./util/useControlledHover";
 
 interface ColHeaderCellProps {
   label: string;

@@ -12,6 +12,7 @@ import { FilterInputTableStyleModel } from "../styling/types";
 interface FilterOptionsTableProps {
   filterState: TableFilterState;
   setFilterState: (filterState: EditableTableFilterState) => void;
+  caption?: string;
   styleModel?: FilterInputTableStyleModel;
 }
 
@@ -79,6 +80,7 @@ const convertFilterFormStateToEditableState: (
 const FilterOptionsTable: FC<FilterOptionsTableProps> = ({
   filterState,
   setFilterState,
+  caption,
   styleModel,
 }) => {
   const formFilterState = useFormStateFromTableFilterState(filterState);
@@ -111,9 +113,9 @@ const FilterOptionsTable: FC<FilterOptionsTableProps> = ({
               columnLabel={colLabel}
               filterState={colFilterState}
               setFilterState={getColStateSetter(colName)}
-              schemeSelectClasses={unwrappedStyleModel.schemeSelectionInput}
-              enableInputClasses={unwrappedStyleModel.enablementInput}
-              searchStringInputClasses={unwrappedStyleModel.searchStringInput}
+              schemeSelectClasses={unwrappedStyleModel.schemeSelectionInput(index)}
+              enableInputClasses={unwrappedStyleModel.enablementInput(index)}
+              searchStringInputClasses={unwrappedStyleModel.searchStringInput(index)}
               trClasses={unwrappedStyleModel.tbodyTr(index)}
               tdClasses={(colIndex) =>
                 unwrappedStyleModel.tbodyTd(index, colIndex)
@@ -128,9 +130,9 @@ const FilterOptionsTable: FC<FilterOptionsTableProps> = ({
               columnLabel={colLabel}
               filterState={colFilterState}
               setFilterState={getColStateSetter(colName)}
-              schemeSelectClasses={unwrappedStyleModel.numberInput}
-              enableInputClasses={unwrappedStyleModel.enablementInput}
-              numberInputClasses={unwrappedStyleModel.numberInput}
+              schemeSelectClasses={unwrappedStyleModel.numberInput(index)}
+              enableInputClasses={unwrappedStyleModel.enablementInput(index)}
+              numberInputClasses={unwrappedStyleModel.numberInput(index)}
               trClasses={unwrappedStyleModel.tbodyTr(index)}
               tdClasses={(colIndex) =>
                 unwrappedStyleModel.tbodyTd(index, colIndex)
@@ -147,10 +149,10 @@ const FilterOptionsTable: FC<FilterOptionsTableProps> = ({
               columnLabel={colLabel}
               filterState={colFilterState}
               setFilterState={getColStateSetter(colName)}
-              schemeSelectClasses={unwrappedStyleModel.schemeSelectionInput}
-              enableInputClasses={unwrappedStyleModel.enablementInput}
-              startDateInputClasses={unwrappedStyleModel.startDateInput}
-              endDateInputClasses={unwrappedStyleModel.endDateInput}
+              schemeSelectClasses={unwrappedStyleModel.schemeSelectionInput(index)}
+              enableInputClasses={unwrappedStyleModel.enablementInput(index)}
+              startDateInputClasses={unwrappedStyleModel.startDateInput(index)}
+              endDateInputClasses={unwrappedStyleModel.endDateInput(index)}
               trClasses={unwrappedStyleModel.tbodyTr(index)}
               tdClasses={(colIndex) =>
                 unwrappedStyleModel.tbodyTd(index, colIndex)
@@ -172,6 +174,11 @@ const FilterOptionsTable: FC<FilterOptionsTableProps> = ({
   // TODO: consider using an accordion to show and hide this component
   return (
     <form onSubmit={onSubmit}>
+      {caption && (
+        <caption className={classNames(unwrappedStyleModel.caption)}>
+          caption
+        </caption>
+      )}
       <table className={classNames("table", ...unwrappedStyleModel.table)}>
         <thead className={classNames(...unwrappedStyleModel.thead)}>
           <tr className={classNames(...unwrappedStyleModel.theadTr)}>

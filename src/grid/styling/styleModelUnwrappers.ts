@@ -4,6 +4,7 @@ import {
   SharedTableStyleModel,
   TableStyleModel,
 } from "./types";
+import { filterInputTableStyleModel } from "../../app/styling/typeSpecs";
 
 const unwrapSharedStyleModel: (
   sharedStyleModel: SharedTableStyleModel | undefined,
@@ -25,10 +26,12 @@ export const unwrapTableStyleModel: (
   tbodyTdInput: tableStyleModel?.tbodyTdInput
     ? tableStyleModel.tbodyTdInput
     : () => [],
-  editPrimaryButton: tableStyleModel?.editPrimaryButton || [],
-  editSecondaryButton: tableStyleModel?.editSecondaryButton || [],
   editColTh: tableStyleModel?.editColTh || [],
   editColTd: tableStyleModel?.editColTd ? tableStyleModel.editColTd : () => [],
+  editCancelButton: tableStyleModel?.editCancelButton ? tableStyleModel.editCancelButton : () => [],
+  editDeleteButton: tableStyleModel?.editDeleteButton ? tableStyleModel.editDeleteButton : () => [],
+  editSaveButton: tableStyleModel?.editSaveButton ? tableStyleModel.editSaveButton : () => [],
+  editStartButton: tableStyleModel?.editStartButton ? tableStyleModel.editStartButton : () => [],
   selectColTh: tableStyleModel?.selectColTh || [],
   selectColTd: tableStyleModel?.selectColTd
     ? tableStyleModel.selectColTd
@@ -48,12 +51,12 @@ export const unwrapFilterInputTableStyleModel: (
   tbodyTd: filterTableStyleModel?.tbodyTd
     ? filterTableStyleModel.tbodyTd
     : () => [],
-  enablementInput: filterTableStyleModel?.enablementInput || [],
-  schemeSelectionInput: filterTableStyleModel?.schemeSelectionInput || [],
-  searchStringInput: filterTableStyleModel?.searchStringInput || [],
-  numberInput: filterTableStyleModel?.numberInput || [],
-  startDateInput: filterTableStyleModel?.startDateInput || [],
-  endDateInput: filterTableStyleModel?.endDateInput || [],
+  enablementInput: filterTableStyleModel?.enablementInput ? filterTableStyleModel.enablementInput : () => [],
+  schemeSelectionInput: filterTableStyleModel?.schemeSelectionInput ? filterTableStyleModel.schemeSelectionInput : () => [],
+  searchStringInput: filterTableStyleModel?.searchStringInput ? filterTableStyleModel.searchStringInput : () => [],
+  numberInput: filterTableStyleModel?.numberInput ? filterTableStyleModel.numberInput : () => [],
+  startDateInput: filterTableStyleModel?.startDateInput ? filterTableStyleModel.startDateInput : () => [],
+  endDateInput: filterTableStyleModel?.endDateInput ? filterTableStyleModel.endDateInput : () => [],
   submitButton: filterTableStyleModel?.submitButton || [],
 });
 

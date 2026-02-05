@@ -9,8 +9,10 @@ export interface EditControlsCellProps {
   saveCallback: () => void;
   deleteCallback?: () => void; // omit prop to disable deletion
   editControlsCellClasses: string[];
-  primaryButtonClasses: string[];
-  secondaryButtonClasses: string[];
+  saveButtonClasses: string[];
+  deleteButtonClasses: string[];
+  startButtonClasses: string[];
+  cancelButtonClasses: string[];
 }
 
 const EditControlsCell: FC<EditControlsCellProps> = ({
@@ -21,8 +23,10 @@ const EditControlsCell: FC<EditControlsCellProps> = ({
   saveCallback,
   deleteCallback,
   editControlsCellClasses,
-  primaryButtonClasses,
-  secondaryButtonClasses,
+  saveButtonClasses,
+  deleteButtonClasses,
+  startButtonClasses,
+  cancelButtonClasses,
 }) => {
   return (
     <td
@@ -35,15 +39,21 @@ const EditControlsCell: FC<EditControlsCellProps> = ({
             <button
               className={classNames(
                 "btn",
-                "btn-secondary",
-                secondaryButtonClasses,
+                cancelButtonClasses.length === 0
+                  ? ["btn-secondary"]
+                  : cancelButtonClasses,
               )}
               onClick={cancelEditingCallback}
             >
               Cancel
             </button>
             <button
-              className={classNames("btn", "btn-primary", primaryButtonClasses)}
+              className={classNames(
+                "btn",
+                saveButtonClasses.length === 0
+                  ? ["btn-primary"]
+                  : saveButtonClasses,
+              )}
               onClick={saveCallback}
             >
               Save
@@ -55,8 +65,9 @@ const EditControlsCell: FC<EditControlsCellProps> = ({
               <button
                 className={classNames(
                   "btn",
-                  "btn-secondary",
-                  secondaryButtonClasses,
+                  deleteButtonClasses.length === 0
+                    ? ["btn-primary"]
+                    : deleteButtonClasses,
                 )}
                 onClick={deleteCallback}
               >
@@ -64,7 +75,12 @@ const EditControlsCell: FC<EditControlsCellProps> = ({
               </button>
             )}
             <button
-              className={classNames("btn", "btn-primary", primaryButtonClasses)}
+              className={classNames(
+                "btn",
+                startButtonClasses.length === 0
+                  ? ["btn-primary"]
+                  : startButtonClasses,
+              )}
               onClick={beginEditingCallback}
             >
               Edit

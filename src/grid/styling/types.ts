@@ -21,22 +21,24 @@ export type TableStyleModel = SharedTableStyleModel & {
   ) => string[];
   editColTh?: string[];
   editColTd?: (origIndex: number, displayIndex: number) => string[];
-  editPrimaryButton?: string[];
-  editSecondaryButton?: string[];
+  editStartButton?: (origIndex: number, displayIndex: number) => string[];
+  editDeleteButton?: (origIndex: number, displayIndex: number) => string[];
+  editSaveButton?: (origIndex: number, displayIndex: number) => string[];
+  editCancelButton?: (origIndex: number, displayIndex: number) => string[];
   selectColTh?: string[];
   selectColTd?: (origIndex: number, displayIndex: number) => string[];
   selectInput?: (origIndex: number, displayIndex: number) => string[];
 };
 
 export type FilterInputTableStyleModel = SharedTableStyleModel & {
-  tbodyTr?: (index: number) => string[];
-  tbodyTd?: (index: number, colIndex: number) => string[];
-  enablementInput?: string[];
-  schemeSelectionInput?: string[];
-  searchStringInput?: string[];
-  numberInput?: string[];
-  startDateInput?: string[];
-  endDateInput?: string[];
+  tbodyTr?: (rowIndex: number) => string[];
+  tbodyTd?: (rowIndex: number, colIndex: number) => string[];
+  enablementInput?: (rowIndex: number) => string[];
+  schemeSelectionInput?: (rowIndex: number) => string[];
+  searchStringInput?: (rowIndex: number) => string[];
+  numberInput?: (rowIndex: number) => string[];
+  startDateInput?: (rowIndex: number) => string[];
+  endDateInput?: (rowIndex: number) => string[];
   submitButton?: string[];
 };
 
