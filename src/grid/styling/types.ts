@@ -21,11 +21,11 @@ export type TableStyleModel = SharedTableStyleModel & {
   ) => string[];
   editColTh?: string[];
   editColTd?: (origIndex: number, displayIndex: number) => string[];
+  editPrimaryButton?: string[];
+  editSecondaryButton?: string[];
   selectColTh?: string[];
   selectColTd?: (origIndex: number, displayIndex: number) => string[];
   selectInput?: (origIndex: number, displayIndex: number) => string[];
-  editPrimaryButton?: string[];
-  editSecondaryButton?: string[];
 };
 
 export type FilterInputTableStyleModel = SharedTableStyleModel & {
@@ -42,6 +42,8 @@ export type FilterInputTableStyleModel = SharedTableStyleModel & {
 
 export interface AdditionalComponentsStyleModel {
   topLevelDiv?: string[];
+  filterInputsDiv?: string[];
+  tableAndPaginationDiv?: string[];
   filterUiToggleButton?: string[];
 }
 

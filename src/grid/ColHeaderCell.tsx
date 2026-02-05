@@ -19,7 +19,7 @@ const ColHeaderCell: FC<ColHeaderCellProps> = ({
   label,
   sortModel,
   ariaColIndex,
-  additionalClasses
+  additionalClasses,
 }) => {
   const { isHovering, handleMouseOver, handleMouseOut } =
     useControlledHover<HTMLTableCellElement>();
@@ -66,10 +66,13 @@ const ColHeaderCell: FC<ColHeaderCellProps> = ({
 
   return (
     <th
-      className={classNames({
-        "rbdg-clickable-grid-header-cell": sortModel,
-        "table-active": sortModel?.sortOrder,
-      }, additionalClasses || [])}
+      className={classNames(
+        {
+          "rbdg-clickable-grid-header-cell": sortModel,
+          "table-active": sortModel?.sortOrder,
+        },
+        additionalClasses || [],
+      )}
       onClick={sortModel && handleClick}
       onMouseOver={handleMouseOver}
       onMouseOut={handleMouseOut}

@@ -55,7 +55,7 @@ const SelectAllHeaderCell: FC<SelectAllHeaderCellProps> = ({
   onClick,
   selectType,
   selectionExists,
-  additionalClasses
+  additionalClasses,
 }) => {
   const disabled = selectType === "single" && !selectionExists;
 
@@ -66,9 +66,14 @@ const SelectAllHeaderCell: FC<SelectAllHeaderCellProps> = ({
       aria-colindex={1}
       title={description}
       aria-description={description}
-      className={classNames("rbdg-select-header-cell", "btn-primary", {
-        "rbdg-clickable-grid-header-cell": !disabled,
-      }, additionalClasses || [])}
+      className={classNames(
+        "rbdg-select-header-cell",
+        "btn-primary",
+        {
+          "rbdg-clickable-grid-header-cell": !disabled,
+        },
+        additionalClasses || [],
+      )}
       onClick={onClick}
     >
       {getSelectIcon(selectType, selectionExists)}

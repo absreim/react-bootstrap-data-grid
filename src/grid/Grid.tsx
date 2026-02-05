@@ -246,7 +246,9 @@ const Grid: FC<GridProps> = ({
   return (
     <div className={classNames(unwrappedAdditionalStyleModel.topLevelDiv)}>
       {filterState && filterModel && (
-        <div>
+        <div
+          className={classNames(unwrappedAdditionalStyleModel.filterInputsDiv)}
+        >
           <ToggleButton
             isActive={filterOptionsVisible}
             label={`${filterOptionsVisible ? "Hide" : "Show "} Filter Options`}
@@ -264,148 +266,156 @@ const Grid: FC<GridProps> = ({
           )}
         </div>
       )}
-      <table
+      <div
         className={classNames(
-          "table",
-          {
-            "table-hover": rowsAreSelectable,
-          },
-          unwrappedTableModel.table,
+          unwrappedAdditionalStyleModel.tableAndPaginationDiv,
         )}
-        aria-rowcount={filteredRows.length + 1}
       >
-        {caption !== undefined && (
-          <caption className={classNames(unwrappedTableModel.caption)}>
-            {caption}
-          </caption>
-        )}
-        <thead className={classNames(unwrappedTableModel.thead)}>
-          <tr
-            aria-rowindex={1}
-            className={classNames(unwrappedTableModel.theadTr)}
-          >
-            {showSelectCol && (
-              <SelectAllHeaderCell
-                selectType={selectModel.type}
-                onClick={selectAllOnClick}
-                selectionExists={selectionExists}
-                additionalClasses={unwrappedTableModel.selectColTh}
-              />
-            )}
-            {cols.map(({ name, label, sortable }, index) => {
-              const colSortModel: ColSortModel | undefined =
-                sortModel && sortable
-                  ? {
-                      sortOrder:
-                        sortModel.sortColDef?.name === name
-                          ? sortModel.sortColDef.order
-                          : null,
-                      setSortOrder: (order) => {
-                        sortModel.setSortColDef(order && { name, order });
-                      },
-                    }
-                  : undefined;
-              return (
-                <ColHeaderCell
-                  key={name}
-                  label={label}
-                  sortModel={colSortModel}
-                  ariaColIndex={index + 1 + (showSelectCol ? 1 : 0)}
-                  additionalClasses={unwrappedTableModel.theadTh(index)}
+        <table
+          className={classNames(
+            "table",
+            {
+              "table-hover": rowsAreSelectable,
+            },
+            unwrappedTableModel.table,
+          )}
+          aria-rowcount={filteredRows.length + 1}
+        >
+          {caption !== undefined && (
+            <caption className={classNames(unwrappedTableModel.caption)}>
+              {caption}
+            </caption>
+          )}
+          <thead className={classNames(unwrappedTableModel.thead)}>
+            <tr
+              aria-rowindex={1}
+              className={classNames(unwrappedTableModel.theadTr)}
+            >
+              {showSelectCol && (
+                <SelectAllHeaderCell
+                  selectType={selectModel.type}
+                  onClick={selectAllOnClick}
+                  selectionExists={selectionExists}
+                  additionalClasses={unwrappedTableModel.selectColTh}
                 />
-              );
-            })}
-            {editModel && (
-              <th
-                aria-colindex={cols.length + 1 + (showSelectCol ? 1 : 0)}
-                className={classNames(unwrappedTableModel.editColTh)}
-              >
-                Edit Controls
-              </th>
-            )}
-          </tr>
-        </thead>
-        <tbody className={classNames(unwrappedTableModel.tbody)}>
-          {displayRows.map((row, index) => {
-            return (
-              <EditableRow
-                onClick={getRowClickHandler(row.origIndex)}
-                className={classNames(
-                  {
-                    "table-active": selectedSet.has(row.origIndex),
-                  },
-                  unwrappedTableModel.tbodyTr(row.origIndex, index),
-                )}
-                key={row.origIndex}
-                aria-rowindex={index + 2}
-                dataRowIndex={row.origIndex}
-                aria-selected={getAriaSelectedValue(row.origIndex)}
-                ariaColIndexOffset={ariaColIndexOffset}
-                cellData={row.contents}
-                updateCallback={
-                  getInputStrSubmitCallback &&
-                  getInputStrSubmitCallback(row.origIndex)
-                }
-                deleteCallback={
-                  editModel?.getDeleteCallback &&
-                  editModel.getDeleteCallback(row.origIndex)
-                }
-                dataCellClasses={(colIndex) =>
-                  unwrappedTableModel.tbodyTd(row.origIndex, index, colIndex)
-                }
-                dataCellInputClasses={(colIndex) =>
-                  unwrappedTableModel.tbodyTdInput(
+              )}
+              {cols.map(({ name, label, sortable }, index) => {
+                const colSortModel: ColSortModel | undefined =
+                  sortModel && sortable
+                    ? {
+                        sortOrder:
+                          sortModel.sortColDef?.name === name
+                            ? sortModel.sortColDef.order
+                            : null,
+                        setSortOrder: (order) => {
+                          sortModel.setSortColDef(order && { name, order });
+                        },
+                      }
+                    : undefined;
+                return (
+                  <ColHeaderCell
+                    key={name}
+                    label={label}
+                    sortModel={colSortModel}
+                    ariaColIndex={index + 1 + (showSelectCol ? 1 : 0)}
+                    additionalClasses={unwrappedTableModel.theadTh(index)}
+                  />
+                );
+              })}
+              {editModel && (
+                <th
+                  aria-colindex={cols.length + 1 + (showSelectCol ? 1 : 0)}
+                  className={classNames(unwrappedTableModel.editColTh)}
+                >
+                  Edit Controls
+                </th>
+              )}
+            </tr>
+          </thead>
+          <tbody className={classNames(unwrappedTableModel.tbody)}>
+            {displayRows.map((row, index) => {
+              return (
+                <EditableRow
+                  onClick={getRowClickHandler(row.origIndex)}
+                  className={classNames(
+                    {
+                      "table-active": selectedSet.has(row.origIndex),
+                    },
+                    unwrappedTableModel.tbodyTr(row.origIndex, index),
+                  )}
+                  key={row.origIndex}
+                  aria-rowindex={index + 2}
+                  dataRowIndex={row.origIndex}
+                  aria-selected={getAriaSelectedValue(row.origIndex)}
+                  ariaColIndexOffset={ariaColIndexOffset}
+                  cellData={row.contents}
+                  updateCallback={
+                    getInputStrSubmitCallback &&
+                    getInputStrSubmitCallback(row.origIndex)
+                  }
+                  deleteCallback={
+                    editModel?.getDeleteCallback &&
+                    editModel.getDeleteCallback(row.origIndex)
+                  }
+                  dataCellClasses={(colIndex) =>
+                    unwrappedTableModel.tbodyTd(row.origIndex, index, colIndex)
+                  }
+                  dataCellInputClasses={(colIndex) =>
+                    unwrappedTableModel.tbodyTdInput(
+                      row.origIndex,
+                      index,
+                      colIndex,
+                    )
+                  }
+                  editControlsCellClasses={unwrappedTableModel.editColTd(
                     row.origIndex,
                     index,
-                    colIndex,
-                  )
-                }
-                editControlsCellClasses={unwrappedTableModel.editColTd(
-                  row.origIndex,
-                  index,
-                )}
-                primaryButtonClasses={unwrappedTableModel.editPrimaryButton}
-                secondaryButtonClasses={unwrappedTableModel.editSecondaryButton}
-              >
-                {showSelectCol && (
-                  <td
-                    className={classNames(
-                      unwrappedTableModel.selectColTd(row.origIndex, index),
-                    )}
-                  >
-                    <SelectionInput
-                      selected={selectedSet.has(row.origIndex)}
-                      selectionInputModel={getSelectInputModel(
-                        row.origIndex,
-                        selectModel,
+                  )}
+                  primaryButtonClasses={unwrappedTableModel.editPrimaryButton}
+                  secondaryButtonClasses={
+                    unwrappedTableModel.editSecondaryButton
+                  }
+                >
+                  {showSelectCol && (
+                    <td
+                      className={classNames(
+                        unwrappedTableModel.selectColTd(row.origIndex, index),
                       )}
-                      selectCallback={getSelectHandler(row.origIndex)}
-                      additionalClasses={unwrappedTableModel.selectInput(
-                        row.origIndex,
-                        index,
-                      )}
-                    />
-                  </td>
-                )}
-              </EditableRow>
-            );
-          })}
-        </tbody>
-      </table>
-      {pagination && (
-        <Pagination
-          componentSize={pagination.componentSize || "medium"}
-          pageSizeOptions={pagination.pageSizeOptions}
-          pageSizeIndex={pagination.pageSizeIndex}
-          handleSetPageSizeIndex={pagination.setPageSizeIndex}
-          handleSetPageNum={pagination.setCurrentPage}
-          prePagingNumRows={sortedRows.length}
-          maxPageButtons={pagination.maxPageButtons}
-          currentPage={pagination.currentPage}
-          pageSelectorJustifyContent={pagination.pageSelectorJustifyContent}
-          pageSelectorAriaLabel={pagination.pageSelectorAriaLabel}
-        />
-      )}
+                    >
+                      <SelectionInput
+                        selected={selectedSet.has(row.origIndex)}
+                        selectionInputModel={getSelectInputModel(
+                          row.origIndex,
+                          selectModel,
+                        )}
+                        selectCallback={getSelectHandler(row.origIndex)}
+                        additionalClasses={unwrappedTableModel.selectInput(
+                          row.origIndex,
+                          index,
+                        )}
+                      />
+                    </td>
+                  )}
+                </EditableRow>
+              );
+            })}
+          </tbody>
+        </table>
+        {pagination && (
+          <Pagination
+            componentSize={pagination.componentSize || "medium"}
+            pageSizeOptions={pagination.pageSizeOptions}
+            pageSizeIndex={pagination.pageSizeIndex}
+            handleSetPageSizeIndex={pagination.setPageSizeIndex}
+            handleSetPageNum={pagination.setCurrentPage}
+            prePagingNumRows={sortedRows.length}
+            maxPageButtons={pagination.maxPageButtons}
+            currentPage={pagination.currentPage}
+            pageSelectorJustifyContent={pagination.pageSelectorJustifyContent}
+            pageSelectorAriaLabel={pagination.pageSelectorAriaLabel}
+          />
+        )}
+      </div>
     </div>
   );
 };

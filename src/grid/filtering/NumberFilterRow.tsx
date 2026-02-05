@@ -1,8 +1,5 @@
 import { ChangeEventHandler, FC } from "react";
-import {
-  NumberFilterScheme,
-  numberFilterSchemeNames,
-} from "../types";
+import { NumberFilterScheme, numberFilterSchemeNames } from "../types";
 import { NumberFormFilterState } from "./types";
 import FilterRow, { CommonFilterRowStyleProps } from "./FilterRow";
 import classNames from "classnames";

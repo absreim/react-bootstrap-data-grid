@@ -37,7 +37,7 @@ const linkDefs: LinkDefinition[] = [
   {
     name: "Styling",
     path: "/styling",
-  }
+  },
 ];
 
 const ContentsNavbar: FC = () => {

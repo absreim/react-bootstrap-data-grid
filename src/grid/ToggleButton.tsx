@@ -10,7 +10,12 @@ export interface ToggleButtonProps {
   additionalClasses?: string[];
 }
 
-const ToggleButton: FC<ToggleButtonProps> = ({ isActive, label, onClick, additionalClasses }) => {
+const ToggleButton: FC<ToggleButtonProps> = ({
+  isActive,
+  label,
+  onClick,
+  additionalClasses,
+}) => {
   const baseClasses: string[] = ["btn", "btn-primary"];
   const variableClasses: Record<string, boolean> = {
     active: isActive,
@@ -19,7 +24,11 @@ const ToggleButton: FC<ToggleButtonProps> = ({ isActive, label, onClick, additio
   return (
     <button
       type="button"
-      className={classNames(baseClasses, variableClasses, additionalClasses || [])}
+      className={classNames(
+        baseClasses,
+        variableClasses,
+        additionalClasses || [],
+      )}
       aria-pressed={isActive}
       onClick={onClick}
     >

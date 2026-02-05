@@ -107,7 +107,7 @@ export default function Home() {
         </li>
         <li>
           If you have a question, concern, or suggestion, feel free to create a
-          GitHub issue on the repo's{" "}
+          GitHub issue on the repo&apos;s{" "}
           <a href="https://github.com/absreim/react-bootstrap-data-grid/issues">
             issue page
           </a>

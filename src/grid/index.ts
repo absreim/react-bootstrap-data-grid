@@ -1,5 +1,5 @@
 export * from "./types";
-export * from "./styling/types"
+export * from "./styling/types";
 
 export * from "./Grid";
 

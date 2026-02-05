@@ -30,7 +30,7 @@ const SelectionInput: FC<SelectionInputProps> = ({
   selectionInputModel,
   selected,
   selectCallback,
-  additionalClasses
+  additionalClasses,
 }) => {
   const type = selectionInputModel.type;
 

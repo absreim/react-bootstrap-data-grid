@@ -3,11 +3,11 @@
 import { FC } from "react";
 import TypeSpecTable from "@/shared/TypeSpecTable";
 import {
+  additionalComponentsStyleModel,
   filterInputTableStyleModel,
   styleModel,
   tableStyleModel,
-} from "@/shared/typeSpecs";
-import { additionalComponentsStyleModel } from "@/app/styling/typeSpecs";
+} from "@/app/styling/typeSpecs";
 import HighlightedTsCodeBlock from "@/shared/HighlightedTsCodeBlock";
 import sampleStyledGridCode from "@/app/styling/sampleStyledGridCode";
 import dynamic from "next/dynamic";

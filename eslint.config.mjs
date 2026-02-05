@@ -17,5 +17,5 @@ export default defineConfig([
   {
     extends: [...nextCoreWebVitals, ...compat.extends("prettier")],
   },
-  globalIgnores(["playwright-report/"]),
+  globalIgnores(["playwright-report/", "dist/"]),
 ]);

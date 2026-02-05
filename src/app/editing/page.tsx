@@ -41,8 +41,8 @@ const Editing: FC = () => {
         fields. For these three column types, the <code>Grid</code> will invoke
         a form validation error (using the form validation feature of the
         browser) when trying to use a blank string to update a field of one of
-        these types. Since a blank string (<code>{'""'}</code>) is a valid string,
-        the <code>Grid</code> will accept blank strings as input for{" "}
+        these types. Since a blank string (<code>{'""'}</code>) is a valid
+        string, the <code>Grid</code> will accept blank strings as input for{" "}
         <code>string</code> columns.
       </p>
       <h2>Type Definitions</h2>
