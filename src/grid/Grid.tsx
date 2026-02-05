@@ -12,7 +12,6 @@ import {
   RowDef,
   SelectModel,
   TableSortModel,
-
 } from "./types";
 import ColHeaderCell from "./ColHeaderCell";
 import useFilter from "./hooks/useFilter";

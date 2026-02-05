@@ -27,6 +27,7 @@ export type TableStyleModel = SharedTableStyleModel & {
   editPrimaryButton?: string[];
   editSecondaryButton?: string[];
 };
+
 export type FilterInputTableStyleModel = SharedTableStyleModel & {
   tbodyTr?: (index: number) => string[];
   tbodyTd?: (index: number, colIndex: number) => string[];
