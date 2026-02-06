@@ -1,12 +1,15 @@
 import {
   AugRowDef,
+  RowDef,
+
+} from "../types";
+import { useMemo } from "react";
+import {
   DateFilterState,
   EditableTableFilterState,
   NumberFilterState,
-  RowDef,
   StringFilterState,
-} from "../types";
-import { useMemo } from "react";
+} from "../filtering/types";
 
 const useFilter: (
   rows: AugRowDef[],

@@ -32,12 +32,12 @@ export const unwrapTableStyleModel: (
   editDeleteButton: tableStyleModel?.editDeleteButton ? tableStyleModel.editDeleteButton : () => [],
   editSaveButton: tableStyleModel?.editSaveButton ? tableStyleModel.editSaveButton : () => [],
   editStartButton: tableStyleModel?.editStartButton ? tableStyleModel.editStartButton : () => [],
-  selectColTh: tableStyleModel?.selectColTh || [],
-  selectColTd: tableStyleModel?.selectColTd
-    ? tableStyleModel.selectColTd
+  rowSelectColTh: tableStyleModel?.rowSelectColTh || [],
+  rowSelectColTd: tableStyleModel?.rowSelectColTd
+    ? tableStyleModel.rowSelectColTd
     : () => [],
-  selectInput: tableStyleModel?.selectInput
-    ? tableStyleModel.selectInput
+  rowSelectInput: tableStyleModel?.rowSelectInput
+    ? tableStyleModel.rowSelectInput
     : () => [],
 });
 

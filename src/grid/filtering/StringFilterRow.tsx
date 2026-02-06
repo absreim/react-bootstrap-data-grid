@@ -1,11 +1,11 @@
 import { ChangeEventHandler, FC, ReactNode } from "react";
+import FilterRow, { CommonFilterRowStyleProps } from "./FilterRow";
+import classNames from "classnames";
 import {
   StringFilterScheme,
   stringFilterSchemeNames,
   StringFilterState,
-} from "../types";
-import FilterRow, { CommonFilterRowStyleProps } from "./FilterRow";
-import classNames from "classnames";
+} from "./types";
 
 type StringFilterRowProps = {
   columnLabel: string;

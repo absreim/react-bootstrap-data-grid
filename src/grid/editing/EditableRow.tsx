@@ -2,11 +2,12 @@
 
 import { FC, ReactNode, useRef, useState } from "react";
 import { dateToDatetimeInputStr, dateToInputStr } from "../util/datetime";
-import { CellData, ColDataType, ColDataTypeStrings } from "../types";
+import { ColDataType, ColDataTypeStrings } from "../types";
 import EditControlsCell from "./EditControlsCell";
 import React from "react";
 import classNames from "classnames";
 import { TableStyleModel } from "../styling/types";
+import { CellData } from "./types";
 
 export type EditableRowProps = Pick<
   React.ComponentProps<"tr">,

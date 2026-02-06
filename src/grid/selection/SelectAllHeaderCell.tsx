@@ -1,9 +1,9 @@
-import { SelectType } from "../types";
 import { FC, ReactNode } from "react";
-import deselectAll from "../icons/deselectAll";
-import selectAll from "../icons/selectAll";
-import arrowPlaceholder from "../icons/arrowPlaceholder";
+import deselectAll from "./deselectAll";
+import selectAll from "./selectAll";
+import arrowPlaceholder from "../sorting/arrowPlaceholder";
 import classNames from "classnames";
+import { SelectType } from "./types";
 
 interface SelectAllHeaderCellProps {
   onClick: () => void;

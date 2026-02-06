@@ -25,9 +25,9 @@ export type TableStyleModel = SharedTableStyleModel & {
   editDeleteButton?: (origIndex: number, displayIndex: number) => string[];
   editSaveButton?: (origIndex: number, displayIndex: number) => string[];
   editCancelButton?: (origIndex: number, displayIndex: number) => string[];
-  selectColTh?: string[];
-  selectColTd?: (origIndex: number, displayIndex: number) => string[];
-  selectInput?: (origIndex: number, displayIndex: number) => string[];
+  rowSelectColTh?: string[];
+  rowSelectColTd?: (origIndex: number, displayIndex: number) => string[];
+  rowSelectInput?: (origIndex: number, displayIndex: number) => string[];
 };
 
 export type FilterInputTableStyleModel = SharedTableStyleModel & {

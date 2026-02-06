@@ -1,7 +1,11 @@
 import { FC, FormEventHandler, ReactNode, useMemo, useState } from "react";
-import { EditableTableFilterState, TableFilterState } from "../types";
 import StringFilterRow from "./StringFilterRow";
-import { FilterFormRowState, FilterFormState } from "./types";
+import {
+  EditableTableFilterState,
+  FilterFormRowState,
+  FilterFormState,
+  TableFilterState,
+} from "./types";
 import NumberFilterRow from "./NumberFilterRow";
 import useFormStateFromTableFilterState from "./useFormStateFromTableFilterState";
 import DateFilterRow from "./DateFilterRow";

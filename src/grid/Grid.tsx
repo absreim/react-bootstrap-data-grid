@@ -3,15 +3,9 @@
 import { FC, MouseEventHandler, useMemo, useState } from "react";
 import {
   ColDef,
-  ColSortModel,
-  EditModel,
-  FilterModel,
   FormattedRow,
-  GridPaginationState,
-  MultiSelectModel,
   RowDef,
-  SelectModel,
-  TableSortModel,
+
 } from "./types";
 import ColHeaderCell from "./ColHeaderCell";
 import useFilter from "./pipeline/useFilter";
@@ -39,6 +33,11 @@ import {
   TableStyleModel,
 } from "./styling/types";
 import useCurrentPageRows from "./pipeline/useCurrentPageRows";
+import { EditModel } from "./editing/types";
+import { MultiSelectModel, SelectModel } from "./selection/types";
+import { FilterModel } from "./filtering/types";
+import { ColSortModel, TableSortModel } from "./sorting/types";
+import { GridPaginationState } from "./pagination/types";
 
 export interface GridProps {
   rows: RowDef[];
@@ -287,7 +286,7 @@ const Grid: FC<GridProps> = ({
                   selectType={selectModel.type}
                   onClick={selectAllOnClick}
                   selectionExists={selectionExists}
-                  additionalClasses={unwrappedTableModel.selectColTh}
+                  additionalClasses={unwrappedTableModel.rowSelectColTh}
                 />
               )}
               {cols.map(({ name, label, sortable }, index) => {
@@ -382,7 +381,7 @@ const Grid: FC<GridProps> = ({
                   {showSelectCol && (
                     <td
                       className={classNames(
-                        unwrappedTableModel.selectColTd(row.origIndex, index),
+                        unwrappedTableModel.rowSelectColTd(row.origIndex, index),
                       )}
                     >
                       <SelectionInput
@@ -392,7 +391,7 @@ const Grid: FC<GridProps> = ({
                           selectModel,
                         )}
                         selectCallback={getSelectHandler(row.origIndex)}
-                        additionalClasses={unwrappedTableModel.selectInput(
+                        additionalClasses={unwrappedTableModel.rowSelectInput(
                           row.origIndex,
                           index,
                         )}

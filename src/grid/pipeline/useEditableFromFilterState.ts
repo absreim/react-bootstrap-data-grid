@@ -1,5 +1,6 @@
-import { EditableTableFilterState, TableFilterState } from "../types";
+
 import { useMemo } from "react";
+import { EditableTableFilterState, TableFilterState } from "../filtering/types";
 
 const useEditableFromFilterState: (
   filterState: TableFilterState | null,

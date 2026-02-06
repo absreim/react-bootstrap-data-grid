@@ -1,5 +1,6 @@
 import { useMemo } from "react";
-import { AugRowDef, GridPaginationState } from "../types";
+import { AugRowDef } from "../types";
+import { GridPaginationState } from "../pagination/types";
 
 const useCurrentPageRows: (
   sortedRows: AugRowDef[],

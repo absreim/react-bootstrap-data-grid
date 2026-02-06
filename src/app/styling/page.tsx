@@ -11,6 +11,8 @@ import {
 import HighlightedTsCodeBlock from "@/shared/HighlightedTsCodeBlock";
 import sampleStyledGridCode from "@/app/styling/sampleStyledGridCode";
 import dynamic from "next/dynamic";
+import SampleStyledInputsGrid from "@/app/styling/SampleStyledInputsGrid";
+import sampleStyledInputsGridCode from "@/app/styling/sampleStyledInputsGridCode";
 
 const SampleStyledGrid = dynamic(
   () => import("@/app/styling/SampleStyledGrid"),
@@ -62,15 +64,14 @@ const Styling: FC = () => {
           strings.
         </dd>
       </dl>
-      <h2>Injection of Custom Classes</h2>
-      <h3>Type Definitions</h3>
-      <h4>StyleModel</h4>
+      <h2>Type Definitions</h2>
+      <h3>StyleModel</h3>
       <p>
         A prop of this type is optionally passed to the <code>Grid</code>{" "}
         component to enable injection of custom CSS classes.
       </p>
       <TypeSpecTable rows={styleModel} />
-      <h4>TableStyleModel</h4>
+      <h3>TableStyleModel</h3>
       <p>
         Properties of this type are used to inject custom CSS classes into the
         main table of the <code>Grid</code> component.
@@ -104,7 +105,7 @@ const Styling: FC = () => {
         </dd>
       </dl>
       <TypeSpecTable rows={tableStyleModel} />
-      <h4>FilterInputTableStyleModel</h4>
+      <h3>FilterInputTableStyleModel</h3>
       <p>
         Properties of this type are used to inject custom CSS classes into the
         filter options table of the <code>Grid</code> component.
@@ -151,13 +152,19 @@ const Styling: FC = () => {
         </dd>
       </dl>
       <TypeSpecTable rows={filterInputTableStyleModel} />
-      <h4>AdditionalComponentsStyleModel</h4>
+      <h3>AdditionalComponentsStyleModel</h3>
       <TypeSpecTable rows={additionalComponentsStyleModel} />
-      <h3>Example</h3>
+      <h2>Examples</h2>
+      <h3>Colors and Alignment Example</h3>
       <h4>Code</h4>
       <HighlightedTsCodeBlock code={sampleStyledGridCode} />
       <h4>Live Demo</h4>
       <SampleStyledGrid />
+      <h3>Inputs and Display Order Example</h3>
+      <h4>Code</h4>
+      <HighlightedTsCodeBlock code={sampleStyledInputsGridCode} />
+      <h4>Live Demo</h4>
+      <SampleStyledInputsGrid />
     </>
   );
 };

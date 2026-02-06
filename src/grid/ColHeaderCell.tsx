@@ -1,12 +1,12 @@
 "use client";
 
 import { FC, ReactNode } from "react";
-import { ColSortModel } from "./types";
-import downArrow from "./icons/downArrow";
-import upArrow from "./icons/upArrow";
-import arrowPlaceholder from "./icons/arrowPlaceholder";
+import downArrow from "./sorting/downArrow";
+import upArrow from "./sorting/upArrow";
+import arrowPlaceholder from "./sorting/arrowPlaceholder";
 import classNames from "classnames";
 import useControlledHover from "./util/useControlledHover";
+import { ColSortModel } from "./sorting/types";
 
 interface ColHeaderCellProps {
   label: string;

@@ -3,8 +3,9 @@ import {
   AugRowDef,
   ColDataTypeStrings,
   ColDef,
-  TableSortModel,
+
 } from "../types";
+import { TableSortModel } from "../sorting/types";
 
 const getTypeComparator: (
   typeStr: ColDataTypeStrings,
