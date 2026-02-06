@@ -53,6 +53,7 @@ export const additionalComponentsStyleModel: SpecTableRow[] = [
     ),
   },
 ];
+
 export const styleModel: SpecTableRow[] = [
   {
     propertyName: "mainTableStyleModel",
@@ -84,6 +85,7 @@ export const styleModel: SpecTableRow[] = [
     ),
   },
 ];
+
 export const tableStyleModel: SpecTableRow[] = [
   {
     propertyName: "table",
@@ -235,30 +237,63 @@ export const tableStyleModel: SpecTableRow[] = [
     ),
   },
   {
-    propertyName: "editPrimaryButton",
-    typeDefinition: "string[]",
+    propertyName: "editStartButton",
+    typeDefinition: "(origIndex: number, displayIndex: number) => string[]",
     isRequired: false,
     description: (
       <>
-        Specifies the styles for all <i>Edit</i> and <i>Save</i> buttons of the
-        editing controls column. The <code>Grid</code> automatically applies the{" "}
-        <code>btn-primary</code> class to these buttons.
+        Specifies the styles for all <i>Edit</i> buttons of the editing controls
+        column. The <code>Grid</code> automatically applies the{" "}
+        <code>btn-primary</code> class to these buttons, but if a array of
+        non-zero length is supplied, the <code>btn-primary</code> class will not
+        be applied, allowing for customization of the button variant.
       </>
     ),
   },
   {
-    propertyName: "editSecondaryButton",
-    typeDefinition: "string[]",
+    propertyName: "editDeleteButton",
+    typeDefinition: "(origIndex: number, displayIndex: number) => string[]",
     isRequired: false,
     description: (
       <>
-        Specifies the styles for all <i>Delete</i> and <i>Cancel</i> buttons of
-        the editing controls column. The <code>Grid</code> automatically applies
-        the <code>btn-secondary</code> class to these buttons.
+        Specifies the styles for all <i>Delete</i> buttons of the editing
+        controls column. The <code>Grid</code> automatically applies the{" "}
+        <code>btn-secondary</code> class to these buttons, but if a array of
+        non-zero length is supplied, the <code>btn-secondary</code> class will
+        not be applied, allowing for customization of the button variant.
+      </>
+    ),
+  },
+  {
+    propertyName: "editSaveButton",
+    typeDefinition: "(origIndex: number, displayIndex: number) => string[]",
+    isRequired: false,
+    description: (
+      <>
+        Specifies the styles for all <i>Save</i> buttons of the editing controls
+        column. The <code>Grid</code> automatically applies the{" "}
+        <code>btn-primary</code> class to these buttons, but if a array of
+        non-zero length is supplied, the <code>btn-primary</code> class will not
+        be applied, allowing for customization of the button variant.
+      </>
+    ),
+  },
+  {
+    propertyName: "editCancelButton",
+    typeDefinition: "(origIndex: number, displayIndex: number) => string[]",
+    isRequired: false,
+    description: (
+      <>
+        Specifies the styles for all <i>Cancel</i> buttons of the editing
+        controls column. The <code>Grid</code> automatically applies the{" "}
+        <code>btn-secondary</code> class to these buttons, but if a array of
+        non-zero length is supplied, the <code>btn-secondary</code> class will
+        not be applied, allowing for customization of the button variant.
       </>
     ),
   },
 ];
+
 export const filterInputTableStyleModel: SpecTableRow[] = [
   {
     propertyName: "table",
@@ -347,7 +382,7 @@ export const filterInputTableStyleModel: SpecTableRow[] = [
   },
   {
     propertyName: "enablementInput",
-    typeDefinition: "string[]",
+    typeDefinition: "(rowIndex: number) => string[]",
     isRequired: false,
     description: (
       <>
@@ -358,7 +393,7 @@ export const filterInputTableStyleModel: SpecTableRow[] = [
   },
   {
     propertyName: "schemeSelectionInput",
-    typeDefinition: "string[]",
+    typeDefinition: "(rowIndex: number) => string[]",
     isRequired: false,
     description: (
       <>
@@ -369,7 +404,7 @@ export const filterInputTableStyleModel: SpecTableRow[] = [
   },
   {
     propertyName: "searchStringInput",
-    typeDefinition: "string[]",
+    typeDefinition: "(rowIndex: number) => string[]",
     isRequired: false,
     description: (
       <>
@@ -380,7 +415,7 @@ export const filterInputTableStyleModel: SpecTableRow[] = [
   },
   {
     propertyName: "numberInput",
-    typeDefinition: "string[]",
+    typeDefinition: "(rowIndex: number) => string[]",
     isRequired: false,
     description: (
       <>
@@ -391,7 +426,7 @@ export const filterInputTableStyleModel: SpecTableRow[] = [
   },
   {
     propertyName: "startDateInput",
-    typeDefinition: "string[]",
+    typeDefinition: "(rowIndex: number) => string[]",
     isRequired: false,
     description: (
       <>
@@ -402,7 +437,7 @@ export const filterInputTableStyleModel: SpecTableRow[] = [
   },
   {
     propertyName: "endDateInput",
-    typeDefinition: "string[]",
+    typeDefinition: "(rowIndex: number) => string[]",
     isRequired: false,
     description: (
       <>
@@ -415,7 +450,13 @@ export const filterInputTableStyleModel: SpecTableRow[] = [
     propertyName: "submitButton",
     typeDefinition: "string[]",
     isRequired: false,
-    description:
-      "Specifies additional CSS classes for the submit button used to save changes to the filter criteria.",
+    description: (
+      <>
+        Specifies additional CSS classes for the submit button used to save
+        changes to the filter criteria. The <code>btn-secondary</code> class is
+        applied automatically, but will not be applied if an array of length at
+        least 1 is passed for property.
+      </>
+    ),
   },
 ];

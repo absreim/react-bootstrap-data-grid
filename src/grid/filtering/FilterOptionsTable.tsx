@@ -113,9 +113,13 @@ const FilterOptionsTable: FC<FilterOptionsTableProps> = ({
               columnLabel={colLabel}
               filterState={colFilterState}
               setFilterState={getColStateSetter(colName)}
-              schemeSelectClasses={unwrappedStyleModel.schemeSelectionInput(index)}
+              schemeSelectClasses={unwrappedStyleModel.schemeSelectionInput(
+                index,
+              )}
               enableInputClasses={unwrappedStyleModel.enablementInput(index)}
-              searchStringInputClasses={unwrappedStyleModel.searchStringInput(index)}
+              searchStringInputClasses={unwrappedStyleModel.searchStringInput(
+                index,
+              )}
               trClasses={unwrappedStyleModel.tbodyTr(index)}
               tdClasses={(colIndex) =>
                 unwrappedStyleModel.tbodyTd(index, colIndex)
@@ -149,7 +153,9 @@ const FilterOptionsTable: FC<FilterOptionsTableProps> = ({
               columnLabel={colLabel}
               filterState={colFilterState}
               setFilterState={getColStateSetter(colName)}
-              schemeSelectClasses={unwrappedStyleModel.schemeSelectionInput(index)}
+              schemeSelectClasses={unwrappedStyleModel.schemeSelectionInput(
+                index,
+              )}
               enableInputClasses={unwrappedStyleModel.enablementInput(index)}
               startDateInputClasses={unwrappedStyleModel.startDateInput(index)}
               endDateInputClasses={unwrappedStyleModel.endDateInput(index)}
@@ -201,8 +207,8 @@ const FilterOptionsTable: FC<FilterOptionsTableProps> = ({
       <button
         className={classNames(
           "btn",
-          "btn-secondary",
-          ...unwrappedStyleModel.submitButton,
+          { "btn-secondary": unwrappedStyleModel.submitButton.length === 0 },
+          unwrappedStyleModel.submitButton,
         )}
         type="submit"
       >
