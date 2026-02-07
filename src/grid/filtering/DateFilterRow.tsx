@@ -9,6 +9,7 @@ import FilterRow, { CommonFilterRowStyleProps } from "./FilterRow";
 import classNames from "classnames";
 
 export type DateFilterRowProps = {
+  ariaRowIndex: number;
   includeTime: boolean;
   columnLabel: string;
   filterState: DateFormFilterState;
@@ -20,6 +21,7 @@ export type DateFilterRowProps = {
 } & CommonFilterRowStyleProps;
 
 const DateFilterRow: FC<DateFilterRowProps> = ({
+  ariaRowIndex,
   includeTime,
   columnLabel,
   filterState,
@@ -118,6 +120,7 @@ const DateFilterRow: FC<DateFilterRowProps> = ({
 
   return (
     <FilterRow
+      ariaRowIndex={ariaRowIndex}
       columnLabel={columnLabel}
       typeLabel={filterState.type === "date" ? "Date" : "Datetime"}
       enabled={enabled}

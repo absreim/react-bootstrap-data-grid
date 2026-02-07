@@ -248,6 +248,7 @@ const Grid: FC<GridProps> = ({
           />
           {filterOptionsVisible && (
             <FilterOptionsTable
+              caption={filterModel.filterTableCaption}
               filterState={filterState}
               setFilterState={filterModel.setTableFilterState}
               styleModel={styleModel?.filterInputTableStyleModel}

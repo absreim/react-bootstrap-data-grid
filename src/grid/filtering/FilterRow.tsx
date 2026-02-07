@@ -2,6 +2,7 @@ import { ChangeEventHandler, ReactNode } from "react";
 import classNames from "classnames";
 
 export interface FilterRowProps<FilterScheme extends string> {
+  ariaRowIndex: number;
   columnLabel: string;
   typeLabel: string;
   enabled: boolean;
@@ -25,6 +26,7 @@ export function FilterRow<FilterScheme extends string = string>(
   props: FilterRowProps<FilterScheme>,
 ): ReactNode {
   const {
+    ariaRowIndex,
     columnLabel,
     typeLabel,
     enabled,
@@ -43,8 +45,8 @@ export function FilterRow<FilterScheme extends string = string>(
   const opSelectLabel = `${columnLabel} Column Filter Operator Selection`;
 
   return (
-    <tr className={classNames(trClasses)}>
-      <td className={classNames(tdClasses(0))}>
+    <tr className={classNames(trClasses)} aria-rowindex={ariaRowIndex}>
+      <td className={classNames(tdClasses(0))} aria-colindex={1}>
         <input
           className={classNames(inputClasses)}
           name={checkboxLabel}
@@ -54,9 +56,9 @@ export function FilterRow<FilterScheme extends string = string>(
           onChange={enabledChangeHandler}
         />
       </td>
-      <td className={classNames(tdClasses(1))}>{columnLabel}</td>
-      <td className={classNames(tdClasses(2))}>{typeLabel}</td>
-      <td className={classNames(tdClasses(3))}>
+      <td className={classNames(tdClasses(1))} aria-colindex={2}>{columnLabel}</td>
+      <td className={classNames(tdClasses(2))} aria-colindex={3}>{typeLabel}</td>
+      <td className={classNames(tdClasses(3))} aria-colindex={4}>
         <select
           name={opSelectLabel}
           aria-label={opSelectLabel}
@@ -72,7 +74,7 @@ export function FilterRow<FilterScheme extends string = string>(
           ))}
         </select>
       </td>
-      <td className={classNames(tdClasses(4))}>
+      <td className={classNames(tdClasses(4))} aria-colindex={5}>
         {searchStringInputCellContents}
       </td>
     </tr>

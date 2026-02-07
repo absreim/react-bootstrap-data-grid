@@ -8,6 +8,7 @@ import FilterRow, { CommonFilterRowStyleProps } from "./FilterRow";
 import classNames from "classnames";
 
 export type NumberFilterRowProps = {
+  ariaRowIndex: number;
   columnLabel: string;
   filterState: NumberFormFilterState;
   setFilterState: (filterState: NumberFormFilterState) => void;
@@ -17,6 +18,7 @@ export type NumberFilterRowProps = {
 } & CommonFilterRowStyleProps;
 
 const NumberFilterRow: FC<NumberFilterRowProps> = ({
+  ariaRowIndex,
   columnLabel,
   filterState,
   setFilterState,
@@ -72,6 +74,7 @@ const NumberFilterRow: FC<NumberFilterRowProps> = ({
 
   return (
     <FilterRow
+      ariaRowIndex={ariaRowIndex}
       columnLabel={columnLabel}
       typeLabel="Number"
       enabled={enabled}

@@ -8,6 +8,7 @@ import {
 } from "./types";
 
 type StringFilterRowProps = {
+  ariaRowIndex: number;
   columnLabel: string;
   filterState: StringFilterState;
   setFilterState: (filterState: StringFilterState) => void;
@@ -17,6 +18,7 @@ type StringFilterRowProps = {
 } & CommonFilterRowStyleProps;
 
 const StringFilterRow: FC<StringFilterRowProps> = ({
+  ariaRowIndex,
   columnLabel,
   filterState,
   setFilterState,
@@ -71,6 +73,7 @@ const StringFilterRow: FC<StringFilterRowProps> = ({
 
   return (
     <FilterRow
+      ariaRowIndex={ariaRowIndex}
       columnLabel={columnLabel}
       typeLabel="String"
       enabled={enabled}

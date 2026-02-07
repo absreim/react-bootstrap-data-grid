@@ -137,7 +137,11 @@ const FilterOptionsStylingTestHarness: FC = () => {
       },
     });
   const filterModel: FilterModel = useMemo(
-    () => ({ tableFilterState, setTableFilterState }),
+    () => ({
+      tableFilterState,
+      setTableFilterState,
+      filterTableCaption: "filter table test caption",
+    }),
     [tableFilterState],
   );
 
@@ -146,7 +150,7 @@ const FilterOptionsStylingTestHarness: FC = () => {
       rows={rows}
       cols={cols}
       filterModel={filterModel}
-      caption="test caption"
+      caption="main table test caption"
       styleModel={styleModel}
     />
   );

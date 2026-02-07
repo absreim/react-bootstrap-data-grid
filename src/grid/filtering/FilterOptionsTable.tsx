@@ -113,6 +113,7 @@ const FilterOptionsTable: FC<FilterOptionsTableProps> = ({
         case "string": {
           return (
             <StringFilterRow
+              ariaRowIndex={index + 2}
               key={colName}
               columnLabel={colLabel}
               filterState={colFilterState}
@@ -134,11 +135,14 @@ const FilterOptionsTable: FC<FilterOptionsTableProps> = ({
         case "number": {
           return (
             <NumberFilterRow
+              ariaRowIndex={index + 2}
               key={colName}
               columnLabel={colLabel}
               filterState={colFilterState}
               setFilterState={getColStateSetter(colName)}
-              schemeSelectClasses={unwrappedStyleModel.numberInput(index)}
+              schemeSelectClasses={unwrappedStyleModel.schemeSelectionInput(
+                index,
+              )}
               enableInputClasses={unwrappedStyleModel.enablementInput(index)}
               numberInputClasses={unwrappedStyleModel.numberInput(index)}
               trClasses={unwrappedStyleModel.tbodyTr(index)}
@@ -152,6 +156,7 @@ const FilterOptionsTable: FC<FilterOptionsTableProps> = ({
           // date or datetime
           return (
             <DateFilterRow
+              ariaRowIndex={index + 2}
               key={colName}
               includeTime={colFilterState.type === "datetime"}
               columnLabel={colLabel}
@@ -184,12 +189,12 @@ const FilterOptionsTable: FC<FilterOptionsTableProps> = ({
   // TODO: consider using an accordion to show and hide this component
   return (
     <form onSubmit={onSubmit}>
-      {caption && (
-        <caption className={classNames(unwrappedStyleModel.caption)}>
-          caption
-        </caption>
-      )}
       <table className={classNames("table", ...unwrappedStyleModel.table)}>
+        {caption && (
+          <caption className={classNames(unwrappedStyleModel.caption)}>
+            {caption}
+          </caption>
+        )}
         <thead className={classNames(...unwrappedStyleModel.thead)}>
           <tr className={classNames(...unwrappedStyleModel.theadTr)}>
             {["Enabled", "Column", "Type", "Operator", "Value"].map(

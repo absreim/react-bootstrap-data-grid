@@ -416,7 +416,9 @@ export const filterInputTableStyleModel: SpecTableRow[] = [
     description: (
       <>
         Specifies additional CSS classes for the <i>input</i> elements used to
-        specify string values on which to filter.
+        specify string values on which to filter. This property only applies if
+        the row is associated with a column of type string. It is up to the
+        developer to confirm that fact.
       </>
     ),
   },
@@ -427,7 +429,9 @@ export const filterInputTableStyleModel: SpecTableRow[] = [
     description: (
       <>
         Specifies additional CSS classes for the <i>input</i> elements used to
-        specify the number values on which to filter.
+        specify the number values on which to filter. This property only applies
+        if the row is associated with a column of type number. It is up to the
+        developer to confirm that fact.
       </>
     ),
   },
@@ -438,7 +442,9 @@ export const filterInputTableStyleModel: SpecTableRow[] = [
     description: (
       <>
         Specifies additional CSS classes for the <i>input</i> elements used to
-        specify the starting dates or datetimes on which to filter.
+        specify the starting dates or datetimes on which to filter. This
+        property only applies if the row is associated with a column of type
+        date or datetime. It is up to the developer to confirm that fact.
       </>
     ),
   },
@@ -449,7 +455,9 @@ export const filterInputTableStyleModel: SpecTableRow[] = [
     description: (
       <>
         Specifies additional CSS classes for the <i>input</i> elements used to
-        specify the ending dates or datetimes on which to filter.
+        specify the ending dates or datetimes on which to filter. This property
+        only applies if the row is associated with a column of type date or
+        datetime. It is up to the developer to confirm that fact.
       </>
     ),
   },
