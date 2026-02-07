@@ -1,12 +1,7 @@
 "use client";
 
 import { FC, MouseEventHandler, useMemo, useState } from "react";
-import {
-  ColDef,
-  FormattedRow,
-  RowDef,
-
-} from "./types";
+import { ColDef, FormattedRow, RowDef } from "./types";
 import ColHeaderCell from "./ColHeaderCell";
 import useFilter from "./pipeline/useFilter";
 import ToggleButton from "./ToggleButton";
@@ -234,9 +229,13 @@ const Grid: FC<GridProps> = ({
     );
 
   return (
-    <div className={classNames(unwrappedAdditionalStyleModel.topLevelDiv)}>
+    <div
+      data-testid="rbdg-top-level-div"
+      className={classNames(unwrappedAdditionalStyleModel.topLevelDiv)}
+    >
       {filterState && filterModel && (
         <div
+          data-testid="rbdg-filter-inputs-div"
           className={classNames(unwrappedAdditionalStyleModel.filterInputsDiv)}
         >
           <ToggleButton
@@ -257,6 +256,7 @@ const Grid: FC<GridProps> = ({
         </div>
       )}
       <div
+        data-testid="rbdg-table-and-pagination-div"
         className={classNames(
           unwrappedAdditionalStyleModel.tableAndPaginationDiv,
         )}
@@ -381,7 +381,10 @@ const Grid: FC<GridProps> = ({
                   {showSelectCol && (
                     <td
                       className={classNames(
-                        unwrappedTableModel.rowSelectColTd(row.origIndex, index),
+                        unwrappedTableModel.rowSelectColTd(
+                          row.origIndex,
+                          index,
+                        ),
                       )}
                     >
                       <SelectionInput

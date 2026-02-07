@@ -46,9 +46,16 @@ export const additionalComponentsStyleModel: SpecTableRow[] = [
     isRequired: false,
     description: (
       <>
-        CSS classes for the button that toggles the visibility of the filter
-        options table. Only appears if filtering is enabled (by supplying the{" "}
-        <code>filterModel</code> prop) on the <code>Grid</code> component.
+        <p>
+          CSS classes for the button that toggles the visibility of the filter
+          options table. Only appears if filtering is enabled (by supplying the{" "}
+          <code>filterModel</code> prop) on the <code>Grid</code> component.
+        </p>
+        <p>
+          The variant of this button is set to <i>primary</i> by default via the{" "}
+          <code>btn-primary</code> class. That class will not be applied if a
+          non-empty is passed via this property.
+        </p>
       </>
     ),
   },

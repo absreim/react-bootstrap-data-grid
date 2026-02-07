@@ -24,11 +24,9 @@ const ToggleButton: FC<ToggleButtonProps> = ({
   return (
     <button
       type="button"
-      className={classNames(
-        baseClasses,
-        variableClasses,
-        classes || ["btn-primary"],
-      )}
+      className={classNames(baseClasses, variableClasses, classes, {
+        "btn-primary": !(classes && classes.length > 0),
+      })}
       aria-pressed={isActive}
       onClick={onClick}
     >

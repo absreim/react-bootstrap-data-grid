@@ -30,11 +30,3 @@ export interface SingleSelectModel {
 }
 
 export type SelectModel = SingleSelectModel | MultiSelectModel;
-export type MultiSelectModelInitialState = Omit<
-  MultiSelectModel,
-  "setSelected"
->;
-export type SingleSelectModelInitialState = Omit<
-  SingleSelectModel,
-  "setSelected"
->;

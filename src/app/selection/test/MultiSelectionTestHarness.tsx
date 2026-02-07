@@ -2,9 +2,9 @@ import { FC, useState } from "react";
 import Grid, {
   ColDef,
   MultiSelectModel,
-  MultiSelectModelInitialState,
   RowDef,
 } from "@/grid";
+import { MultiSelectModelInitialState } from "@/app/selection/test/types";
 
 export interface MultiSelectionTestHarnessProps {
   rows: RowDef[];
