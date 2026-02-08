@@ -37,3 +37,15 @@ test("single element styles work", async ({ page }) => {
     ].join(" "),
   );
 });
+
+test("col index-based styles work", async ({ page }) => {
+  const thead = page.locator("thead");
+  for (let colIndex = 0; colIndex < 2; colIndex++) {
+    const th = thead.locator(`th[aria-colindex="${colIndex + 2}"]`);
+    await expect(th).toContainClass(
+      `main-table-thead-th-test-class-col-${colIndex}}`,
+    );
+  }
+})
+
+
