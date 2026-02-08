@@ -2,17 +2,22 @@ import { test, expect } from "@playwright/test";
 
 test.beforeEach(async ({ page }) => {
   await page.goto("styling/test/main");
-})
+});
 
 test("single element styles work", async ({ page }) => {
   const topLevelDiv = page.getByTestId("rbdg-top-level-div");
-  const tableAndPaginationDiv = page.getByTestId("rbdg-table-and-pagination-div");
+  const tableAndPaginationDiv = page.getByTestId(
+    "rbdg-table-and-pagination-div",
+  );
   const table = page.getByRole("table");
   const tbody = page.locator("tbody");
   const thead = page.locator("thead");
   const theadTr = thead.getByRole("row");
   const caption = page.getByRole("caption");
-  const editColTh = page.getByRole("columnheader", { name: "Edit Controls"})
+  const editColTh = page.getByRole("columnheader", { name: "Edit Controls" });
+  const rowSelectColTh = page.getByRole("columnheader", {
+    name: "Select all rows",
+  });
 
   await expect(topLevelDiv).toHaveClass("top-level-div-test-class");
   await expect(tableAndPaginationDiv).toHaveClass(
@@ -24,4 +29,11 @@ test("single element styles work", async ({ page }) => {
   await expect(theadTr).toHaveClass("main-table-thead-tr-test-class");
   await expect(caption).toHaveClass("main-table-caption-test-class");
   await expect(editColTh).toHaveClass("main-table-edit-col-th-test-class");
+  await expect(rowSelectColTh).toContainClass(
+    [
+      "rbdg-select-header-cell",
+      "rbdg-clickable-grid-header-cell",
+      "main-table-row-select-col-th-test-class",
+    ].join(" "),
+  );
 });

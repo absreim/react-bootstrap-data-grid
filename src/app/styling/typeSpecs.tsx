@@ -299,6 +299,58 @@ export const tableStyleModel: SpecTableRow[] = [
       </>
     ),
   },
+  {
+    propertyName: "rowSelectColTh",
+    typeDefinition: "string[]",
+    isRequired: false,
+    description: (
+      <>
+        <p>
+          Specifies additional classes of the <i>th</i> element that contains
+          the control for selecting and deselecting all rows. The cell only
+          appears if selection for the <code>Grid</code> is enabled by passing a{" "}
+          <code>selectModel</code> prop.
+        </p>
+        <p>
+          By default, the CSS classes <code>btn-primary</code> and{" "}
+          <code>rbdg-select-header-cell</code> are applied. The{" "}
+          <code>rbdg-select-header-cell</code> class colors the SVG icon of the
+          control based on the Bootstrap button variant. To maximize
+          customizability, the <code>btn-primary</code> class will be omitted if
+          an array of length at least 1 is passed in for this property, allowing
+          one to change the variant of the SVG icon in this cell with a
+          different variant (e.g. <code>btn-secondary</code>
+          .)
+        </p>
+        <p>
+          There is also a class <code>rbdg-clickable-grid-header-cell</code>{" "}
+          that changes the mouse pointer based on whether the cell is clickable.
+        </p>
+      </>
+    ),
+  },
+  {
+    propertyName: "rowSelectColTd",
+    typeDefinition: "(origIndex: number, displayIndex: number) => string[]",
+    isRequired: false,
+    description: (
+      <>
+        Specifies additional classes of the <i>td</i> elements in the selection
+        controls column
+      </>
+    ),
+  },
+  {
+    propertyName: "rowSelectInput",
+    typeDefinition: "(origIndex: number, displayIndex: number) => string[]",
+    isRequired: false,
+    description: (
+      <>
+        Specifies additional classes of the <i>input</i> elements in the
+        selection controls column
+      </>
+    ),
+  },
 ];
 
 export const filterInputTableStyleModel: SpecTableRow[] = [
