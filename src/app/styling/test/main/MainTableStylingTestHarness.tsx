@@ -4,6 +4,7 @@ import Grid, {
   ColDef,
   EditModel,
   GridPaginationState,
+  MultiSelectModel,
   RowDef,
   SortColDef,
   StyleModel,
@@ -142,6 +143,14 @@ const MainTableStylingTestHarness: FC = () => {
     [sortColDef],
   );
 
+  const [selected, setSelected] = useState<number[]>([]);
+  const selectModel: MultiSelectModel = useMemo(() => ({
+    mode: "both",
+    type: "multi",
+    selected,
+    setSelected
+  }), [selected])
+
   return (
     <Grid
       rows={rows}
@@ -151,6 +160,7 @@ const MainTableStylingTestHarness: FC = () => {
       editModel={editModel}
       caption="test caption"
       styleModel={styleModel}
+      selectModel={selectModel}
     />
   );
 };

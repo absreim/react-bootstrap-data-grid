@@ -1,4 +1,4 @@
-import { FC } from "react";
+import { FC, MouseEventHandler } from "react";
 import classNames from "classnames";
 
 export interface EditControlsCellProps {
@@ -14,6 +14,13 @@ export interface EditControlsCellProps {
   startButtonClasses: string[];
   cancelButtonClasses: string[];
 }
+
+const stopPropagationWrapper: (
+  fn: () => void,
+) => MouseEventHandler<HTMLButtonElement> = (fn) => (event) => {
+  event.stopPropagation();
+  fn();
+};
 
 const EditControlsCell: FC<EditControlsCellProps> = ({
   ariaColIndex,
@@ -43,7 +50,7 @@ const EditControlsCell: FC<EditControlsCellProps> = ({
                   ? ["btn-secondary"]
                   : cancelButtonClasses,
               )}
-              onClick={cancelEditingCallback}
+              onClick={stopPropagationWrapper(cancelEditingCallback)}
             >
               Cancel
             </button>
@@ -54,7 +61,7 @@ const EditControlsCell: FC<EditControlsCellProps> = ({
                   ? ["btn-primary"]
                   : saveButtonClasses,
               )}
-              onClick={saveCallback}
+              onClick={stopPropagationWrapper(saveCallback)}
             >
               Save
             </button>
@@ -69,7 +76,7 @@ const EditControlsCell: FC<EditControlsCellProps> = ({
                     ? ["btn-primary"]
                     : deleteButtonClasses,
                 )}
-                onClick={deleteCallback}
+                onClick={stopPropagationWrapper(deleteCallback)}
               >
                 Delete
               </button>
@@ -81,7 +88,7 @@ const EditControlsCell: FC<EditControlsCellProps> = ({
                   ? ["btn-primary"]
                   : startButtonClasses,
               )}
-              onClick={beginEditingCallback}
+              onClick={stopPropagationWrapper(beginEditingCallback)}
             >
               Edit
             </button>
