@@ -387,6 +387,7 @@ const Grid: FC<GridProps> = ({
                           index,
                         ),
                       )}
+                      aria-colindex={1}
                     >
                       <SelectionInput
                         selected={selectedSet.has(row.origIndex)}
