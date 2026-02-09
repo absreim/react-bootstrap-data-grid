@@ -1,9 +1,5 @@
 import { FC, useState } from "react";
-import Grid, {
-  ColDef,
-  RowDef,
-  SingleSelectModel
-} from "@/grid";
+import Grid, { ColDef, RowDef, SingleSelectModel } from "@/grid";
 import { SingleSelectModelInitialState } from "@/app/selection/test/types";
 
 export interface SingleSelectionTestHarnessProps {

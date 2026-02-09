@@ -1,8 +1,4 @@
-import {
-  AugRowDef,
-  RowDef,
-
-} from "../types";
+import { AugRowDef, RowDef } from "../types";
 import { useMemo } from "react";
 import {
   DateFilterState,

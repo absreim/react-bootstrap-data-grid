@@ -4,7 +4,6 @@ import {
   SharedTableStyleModel,
   TableStyleModel,
 } from "./types";
-import { filterInputTableStyleModel } from "../../app/styling/typeSpecs";
 
 const unwrapSharedStyleModel: (
   sharedStyleModel: SharedTableStyleModel | undefined,
@@ -28,10 +27,18 @@ export const unwrapTableStyleModel: (
     : () => [],
   editColTh: tableStyleModel?.editColTh || [],
   editColTd: tableStyleModel?.editColTd ? tableStyleModel.editColTd : () => [],
-  editCancelButton: tableStyleModel?.editCancelButton ? tableStyleModel.editCancelButton : () => [],
-  editDeleteButton: tableStyleModel?.editDeleteButton ? tableStyleModel.editDeleteButton : () => [],
-  editSaveButton: tableStyleModel?.editSaveButton ? tableStyleModel.editSaveButton : () => [],
-  editStartButton: tableStyleModel?.editStartButton ? tableStyleModel.editStartButton : () => [],
+  editCancelButton: tableStyleModel?.editCancelButton
+    ? tableStyleModel.editCancelButton
+    : () => [],
+  editDeleteButton: tableStyleModel?.editDeleteButton
+    ? tableStyleModel.editDeleteButton
+    : () => [],
+  editSaveButton: tableStyleModel?.editSaveButton
+    ? tableStyleModel.editSaveButton
+    : () => [],
+  editStartButton: tableStyleModel?.editStartButton
+    ? tableStyleModel.editStartButton
+    : () => [],
   rowSelectColTh: tableStyleModel?.rowSelectColTh || [],
   rowSelectColTd: tableStyleModel?.rowSelectColTd
     ? tableStyleModel.rowSelectColTd
@@ -51,12 +58,24 @@ export const unwrapFilterInputTableStyleModel: (
   tbodyTd: filterTableStyleModel?.tbodyTd
     ? filterTableStyleModel.tbodyTd
     : () => [],
-  enablementInput: filterTableStyleModel?.enablementInput ? filterTableStyleModel.enablementInput : () => [],
-  schemeSelectionInput: filterTableStyleModel?.schemeSelectionInput ? filterTableStyleModel.schemeSelectionInput : () => [],
-  searchStringInput: filterTableStyleModel?.searchStringInput ? filterTableStyleModel.searchStringInput : () => [],
-  numberInput: filterTableStyleModel?.numberInput ? filterTableStyleModel.numberInput : () => [],
-  startDateInput: filterTableStyleModel?.startDateInput ? filterTableStyleModel.startDateInput : () => [],
-  endDateInput: filterTableStyleModel?.endDateInput ? filterTableStyleModel.endDateInput : () => [],
+  enablementInput: filterTableStyleModel?.enablementInput
+    ? filterTableStyleModel.enablementInput
+    : () => [],
+  schemeSelectionInput: filterTableStyleModel?.schemeSelectionInput
+    ? filterTableStyleModel.schemeSelectionInput
+    : () => [],
+  searchStringInput: filterTableStyleModel?.searchStringInput
+    ? filterTableStyleModel.searchStringInput
+    : () => [],
+  numberInput: filterTableStyleModel?.numberInput
+    ? filterTableStyleModel.numberInput
+    : () => [],
+  startDateInput: filterTableStyleModel?.startDateInput
+    ? filterTableStyleModel.startDateInput
+    : () => [],
+  endDateInput: filterTableStyleModel?.endDateInput
+    ? filterTableStyleModel.endDateInput
+    : () => [],
   submitButton: filterTableStyleModel?.submitButton || [],
 });
 

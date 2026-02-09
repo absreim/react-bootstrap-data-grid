@@ -77,7 +77,9 @@ const styleModel: StyleModel = {
   },
   additionalComponentsStyleModel: {
     topLevelDiv: ["vstack flex-column-reverse border"],
-    filterInputsDiv: ["vstack flex-column-reverse align-items-start border m-2 p-2 gap-2"],
+    filterInputsDiv: [
+      "vstack flex-column-reverse align-items-start border m-2 p-2 gap-2",
+    ],
     tableAndPaginationDiv: ["vstack flex-column-reverse border m-2 p-2"],
     filterUiToggleButton: ["btn-info"],
   },
@@ -142,7 +144,7 @@ const SampleStyledInputsGrid: FC = () => {
   const editModel: EditModel = { getUpdateCallback, getDeleteCallback };
   const handleReset: MouseEventHandler<HTMLButtonElement> = () => {
     setRows(initRows);
-  }
+  };
 
   return (
     <div className="vstack gap-2 align-items-start border p-2">

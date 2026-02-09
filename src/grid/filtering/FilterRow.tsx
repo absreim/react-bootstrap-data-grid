@@ -56,8 +56,12 @@ export function FilterRow<FilterScheme extends string = string>(
           onChange={enabledChangeHandler}
         />
       </td>
-      <td className={classNames(tdClasses(1))} aria-colindex={2}>{columnLabel}</td>
-      <td className={classNames(tdClasses(2))} aria-colindex={3}>{typeLabel}</td>
+      <td className={classNames(tdClasses(1))} aria-colindex={2}>
+        {columnLabel}
+      </td>
+      <td className={classNames(tdClasses(2))} aria-colindex={3}>
+        {typeLabel}
+      </td>
       <td className={classNames(tdClasses(3))} aria-colindex={4}>
         <select
           name={opSelectLabel}

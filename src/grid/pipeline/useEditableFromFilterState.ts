@@ -1,4 +1,3 @@
-
 import { useMemo } from "react";
 import { EditableTableFilterState, TableFilterState } from "../filtering/types";
 

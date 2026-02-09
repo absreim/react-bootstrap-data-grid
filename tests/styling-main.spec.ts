@@ -46,18 +46,18 @@ test("col index-based styles work", async ({ page }) => {
       `main-table-thead-th-test-class-col-${colIndex}}`,
     );
   }
-})
+});
 
 const displayIndexToOrigIndex: Record<0 | 1, number> = {
   0: 1,
-  1: 0
-}
+  1: 0,
+};
 
 test("body rows and cells styling works", async ({ page }) => {
   const tbody = page.locator("tbody");
   for (let displayIndex = 0; displayIndex < 2; displayIndex++) {
     const tr = tbody.locator(`tr[aria-rowindex="${displayIndex + 2}"]`);
-    const origIndex = displayIndexToOrigIndex[displayIndex as (0 | 1)];
+    const origIndex = displayIndexToOrigIndex[displayIndex as 0 | 1];
     await expect(tr).toHaveClass(
       [
         `main-table-tbody-tr-test-class-orig-index-${origIndex}`,
@@ -74,7 +74,7 @@ test("body rows and cells styling works", async ({ page }) => {
       );
     }
   }
-})
+});
 
 test("select column control styling works", async ({ page }) => {
   const tbody = page.locator("tbody");
@@ -96,7 +96,7 @@ test("select column control styling works", async ({ page }) => {
       ].join(" "),
     );
   }
-})
+});
 
 test("edit control styling works", async ({ page }) => {
   const tbody = page.locator("tbody");
@@ -151,7 +151,7 @@ test("edit control styling works", async ({ page }) => {
       );
     }
 
-    const editColTd = tr.locator('td[aria-colindex="4"]')
+    const editColTd = tr.locator('td[aria-colindex="4"]');
     await expect(editColTd).toContainClass(
       [
         `main-table-edit-col-td-test-class-orig-index-${origIndex}`,
@@ -159,4 +159,4 @@ test("edit control styling works", async ({ page }) => {
       ].join(" "),
     );
   }
-})
+});

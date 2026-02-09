@@ -144,12 +144,15 @@ const MainTableStylingTestHarness: FC = () => {
   );
 
   const [selected, setSelected] = useState<number[]>([]);
-  const selectModel: MultiSelectModel = useMemo(() => ({
-    mode: "both",
-    type: "multi",
-    selected,
-    setSelected
-  }), [selected])
+  const selectModel: MultiSelectModel = useMemo(
+    () => ({
+      mode: "both",
+      type: "multi",
+      selected,
+      setSelected,
+    }),
+    [selected],
+  );
 
   return (
     <Grid
