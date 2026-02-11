@@ -1,0 +1,38 @@
+{
+  "name": "@absreim/react-bootstrap-data-grid-docs",
+  "version": "1.4.0",
+  "private": true,
+  "scripts": {
+    "dev": "next dev",
+    "build": "next build",
+    "start": "next start",
+    "lint": "eslint"
+  },
+  "dependencies": {
+    "@absreim/react-bootstrap-data-grid": "workspace:*",
+    "react-dom": "19.2.3",
+    "bootstrap": "^5.3.8",
+    "classnames": "^2.5.1",
+    "dayjs": "^1.11.19",
+    "highlight.js": "^11.11.1",
+    "nanoid": "^5.1.6",
+    "next": "^16.1.6",
+    "react": "19.2.3",
+    "react-bootstrap": "^2",
+    "react-dom": "^19.2.1"
+  },
+  "devDependencies": {
+    "@playwright/test": "^1.57.0",
+    "@types/node": "^24",
+    "@types/react": "^19.2.7",
+    "@types/react-dom": "^19.2.3",
+    "babel-plugin-react-compiler": "1.0.0",
+    "baseline-browser-mapping": "^2.9.19",
+    "eslint": "^9",
+    "eslint-config-next": "16.1.3",
+    "sass": "^1.97.2",
+    "prettier": "^3.7.4",
+    "sass": "^1.95.1",
+    "typescript": "^5.9"
+  }
+}
