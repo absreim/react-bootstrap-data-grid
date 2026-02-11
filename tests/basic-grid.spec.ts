@@ -1,7 +1,7 @@
 import { test, expect } from "@playwright/test";
 
 test.beforeEach(async ({ page }) => {
-  await page.goto("test");
+  await page.goto("/");
 });
 
 test("grid displays correct column headings", async ({ page }) => {

@@ -1,7 +1,7 @@
 import { test, expect } from "@playwright/test";
 
 test.beforeEach(async ({ page }) => {
-  await page.goto("styling/test/main");
+  await page.goto("styling/main");
 });
 
 test("single element styles work", async ({ page }) => {

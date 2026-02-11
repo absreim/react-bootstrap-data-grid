@@ -1,7 +1,7 @@
 import { test, expect } from "@playwright/test";
 
 test.beforeEach(async ({ page }) => {
-  await page.goto("selection/test");
+  await page.goto("selection");
 });
 
 // Multi select type

@@ -1,7 +1,7 @@
 import { test, expect } from "@playwright/test";
 
 test.beforeEach(async ({ page }) => {
-  await page.goto("pagination/test/component");
+  await page.goto("pagination/component");
 });
 
 test("pagination component displays specified number of links", async ({

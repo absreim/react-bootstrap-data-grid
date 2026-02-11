@@ -10,11 +10,11 @@ const { execSync } = require("child_process");
 const root = path.resolve(__dirname, "./src/grid");
 const distDir = "./dist";
 
-const keepFiles = new Set(["package.json", "README.md"]);
-
 const srcScss = path.join(root, "style.scss");
 const distScss = path.join(distDir, "style.scss");
 const distCss = path.join(distDir, "style.css");
+
+const templateDir = path.join(__dirname, "dist-templates");
 
 // --------------------
 // HELPERS
@@ -24,8 +24,6 @@ function cleanDist(dir) {
 
   for (const entry of fs.readdirSync(dir, { withFileTypes: true })) {
     const fullPath = path.join(dir, entry.name);
-
-    if (keepFiles.has(entry.name)) continue;
 
     entry.isDirectory()
       ? fs.rmSync(fullPath, { recursive: true, force: true })
@@ -49,6 +47,10 @@ function compileTs(configDir) {
   });
 }
 
+function copyDirContents(src, dest) {
+  fs.cpSync(src, dest, { recursive: true });
+}
+
 // --------------------
 // RUN
 // --------------------
@@ -60,3 +62,4 @@ cleanDist(distDir);
 copyWithDirs(srcScss, distScss);
 compileScss(distScss, distCss);
 compileTs(root);
+copyDirContents(templateDir, distDir);

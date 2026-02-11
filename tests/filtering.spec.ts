@@ -2,7 +2,7 @@ import { expect, test } from "@playwright/test";
 import { validateGridContents } from "./util";
 
 test.beforeEach(async ({ page }) => {
-  await page.goto("filtering/test");
+  await page.goto("filtering");
 });
 
 test("less than number filter works correctly", async ({ page }) => {

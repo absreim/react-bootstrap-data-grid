@@ -1,12 +1,10 @@
 import type { Metadata } from "next";
 import "./global.scss";
-import AppBar from "./AppBar";
-import ContentsNavbar from "@/app/ContentsNavbar";
 
 export const metadata: Metadata = {
-  title: "React Bootstrap Data Grid Documentation",
+  title: "React Bootstrap Data Grid Test Site",
   description:
-    "Technical documentation for the react-bootstrap-data-grid project",
+    "Playwright test targets for the react-bootstrap-data-grid project",
 };
 
 export default function RootLayout({
@@ -17,13 +15,7 @@ export default function RootLayout({
   return (
     <html lang="en">
       <body>
-        <AppBar />
-        <div className="container d-flex flex-row gap-2">
-          <div className="d-none d-lg-block">
-            <ContentsNavbar />
-          </div>
-          <main>{children}</main>
-        </div>
+        <main>{children}</main>
       </body>
     </html>
   );

@@ -1,7 +1,7 @@
 import { test, expect } from "@playwright/test";
 
 test.beforeEach(async ({ page }) => {
-  await page.goto("sorting/test");
+  await page.goto("sorting");
 });
 
 test("unsortable column is sorted if initial model calls for it", async ({

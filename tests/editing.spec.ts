@@ -2,7 +2,7 @@ import { test, expect } from "@playwright/test";
 import { validateGridContents } from "./util";
 
 test.beforeEach(async ({ page }) => {
-  await page.goto("editing/test");
+  await page.goto("editing");
 });
 
 test("deleting a row works as expected", async ({ page }) => {

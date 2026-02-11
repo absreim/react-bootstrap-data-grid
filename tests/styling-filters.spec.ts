@@ -1,7 +1,7 @@
 import { test, expect } from "@playwright/test";
 
 test.beforeEach(async ({ page }) => {
-  await page.goto("styling/test/filtering");
+  await page.goto("styling/filtering");
 
   const toggleButton = page.getByRole("button", {
     name: "Show Filter Options",

@@ -2,7 +2,7 @@ import { test, expect } from "@playwright/test";
 import { validateGridContents } from "./util";
 
 test.beforeEach(async ({ page }) => {
-  await page.goto("pagination/test/feature");
+  await page.goto("pagination/feature");
 });
 
 test("numerical buttons work correctly", async ({ page }) => {
