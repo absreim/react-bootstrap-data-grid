@@ -1,7 +1,12 @@
 "use client";
 
 import { FC, useMemo, useState } from "react";
-import Grid, { ColDef, RowDef, SelectMode, SingleSelectModel } from "@/grid";
+import Grid, {
+  ColDef,
+  RowDef,
+  SelectMode,
+  SingleSelectModel,
+} from "@absreim/react-bootstrap-data-grid";
 
 export interface SampleSingleSelectGridProps {
   mode: SelectMode;

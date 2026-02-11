@@ -1,6 +1,6 @@
 "use client";
 
-import Grid, { ColDef, RowDef } from "@/grid";
+import Grid, { ColDef, RowDef } from "@absreim/react-bootstrap-data-grid";
 import { FC } from "react";
 
 const cols: ColDef[] = [

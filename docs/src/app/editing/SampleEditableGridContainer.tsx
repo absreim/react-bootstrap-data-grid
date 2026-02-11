@@ -1,6 +1,10 @@
 "use client";
 
-import Grid, { ColDef, UpdateCallbackGenerator, RowDef } from "@/grid";
+import Grid, {
+  ColDef,
+  UpdateCallbackGenerator,
+  RowDef,
+} from "@absreim/react-bootstrap-data-grid";
 import { FC, useState } from "react";
 
 const cols: ColDef[] = [

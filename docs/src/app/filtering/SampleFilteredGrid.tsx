@@ -5,7 +5,7 @@ import Grid, {
   EditableTableFilterState,
   FilterModel,
   RowDef,
-} from "@/grid";
+} from "@absreim/react-bootstrap-data-grid";
 import { FC, useState } from "react";
 
 const cols: ColDef[] = [

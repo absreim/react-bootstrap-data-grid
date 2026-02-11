@@ -1,6 +1,11 @@
 "use client";
 
-import Grid, { ColDef, MultiSelectModel, RowDef, SelectMode } from "@/grid";
+import Grid, {
+  ColDef,
+  MultiSelectModel,
+  RowDef,
+  SelectMode,
+} from "@absreim/react-bootstrap-data-grid";
 import { FC, useMemo, useState } from "react";
 
 export interface SampleMultiSelectGridProps {

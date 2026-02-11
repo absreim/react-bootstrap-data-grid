@@ -1,5 +1,5 @@
 import type { Metadata } from "next";
-import "./global.scss";
+import "./style.scss";
 import AppBar from "./AppBar";
 import ContentsNavbar from "@/app/ContentsNavbar";
 

@@ -6,7 +6,7 @@ import Grid, {
   RowDef,
   StyleModel,
   UpdateCallbackGenerator,
-} from "@/grid";
+} from "@absreim/react-bootstrap-data-grid";
 import { FC, MouseEventHandler, useCallback, useMemo, useState } from "react";
 
 const cols: ColDef[] = [
