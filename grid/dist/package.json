@@ -28,6 +28,6 @@
   "repository": {
     "type": "git",
     "url": "git+https://github.com/absreim/react-bootstrap-data-grid.git",
-    "directory": "src/grid"
+    "directory": "grid"
   }
 }
