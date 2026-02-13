@@ -74,7 +74,11 @@ Be sure to change the line back point to a version number once your testing is d
 "@absreim/react-bootstrap-data-grid": "^1.4.1"
 ```
 
-Also be sure to delete the tarball file from the `dist` directory before publishing.
+Also be sure to:
+
+- delete the tarball file from the `dist` directory before publishing
+- delete the `package-lock.json` file in project and run `npm install` again regenerate the lock file. Otherwise, the
+  lock file may still point to the local tarball.
 
 ## Publishing
 
