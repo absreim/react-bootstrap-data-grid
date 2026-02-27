@@ -1,7 +1,6 @@
-import { FC, ReactNode } from "react";
-import deselectAll from "./deselectAll";
-import selectAll from "./selectAll";
-import arrowPlaceholder from "../sorting/arrowPlaceholder";
+"use client"
+
+import { FC, useEffect, useRef } from "react";
 import classNames from "classnames";
 import { SelectType } from "./types";
 
@@ -13,48 +12,58 @@ interface SelectAllHeaderCellProps {
   additionalClasses?: string[];
 }
 
-// It seems like React does not support setting indeterminate states on
-// checkboxes in a controlled manner, which caused me to not want to refactor
-// this feature to use a checkbox input instead of SVG icons. I am not sure how
-// much of an issue using an uncontrolled input would be, but because at time of
-// this writing I had already implemented a solution with SVG, on balance I felt
-// like it was not worth going out of my way to change things up to use an
-// uncontrolled checkbox input.
-const getSelectIcon: (
+interface CheckboxState {
+  indeterminate: boolean;
+  checked: boolean;
+  disabled: boolean;
+  description: string;
+}
+
+// An ideal state for this component would be to display the checkbox
+// differently when there is a full selection. That state is not implemented for
+// this iteration of the component. For now, the behavior is that the checkbox
+// goes into an indeterminate state for any existing selection, full or not.
+//
+// An additional challenge when it comes to implementing such a feature would be
+// to implement logic to validate that selections are still appropriate in
+// response to changes in the source data. For example: some selected indices
+// may no longer exist in the new version of the source data.
+const getCheckboxState: (
   selectMode: SelectType,
   existingSelection: boolean,
-  noRows: boolean
-) => ReactNode = (selectMode, existingSelection, noRows) => {
+  noRows: boolean,
+) => CheckboxState = (selectMode, existingSelection, noRows) => {
+  const disabledState: CheckboxState = {
+    indeterminate: false,
+    checked: false,
+    disabled: true,
+    description: "Select all (disabled)",
+  };
+
   if (noRows) {
-    return arrowPlaceholder;
+    return disabledState;
   }
 
   if (existingSelection) {
-    return deselectAll;
+    return {
+      indeterminate: true,
+      checked: true,
+      disabled: false,
+      description: "Deselect all rows",
+    };
   }
 
   if (selectMode === "multi" && !existingSelection) {
-    return selectAll;
+    return {
+      indeterminate: false,
+      checked: false,
+      disabled: false,
+      description: "Select all rows",
+    };
   }
 
-  // Single select mode and none selected means that the button is disabled
-  return arrowPlaceholder;
-};
-
-const getCellAriaDescription: (
-  selectMode: SelectType,
-  existingSelection: boolean,
-) => string = (selectMode, existingSelection) => {
-  if (existingSelection) {
-    return "Deselect all rows";
-  }
-
-  if (selectMode === "multi" && !existingSelection) {
-    return "Select all rows";
-  }
-
-  // Single select mode and none selected means that the button is disabled
-  return "Selection input header cell";
+  // single select mode and none selected
+  return disabledState;
 };
 
 const SelectAllHeaderCell: FC<SelectAllHeaderCellProps> = ({
@@ -65,9 +74,16 @@ const SelectAllHeaderCell: FC<SelectAllHeaderCellProps> = ({
   additionalClasses,
 }) => {
   const noRows = totalRows === 0;
-  const disabled = noRows || (selectType === "single" && !selectionExists);
+  const { indeterminate, checked, disabled, description } = getCheckboxState(
+    selectType,
+    selectionExists,
+    noRows,
+  );
+  const ref = useRef<HTMLInputElement>(null);
 
-  const description = getCellAriaDescription(selectType, selectionExists);
+  useEffect(() => {
+    ref.current!.indeterminate = indeterminate;
+  }, [indeterminate]);
 
   return (
     <th
@@ -82,9 +98,15 @@ const SelectAllHeaderCell: FC<SelectAllHeaderCellProps> = ({
         },
         additionalClasses || [],
       )}
-      onClick={onClick}
     >
-      {getSelectIcon(selectType, selectionExists, noRows)}
+      <input
+        type="checkbox"
+        checked={checked}
+        ref={ref}
+        disabled={disabled}
+        aria-label={description}
+        onChange={onClick}
+      />
     </th>
   );
 };

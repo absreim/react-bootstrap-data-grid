@@ -1,11 +1,26 @@
 import { test, expect } from "@playwright/test";
+import { Locator } from "playwright-core";
 
 test.beforeEach(async ({ page }) => {
   await page.goto("selection");
 });
 
-// Multi select type
+const clickSelectAllAndVerify: (container: Locator, name: string, endState: 'true' | 'false') => Promise<void> = async (container, name, endState) => {
+  const selectHeaderCell = container.locator(
+    'thead > tr > th[aria-colindex="1"]',
+  );
+  const selectAllCheckbox = selectHeaderCell.getByRole("checkbox", {
+    name,
+  });
+  await selectAllCheckbox.click();
 
+  for (let i = 0; i < 4; i++) {
+    const row = container.locator(`tbody > tr[aria-rowindex="${i + 2}"]`);
+    await expect(row).toHaveAttribute("aria-selected", endState);
+  }
+}
+
+// Multi select type
 test("initially selected values should be reflected in the UI for multiselect models", async ({
   page,
 }) => {
@@ -27,15 +42,7 @@ test("for grids of multi select type and column mode with existing columns selec
     "multi select column mode initial selections test container",
   );
 
-  const selectHeaderCell = container.locator(
-    'thead > tr > th[aria-colindex="1"]',
-  );
-  await selectHeaderCell.click();
-
-  for (let i = 0; i < 4; i++) {
-    const row = container.locator(`tbody > tr[aria-rowindex="${i + 2}"]`);
-    await expect(row).toHaveAttribute("aria-selected", "false");
-  }
+  await clickSelectAllAndVerify(container, "Deselect all rows", "false");
 });
 
 test("for grids of multi select type and column mode with no existing columns selected, clicking the select column header cell will select all rows", async ({
@@ -45,15 +52,7 @@ test("for grids of multi select type and column mode with no existing columns se
     "multi select column mode no initial selections test container",
   );
 
-  const selectHeaderCell = container.locator(
-    'thead > tr > th[aria-colindex="1"]',
-  );
-  await selectHeaderCell.click();
-
-  for (let i = 0; i < 4; i++) {
-    const row = container.locator(`tbody > tr[aria-rowindex="${i + 2}"]`);
-    await expect(row).toHaveAttribute("aria-selected", "true");
-  }
+  await clickSelectAllAndVerify(container, "Select all rows", "true");
 });
 
 test("for grids of multi select type and column mode, clicking on the selection checkbox for an unselected row will select that row", async ({
@@ -160,22 +159,14 @@ test("for multi select grids, selection via both input and row clicking are poss
   await expect(selectedRow1).toBeVisible();
 });
 
-test("for multi select grids in both mode, the select all control should work", async ({
+test("for multi select grids in 'both' mode, the select all control should work", async ({
   page,
 }) => {
   const container = page.getByTestId(
     "multi select both mode initial selections test container",
   );
 
-  const selectHeaderCell = container.locator(
-    'thead > tr > th[aria-colindex="1"]',
-  );
-  await selectHeaderCell.click();
-
-  for (let i = 0; i < 4; i++) {
-    const row = container.locator(`tbody > tr[aria-rowindex="${i + 2}"]`);
-    await expect(row).toHaveAttribute("aria-selected", "false");
-  }
+  await clickSelectAllAndVerify(container, "Deselect all rows", "false");
 });
 
 // Single select type
@@ -192,22 +183,14 @@ test("initially selected value should be reflected in the UI for single select m
   await expect(secondRow).toHaveAttribute("aria-selected", "true");
 });
 
-test("for single select grids in column mode, clicking the select column header cell will deselect an existing selection", async ({
+test("for single select grids in column mode, clicking the select all control will deselect an existing selection", async ({
   page,
 }) => {
   const container = page.getByTestId(
     "single select column mode initial selections test container",
   );
 
-  const selectHeaderCell = container.locator(
-    'thead > tr > th[aria-colindex="1"]',
-  );
-  await selectHeaderCell.click();
-
-  for (let i = 0; i < 4; i++) {
-    const row = container.locator(`tbody > tr[aria-rowindex="${i + 2}"]`);
-    await expect(row).toHaveAttribute("aria-selected", "false");
-  }
+  await clickSelectAllAndVerify(container, "Deselect all rows", "false");
 });
 
 test("for single select grids in column mode, clicking on the radio button for an unselected row will select that row and deselect an existing row", async ({
@@ -326,9 +309,9 @@ test("for multi select grids, no filtered rows causes Select All button to be di
   const selectHeaderCell = container.locator(
     'thead > tr > th[aria-colindex="1"]',
   );
-  const svgDesc = selectHeaderCell.locator("svg > desc");
+  const selectAllInput = selectHeaderCell.getByRole("checkbox", {
+    name: "Select all (disabled)",
+  });
 
-  await expect(svgDesc).toHaveText(
-    "Empty transparent square for styling purposes",
-  );
+  await expect(selectAllInput).toBeDisabled();
 });
