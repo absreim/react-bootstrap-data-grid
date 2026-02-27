@@ -12,6 +12,7 @@
 # next.js
 /.next/
 /out/
+/grid/.next
 
 # production
 /build

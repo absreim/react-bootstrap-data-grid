@@ -147,6 +147,34 @@ const Test: FC = () => {
           }}
         />
       </div>
+      <div data-testid="multi select no rows test container">
+        <MultiSelectionTestHarness
+          rows={rows}
+          cols={cols}
+          initialState={{
+            mode: "column",
+            type: "multi",
+            selected: [],
+          }}
+          filterModel={{
+            tableFilterState: {
+              rowNumber: {
+                type: "number",
+                scheme: "equals",
+                numValue: 0,
+                enabled: true,
+              },
+              rowDescription: {
+                type: "string",
+                scheme: "contains",
+                searchString: "",
+                enabled: false
+              },
+            },
+            setTableFilterState: () => {},
+          }}
+        />
+      </div>
     </>
   );
 };

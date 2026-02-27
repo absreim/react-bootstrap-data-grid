@@ -9,6 +9,7 @@ interface SelectAllHeaderCellProps {
   onClick: () => void;
   selectType: SelectType;
   selectionExists: boolean;
+  totalRows: number;
   additionalClasses?: string[];
 }
 
@@ -22,7 +23,12 @@ interface SelectAllHeaderCellProps {
 const getSelectIcon: (
   selectMode: SelectType,
   existingSelection: boolean,
-) => ReactNode = (selectMode, existingSelection) => {
+  noRows: boolean
+) => ReactNode = (selectMode, existingSelection, noRows) => {
+  if (noRows) {
+    return arrowPlaceholder;
+  }
+
   if (existingSelection) {
     return deselectAll;
   }
@@ -55,9 +61,11 @@ const SelectAllHeaderCell: FC<SelectAllHeaderCellProps> = ({
   onClick,
   selectType,
   selectionExists,
+  totalRows,
   additionalClasses,
 }) => {
-  const disabled = selectType === "single" && !selectionExists;
+  const noRows = totalRows === 0;
+  const disabled = noRows || (selectType === "single" && !selectionExists);
 
   const description = getCellAriaDescription(selectType, selectionExists);
 
@@ -76,7 +84,7 @@ const SelectAllHeaderCell: FC<SelectAllHeaderCellProps> = ({
       )}
       onClick={onClick}
     >
-      {getSelectIcon(selectType, selectionExists)}
+      {getSelectIcon(selectType, selectionExists, noRows)}
     </th>
   );
 };

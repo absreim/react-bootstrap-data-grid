@@ -287,6 +287,7 @@ const Grid: FC<GridProps> = ({
                   selectType={selectModel.type}
                   onClick={selectAllOnClick}
                   selectionExists={selectionExists}
+                  totalRows={filteredRows.length}
                   additionalClasses={unwrappedTableModel.rowSelectColTh}
                 />
               )}

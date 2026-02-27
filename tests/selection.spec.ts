@@ -317,3 +317,18 @@ test("for single select grids, selection via row clicking is possible", async ({
 
   await expect(selectedRow).toBeVisible();
 });
+
+test("for multi select grids, no filtered rows causes Select All button to be disabled", async ({
+  page,
+}) => {
+  const container = page.getByTestId("multi select no rows test container");
+
+  const selectHeaderCell = container.locator(
+    'thead > tr > th[aria-colindex="1"]',
+  );
+  const svgDesc = selectHeaderCell.locator("svg > desc");
+
+  await expect(svgDesc).toHaveText(
+    "Empty transparent square for styling purposes",
+  );
+});
