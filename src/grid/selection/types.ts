@@ -30,3 +30,17 @@ export interface SingleSelectModel {
 }
 
 export type SelectModel = SingleSelectModel | MultiSelectModel;
+
+export type MultiExistingSelection = "full" | "partial" | "none";
+
+export interface SingleSelectionInfo {
+  selectType: "single";
+  existingSelection: boolean
+}
+
+export interface MultiSelectionInfo {
+  selectType: "multi";
+  existingSelection: 'full' | 'partial' | 'none';
+}
+
+export type SelectionInfo = SingleSelectionInfo | MultiSelectionInfo;

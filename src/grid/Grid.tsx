@@ -29,10 +29,16 @@ import {
 } from "./styling/types";
 import useCurrentPageRows from "./pipeline/useCurrentPageRows";
 import { EditModel } from "./editing/types";
-import { MultiSelectModel, SelectModel } from "./selection/types";
+import {
+  MultiExistingSelection,
+  MultiSelectModel,
+  SelectionInfo,
+  SelectModel,
+} from "./selection/types";
 import { FilterModel } from "./filtering/types";
 import { ColSortModel, TableSortModel } from "./sorting/types";
 import { GridPaginationState } from "./pagination/types";
+import isSubset from "./util/isSubset";
 
 export interface GridProps {
   rows: RowDef[];
@@ -59,16 +65,14 @@ const Grid: FC<GridProps> = ({
 }) => {
   const editableFilterState = filterModel?.tableFilterState || null;
   const filterState = useFilterStateFromEditable(cols, editableFilterState);
+
   const augmentedRows = useAugmentedRows(rows);
   const filteredRows = useFilter(augmentedRows, editableFilterState);
-
   const sortedRows = useSortedRows(filteredRows, cols, sortModel);
-
   const currentPageRows = useCurrentPageRows(sortedRows, pagination);
 
   const showSelectCol = selectModel && selectModel.mode !== "row";
   const ariaColIndexOffset = showSelectCol ? 1 : 0;
-
   const displayRows: FormattedRow[] = useDisplayRows(
     currentPageRows,
     cols,
@@ -111,10 +115,8 @@ const Grid: FC<GridProps> = ({
     }
 
     if (!selectionExists && selectModel.type === "multi") {
-      const allFilteredRowIndices = filteredRows.map(
-        (def) => def.meta.origIndex,
-      );
-      selectModel.setSelected(allFilteredRowIndices);
+      const allRowIndices = rows.map((_, index) => index);
+      selectModel.setSelected(allRowIndices);
     }
 
     // Button should be disabled in the case of selectionExists &&
@@ -177,9 +179,47 @@ const Grid: FC<GridProps> = ({
 
   const rowsAreSelectable = !!(selectModel && selectModel.mode !== "column");
 
+  const selectionInfo: SelectionInfo | null = useMemo(() => {
+    if (!selectModel) {
+      return null
+    }
+
+    if (selectModel.type === "single") {
+      return {
+        selectType: "single",
+        existingSelection: selectionExists
+      }
+    }
+
+    const getMultiExistingSelection: (
+      selectionExists: boolean,
+      rows: RowDef[],
+    ) => MultiExistingSelection = (selectionExists, rows) => {
+      const rowIndices = rows.map((_, index) => index);
+      const isFullSelection = isSubset(rowIndices, selectModel.selected!);
+      // Note that isFullSelection is true if there are no rows at all. In that case, the existing selection value
+      // should be "none", not "full".
+
+      if (!selectionExists) {
+        return "none"
+      }
+
+      if (isFullSelection) {
+        return "full"
+      }
+
+      return "partial"
+    };
+
+    return {
+      selectType: "multi",
+      existingSelection: getMultiExistingSelection(selectionExists, rows)
+    }
+  }, [selectModel, selectionExists, rows])
+
   const getRowClickHandler: (
     index: number,
-  ) => MouseEventHandler<HTMLTableRowElement> = (index) => (event) => {
+  ) => MouseEventHandler<HTMLTableRowElement> = (index) => () => {
     if (!rowsAreSelectable) {
       return;
     }
@@ -284,10 +324,9 @@ const Grid: FC<GridProps> = ({
             >
               {showSelectCol && (
                 <SelectAllHeaderCell
-                  selectType={selectModel.type}
+                  selectionInfo={selectionInfo!}
                   onClick={selectAllOnClick}
-                  selectionExists={selectionExists}
-                  totalRows={filteredRows.length}
+                  totalRows={rows.length}
                   additionalClasses={unwrappedTableModel.rowSelectColTh}
                 />
               )}

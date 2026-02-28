@@ -149,7 +149,7 @@ const Test: FC = () => {
       </div>
       <div data-testid="multi select no rows test container">
         <MultiSelectionTestHarness
-          rows={rows}
+          rows={[]}
           cols={cols}
           initialState={{
             mode: "column",
@@ -168,10 +168,21 @@ const Test: FC = () => {
                 type: "string",
                 scheme: "contains",
                 searchString: "",
-                enabled: false
+                enabled: false,
               },
             },
             setTableFilterState: () => {},
+          }}
+        />
+      </div>
+      <div data-testid="full selection test container">
+        <MultiSelectionTestHarness
+          rows={rows}
+          cols={cols}
+          initialState={{
+            mode: "column",
+            type: "multi",
+            selected: [0, 1, 2, 3, 4, 5],
           }}
         />
       </div>

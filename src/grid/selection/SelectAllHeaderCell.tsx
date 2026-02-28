@@ -2,12 +2,11 @@
 
 import { FC, useEffect, useRef } from "react";
 import classNames from "classnames";
-import { SelectType } from "./types";
+import { SelectionInfo, SelectType } from "./types";
 
 interface SelectAllHeaderCellProps {
   onClick: () => void;
-  selectType: SelectType;
-  selectionExists: boolean;
+  selectionInfo: SelectionInfo;
   totalRows: number;
   additionalClasses?: string[];
 }
@@ -19,20 +18,10 @@ interface CheckboxState {
   description: string;
 }
 
-// An ideal state for this component would be to display the checkbox
-// differently when there is a full selection. That state is not implemented for
-// this iteration of the component. For now, the behavior is that the checkbox
-// goes into an indeterminate state for any existing selection, full or not.
-//
-// An additional challenge when it comes to implementing such a feature would be
-// to implement logic to validate that selections are still appropriate in
-// response to changes in the source data. For example: some selected indices
-// may no longer exist in the new version of the source data.
 const getCheckboxState: (
-  selectMode: SelectType,
-  existingSelection: boolean,
+  selectionInfo: SelectionInfo,
   noRows: boolean,
-) => CheckboxState = (selectMode, existingSelection, noRows) => {
+) => CheckboxState = (selectionInfo, noRows) => {
   const disabledState: CheckboxState = {
     indeterminate: false,
     checked: false,
@@ -44,7 +33,18 @@ const getCheckboxState: (
     return disabledState;
   }
 
-  if (existingSelection) {
+  const { existingSelection } = selectionInfo;
+
+  if (existingSelection === "full") {
+    return {
+      indeterminate: false,
+      checked: true,
+      disabled: false,
+      description: "Deselect all rows",
+    };
+  }
+
+  if (existingSelection === true || existingSelection === "partial") {
     return {
       indeterminate: true,
       checked: true,
@@ -53,7 +53,7 @@ const getCheckboxState: (
     };
   }
 
-  if (selectMode === "multi" && !existingSelection) {
+  if (existingSelection === "none") {
     return {
       indeterminate: false,
       checked: false,
@@ -68,15 +68,13 @@ const getCheckboxState: (
 
 const SelectAllHeaderCell: FC<SelectAllHeaderCellProps> = ({
   onClick,
-  selectType,
-  selectionExists,
+  selectionInfo,
   totalRows,
   additionalClasses,
 }) => {
   const noRows = totalRows === 0;
   const { indeterminate, checked, disabled, description } = getCheckboxState(
-    selectType,
-    selectionExists,
+    selectionInfo,
     noRows,
   );
   const ref = useRef<HTMLInputElement>(null);
