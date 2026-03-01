@@ -31,8 +31,6 @@ test("single element styles work", async ({ page }) => {
   await expect(editColTh).toHaveClass("main-table-edit-col-th-test-class");
   await expect(rowSelectColTh).toContainClass(
     [
-      "rbdg-select-header-cell",
-      "rbdg-clickable-grid-header-cell",
       "main-table-row-select-col-th-test-class",
     ].join(" "),
   );

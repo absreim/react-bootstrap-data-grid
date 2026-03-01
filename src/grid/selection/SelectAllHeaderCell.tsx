@@ -89,10 +89,8 @@ const SelectAllHeaderCell: FC<SelectAllHeaderCellProps> = ({
       title={description}
       aria-description={description}
       className={classNames(
-        "rbdg-select-header-cell",
         {
           "btn-primary": !additionalClasses || additionalClasses.length === 0,
-          "rbdg-clickable-grid-header-cell": !disabled,
         },
         additionalClasses || [],
       )}

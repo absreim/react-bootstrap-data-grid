@@ -95,7 +95,7 @@ const EditControlsCell: FC<EditControlsCellProps> = ({
                 className={classNames(
                   "btn",
                   deleteButtonClasses.length === 0
-                    ? ["btn-primary"]
+                    ? ["btn-secondary"]
                     : deleteButtonClasses,
                 )}
                 onClick={stopPropagationWrapper(deleteCallback)}

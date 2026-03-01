@@ -44,11 +44,11 @@ publishing to NPM.
 
 One way to test out an NPM package locally is to create a tarball file and then install it in another project.
 
-To create a tarball, using the `npm pack` command.
+To create a tarball, use the `npm pack` command. Running the `pack` npm script will create a tarball in the `package`
+directory based on the contents in the `dist` directory.
 
 ```bash
-cd ./dist
-npm pack
+npm run pack
 ```
 
 If successful, NPM will create a tarball with a filename like `absreim-react-bootstrap-data-grid-1.4.1.tgz`. Move this
