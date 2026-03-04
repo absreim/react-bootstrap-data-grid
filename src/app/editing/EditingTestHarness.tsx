@@ -77,9 +77,7 @@ const EditingTestHarness: FC = () => {
 
     newRows[index] = {
       id,
-      data: {
-        ...rows[index].data,
-      },
+      data: rowDef,
     };
     setRows(newRows);
   };
