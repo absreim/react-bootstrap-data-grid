@@ -20,7 +20,7 @@ test("numerical buttons work correctly", async ({ page }) => {
   await validateGridContents(tbody, expectedInitialContents);
 
   await container.getByRole("link", { name: "2" }).click();
-  await expect(container.locator('tr[data-rowindex="5"]')).toBeVisible();
+  await expect(container.locator('tr[data-rowid="5"]')).toBeVisible();
   const expectedSecondPageContents: string[][] = [
     ["6"],
     ["7"],
@@ -31,7 +31,7 @@ test("numerical buttons work correctly", async ({ page }) => {
   await validateGridContents(tbody, expectedSecondPageContents);
 
   await container.getByRole("link", { name: "3" }).click();
-  await expect(container.locator('tr[data-rowindex="10"]')).toBeVisible();
+  await expect(container.locator('tr[data-rowid="10"]')).toBeVisible();
   const expectedThirdPageContents: string[][] = [
     ["11"],
     ["12"],
@@ -57,7 +57,7 @@ test("next and previous buttons work correctly", async ({ page }) => {
   await validateGridContents(tbody, expectedInitialContents);
 
   await container.getByRole("link", { name: "Next" }).click();
-  await expect(container.locator('tr[data-rowindex="5"]')).toBeVisible();
+  await expect(container.locator('tr[data-rowid="5"]')).toBeVisible();
   const expectedSecondPageContents: string[][] = [
     ["6"],
     ["7"],
@@ -68,7 +68,7 @@ test("next and previous buttons work correctly", async ({ page }) => {
   await validateGridContents(tbody, expectedSecondPageContents);
 
   await container.getByRole("link", { name: "Next" }).click();
-  await expect(container.locator('tr[data-rowindex="10"]')).toBeVisible();
+  await expect(container.locator('tr[data-rowid="10"]')).toBeVisible();
   const expectedThirdPageContents: string[][] = [
     ["11"],
     ["12"],
@@ -79,7 +79,7 @@ test("next and previous buttons work correctly", async ({ page }) => {
   await validateGridContents(tbody, expectedThirdPageContents);
 
   await container.getByRole("link", { name: "Previous" }).click();
-  await expect(container.locator('tr[data-rowindex="5"]')).toBeVisible();
+  await expect(container.locator('tr[data-rowid="5"]')).toBeVisible();
   await validateGridContents(tbody, expectedSecondPageContents);
 });
 
@@ -103,7 +103,7 @@ test("feature preserves page index when possible when selecting new page size", 
   await container
     .locator('select[aria-label="Number of Rows per Page"]')
     .selectOption("1");
-  await expect(container.locator('tr[data-rowindex="14"]')).toBeVisible();
+  await expect(container.locator('tr[data-rowid="14"]')).toBeVisible();
 
   const expectedTenSizeSecondPageContents: string[][] = [
     ["11"],
@@ -117,7 +117,7 @@ test("feature preserves page index when possible when selecting new page size", 
   await container
     .locator('select[aria-label="Number of Rows per Page"]')
     .selectOption("0");
-  await expect(container.locator('tr[data-rowindex="9"]')).toBeVisible();
+  await expect(container.locator('tr[data-rowid="9"]')).toBeVisible();
   await validateGridContents(tbody, expectedSecondPageContents);
 });
 
@@ -141,8 +141,8 @@ test("feature snaps to largest possible index if new page size would cause index
   await container
     .locator('select[aria-label="Number of Rows per Page"]')
     .selectOption("2");
-  await expect(container.locator('tr[data-rowindex="14"]')).toBeVisible();
-  await expect(container.locator('tr[data-rowindex="0"]')).toBeVisible();
+  await expect(container.locator('tr[data-rowid="14"]')).toBeVisible();
+  await expect(container.locator('tr[data-rowid="0"]')).toBeVisible();
   const expectedFullPageContents: string[][] = [
     ["1"],
     ["2"],
@@ -176,11 +176,11 @@ test("first and last buttons work correctly", async ({ page }) => {
   await validateGridContents(tbody, expectedInitialContents);
 
   await container.getByRole("link", { name: "Last" }).click();
-  await expect(container.locator('tr[data-rowindex="14"]')).toBeVisible();
+  await expect(container.locator('tr[data-rowid="14"]')).toBeVisible();
   const expectedLastPageContents: string[][] = [["13"], ["14"], ["15"]];
   await validateGridContents(tbody, expectedLastPageContents);
 
   await container.getByRole("link", { name: "First" }).click();
-  await expect(container.locator('tr[data-rowindex="0"]')).toBeVisible();
+  await expect(container.locator('tr[data-rowid="0"]')).toBeVisible();
   await validateGridContents(tbody, expectedInitialContents);
 });

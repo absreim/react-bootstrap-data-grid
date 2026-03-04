@@ -6,6 +6,7 @@ import Grid, {
   GridPaginationState,
   MultiSelectModel,
   RowDef,
+  RowId,
   SortColDef,
   StyleModel,
   TableSortModel,
@@ -28,24 +29,39 @@ const cols: ColDef[] = [
 
 const rows: RowDef[] = [
   {
-    strCol: "First Row",
-    numCol: 1,
+    id: 0,
+    data: {
+      strCol: "First Row",
+      numCol: 1,
+    },
   },
   {
-    strCol: "Second Row",
-    numCol: 2,
+    id: 1,
+    data: {
+      strCol: "Second Row",
+      numCol: 2,
+    },
   },
   {
-    strCol: "Third Row",
-    numCol: 3,
+    id: 2,
+    data: {
+      strCol: "Third Row",
+      numCol: 3,
+    },
   },
   {
-    strCol: "Fourth Row",
-    numCol: 4,
+    id: 3,
+    data: {
+      strCol: "Fourth Row",
+      numCol: 4,
+    },
   },
   {
-    strCol: "Fifth Row",
-    numCol: 5,
+    id: 4,
+    data: {
+      strCol: "Fifth Row",
+      numCol: 5,
+    },
   },
 ];
 
@@ -143,7 +159,7 @@ const MainTableStylingTestHarness: FC = () => {
     [sortColDef],
   );
 
-  const [selected, setSelected] = useState<number[]>([]);
+  const [selected, setSelected] = useState<RowId[]>([]);
   const selectModel: MultiSelectModel = useMemo(
     () => ({
       mode: "both",

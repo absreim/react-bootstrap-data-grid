@@ -3,28 +3,28 @@ import { CellData } from "./editing/types";
 export type ColDataType = string | number | Date;
 export type ColDataTypeStrings = "string" | "number" | "date" | "datetime";
 
-export interface ColDef {
+export interface ColDef<ValueType = any> {
   type: ColDataTypeStrings;
   name: string;
   label: string;
-  formatter?: (value: any) => string;
+  formatter?: (value: ValueType) => string;
   sortable?: boolean; // default false
 }
 
-export type RowDef = Record<string, ColDataType>;
+type ValidRowData = Record<string, any>;
 
-export interface RowMetadata {
-  origIndex: number;
-}
+export type RowData<Data extends ValidRowData = ValidRowData> = Data;
 
-export interface AugRowDef {
-  data: RowDef;
-  meta: RowMetadata;
+export type RowId = string | number;
+
+export interface RowDef<Data extends ValidRowData = ValidRowData> {
+  id: RowId;
+  data: RowData<Data>;
 }
 
 export interface FormattedRow {
   contents: CellData[];
-  origIndex: number;
+  id: RowId;
 }
 
 export type JustifyContentSetting =

@@ -1,3 +1,5 @@
+import { RowId } from "../types";
+
 export interface SharedTableStyleModel {
   table?: string[];
   tbody?: string[];
@@ -8,26 +10,26 @@ export interface SharedTableStyleModel {
 }
 
 export type TableStyleModel = SharedTableStyleModel & {
-  tbodyTr?: (origIndex: number, displayIndex: number) => string[];
+  tbodyTr?: (rowId: RowId, displayIndex: number) => string[];
   tbodyTd?: (
-    origRowIndex: number,
+    rowId: RowId,
     displayRowIndex: number,
     colIndex: number,
   ) => string[];
   tbodyTdInput?: (
-    origRowIndex: number,
+    rowId: RowId,
     displayRowIndex: number,
     colIndex: number,
   ) => string[];
   editColTh?: string[];
-  editColTd?: (origIndex: number, displayIndex: number) => string[];
-  editStartButton?: (origIndex: number, displayIndex: number) => string[];
-  editDeleteButton?: (origIndex: number, displayIndex: number) => string[];
-  editSaveButton?: (origIndex: number, displayIndex: number) => string[];
-  editCancelButton?: (origIndex: number, displayIndex: number) => string[];
+  editColTd?: (rowId: RowId, displayIndex: number) => string[];
+  editStartButton?: (rowId: RowId, displayIndex: number) => string[];
+  editDeleteButton?: (rowId: RowId, displayIndex: number) => string[];
+  editSaveButton?: (rowId: RowId, displayIndex: number) => string[];
+  editCancelButton?: (rowId: RowId, displayIndex: number) => string[];
   rowSelectColTh?: string[];
-  rowSelectColTd?: (origIndex: number, displayIndex: number) => string[];
-  rowSelectInput?: (origIndex: number, displayIndex: number) => string[];
+  rowSelectColTd?: (rowId: RowId, displayIndex: number) => string[];
+  rowSelectInput?: (rowId: RowId, displayIndex: number) => string[];
 };
 
 export type FilterInputTableStyleModel = SharedTableStyleModel & {

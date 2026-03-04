@@ -1,4 +1,4 @@
-import { AugRowDef, RowDef } from "../types";
+import { RowDef } from "../types";
 import { useMemo } from "react";
 import {
   DateFilterState,
@@ -8,9 +8,9 @@ import {
 } from "../filtering/types";
 
 const useFilter: (
-  rows: AugRowDef[],
+  rows: RowDef[],
   filterState: EditableTableFilterState | null,
-) => AugRowDef[] = (rows, filterState) => {
+) => RowDef[] = (rows, filterState) => {
   return useMemo(() => {
     if (filterState === null) {
       return rows;

@@ -1,4 +1,4 @@
-import { ColDataType, ColDataTypeStrings, RowDef } from "../types";
+import { ColDataType, ColDataTypeStrings, RowData, RowId } from "../types";
 
 export interface CellData {
   fieldName: string;
@@ -10,12 +10,12 @@ export interface CellData {
 }
 
 export type UpdateCallbackGenerator = (
-  origIndex: number,
-) => (rowDef: RowDef) => void;
+  id: RowId,
+) => (rowData: RowData) => void;
 
 export interface EditModel {
   getUpdateCallback: UpdateCallbackGenerator;
   // undefined getDeleteCallback property means that deletion of rows is not permitted,
   // in which case the Delete button will not appear in the UI
-  getDeleteCallback?: (origIndex: number) => () => void;
+  getDeleteCallback?: (id: RowId) => () => void;
 }

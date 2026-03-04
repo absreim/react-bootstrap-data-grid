@@ -1,13 +1,12 @@
 "use client";
 
 import { FC, MouseEventHandler, useMemo, useState } from "react";
-import { ColDef, FormattedRow, RowDef } from "./types";
+import { ColDef, FormattedRow, RowDef, RowId } from "./types";
 import ColHeaderCell from "./ColHeaderCell";
 import useFilter from "./pipeline/useFilter";
 import ToggleButton from "./ToggleButton";
 import FilterOptionsTable from "./filtering/FilterOptionsTable";
 import useFilterStateFromEditable from "./pipeline/useFilterStateFromEditable";
-import useAugmentedRows from "./pipeline/useAugmentedRows";
 import useSortedRows from "./pipeline/useSortedRows";
 import useDisplayRows from "./pipeline/useDisplayRows";
 import SelectAllHeaderCell from "./selection/SelectAllHeaderCell";
@@ -66,8 +65,7 @@ const Grid: FC<GridProps> = ({
   const editableFilterState = filterModel?.tableFilterState || null;
   const filterState = useFilterStateFromEditable(cols, editableFilterState);
 
-  const augmentedRows = useAugmentedRows(rows);
-  const filteredRows = useFilter(augmentedRows, editableFilterState);
+  const filteredRows = useFilter(rows, editableFilterState);
   const sortedRows = useSortedRows(filteredRows, cols, sortModel);
   const currentPageRows = useCurrentPageRows(sortedRows, pagination);
 
@@ -124,7 +122,7 @@ const Grid: FC<GridProps> = ({
     // to this point.
   };
 
-  const getSelectHandler: (index: number) => () => void = (index) => () => {
+  const getSelectHandler: (index: RowId) => () => void = (index) => () => {
     if (!selectModel) {
       return;
     }
@@ -137,7 +135,7 @@ const Grid: FC<GridProps> = ({
     selectModel.setSelected(selectModel.selected.concat(index));
   };
 
-  const getDeselectHandler: (index: number) => () => void = (index) => () => {
+  const getDeselectHandler: (index: RowId) => () => void = (index) => () => {
     if (!selectModel || selectModel.type === "single") {
       return;
     }
@@ -149,9 +147,9 @@ const Grid: FC<GridProps> = ({
 
   // used to group radio buttons for selection
   const getSelectInputModel: (
-    index: number,
+    id: RowId,
     selectModel: SelectModel,
-  ) => SelectionInputModel = (index, selectModel) => {
+  ) => SelectionInputModel = (id, selectModel) => {
     if (selectModel.type === "single") {
       return {
         type: "radio",
@@ -161,11 +159,11 @@ const Grid: FC<GridProps> = ({
 
     return {
       type: "checkbox",
-      deselectCallback: getDeselectHandler(index),
+      deselectCallback: getDeselectHandler(id),
     };
   };
 
-  const selectedSet = new Set<number>();
+  const selectedSet = new Set<RowId>();
   if (selectModel && selectModel.type === "multi") {
     selectModel.selected.forEach((value) => selectedSet.add(value));
   }
@@ -218,7 +216,7 @@ const Grid: FC<GridProps> = ({
   }, [selectModel, selectionExists, rows])
 
   const getRowClickHandler: (
-    index: number,
+    index: RowId,
   ) => MouseEventHandler<HTMLTableRowElement> = (index) => () => {
     if (!rowsAreSelectable) {
       return;
@@ -233,21 +231,21 @@ const Grid: FC<GridProps> = ({
   };
 
   const getAriaSelectedValue: (
-    index: number,
-  ) => "true" | "false" | undefined = (index) => {
+    id: RowId,
+  ) => "true" | "false" | undefined = (id) => {
     if (!selectModel) {
       return undefined;
     }
 
-    return String(selectedSet.has(index)) as "true" | "false";
+    return String(selectedSet.has(id)) as "true" | "false";
   };
 
   const getInputStrSubmitCallback:
-    | ((origIndex: number) => (inputStrs: string[]) => void)
+    | ((id: RowId) => (inputStrs: string[]) => void)
     | undefined =
     editModel &&
-    ((origIndex) => {
-      const indexSpecificCallback = editModel.getUpdateCallback(origIndex);
+    ((id) => {
+      const indexSpecificCallback = editModel.getUpdateCallback(id);
       return (inputStrs: string[]) => {
         const rowDef: RowDef = inputStrsToRowDef(cols, inputStrs);
         indexSpecificCallback(rowDef);
@@ -367,55 +365,55 @@ const Grid: FC<GridProps> = ({
             {displayRows.map((row, index) => {
               return (
                 <EditableRow
-                  onClick={getRowClickHandler(row.origIndex)}
+                  onClick={getRowClickHandler(row.id)}
                   className={classNames(
                     {
-                      "table-active": selectedSet.has(row.origIndex),
+                      "table-active": selectedSet.has(row.id),
                     },
-                    unwrappedTableModel.tbodyTr(row.origIndex, index),
+                    unwrappedTableModel.tbodyTr(row.id, index),
                   )}
-                  key={row.origIndex}
+                  key={row.id}
                   aria-rowindex={index + 2}
-                  dataRowIndex={row.origIndex}
-                  aria-selected={getAriaSelectedValue(row.origIndex)}
+                  dataRowId={row.id}
+                  aria-selected={getAriaSelectedValue(row.id)}
                   ariaColIndexOffset={ariaColIndexOffset}
                   cellData={row.contents}
                   updateCallback={
                     getInputStrSubmitCallback &&
-                    getInputStrSubmitCallback(row.origIndex)
+                    getInputStrSubmitCallback(row.id)
                   }
                   deleteCallback={
                     editModel?.getDeleteCallback &&
-                    editModel.getDeleteCallback(row.origIndex)
+                    editModel.getDeleteCallback(row.id)
                   }
                   dataCellClasses={(colIndex) =>
-                    unwrappedTableModel.tbodyTd(row.origIndex, index, colIndex)
+                    unwrappedTableModel.tbodyTd(row.id, index, colIndex)
                   }
                   dataCellInputClasses={(colIndex) =>
                     unwrappedTableModel.tbodyTdInput(
-                      row.origIndex,
+                      row.id,
                       index,
                       colIndex,
                     )
                   }
                   editCellClasses={unwrappedTableModel.editColTd(
-                    row.origIndex,
+                    row.id,
                     index,
                   )}
                   saveButtonClasses={unwrappedTableModel.editSaveButton(
-                    row.origIndex,
+                    row.id,
                     index,
                   )}
                   deleteButtonClasses={unwrappedTableModel.editDeleteButton(
-                    row.origIndex,
+                    row.id,
                     index,
                   )}
                   startButtonClasses={unwrappedTableModel.editStartButton(
-                    row.origIndex,
+                    row.id,
                     index,
                   )}
                   cancelButtonClasses={unwrappedTableModel.editCancelButton(
-                    row.origIndex,
+                    row.id,
                     index,
                   )}
                 >
@@ -423,21 +421,21 @@ const Grid: FC<GridProps> = ({
                     <td
                       className={classNames(
                         unwrappedTableModel.rowSelectColTd(
-                          row.origIndex,
+                          row.id,
                           index,
                         ),
                       )}
                       aria-colindex={1}
                     >
                       <SelectionInput
-                        selected={selectedSet.has(row.origIndex)}
+                        selected={selectedSet.has(row.id)}
                         selectionInputModel={getSelectInputModel(
-                          row.origIndex,
+                          row.id,
                           selectModel,
                         )}
-                        selectCallback={getSelectHandler(row.origIndex)}
+                        selectCallback={getSelectHandler(row.id)}
                         additionalClasses={unwrappedTableModel.rowSelectInput(
-                          row.origIndex,
+                          row.id,
                           index,
                         )}
                       />

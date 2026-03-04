@@ -1,5 +1,11 @@
 import { FC, useState } from "react";
-import Grid, { ColDef, FilterModel, MultiSelectModel, RowDef } from "@/grid";
+import Grid, {
+  ColDef,
+  FilterModel,
+  MultiSelectModel,
+  RowDef,
+  RowId,
+} from "@/grid";
 import { MultiSelectModelInitialState } from "@/app/selection/types";
 
 export interface MultiSelectionTestHarnessProps {
@@ -15,7 +21,7 @@ const MultiSelectionTestHarness: FC<MultiSelectionTestHarnessProps> = ({
   initialState,
   filterModel
 }) => {
-  const [selected, setSelected] = useState<number[]>(initialState.selected);
+  const [selected, setSelected] = useState<RowId[]>(initialState.selected);
   const model: MultiSelectModel = {
     ...initialState,
     selected,

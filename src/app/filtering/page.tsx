@@ -14,21 +14,36 @@ const numTestCols: ColDef[] = [
   },
 ];
 
-const numTestRows: RowDef[] = [
+const numTestRows: RowDef<{ numCol: number }>[] = [
   {
-    numCol: -1,
+    id: 0,
+    data: {
+      numCol: -1,
+    },
   },
   {
-    numCol: 0,
+    id: 1,
+    data: {
+      numCol: 0,
+    },
   },
   {
-    numCol: 0.99999,
+    id: 2,
+    data: {
+      numCol: 0.99999,
+    },
   },
   {
-    numCol: 1,
+    id: 3,
+    data: {
+      numCol: 1,
+    },
   },
   {
-    numCol: 1.00001,
+    id: 4,
+    data: {
+      numCol: 1.00001,
+    },
   },
 ];
 
@@ -40,15 +55,24 @@ const strTestCols: ColDef[] = [
   },
 ];
 
-const strTestRows: RowDef[] = [
+const strTestRows: RowDef<{ strCol: string }>[] = [
   {
-    strCol: "foobar",
+    id: "0",
+    data: {
+      strCol: "foobar",
+    },
   },
   {
-    strCol: "fizzbuzz",
+    id: "1",
+    data: {
+      strCol: "fizzbuzz",
+    },
   },
   {
-    strCol: "foobarfizzbuzz",
+    id: "2",
+    data: {
+      strCol: "foobarfizzbuzz",
+    },
   },
 ];
 
@@ -61,18 +85,30 @@ const dateTestCols: ColDef[] = [
   },
 ];
 
-const dateTestRows: RowDef[] = [
+const dateTestRows: RowDef<{ dateCol: Date }>[] = [
   {
-    dateCol: new Date("2022-12-25"),
+    id: "0",
+    data: {
+      dateCol: new Date("2022-12-25"),
+    },
   },
   {
-    dateCol: new Date("2023-01-15"),
+    id: "1",
+    data: {
+      dateCol: new Date("2023-01-15"),
+    },
   },
   {
-    dateCol: new Date("2023-06-30"),
+    id: "2",
+    data: {
+      dateCol: new Date("2023-06-30"),
+    },
   },
   {
-    dateCol: new Date("2024-03-20"),
+    id: "3",
+    data: {
+      dateCol: new Date("2024-03-20"),
+    },
   },
 ];
 
@@ -85,18 +121,30 @@ const datetimeTestCols: ColDef[] = [
   },
 ];
 
-const datetimeTestRows: RowDef[] = [
+const datetimeTestRows: RowDef<{ datetimeCol: Date }>[] = [
   {
-    datetimeCol: new Date("2022-12-25T23:59"),
+    id: 0,
+    data: {
+      datetimeCol: new Date("2022-12-25T23:59"),
+    },
   },
   {
-    datetimeCol: new Date("2023-01-15T10:00"),
+    id: 1,
+    data: {
+      datetimeCol: new Date("2023-01-15T10:00"),
+    },
   },
   {
-    datetimeCol: new Date("2023-01-15T20:00"),
+    id: 2,
+    data: {
+      datetimeCol: new Date("2023-01-15T20:00"),
+    },
   },
   {
-    datetimeCol: new Date("2024-04-20T00:00"),
+    id: 3,
+    data: {
+      datetimeCol: new Date("2024-04-20T00:00"),
+    },
   },
 ];
 
@@ -125,30 +173,49 @@ const combinedTestCols: ColDef[] = [
   },
 ];
 
-const combinedTestRows: RowDef[] = [
+interface CombinedTestRow {
+  strCol: string;
+  numCol: number;
+  dateCol: Date;
+  datetimeCol: Date;
+}
+
+const combinedTestRows: RowDef<CombinedTestRow>[] = [
   {
-    strCol: "bc",
-    numCol: 2,
-    dateCol: new Date("2022-01-01"),
-    datetimeCol: new Date("2022-01-01T01:01"),
+    id: 0,
+    data: {
+      strCol: "bc",
+      numCol: 2,
+      dateCol: new Date("2022-01-01"),
+      datetimeCol: new Date("2022-01-01T01:01"),
+    },
   },
   {
-    strCol: "adef",
-    numCol: 1,
-    dateCol: new Date("2023-02-02"),
-    datetimeCol: new Date("2023-02-02T02:02"),
+    id: 1,
+    data: {
+      strCol: "adef",
+      numCol: 1,
+      dateCol: new Date("2023-02-02"),
+      datetimeCol: new Date("2023-02-02T02:02"),
+    },
   },
   {
-    strCol: "aghi",
-    numCol: 3,
-    dateCol: new Date("2025-04-04"),
-    datetimeCol: new Date("2024-03-03T03:03"),
+    id: 2,
+    data: {
+      strCol: "aghi",
+      numCol: 3,
+      dateCol: new Date("2025-04-04"),
+      datetimeCol: new Date("2024-03-03T03:03"),
+    },
   },
   {
-    strCol: "ajkl",
-    numCol: 4,
-    dateCol: new Date("2024-03-03"),
-    datetimeCol: new Date("2025-04-04T04:04"),
+    id: 3,
+    data: {
+      strCol: "ajkl",
+      numCol: 4,
+      dateCol: new Date("2024-03-03"),
+      datetimeCol: new Date("2025-04-04T04:04"),
+    },
   },
 ];
 

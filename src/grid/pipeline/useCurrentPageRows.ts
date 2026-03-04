@@ -1,11 +1,11 @@
 import { useMemo } from "react";
-import { AugRowDef } from "../types";
+import { RowDef } from "../types";
 import { GridPaginationState } from "../pagination/types";
 
 const useCurrentPageRows: (
-  sortedRows: AugRowDef[],
+  sortedRows: RowDef[],
   pagination: GridPaginationState | undefined,
-) => AugRowDef[] = (sortedRows, pagination) =>
+) => RowDef[] = (sortedRows, pagination) =>
   useMemo(() => {
     if (pagination === undefined) {
       return sortedRows;

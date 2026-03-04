@@ -18,8 +18,11 @@ const cols: ColDef[] = [
 const rows: RowDef[] = Array(15)
   .keys()
   .toArray()
-  .map((key) => ({
-    numCol: String(key + 1),
+  .map((key, index) => ({
+    id: index,
+    data: {
+      numCol: String(key + 1),
+    },
   }));
 
 const harnessProps: PaginationFeatureTestHarnessProps = {

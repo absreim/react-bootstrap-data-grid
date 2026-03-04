@@ -1,5 +1,5 @@
 import {
-  AugRowDef,
+  RowDef,
   FormattedRow,
   ColDef,
   ColDataType,
@@ -29,7 +29,7 @@ const getFormattedValue: (
 };
 
 const useDisplayRows: (
-  currentPageRows: AugRowDef[],
+  currentPageRows: RowDef[],
   cols: ColDef[],
   ariaColIndexOffset: number,
 ) => FormattedRow[] = (currentPageRows, cols, ariaColIndexOffset) =>
@@ -74,7 +74,7 @@ const useDisplayRows: (
           label: cols[index].label,
         };
       });
-      return { contents: displayRow, origIndex: row.meta.origIndex };
+      return { contents: displayRow, id: row.id };
     });
   }, [currentPageRows, cols, ariaColIndexOffset]);
 
