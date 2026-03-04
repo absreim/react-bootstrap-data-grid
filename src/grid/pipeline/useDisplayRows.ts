@@ -1,5 +1,5 @@
 import {
-  AugRowDef,
+  RowDef,
   FormattedRow,
   ColDef,
   ColDataType,
@@ -7,6 +7,7 @@ import {
 } from "../types";
 import { useMemo } from "react";
 import { CellData } from "../editing/types";
+import { dateToDatetimeInputStr, dateToInputStr } from "../util/datetime";
 
 const getFormattedValue: (
   value: ColDataType,
@@ -17,19 +18,19 @@ const getFormattedValue: (
     return formatter(value);
   }
   if (typeString === "date") {
-    return (value as Date).toDateString();
+    return dateToInputStr(value as Date);
   }
   if (typeString === "datetime") {
-    return (value as Date).toLocaleString();
+    return dateToDatetimeInputStr(value as Date);
   }
   if (typeString === "number") {
-    return (value as number).toLocaleString();
+    return (value as number).toString();
   }
   return value as string;
 };
 
 const useDisplayRows: (
-  currentPageRows: AugRowDef[],
+  currentPageRows: RowDef[],
   cols: ColDef[],
   ariaColIndexOffset: number,
 ) => FormattedRow[] = (currentPageRows, cols, ariaColIndexOffset) =>
@@ -74,7 +75,7 @@ const useDisplayRows: (
           label: cols[index].label,
         };
       });
-      return { contents: displayRow, origIndex: row.meta.origIndex };
+      return { contents: displayRow, id: row.id };
     });
   }, [currentPageRows, cols, ariaColIndexOffset]);
 

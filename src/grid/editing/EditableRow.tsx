@@ -2,11 +2,10 @@
 
 import { FC, ReactNode, useRef, useState } from "react";
 import { dateToDatetimeInputStr, dateToInputStr } from "../util/datetime";
-import { ColDataType, ColDataTypeStrings } from "../types";
+import { ColDataType, ColDataTypeStrings, RowId } from "../types";
 import EditControlsCell from "./EditControlsCell";
 import React from "react";
 import classNames from "classnames";
-import { TableStyleModel } from "../styling/types";
 import { CellData } from "./types";
 
 export type EditableRowProps = Pick<
@@ -14,7 +13,7 @@ export type EditableRowProps = Pick<
   "onClick" | "className" | "aria-rowindex" | "aria-selected"
 > & {
   ariaColIndexOffset: number;
-  dataRowIndex: number;
+  dataRowId: RowId;
   children: ReactNode; // Fragment of cells that come in front, such as the one for the selection control
   cellData: CellData[]; // contains initial values and metadata
   updateCallback?: (values: string[]) => void; // undefined here means row is not editable at all
@@ -69,7 +68,7 @@ const EditableRow: FC<EditableRowProps> = ({
   className,
   "aria-rowindex": ariaRowIndex,
   "aria-selected": ariaSelected,
-  dataRowIndex,
+  dataRowId,
   dataCellClasses,
   dataCellInputClasses,
   editCellClasses,
@@ -120,7 +119,7 @@ const EditableRow: FC<EditableRowProps> = ({
       className={className}
       aria-rowindex={ariaRowIndex}
       aria-selected={ariaSelected}
-      data-rowindex={dataRowIndex}
+      data-rowid={dataRowId}
     >
       {children}
       {cellData.map(({ type, value, formattedValue, label }, index) => (
@@ -132,7 +131,7 @@ const EditableRow: FC<EditableRowProps> = ({
           {isEditing && !!updateCallback ? (
             <input
               aria-label={label}
-              name={`editable-cell-input-${dataRowIndex}-${index}`}
+              name={`editable-cell-input-${dataRowId}-${index}`}
               className={classNames(
                 "form-control",
                 dataCellInputClasses(index),

@@ -28,36 +28,58 @@ const cols: ColDef[] = [
   },
 ];
 
-const rows: RowDef[] = [
+interface TestRow {
+  strCol: string;
+  numCol: number;
+  date: Date;
+  datetime: Date;
+}
+
+const rows: RowDef<TestRow>[] = [
   {
-    strCol: "first row string",
-    numCol: 1,
-    date: Date(),
-    datetime: Date(),
+    id: 0,
+    data: {
+      strCol: "first row string",
+      numCol: 1,
+      date: new Date(),
+      datetime: new Date(),
+    },
   },
   {
-    strCol: "second row string",
-    numCol: 2,
-    date: Date(),
-    datetime: Date(),
+    id: 1,
+    data: {
+      strCol: "second row string",
+      numCol: 2,
+      date: new Date(),
+      datetime: new Date(),
+    },
   },
   {
-    strCol: "third row string",
-    numCol: 3,
-    date: Date(),
-    datetime: Date(),
+    id: 2,
+    data: {
+      strCol: "third row string",
+      numCol: 3,
+      date: new Date(),
+      datetime: new Date(),
+    },
   },
   {
-    strCol: "fourth row string",
-    numCol: 4,
-    date: Date(),
-    datetime: Date(),
+    id: 3,
+    data: {
+      strCol: "fourth row string",
+      numCol: 4,
+      date: new Date(),
+      datetime: new Date(),
+    },
   },
   {
-    strCol: "fifth row string",
-    numCol: 5,
-    date: Date(),
-    datetime: Date(),
+    id: 4,
+    data: {
+      strCol: "fifth row string",
+      numCol: 5,
+      date: new Date(),
+      datetime: new Date(),
+    },
   },
 ];
 

@@ -41,25 +41,34 @@ const cols: ColDef[] = [
 
 const rows: RowDef[] = [
   {
-    strCol: "a",
-    numCol: 10,
-    dateCol: new Date(1),
-    datetimeCol: new Date(1),
-    unsortableCol: "x",
+    id: 0,
+    data: {
+      strCol: "a",
+      numCol: 10,
+      dateCol: new Date(1),
+      datetimeCol: new Date(1),
+      unsortableCol: "x",
+    },
   },
   {
-    strCol: "c",
-    numCol: 1,
-    dateCol: new Date(2),
-    datetimeCol: new Date(2),
-    unsortableCol: "y",
+    id: 1,
+    data: {
+      strCol: "c",
+      numCol: 1,
+      dateCol: new Date(2),
+      datetimeCol: new Date(2),
+      unsortableCol: "y",
+    },
   },
   {
-    strCol: "b",
-    numCol: 2,
-    dateCol: new Date(10),
-    datetimeCol: new Date(10),
-    unsortableCol: "z",
+    id: 2,
+    data: {
+      strCol: "b",
+      numCol: 2,
+      dateCol: new Date(10),
+      datetimeCol: new Date(10),
+      unsortableCol: "z",
+    },
   },
 ];
 

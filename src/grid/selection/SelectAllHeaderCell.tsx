@@ -1,4 +1,4 @@
-"use client"
+"use client";
 
 import { FC, useEffect, useRef } from "react";
 import classNames from "classnames";

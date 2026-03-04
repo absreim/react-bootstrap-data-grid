@@ -1,5 +1,5 @@
 import { useMemo } from "react";
-import { AugRowDef, ColDataTypeStrings, ColDef } from "../types";
+import { ColDataTypeStrings, ColDef, RowDef } from "../types";
 import { TableSortModel } from "../sorting/types";
 
 const getTypeComparator: (
@@ -25,15 +25,15 @@ const getTypeComparator: (
 const getRowComparator: (
   comparator: (a: any, b: any) => number,
   fieldName: string,
-) => (rowA: AugRowDef, rowB: AugRowDef) => number = (comparator, fieldName) => {
+) => (rowA: RowDef, rowB: RowDef) => number = (comparator, fieldName) => {
   return (rowA, rowB) => comparator(rowA.data[fieldName], rowB.data[fieldName]);
 };
 
 const useSortedRows: (
-  rows: AugRowDef[],
+  rows: RowDef[],
   cols: ColDef[],
   sortModel: TableSortModel | undefined,
-) => AugRowDef[] = (rows, cols, sortModel) =>
+) => RowDef[] = (rows, cols, sortModel) =>
   useMemo(() => {
     if (!sortModel || !sortModel.sortColDef) {
       return rows;

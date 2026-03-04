@@ -6,6 +6,7 @@ import Grid, {
   GridPaginationState,
   MultiSelectModel,
   RowDef,
+  RowId,
   SortColDef,
   StyleModel,
   TableSortModel,
@@ -28,24 +29,39 @@ const cols: ColDef[] = [
 
 const rows: RowDef[] = [
   {
-    strCol: "First Row",
-    numCol: 1,
+    id: 0,
+    data: {
+      strCol: "First Row",
+      numCol: 1,
+    },
   },
   {
-    strCol: "Second Row",
-    numCol: 2,
+    id: 1,
+    data: {
+      strCol: "Second Row",
+      numCol: 2,
+    },
   },
   {
-    strCol: "Third Row",
-    numCol: 3,
+    id: 2,
+    data: {
+      strCol: "Third Row",
+      numCol: 3,
+    },
   },
   {
-    strCol: "Fourth Row",
-    numCol: 4,
+    id: 3,
+    data: {
+      strCol: "Fourth Row",
+      numCol: 4,
+    },
   },
   {
-    strCol: "Fifth Row",
-    numCol: 5,
+    id: 4,
+    data: {
+      strCol: "Fifth Row",
+      numCol: 5,
+    },
   },
 ];
 
@@ -71,46 +87,46 @@ const styleModel: StyleModel = {
     theadTr: ["main-table-thead-tr-test-class"],
     theadTh: (colIndex) => [`main-table-thead-th-test-class-col-${colIndex}}`],
     caption: ["main-table-caption-test-class"],
-    tbodyTr: (origIndex, displayIndex) => [
-      `main-table-tbody-tr-test-class-orig-index-${origIndex}`,
+    tbodyTr: (rowId, displayIndex) => [
+      `main-table-tbody-tr-test-class-row-id-${rowId}`,
       `main-table-tbody-tr-test-class-display-index-${displayIndex}`,
     ],
-    tbodyTd: (origIndex, displayIndex, colIndex) => [
-      `main-table-tbody-td-test-class-orig-index-${origIndex}-col-index-${colIndex}`,
+    tbodyTd: (rowId, displayIndex, colIndex) => [
+      `main-table-tbody-td-test-class-row-id-${rowId}-col-index-${colIndex}`,
       `main-table-tbody-td-test-class-display-index-${displayIndex}-col-index-${colIndex}`,
     ],
-    tbodyTdInput: (origIndex, displayIndex, colIndex) => [
-      `main-table-tbody-td-input-test-class-orig-index-${origIndex}-col-index-${colIndex}`,
+    tbodyTdInput: (rowId, displayIndex, colIndex) => [
+      `main-table-tbody-td-input-test-class-row-id-${rowId}-col-index-${colIndex}`,
       `main-table-tbody-td-input-test-class-display-index-${displayIndex}-col-index-${colIndex}`,
     ],
     editColTh: ["main-table-edit-col-th-test-class"],
-    editColTd: (origIndex, displayIndex) => [
-      `main-table-edit-col-td-test-class-orig-index-${origIndex}`,
+    editColTd: (rowId, displayIndex) => [
+      `main-table-edit-col-td-test-class-row-id-${rowId}`,
       `main-table-edit-col-td-test-class-display-index-${displayIndex}`,
     ],
-    editStartButton: (origIndex, displayIndex) => [
-      `main-table-edit-start-button-test-class-orig-index-${origIndex}`,
+    editStartButton: (rowId, displayIndex) => [
+      `main-table-edit-start-button-test-class-row-id-${rowId}`,
       `main-table-edit-start-button-test-class-display-index-${displayIndex}`,
     ],
-    editDeleteButton: (origIndex, displayIndex) => [
-      `main-table-edit-delete-button-test-class-orig-index-${origIndex}`,
+    editDeleteButton: (rowId, displayIndex) => [
+      `main-table-edit-delete-button-test-class-row-id-${rowId}`,
       `main-table-edit-delete-button-test-class-display-index-${displayIndex}`,
     ],
-    editSaveButton: (origIndex, displayIndex) => [
-      `main-table-edit-save-button-test-class-orig-index-${origIndex}`,
+    editSaveButton: (rowId, displayIndex) => [
+      `main-table-edit-save-button-test-class-row-id-${rowId}`,
       `main-table-edit-save-button-test-class-display-index-${displayIndex}`,
     ],
-    editCancelButton: (origIndex, displayIndex) => [
-      `main-table-edit-cancel-button-test-class-orig-index-${origIndex}`,
+    editCancelButton: (rowId, displayIndex) => [
+      `main-table-edit-cancel-button-test-class-row-id-${rowId}`,
       `main-table-edit-cancel-button-test-class-display-index-${displayIndex}`,
     ],
     rowSelectColTh: ["main-table-row-select-col-th-test-class"],
-    rowSelectColTd: (origIndex, displayIndex) => [
-      `main-table-row-select-call-td-test-class-orig-index-${origIndex}`,
+    rowSelectColTd: (rowId, displayIndex) => [
+      `main-table-row-select-call-td-test-class-row-id-${rowId}`,
       `main-table-row-select-call-td-test-class-display-index-${displayIndex}`,
     ],
-    rowSelectInput: (origIndex, displayIndex) => [
-      `main-table-row-select-input-test-class-orig-index-${origIndex}`,
+    rowSelectInput: (rowId, displayIndex) => [
+      `main-table-row-select-input-test-class-row-id-${rowId}`,
       `main-table-row-select-input-test-class-display-index-${displayIndex}`,
     ],
   },
@@ -143,7 +159,7 @@ const MainTableStylingTestHarness: FC = () => {
     [sortColDef],
   );
 
-  const [selected, setSelected] = useState<number[]>([]);
+  const [selected, setSelected] = useState<RowId[]>([]);
   const selectModel: MultiSelectModel = useMemo(
     () => ({
       mode: "both",

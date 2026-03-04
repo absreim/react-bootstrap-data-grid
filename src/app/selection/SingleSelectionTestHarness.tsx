@@ -1,5 +1,5 @@
 import { FC, useState } from "react";
-import Grid, { ColDef, RowDef, SingleSelectModel } from "@/grid";
+import Grid, { ColDef, RowDef, RowId, SingleSelectModel } from "@/grid";
 import { SingleSelectModelInitialState } from "@/app/selection/types";
 
 export interface SingleSelectionTestHarnessProps {
@@ -13,9 +13,7 @@ const SingleSelectionTestHarness: FC<SingleSelectionTestHarnessProps> = ({
   cols,
   initialState,
 }) => {
-  const [selected, setSelected] = useState<number | null>(
-    initialState.selected,
-  );
+  const [selected, setSelected] = useState<RowId | null>(initialState.selected);
   const model: SingleSelectModel = {
     ...initialState,
     selected,

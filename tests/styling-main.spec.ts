@@ -30,9 +30,7 @@ test("single element styles work", async ({ page }) => {
   await expect(caption).toHaveClass("main-table-caption-test-class");
   await expect(editColTh).toHaveClass("main-table-edit-col-th-test-class");
   await expect(rowSelectColTh).toContainClass(
-    [
-      "main-table-row-select-col-th-test-class",
-    ].join(" "),
+    ["main-table-row-select-col-th-test-class"].join(" "),
   );
 });
 
@@ -58,7 +56,7 @@ test("body rows and cells styling works", async ({ page }) => {
     const origIndex = displayIndexToOrigIndex[displayIndex as 0 | 1];
     await expect(tr).toHaveClass(
       [
-        `main-table-tbody-tr-test-class-orig-index-${origIndex}`,
+        `main-table-tbody-tr-test-class-row-id-${origIndex}`,
         `main-table-tbody-tr-test-class-display-index-${displayIndex}`,
       ].join(" "),
     );
@@ -66,7 +64,7 @@ test("body rows and cells styling works", async ({ page }) => {
       const td = tr.locator(`td[aria-colindex="${colIndex + 2}"]`);
       await expect(td).toHaveClass(
         [
-          `main-table-tbody-td-test-class-orig-index-${origIndex}-col-index-${colIndex}`,
+          `main-table-tbody-td-test-class-row-id-${origIndex}-col-index-${colIndex}`,
           `main-table-tbody-td-test-class-display-index-${displayIndex}-col-index-${colIndex}`,
         ].join(" "),
       );
@@ -82,14 +80,14 @@ test("select column control styling works", async ({ page }) => {
     const td = tr.locator('td[aria-colindex="1"]');
     await expect(td).toHaveClass(
       [
-        `main-table-row-select-call-td-test-class-orig-index-${origIndex}`,
+        `main-table-row-select-call-td-test-class-row-id-${origIndex}`,
         `main-table-row-select-call-td-test-class-display-index-${displayIndex}`,
       ].join(" "),
     );
     const input = td.getByRole("checkbox");
     await expect(input).toHaveClass(
       [
-        `main-table-row-select-input-test-class-orig-index-${origIndex}`,
+        `main-table-row-select-input-test-class-row-id-${origIndex}`,
         `main-table-row-select-input-test-class-display-index-${displayIndex}`,
       ].join(" "),
     );
@@ -106,14 +104,14 @@ test("edit control styling works", async ({ page }) => {
     await expect(deleteButton).toContainClass(
       [
         "btn",
-        `main-table-edit-delete-button-test-class-orig-index-${origIndex}`,
+        `main-table-edit-delete-button-test-class-row-id-${origIndex}`,
         `main-table-edit-delete-button-test-class-display-index-${displayIndex}`,
       ].join(" "),
     );
     await expect(editButton).toContainClass(
       [
         "btn",
-        `main-table-edit-start-button-test-class-orig-index-${origIndex}`,
+        `main-table-edit-start-button-test-class-row-id-${origIndex}`,
         `main-table-edit-start-button-test-class-display-index-${displayIndex}`,
       ].join(" "),
     );
@@ -125,14 +123,14 @@ test("edit control styling works", async ({ page }) => {
     await expect(saveButton).toContainClass(
       [
         "btn",
-        `main-table-edit-save-button-test-class-orig-index-${origIndex}`,
+        `main-table-edit-save-button-test-class-row-id-${origIndex}`,
         `main-table-edit-save-button-test-class-display-index-${displayIndex}`,
       ].join(" "),
     );
     await expect(cancelButton).toContainClass(
       [
         "btn",
-        `main-table-edit-cancel-button-test-class-orig-index-${origIndex}`,
+        `main-table-edit-cancel-button-test-class-row-id-${origIndex}`,
         `main-table-edit-cancel-button-test-class-display-index-${displayIndex}`,
       ].join(" "),
     );
@@ -143,7 +141,7 @@ test("edit control styling works", async ({ page }) => {
       await expect(input).toContainClass(
         [
           "form-control",
-          `main-table-tbody-td-input-test-class-orig-index-${origIndex}-col-index-${colIndex}`,
+          `main-table-tbody-td-input-test-class-row-id-${origIndex}-col-index-${colIndex}`,
           `main-table-tbody-td-input-test-class-display-index-${displayIndex}-col-index-${colIndex}`,
         ].join(" "),
       );
@@ -152,7 +150,7 @@ test("edit control styling works", async ({ page }) => {
     const editColTd = tr.locator('td[aria-colindex="4"]');
     await expect(editColTd).toContainClass(
       [
-        `main-table-edit-col-td-test-class-orig-index-${origIndex}`,
+        `main-table-edit-col-td-test-class-row-id-${origIndex}`,
         `main-table-edit-col-td-test-class-display-index-${displayIndex}`,
       ].join(" "),
     );
