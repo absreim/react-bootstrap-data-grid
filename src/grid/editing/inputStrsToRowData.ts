@@ -1,10 +1,10 @@
-import { ColDef, RowDef } from "../types";
+import { ColDef, RowData, RowDef } from "../types";
 
-const inputStrsToRowDef: (cols: ColDef[], inputStrs: string[]) => RowDef = (
+const inputStrsToRowData: (cols: ColDef[], inputStrs: string[]) => RowData = (
   cols,
   inputStrs,
 ) => {
-  const newRow: RowDef = {};
+  const newRow: RowData = {};
   inputStrs.forEach((value, index) => {
     const col = cols[index];
     switch (col.type) {
@@ -21,4 +21,4 @@ const inputStrsToRowDef: (cols: ColDef[], inputStrs: string[]) => RowDef = (
   return newRow;
 };
 
-export default inputStrsToRowDef;
+export default inputStrsToRowData;

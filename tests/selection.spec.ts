@@ -66,7 +66,15 @@ test("for grids of multi select type and column mode with existing columns selec
     "multi select column mode initial selections test container",
   );
 
-  await clickSelectAllAndVerify(container, "Deselect all rows", "false", true, true, "Select all rows", false);
+  await clickSelectAllAndVerify(
+    container,
+    "Deselect all rows",
+    "false",
+    true,
+    true,
+    "Select all rows",
+    false,
+  );
 });
 
 test("for grids of multi select type and column mode with no existing columns selected, clicking the select column header cell will select all rows", async ({
@@ -76,7 +84,15 @@ test("for grids of multi select type and column mode with no existing columns se
     "multi select column mode no initial selections test container",
   );
 
-  await clickSelectAllAndVerify(container, "Select all rows", "true", false, false, "Deselect all rows", true);
+  await clickSelectAllAndVerify(
+    container,
+    "Select all rows",
+    "true",
+    false,
+    false,
+    "Deselect all rows",
+    true,
+  );
 });
 
 test("for grids of multi select type and column mode, clicking on the selection checkbox for an unselected row will select that row", async ({
@@ -190,7 +206,15 @@ test("for multi select grids in 'both' mode, the select all control should work"
     "multi select both mode initial selections test container",
   );
 
-  await clickSelectAllAndVerify(container, "Deselect all rows", "false", true, true, "Select all rows", false);
+  await clickSelectAllAndVerify(
+    container,
+    "Deselect all rows",
+    "false",
+    true,
+    true,
+    "Select all rows",
+    false,
+  );
 });
 
 // Single select type
@@ -348,7 +372,9 @@ test("for multi select grids, no rows causes Select All checkbox to be disabled"
   await expect(selectAllInput).toBeDisabled();
 });
 
-test("for multi select grid with all rows selected, the Select All checkbox deselects all rows and is not in the indeterminate state", async ({ page }) => {
+test("for multi select grid with all rows selected, the Select All checkbox deselects all rows and is not in the indeterminate state", async ({
+  page,
+}) => {
   const container = page.getByTestId("full selection test container");
 
   await clickSelectAllAndVerify(
@@ -358,6 +384,6 @@ test("for multi select grid with all rows selected, the Select All checkbox dese
     true,
     false,
     "Select all rows",
-    false
+    false,
   );
-})
+});

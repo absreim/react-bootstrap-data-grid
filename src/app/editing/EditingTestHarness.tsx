@@ -3,6 +3,7 @@
 import Grid, { ColDef, RowDef, RowId, UpdateCallbackGenerator } from "@/grid";
 import { FC, useState } from "react";
 import { dateToDatetimeInputStr, dateToInputStr } from "@/grid/util/datetime";
+import inputStrsToRowData from "@/grid/editing/inputStrsToRowData";
 
 const cols: ColDef[] = [
   {
@@ -68,7 +69,7 @@ const initRows: RowDef<TestRow>[] = [
 
 const EditingTestHarness: FC = () => {
   const [rows, setRows] = useState<RowDef[]>(initRows.slice());
-  const getUpdateCallback: UpdateCallbackGenerator = (id) => (rowDef) => {
+  const getUpdateCallback: UpdateCallbackGenerator = (id) => (inputStrs) => {
     const newRows = rows.slice();
     const index = rows.findIndex((row) => row.id === id);
     if (index === undefined) {
@@ -77,19 +78,18 @@ const EditingTestHarness: FC = () => {
 
     newRows[index] = {
       id,
-      data: rowDef,
+      data: inputStrsToRowData(cols, inputStrs),
     };
     setRows(newRows);
   };
-  const getDeleteCallback: (id: RowId) => () => void =
-    (id) => () => {
-      const index = rows.findIndex((row) => row.id === id);
-      if (index === undefined) {
-        return;
-      }
+  const getDeleteCallback: (id: RowId) => () => void = (id) => () => {
+    const index = rows.findIndex((row) => row.id === id);
+    if (index === undefined) {
+      return;
+    }
 
-      setRows(rows.toSpliced(index, 1));
-    };
+    setRows(rows.toSpliced(index, 1));
+  };
 
   return (
     <Grid

@@ -19,7 +19,7 @@ const MultiSelectionTestHarness: FC<MultiSelectionTestHarnessProps> = ({
   rows,
   cols,
   initialState,
-  filterModel
+  filterModel,
 }) => {
   const [selected, setSelected] = useState<RowId[]>(initialState.selected);
   const model: MultiSelectModel = {
@@ -27,7 +27,14 @@ const MultiSelectionTestHarness: FC<MultiSelectionTestHarnessProps> = ({
     selected,
     setSelected,
   };
-  return <Grid rows={rows} cols={cols} selectModel={model} filterModel={filterModel} />;
+  return (
+    <Grid
+      rows={rows}
+      cols={cols}
+      selectModel={model}
+      filterModel={filterModel}
+    />
+  );
 };
 
 export default MultiSelectionTestHarness;

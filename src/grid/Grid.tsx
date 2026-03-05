@@ -1,7 +1,7 @@
 "use client";
 
 import { FC, MouseEventHandler, useMemo, useState } from "react";
-import { ColDef, FormattedRow, RowDef, RowId } from "./types";
+import { ColDef, FormattedRow, RowData, RowDef, RowId } from "./types";
 import ColHeaderCell from "./ColHeaderCell";
 import useFilter from "./pipeline/useFilter";
 import ToggleButton from "./ToggleButton";
@@ -16,7 +16,7 @@ import SelectionInput, {
 import Pagination from "./pagination/Pagination";
 import classNames from "classnames";
 import EditableRow from "./editing/EditableRow";
-import inputStrsToRowDef from "./editing/inputStrsToRowDef";
+import inputStrsToRowData from "./editing/inputStrsToRowData";
 import {
   unwrapAdditionalComponentsStyleModel,
   unwrapTableStyleModel,
@@ -179,14 +179,14 @@ const Grid: FC<GridProps> = ({
 
   const selectionInfo: SelectionInfo | null = useMemo(() => {
     if (!selectModel) {
-      return null
+      return null;
     }
 
     if (selectModel.type === "single") {
       return {
         selectType: "single",
-        existingSelection: selectionExists
-      }
+        existingSelection: selectionExists,
+      };
     }
 
     const getMultiExistingSelection: (
@@ -199,21 +199,21 @@ const Grid: FC<GridProps> = ({
       // should be "none", not "full".
 
       if (!selectionExists) {
-        return "none"
+        return "none";
       }
 
       if (isFullSelection) {
-        return "full"
+        return "full";
       }
 
-      return "partial"
+      return "partial";
     };
 
     return {
       selectType: "multi",
-      existingSelection: getMultiExistingSelection(selectionExists, rows)
-    }
-  }, [selectModel, selectionExists, rows])
+      existingSelection: getMultiExistingSelection(selectionExists, rows),
+    };
+  }, [selectModel, selectionExists, rows]);
 
   const getRowClickHandler: (
     index: RowId,
@@ -230,9 +230,9 @@ const Grid: FC<GridProps> = ({
     getSelectHandler(index)();
   };
 
-  const getAriaSelectedValue: (
-    id: RowId,
-  ) => "true" | "false" | undefined = (id) => {
+  const getAriaSelectedValue: (id: RowId) => "true" | "false" | undefined = (
+    id,
+  ) => {
     if (!selectModel) {
       return undefined;
     }
@@ -245,10 +245,9 @@ const Grid: FC<GridProps> = ({
     | undefined =
     editModel &&
     ((id) => {
-      const indexSpecificCallback = editModel.getUpdateCallback(id);
+      const idSpecificCallback = editModel.getUpdateCallback(id);
       return (inputStrs: string[]) => {
-        const rowDef: RowDef = inputStrsToRowDef(cols, inputStrs);
-        indexSpecificCallback(rowDef);
+        idSpecificCallback(inputStrs);
       };
     });
 
@@ -390,16 +389,9 @@ const Grid: FC<GridProps> = ({
                     unwrappedTableModel.tbodyTd(row.id, index, colIndex)
                   }
                   dataCellInputClasses={(colIndex) =>
-                    unwrappedTableModel.tbodyTdInput(
-                      row.id,
-                      index,
-                      colIndex,
-                    )
+                    unwrappedTableModel.tbodyTdInput(row.id, index, colIndex)
                   }
-                  editCellClasses={unwrappedTableModel.editColTd(
-                    row.id,
-                    index,
-                  )}
+                  editCellClasses={unwrappedTableModel.editColTd(row.id, index)}
                   saveButtonClasses={unwrappedTableModel.editSaveButton(
                     row.id,
                     index,
@@ -420,10 +412,7 @@ const Grid: FC<GridProps> = ({
                   {showSelectCol && (
                     <td
                       className={classNames(
-                        unwrappedTableModel.rowSelectColTd(
-                          row.id,
-                          index,
-                        ),
+                        unwrappedTableModel.rowSelectColTd(row.id, index),
                       )}
                       aria-colindex={1}
                     >

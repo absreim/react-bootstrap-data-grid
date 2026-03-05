@@ -37,12 +37,12 @@ export type MultiExistingSelection = "full" | "partial" | "none";
 
 export interface SingleSelectionInfo {
   selectType: "single";
-  existingSelection: boolean
+  existingSelection: boolean;
 }
 
 export interface MultiSelectionInfo {
   selectType: "multi";
-  existingSelection: 'full' | 'partial' | 'none';
+  existingSelection: "full" | "partial" | "none";
 }
 
 export type SelectionInfo = SingleSelectionInfo | MultiSelectionInfo;

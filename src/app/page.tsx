@@ -35,7 +35,6 @@ interface TestRow {
   datetime: Date;
 }
 
-
 const rows: RowDef<TestRow>[] = [
   {
     id: 0,

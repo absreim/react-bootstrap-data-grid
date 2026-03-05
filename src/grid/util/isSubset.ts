@@ -1,4 +1,7 @@
-const isSubset: <T>(subset: T[], superSet: T[]) => boolean = (subset, superSet) => {
+const isSubset: <T>(subset: T[], superSet: T[]) => boolean = (
+  subset,
+  superSet,
+) => {
   const supersetSet = new Set(superSet);
 
   for (const member of subset) {
@@ -8,6 +11,6 @@ const isSubset: <T>(subset: T[], superSet: T[]) => boolean = (subset, superSet) 
   }
 
   return true;
-}
+};
 
 export default isSubset;

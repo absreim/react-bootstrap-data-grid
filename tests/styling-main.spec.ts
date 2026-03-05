@@ -30,9 +30,7 @@ test("single element styles work", async ({ page }) => {
   await expect(caption).toHaveClass("main-table-caption-test-class");
   await expect(editColTh).toHaveClass("main-table-edit-col-th-test-class");
   await expect(rowSelectColTh).toContainClass(
-    [
-      "main-table-row-select-col-th-test-class",
-    ].join(" "),
+    ["main-table-row-select-col-th-test-class"].join(" "),
   );
 });
 

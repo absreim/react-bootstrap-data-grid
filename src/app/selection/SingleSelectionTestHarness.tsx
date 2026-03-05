@@ -13,9 +13,7 @@ const SingleSelectionTestHarness: FC<SingleSelectionTestHarnessProps> = ({
   cols,
   initialState,
 }) => {
-  const [selected, setSelected] = useState<RowId | null>(
-    initialState.selected,
-  );
+  const [selected, setSelected] = useState<RowId | null>(initialState.selected);
   const model: SingleSelectModel = {
     ...initialState,
     selected,
