@@ -247,7 +247,8 @@ const Grid: FC<GridProps> = ({
     ((id) => {
       const idSpecificCallback = editModel.getUpdateCallback(id);
       return (inputStrs: string[]) => {
-        idSpecificCallback(inputStrs);
+        const rowData: RowData = inputStrsToRowData(cols, inputStrs);
+        idSpecificCallback(rowData);
       };
     });
 

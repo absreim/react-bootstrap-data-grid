@@ -1,4 +1,4 @@
-import { ColDef, RowData, RowDef } from "../types";
+import { ColDef, RowData } from "../types";
 
 const inputStrsToRowData: (cols: ColDef[], inputStrs: string[]) => RowData = (
   cols,

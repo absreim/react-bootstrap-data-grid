@@ -11,7 +11,7 @@ export interface CellData {
 
 export type UpdateCallbackGenerator = (
   id: RowId,
-) => (inputStrs: string[]) => void;
+) => (rowData: RowData) => void;
 
 export interface EditModel {
   getUpdateCallback: UpdateCallbackGenerator;
