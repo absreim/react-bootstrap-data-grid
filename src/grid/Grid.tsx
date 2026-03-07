@@ -36,13 +36,13 @@ import {
 } from "./selection/types";
 import { FilterModel } from "./filtering/types";
 import { ColSortModel, TableSortModel } from "./sorting/types";
-import { GridPaginationState } from "./pagination/types";
+import { PaginationModel } from "./pagination/types";
 import isSubset from "./util/isSubset";
 
 export interface GridProps {
   rows: RowDef[];
   cols: ColDef[];
-  pagination?: GridPaginationState;
+  pagination?: PaginationModel;
   sortModel?: TableSortModel;
   filterModel?: FilterModel;
   selectModel?: SelectModel;
@@ -439,7 +439,7 @@ const Grid: FC<GridProps> = ({
         </table>
         {pagination && (
           <Pagination
-            paginationState={pagination}
+            paginationModel={pagination}
             prePagingNumRows={sortedRows.length}
             pageSelectorJustifyContent={pagination.pageSelectorJustifyContent}
             pageSelectorAriaLabel={pagination.pageSelectorAriaLabel}
