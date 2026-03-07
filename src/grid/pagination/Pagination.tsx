@@ -22,11 +22,19 @@ const Pagination: FC<PaginationProps> = ({
   const [internalPageSizeIndex, setInternalPageSizeIndex] = useState<number>(
     paginationState.pageSizeIndex || 0,
   );
-  const pageSizeIndex = paginationState.pageSizeIndex || internalPageSizeIndex;
+  const pageSizeIndex =
+    paginationState.setPageSizeIndex === undefined
+      ? internalPageSizeIndex
+      : paginationState.pageSizeIndex || 0;
   const handleSetPageSizeIndex =
     paginationState.setPageSizeIndex || setInternalPageSizeIndex;
-  const [internalPageNum, setInternalPageNum] = useState<number>(paginationState.currentPage || 1);
-  const currentPage = paginationState.currentPage || internalPageNum;
+  const [internalPageNum, setInternalPageNum] = useState<number>(
+    paginationState.currentPage || 1,
+  );
+  const currentPage =
+    paginationState.setCurrentPage === undefined
+      ? internalPageNum
+      : paginationState.currentPage || 1;
   const handleSetPageNum = paginationState.setCurrentPage || setInternalPageNum;
   const maxPageButtons = paginationState.maxPageButtons || 5;
 

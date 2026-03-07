@@ -42,9 +42,9 @@ const useSortedRows: (
   const [internalSortColDef, setInternalSortColDef] =
     useState<SortColDef | null>(sortModel?.sortColDef || null);
   const sortColDef =
-    sortModel?.sortColDef === undefined
+    sortModel?.setSortColDef === undefined
       ? internalSortColDef
-      : sortModel.sortColDef;
+      : sortModel.sortColDef || null;
   const setSortColDef =
     sortModel?.setSortColDef === undefined
       ? setInternalSortColDef
