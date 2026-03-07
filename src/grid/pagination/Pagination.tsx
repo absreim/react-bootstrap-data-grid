@@ -1,33 +1,35 @@
-import { FC } from "react";
+import { FC, useState } from "react";
 import PageSizeSelector from "./PageSizeSelector";
 import PageSelector from "./PageSelector";
 import { JustifyContentSetting, Size } from "../types";
+import { GridPaginationState } from "./types";
 
 export interface PaginationProps {
-  componentSize: Size;
-  pageSizeOptions: number[];
-  pageSizeIndex: number;
-  handleSetPageSizeIndex: (index: number) => void;
-  handleSetPageNum: (index: number) => void;
+  paginationState: GridPaginationState;
   prePagingNumRows: number;
-  maxPageButtons: number;
-  currentPage: number;
   pageSelectorAriaLabel?: string; // aria-label of the nav element
   pageSelectorJustifyContent?: JustifyContentSetting;
 }
 
 const Pagination: FC<PaginationProps> = ({
-  componentSize,
-  pageSizeOptions,
-  pageSizeIndex,
-  handleSetPageSizeIndex,
-  handleSetPageNum,
+  paginationState,
   prePagingNumRows,
-  maxPageButtons,
-  currentPage,
   pageSelectorAriaLabel,
   pageSelectorJustifyContent,
 }) => {
+  const componentSize = paginationState.componentSize || "medium";
+  const pageSizeOptions = paginationState.pageSizeOptions || [10, 25, 100];
+  const [internalPageSizeIndex, setInternalPageSizeIndex] = useState<number>(
+    paginationState.pageSizeIndex || 0,
+  );
+  const pageSizeIndex = paginationState.pageSizeIndex || internalPageSizeIndex;
+  const handleSetPageSizeIndex =
+    paginationState.setPageSizeIndex || setInternalPageSizeIndex;
+  const [internalPageNum, setInternalPageNum] = useState<number>(paginationState.currentPage || 1);
+  const currentPage = paginationState.currentPage || internalPageNum;
+  const handleSetPageNum = paginationState.setCurrentPage || setInternalPageNum;
+  const maxPageButtons = paginationState.maxPageButtons || 5;
+
   const numPages = Math.ceil(prePagingNumRows / pageSizeOptions[pageSizeIndex]);
 
   const pageIndexAwarePageSizeSetter: (pageSizeIndex: number) => void = (

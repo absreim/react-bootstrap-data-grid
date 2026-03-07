@@ -438,14 +438,8 @@ const Grid: FC<GridProps> = ({
         </table>
         {pagination && (
           <Pagination
-            componentSize={pagination.componentSize || "medium"}
-            pageSizeOptions={pagination.pageSizeOptions}
-            pageSizeIndex={pagination.pageSizeIndex}
-            handleSetPageSizeIndex={pagination.setPageSizeIndex}
-            handleSetPageNum={pagination.setCurrentPage}
+            paginationState={pagination}
             prePagingNumRows={sortedRows.length}
-            maxPageButtons={pagination.maxPageButtons}
-            currentPage={pagination.currentPage}
             pageSelectorJustifyContent={pagination.pageSelectorJustifyContent}
             pageSelectorAriaLabel={pagination.pageSelectorAriaLabel}
           />
