@@ -19,7 +19,7 @@ const Pagination: FC<PaginationProps> = ({
 }) => {
   const componentSize = paginationModel.componentSize || "medium";
   const pageSizeOptions = paginationModel.pageSizeOptions || [10, 25, 100];
-  const isControlled = paginationModel.type === "controlled";
+  const isControlled = paginationModel.type !== "uncontrolled";
   const [internalPageSizeIndex, setInternalPageSizeIndex] = useState<number>(
     isControlled ? 0 : paginationModel.startingPageSizeIndex || 0,
   );

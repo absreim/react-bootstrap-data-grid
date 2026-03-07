@@ -9,7 +9,7 @@ export interface PaginationOptions {
 }
 
 export type ControlledPaginationModel = PaginationOptions & {
-  type: "controlled";
+  type?: "controlled";
   pageSizeIndex: number;
   setPageSizeIndex: (pageSizeIndex: number) => void;
   currentPage: number;
