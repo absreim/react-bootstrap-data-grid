@@ -66,7 +66,7 @@ const Grid: FC<GridProps> = ({
   const filterState = useFilterStateFromEditable(cols, editableFilterState);
 
   const filteredRows = useFilter(rows, editableFilterState);
-  const sortedRows = useSortedRows(filteredRows, cols, sortModel);
+  const { sortedRows, sortingEnabled, sortColDef, setSortColDef } = useSortedRows(filteredRows, cols, sortModel);
   const currentPageRows = useCurrentPageRows(sortedRows, pagination);
 
   const showSelectCol = selectModel && selectModel.mode !== "row";
@@ -194,9 +194,10 @@ const Grid: FC<GridProps> = ({
       rows: RowDef[],
     ) => MultiExistingSelection = (selectionExists, rows) => {
       const rowIndices = rows.map((_, index) => index);
-      const isFullSelection = isSubset(rowIndices, selectModel.selected!);
-      // Note that isFullSelection is true if there are no rows at all. In that case, the existing selection value
+
+      // Note that isFullSelection is true if there are no rows at all. In that case, the return value of this function
       // should be "none", not "full".
+      const isFullSelection = isSubset(rowIndices, selectModel.selected!);
 
       if (!selectionExists) {
         return "none";
@@ -330,14 +331,14 @@ const Grid: FC<GridProps> = ({
               )}
               {cols.map(({ name, label, sortable }, index) => {
                 const colSortModel: ColSortModel | undefined =
-                  sortModel && sortable
+                  sortingEnabled && sortable
                     ? {
                         sortOrder:
-                          sortModel.sortColDef?.name === name
-                            ? sortModel.sortColDef.order
+                          sortColDef?.name === name
+                            ? sortColDef.order
                             : null,
                         setSortOrder: (order) => {
-                          sortModel.setSortColDef(order && { name, order });
+                          setSortColDef(order && { name, order });
                         },
                       }
                     : undefined;

@@ -11,6 +11,6 @@ export interface ColSortModel {
 }
 
 export interface TableSortModel {
-  sortColDef: SortColDef | null;
-  setSortColDef: (sortColDef: SortColDef | null) => void;
+  sortColDef?: SortColDef | null;
+  setSortColDef?: (sortColDef: SortColDef | null) => void;
 }

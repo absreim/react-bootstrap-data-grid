@@ -1,6 +1,6 @@
-import { useMemo } from "react";
+import { useMemo, useState } from "react";
 import { ColDataTypeStrings, ColDef, RowDef } from "../types";
-import { TableSortModel } from "../sorting/types";
+import { SortColDef, TableSortModel } from "../sorting/types";
 
 const getTypeComparator: (
   typeStr: ColDataTypeStrings,
@@ -33,14 +33,31 @@ const useSortedRows: (
   rows: RowDef[],
   cols: ColDef[],
   sortModel: TableSortModel | undefined,
-) => RowDef[] = (rows, cols, sortModel) =>
-  useMemo(() => {
-    if (!sortModel || !sortModel.sortColDef) {
+) => {
+  sortedRows: RowDef[];
+  sortingEnabled: boolean;
+  sortColDef: SortColDef | null | undefined;
+  setSortColDef: ((sortColDef: SortColDef | null) => void) | undefined;
+} = (rows, cols, sortModel) => {
+  const [internalSortColDef, setInternalSortColDef] =
+    useState<SortColDef | null>(sortModel?.sortColDef || null);
+  const sortColDef =
+    sortModel?.sortColDef === undefined
+      ? internalSortColDef
+      : sortModel.sortColDef;
+  const setSortColDef =
+    sortModel?.setSortColDef === undefined
+      ? setInternalSortColDef
+      : sortModel.setSortColDef;
+  const sortingEnabled = !!sortModel;
+
+  const sortedRows = useMemo(() => {
+    if (!sortColDef) {
       return rows;
     }
 
-    const sortFieldName = sortModel.sortColDef.name;
-    const sortOrder = sortModel.sortColDef.order;
+    const sortFieldName = sortColDef.name;
+    const sortOrder = sortColDef.order;
 
     const sortColIndex = cols.findIndex(({ name }) => name === sortFieldName);
     if (sortColIndex < 0) {
@@ -59,6 +76,9 @@ const useSortedRows: (
       rowComparator = getRowComparator(descComparator, sortFieldName);
     }
     return rows.slice().sort(rowComparator);
-  }, [rows, cols, sortModel]);
+  }, [sortColDef, cols, rows]);
+
+  return { sortedRows, sortingEnabled, sortColDef, setSortColDef };
+};
 
 export default useSortedRows;
