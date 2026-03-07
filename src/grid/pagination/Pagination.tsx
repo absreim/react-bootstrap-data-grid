@@ -1,33 +1,32 @@
 import { FC } from "react";
 import PageSizeSelector from "./PageSizeSelector";
 import PageSelector from "./PageSelector";
-import { JustifyContentSetting, Size } from "../types";
+import { JustifyContentSetting } from "../types";
+import { NormalizedPaginationModel } from "./types";
 
 export interface PaginationProps {
-  componentSize: Size;
-  pageSizeOptions: number[];
-  pageSizeIndex: number;
-  handleSetPageSizeIndex: (index: number) => void;
-  handleSetPageNum: (index: number) => void;
+  normalizedModel: NormalizedPaginationModel;
   prePagingNumRows: number;
-  maxPageButtons: number;
-  currentPage: number;
   pageSelectorAriaLabel?: string; // aria-label of the nav element
   pageSelectorJustifyContent?: JustifyContentSetting;
 }
 
 const Pagination: FC<PaginationProps> = ({
-  componentSize,
-  pageSizeOptions,
-  pageSizeIndex,
-  handleSetPageSizeIndex,
-  handleSetPageNum,
+  normalizedModel,
   prePagingNumRows,
-  maxPageButtons,
-  currentPage,
-  pageSelectorAriaLabel,
-  pageSelectorJustifyContent,
 }) => {
+  const {
+    pageSizeOptions,
+    pageSizeIndex,
+    currentPage,
+    setCurrentPage,
+    setPageSizeIndex,
+    componentSize,
+    maxPageButtons,
+    pageSelectorAriaLabel,
+    pageSelectorJustifyContent,
+  } = normalizedModel;
+
   const numPages = Math.ceil(prePagingNumRows / pageSizeOptions[pageSizeIndex]);
 
   const pageIndexAwarePageSizeSetter: (pageSizeIndex: number) => void = (
@@ -35,13 +34,13 @@ const Pagination: FC<PaginationProps> = ({
   ) => {
     const newPageSize = pageSizeOptions[newPageSizeIndex];
     const maxPages = Math.ceil(prePagingNumRows / newPageSize);
-    handleSetPageSizeIndex(newPageSizeIndex);
+    setPageSizeIndex(newPageSizeIndex);
 
     // The new page size can cause the current page number to be out of bounds.
     // In that case, set the page num to the maximum possible with new page
     // size.
     if (currentPage > maxPages) {
-      handleSetPageNum(maxPages);
+      setCurrentPage(maxPages);
     }
   };
 
@@ -57,7 +56,7 @@ const Pagination: FC<PaginationProps> = ({
         numPages={numPages}
         pageNum={currentPage}
         numButtons={maxPageButtons}
-        setPageNum={handleSetPageNum}
+        setPageNum={setCurrentPage}
         size={componentSize}
         ariaLabel={pageSelectorAriaLabel}
         alignment={pageSelectorJustifyContent}

@@ -9,6 +9,7 @@ export type PaginationFeatureTestHarnessProps = Omit<
   cols: ColDef[];
   initialPageSizeIndex: number;
   initialPage: number;
+  controlled: boolean;
 };
 
 const PaginationFeatureTestHarness: FC<PaginationFeatureTestHarnessProps> = ({
@@ -19,27 +20,41 @@ const PaginationFeatureTestHarness: FC<PaginationFeatureTestHarnessProps> = ({
   pageSizeOptions,
   maxPageButtons,
   componentSize,
+  controlled,
 }) => {
   const [pageSizeIndex, setPageSizeIndex] = useState(initialPageSizeIndex);
   const [currentPage, setCurrentPage] = useState(initialPage);
-  const paginationState: GridPaginationState = useMemo(
-    () => ({
+  const paginationState: GridPaginationState = useMemo(() => {
+    if (controlled) {
+      return {
+        pageSizeOptions,
+        pageSizeIndex,
+        setPageSizeIndex,
+        currentPage,
+        setCurrentPage,
+        maxPageButtons,
+        componentSize,
+      };
+    }
+
+    return {
+      type: "uncontrolled",
+      startingPageSizeIndex: initialPageSizeIndex,
+      startingCurrentPage: initialPage,
       pageSizeOptions,
-      pageSizeIndex,
-      setPageSizeIndex,
-      currentPage,
-      setCurrentPage,
       maxPageButtons,
       componentSize,
-    }),
-    [
-      pageSizeOptions,
-      pageSizeIndex,
-      currentPage,
-      maxPageButtons,
-      componentSize,
-    ],
-  );
+    };
+  }, [
+    controlled,
+    initialPageSizeIndex,
+    initialPage,
+    pageSizeOptions,
+    maxPageButtons,
+    componentSize,
+    pageSizeIndex,
+    currentPage,
+  ]);
 
   return <Grid rows={rows} cols={cols} pagination={paginationState} />;
 };

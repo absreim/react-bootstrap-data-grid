@@ -10,20 +10,32 @@ interface FilteringTestHarnessProps {
   cols: ColDef[];
   rows: RowDef[];
   initialFilterState: EditableTableFilterState;
+  controlled: boolean;
+  caption?: string;
 }
 
 const FilteringTestHarness: FC<FilteringTestHarnessProps> = ({
   cols,
   rows,
   initialFilterState,
+  controlled,
+  caption,
 }) => {
   const [filterState, setFilterState] = useState(initialFilterState);
   const filterModel: FilterModel = useMemo(
-    () => ({
-      tableFilterState: filterState,
-      setTableFilterState: setFilterState,
-    }),
-    [filterState],
+    () =>
+      controlled
+        ? {
+            tableFilterState: filterState,
+            setTableFilterState: setFilterState,
+            filterTableCaption: caption,
+          }
+        : {
+            type: "uncontrolled",
+            tableFilterState: initialFilterState,
+            filterTableCaption: caption,
+          },
+    [caption, controlled, filterState, initialFilterState],
   );
 
   return <Grid rows={rows} cols={cols} filterModel={filterModel} />;

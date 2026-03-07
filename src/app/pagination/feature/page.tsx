@@ -1,6 +1,6 @@
 "use client";
 
-import { FC } from "react";
+import { FC, Fragment } from "react";
 import { ColDef, RowDef } from "@/grid";
 import PaginationFeatureTestHarness, {
   PaginationFeatureTestHarnessProps,
@@ -25,33 +25,51 @@ const rows: RowDef[] = Array(15)
     },
   }));
 
-const harnessProps: PaginationFeatureTestHarnessProps = {
-  rows,
-  cols,
-  pageSizeOptions: [5, 10, 15],
-  initialPageSizeIndex: 0,
-  initialPage: 1,
-  maxPageButtons: 5,
-};
+interface TestParams {
+  testId: string;
+  props: Omit<PaginationFeatureTestHarnessProps, "controlled">;
+}
 
-const edgeButtonTestHarnessProps: PaginationFeatureTestHarnessProps = {
-  rows,
-  cols,
-  pageSizeOptions: [3],
-  initialPageSizeIndex: 0,
-  initialPage: 1,
-  maxPageButtons: 3,
-};
+const testParamsList: TestParams[] = [
+  {
+    testId: "15-row test container",
+    props: {
+      rows,
+      cols,
+      pageSizeOptions: [5, 10, 15],
+      initialPageSizeIndex: 0,
+      initialPage: 1,
+      maxPageButtons: 5,
+    },
+  },
+  {
+    testId: "edge button test container",
+    props: {
+      rows,
+      cols,
+      pageSizeOptions: [3],
+      initialPageSizeIndex: 0,
+      initialPage: 1,
+      maxPageButtons: 3,
+    },
+  },
+];
 
 const Test: FC = () => {
   return (
     <>
-      <div data-testid="15-row test container">
-        <PaginationFeatureTestHarness {...harnessProps} />
-      </div>
-      <div data-testid="edge button test container">
-        <PaginationFeatureTestHarness {...edgeButtonTestHarnessProps} />
-      </div>
+      {testParamsList.map(({ testId, props }) => (
+        <Fragment key={testId}>
+          <div data-testid={`${testId}-controlled`}>
+            <PaginationFeatureTestHarness {...{ ...props, controlled: true }} />
+          </div>
+          <div data-testid={`${testId}-uncontrolled`}>
+            <PaginationFeatureTestHarness
+              {...{ ...props, controlled: false }}
+            />
+          </div>
+        </Fragment>
+      ))}
     </>
   );
 };

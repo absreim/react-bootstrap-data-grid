@@ -9,9 +9,7 @@ export interface CellData {
   label: string;
 }
 
-export type UpdateCallbackGenerator = (
-  id: RowId,
-) => (rowData: RowData) => void;
+export type UpdateCallbackGenerator = (id: RowId) => (rowData: RowData) => void;
 
 export interface EditModel {
   getUpdateCallback: UpdateCallbackGenerator;

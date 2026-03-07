@@ -1,7 +1,7 @@
 "use client";
 
-import { FC } from "react";
-import { ColDef, RowDef } from "@/grid";
+import { FC, Fragment, ReactNode } from "react";
+import { ColDef, RowDef, SortColDef } from "@/grid";
 import SortTestHarness from "@/app/sorting/SortTestHarness";
 
 const cols: ColDef[] = [
@@ -72,56 +72,68 @@ const rows: RowDef[] = [
   },
 ];
 
+interface TestParams {
+  testId: string;
+  initialSortDef: SortColDef | null;
+}
+
+const getTestHarnessPair: (testParams: TestParams) => ReactNode = ({
+  testId,
+  initialSortDef,
+}) => (
+  <Fragment key={testId}>
+    <div data-testid={`${testId}-controlled`}>
+      <SortTestHarness
+        cols={cols}
+        rows={rows}
+        initialSortDef={initialSortDef}
+        controlled
+      />
+    </div>
+    <div data-testid={`${testId}-uncontrolled`}>
+      <SortTestHarness
+        cols={cols}
+        rows={rows}
+        initialSortDef={initialSortDef}
+        controlled={false}
+      />
+    </div>
+  </Fragment>
+);
+
+const testParamsList: TestParams[] = [
+  {
+    testId: "sorted unsortable column test case",
+    initialSortDef: { name: "unsortableCol", order: "desc" },
+  },
+  {
+    testId: "unsorted to sorted test case",
+    initialSortDef: null,
+  },
+  {
+    testId: "ascending to descending test case",
+    initialSortDef: { name: "strCol", order: "asc" },
+  },
+  {
+    testId: "descending to unsorted test case",
+    initialSortDef: { name: "strCol", order: "desc" },
+  },
+  {
+    testId: "number sort test case",
+    initialSortDef: { name: "numCol", order: "asc" },
+  },
+  {
+    testId: "date sort test case",
+    initialSortDef: { name: "dateCol", order: "asc" },
+  },
+  {
+    testId: "datetime sort test case",
+    initialSortDef: { name: "datetimeCol", order: "asc" },
+  },
+];
+
 const Test: FC = () => {
-  return (
-    <>
-      <div data-testid="sorted unsortable column test case">
-        <SortTestHarness
-          cols={cols}
-          rows={rows}
-          initialSortDef={{ name: "unsortableCol", order: "desc" }}
-        />
-      </div>
-      <div data-testid="unsorted to sorted test case">
-        <SortTestHarness cols={cols} rows={rows} initialSortDef={null} />
-      </div>
-      <div data-testid="ascending to descending test case">
-        <SortTestHarness
-          cols={cols}
-          rows={rows}
-          initialSortDef={{ name: "strCol", order: "asc" }}
-        />
-      </div>
-      <div data-testid="descending to unsorted test case">
-        <SortTestHarness
-          cols={cols}
-          rows={rows}
-          initialSortDef={{ name: "strCol", order: "desc" }}
-        />
-      </div>
-      <div data-testid="number sort test case">
-        <SortTestHarness
-          cols={cols}
-          rows={rows}
-          initialSortDef={{ name: "numCol", order: "asc" }}
-        />
-      </div>
-      <div data-testid="date sort test case">
-        <SortTestHarness
-          cols={cols}
-          rows={rows}
-          initialSortDef={{ name: "dateCol", order: "asc" }}
-        />
-      </div>
-      <div data-testid="datetime sort test case">
-        <SortTestHarness
-          cols={cols}
-          rows={rows}
-          initialSortDef={{ name: "datetimeCol", order: "asc" }}
-        />
-      </div>
-    </>
-  );
+  return <>{testParamsList.map(getTestHarnessPair)}</>;
 };
 
 export default Test;

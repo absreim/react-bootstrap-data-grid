@@ -38,6 +38,7 @@ import { FilterModel } from "./filtering/types";
 import { ColSortModel, TableSortModel } from "./sorting/types";
 import { GridPaginationState } from "./pagination/types";
 import isSubset from "./util/isSubset";
+import useFilterStateStore from "./pipeline/useFilterStateStore";
 
 export interface GridProps {
   rows: RowDef[];
@@ -62,17 +63,23 @@ const Grid: FC<GridProps> = ({
   caption,
   styleModel,
 }) => {
-  const editableFilterState = filterModel?.tableFilterState || null;
+  const normalizedTableFilterModel = useFilterStateStore(filterModel, cols);
+  const editableFilterState =
+    normalizedTableFilterModel?.tableFilterState || null;
+  const filteredRows = useFilter(rows, editableFilterState);
   const filterState = useFilterStateFromEditable(cols, editableFilterState);
 
-  const filteredRows = useFilter(rows, editableFilterState);
-  const sortedRows = useSortedRows(filteredRows, cols, sortModel);
-  const currentPageRows = useCurrentPageRows(sortedRows, pagination);
+  const { sortedRows, sortingEnabled, sortColDef, setSortColDef } =
+    useSortedRows(filteredRows, cols, sortModel);
+  const { paginatedRows, normalizedModel } = useCurrentPageRows(
+    sortedRows,
+    pagination,
+  );
 
   const showSelectCol = selectModel && selectModel.mode !== "row";
   const ariaColIndexOffset = showSelectCol ? 1 : 0;
   const displayRows: FormattedRow[] = useDisplayRows(
-    currentPageRows,
+    paginatedRows,
     cols,
     ariaColIndexOffset,
   );
@@ -194,9 +201,10 @@ const Grid: FC<GridProps> = ({
       rows: RowDef[],
     ) => MultiExistingSelection = (selectionExists, rows) => {
       const rowIndices = rows.map((_, index) => index);
-      const isFullSelection = isSubset(rowIndices, selectModel.selected!);
-      // Note that isFullSelection is true if there are no rows at all. In that case, the existing selection value
+
+      // Note that isFullSelection is true if there are no rows at all. In that case, the return value of this function
       // should be "none", not "full".
+      const isFullSelection = isSubset(rowIndices, selectModel.selected!);
 
       if (!selectionExists) {
         return "none";
@@ -271,7 +279,7 @@ const Grid: FC<GridProps> = ({
       data-testid="rbdg-top-level-div"
       className={classNames(unwrappedAdditionalStyleModel.topLevelDiv)}
     >
-      {filterState && filterModel && (
+      {normalizedTableFilterModel && (
         <div
           data-testid="rbdg-filter-inputs-div"
           className={classNames(unwrappedAdditionalStyleModel.filterInputsDiv)}
@@ -286,9 +294,9 @@ const Grid: FC<GridProps> = ({
           />
           {filterOptionsVisible && (
             <FilterOptionsTable
-              caption={filterModel.filterTableCaption}
-              filterState={filterState}
-              setFilterState={filterModel.setTableFilterState}
+              caption={filterModel!.filterTableCaption}
+              filterState={filterState!}
+              setFilterState={normalizedTableFilterModel.setTableFilterState}
               styleModel={styleModel?.filterInputTableStyleModel}
             />
           )}
@@ -330,14 +338,13 @@ const Grid: FC<GridProps> = ({
               )}
               {cols.map(({ name, label, sortable }, index) => {
                 const colSortModel: ColSortModel | undefined =
-                  sortModel && sortable
+                  sortingEnabled && sortable
                     ? {
                         sortOrder:
-                          sortModel.sortColDef?.name === name
-                            ? sortModel.sortColDef.order
-                            : null,
+                          sortColDef?.name === name ? sortColDef.order : null,
                         setSortOrder: (order) => {
-                          sortModel.setSortColDef(order && { name, order });
+                          setSortColDef &&
+                            setSortColDef(order && { name, order });
                         },
                       }
                     : undefined;
@@ -436,18 +443,10 @@ const Grid: FC<GridProps> = ({
             })}
           </tbody>
         </table>
-        {pagination && (
+        {normalizedModel && (
           <Pagination
-            componentSize={pagination.componentSize || "medium"}
-            pageSizeOptions={pagination.pageSizeOptions}
-            pageSizeIndex={pagination.pageSizeIndex}
-            handleSetPageSizeIndex={pagination.setPageSizeIndex}
-            handleSetPageNum={pagination.setCurrentPage}
+            normalizedModel={normalizedModel}
             prePagingNumRows={sortedRows.length}
-            maxPageButtons={pagination.maxPageButtons}
-            currentPage={pagination.currentPage}
-            pageSelectorJustifyContent={pagination.pageSelectorJustifyContent}
-            pageSelectorAriaLabel={pagination.pageSelectorAriaLabel}
           />
         )}
       </div>
