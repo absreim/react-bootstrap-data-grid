@@ -37,18 +37,18 @@ const useSortedRows: (
   sortedRows: RowDef[];
   sortingEnabled: boolean;
   sortColDef: SortColDef | null | undefined;
-  setSortColDef: ((sortColDef: SortColDef | null) => void);
+  setSortColDef: ((sortColDef: SortColDef | null) => void) | undefined;
 } = (rows, cols, sortModel) => {
   const [internalSortColDef, setInternalSortColDef] =
-    useState<SortColDef | null>(sortModel?.sortColDef || null);
+    useState<SortColDef | null>(sortModel?.type === "uncontrolled" && sortModel.initialSortColDef || null);
   const sortColDef =
-    sortModel?.setSortColDef === undefined
+    sortModel?.type === "uncontrolled"
       ? internalSortColDef
-      : sortModel.sortColDef || null;
+      : sortModel?.sortColDef || undefined;
   const setSortColDef =
-    sortModel?.setSortColDef === undefined
+    sortModel?.type === "uncontrolled"
       ? setInternalSortColDef
-      : (sortModel.setSortColDef || (() => {}));
+      : sortModel?.setSortColDef || undefined;
   const sortingEnabled = !!sortModel;
 
   const sortedRows = useMemo(() => {

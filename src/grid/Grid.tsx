@@ -36,13 +36,13 @@ import {
 } from "./selection/types";
 import { FilterModel } from "./filtering/types";
 import { ColSortModel, TableSortModel } from "./sorting/types";
-import { PaginationModel } from "./pagination/types";
+import { GridPaginationState } from "./pagination/types";
 import isSubset from "./util/isSubset";
 
 export interface GridProps {
   rows: RowDef[];
   cols: ColDef[];
-  pagination?: PaginationModel;
+  pagination?: GridPaginationState;
   sortModel?: TableSortModel;
   filterModel?: FilterModel;
   selectModel?: SelectModel;
@@ -67,12 +67,12 @@ const Grid: FC<GridProps> = ({
 
   const filteredRows = useFilter(rows, editableFilterState);
   const { sortedRows, sortingEnabled, sortColDef, setSortColDef } = useSortedRows(filteredRows, cols, sortModel);
-  const currentPageRows = useCurrentPageRows(sortedRows, pagination);
+  const { paginatedRows, normalizedModel } = useCurrentPageRows(sortedRows, pagination);
 
   const showSelectCol = selectModel && selectModel.mode !== "row";
   const ariaColIndexOffset = showSelectCol ? 1 : 0;
   const displayRows: FormattedRow[] = useDisplayRows(
-    currentPageRows,
+    paginatedRows,
     cols,
     ariaColIndexOffset,
   );
@@ -338,7 +338,8 @@ const Grid: FC<GridProps> = ({
                             ? sortColDef.order
                             : null,
                         setSortOrder: (order) => {
-                          setSortColDef(order && { name, order });
+                          setSortColDef &&
+                            setSortColDef(order && { name, order });
                         },
                       }
                     : undefined;
@@ -437,12 +438,10 @@ const Grid: FC<GridProps> = ({
             })}
           </tbody>
         </table>
-        {pagination && (
+        {normalizedModel && (
           <Pagination
-            paginationModel={pagination}
+            normalizedModel={normalizedModel}
             prePagingNumRows={sortedRows.length}
-            pageSelectorJustifyContent={pagination.pageSelectorJustifyContent}
-            pageSelectorAriaLabel={pagination.pageSelectorAriaLabel}
           />
         )}
       </div>

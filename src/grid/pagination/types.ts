@@ -22,6 +22,17 @@ export type UncontrolledPaginationModel = PaginationOptions & {
   startingCurrentPage?: number;
 };
 
-export type PaginationModel =
+export type GridPaginationState =
   | ControlledPaginationModel
   | UncontrolledPaginationModel;
+
+export type NormalizedPaginationModel = Required<
+  Omit<
+    ControlledPaginationModel,
+    "type" | "pageSelectorAriaLabel" | "pageSelectorJustifyContent"
+  >
+> &
+  Pick<
+    ControlledPaginationModel,
+    "pageSelectorAriaLabel" | "pageSelectorJustifyContent"
+  >;
