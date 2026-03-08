@@ -4,10 +4,9 @@ test.beforeEach(async ({ page }) => {
   await page.goto("sorting");
 });
 
-const getTestIdVariants: (testId: string) => string[] = (testId) => [
-  `${testId}-controlled`,
-  `${testId}-uncontrolled`,
-];
+const getTestIdVariants: (testIdPrefix: string) => string[] = (
+  testIdPrefix,
+) => [`${testIdPrefix}-controlled`, `${testIdPrefix}-uncontrolled`];
 
 test("unsortable column is sorted if initial model calls for it", async ({
   page,
@@ -37,9 +36,7 @@ test("unsorted column becomes sorted after clicking on the header cell", async (
 }) => {
   const testIdPrefix = "unsorted to sorted test case";
   for (const testId of getTestIdVariants(testIdPrefix)) {
-    const unsortedToSortedContainer = page.getByTestId(
-      testId,
-    );
+    const unsortedToSortedContainer = page.getByTestId(testId);
 
     const strColHeaderCell = unsortedToSortedContainer.getByRole(
       "columnheader",
