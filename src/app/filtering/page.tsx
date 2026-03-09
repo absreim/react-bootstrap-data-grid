@@ -4,6 +4,7 @@ import { FC, Fragment } from "react";
 import { ColDef, EditableTableFilterState, RowDef } from "@/grid";
 import FilteringTestHarness from "@/app/filtering/FilteringTestHarness";
 import { dateToDatetimeInputStr, dateToInputStr } from "@/grid/util/datetime";
+import NoInitStateTestHarness from "@/app/filtering/NoInitStateTestHarness";
 
 const numTestCols: ColDef[] = [
   {
@@ -379,6 +380,7 @@ interface TestParams {
   cols: ColDef[];
   rows: RowDef[];
   initialState: EditableTableFilterState;
+  caption?: string;
 }
 
 const testParamsList: TestParams[] = [
@@ -472,12 +474,19 @@ const testParamsList: TestParams[] = [
     rows: combinedTestRows,
     initialState: combinedFilterState,
   },
+  {
+    testId: "caption test grid container",
+    cols: combinedTestCols,
+    rows: combinedTestRows,
+    initialState: combinedFilterState,
+    caption: "filter table test caption"
+  },
 ];
 
 const Test: FC = () => {
   return (
     <>
-      {testParamsList.map(({ testId, cols, rows, initialState }) => (
+      {testParamsList.map(({ testId, cols, rows, initialState, caption }) => (
         <Fragment key={testId}>
           <div data-testid={`${testId}-controlled`}>
             <FilteringTestHarness
@@ -485,6 +494,7 @@ const Test: FC = () => {
               rows={rows}
               initialFilterState={initialState}
               controlled
+              caption={caption}
             />
           </div>
           <div data-testid={`${testId}-uncontrolled`}>
@@ -493,10 +503,17 @@ const Test: FC = () => {
               rows={rows}
               initialFilterState={initialState}
               controlled={false}
+              caption={caption}
             />
           </div>
         </Fragment>
       ))}
+      <div data-testid={"no initial state grid container"}>
+        <NoInitStateTestHarness
+          cols={combinedTestCols}
+          rows={combinedTestRows}
+        />
+      </div>
     </>
   );
 };

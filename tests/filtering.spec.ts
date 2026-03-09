@@ -451,3 +451,75 @@ test("combined filter and toggles work correctly", async ({ page }) => {
     await expect(gridTable).toBeVisible();
   }
 });
+
+test("caption works correctly", async ({ page }) => {
+  const testIdPrefix = "caption test grid container";
+  for (const testId of getTestIdVariants(testIdPrefix)) {
+    const container = page.getByTestId(testId);
+
+    await container
+      .getByRole("button", { name: "Show Filter Options" })
+      .click();
+
+    const filterOptionsTable = container.getByTestId("rbdg-filter-inputs-div").getByRole("table");
+    const caption = filterOptionsTable.getByRole("caption");
+    await expect(caption).toHaveText("filter table test caption");
+  }
+})
+
+test("no initial state mode works correctly", async ({ page }) => {
+  const container = page.getByTestId("no initial state grid container");
+
+  let gridTable = container.locator('table[aria-rowcount="5"]');
+  await expect(gridTable).toBeVisible();
+
+  await container.getByRole("button", { name: "Show Filter Options" }).click();
+
+  // Enable and input into string filter
+  await container
+    .locator('input[aria-label="String Column Column Filter Toggle"]')
+    .check();
+  await container
+    .getByRole("textbox", { name: "String Column Column Filter Value" })
+    .fill("a");
+  await container.getByRole("button", { name: "Submit" }).click();
+
+  gridTable = container.locator('table[aria-rowcount="4"]');
+  await expect(gridTable).toBeVisible();
+
+  // Enable and input into number filter
+  await container
+    .locator('input[aria-label="Number Column Column Filter Toggle"]')
+    .check();
+  await container
+    .getByRole("spinbutton", { name: "Number Column Column Filter Value" })
+    .fill("2");
+  await container.getByRole("button", { name: "Submit" }).click();
+
+  gridTable = container.locator('table[aria-rowcount="3"]');
+  await expect(gridTable).toBeVisible();
+
+  // Enable and input into date filter
+  await container
+    .locator('input[aria-label="Date Column Column Filter Toggle"]')
+    .check();
+  await container
+    .locator('input[aria-label="Date Column Column Filter Start Date"]')
+    .fill("2025-01-01");
+  await container.getByRole("button", { name: "Submit" }).click();
+
+  gridTable = container.locator('table[aria-rowcount="2"]');
+  await expect(gridTable).toBeVisible();
+
+  // Enable and input into datetime filter
+  await container
+    .locator('input[aria-label="Datetime Column Column Filter Toggle"]')
+    .check();
+  await container
+    .locator('input[aria-label="Datetime Column Column Filter Start Date"]')
+    .fill("2025-01-01T00:00");
+  await container.getByRole("button", { name: "Submit" }).click();
+
+  gridTable = container.locator('table[aria-rowcount="1"]');
+  await expect(gridTable).toBeVisible();
+});
