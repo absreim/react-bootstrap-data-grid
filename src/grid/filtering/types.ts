@@ -90,17 +90,31 @@ export type FilterState =
   | NumberFilterState
   | DateFilterState;
 
-export interface FilterModel {
+export interface ControlledFilterModel {
+  type?: "controlled";
   tableFilterState: EditableTableFilterState;
   setTableFilterState: (state: EditableTableFilterState) => void;
   filterTableCaption?: string;
 }
+
+export type UncontrolledFilterModel = Partial<
+  Pick<ControlledFilterModel, "tableFilterState" | "filterTableCaption">
+> & {
+  type: "uncontrolled";
+};
+
+export type NormalizedTableFilterModel = Pick<
+  ControlledFilterModel,
+  "tableFilterState" | "setTableFilterState"
+>;
 
 export interface NumberFormFilterState extends AbstractFilterState {
   type: "number";
   scheme: NumberFilterScheme;
   inputValue: string;
 }
+
+export type FilterModel = ControlledFilterModel | UncontrolledFilterModel;
 
 // For schemes startFrom and endAt that do not use both date input fields, the
 // fields still serve the purpose of remembering the previous value. That way,

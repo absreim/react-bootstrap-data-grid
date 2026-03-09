@@ -38,6 +38,7 @@ import { FilterModel } from "./filtering/types";
 import { ColSortModel, TableSortModel } from "./sorting/types";
 import { GridPaginationState } from "./pagination/types";
 import isSubset from "./util/isSubset";
+import useFilterStateStore from "./pipeline/useFilterStateStore";
 
 export interface GridProps {
   rows: RowDef[];
@@ -62,10 +63,12 @@ const Grid: FC<GridProps> = ({
   caption,
   styleModel,
 }) => {
-  const editableFilterState = filterModel?.tableFilterState || null;
+  const normalizedTableFilterModel = useFilterStateStore(filterModel, cols);
+  const editableFilterState =
+    normalizedTableFilterModel?.tableFilterState || null;
+  const filteredRows = useFilter(rows, editableFilterState);
   const filterState = useFilterStateFromEditable(cols, editableFilterState);
 
-  const filteredRows = useFilter(rows, editableFilterState);
   const { sortedRows, sortingEnabled, sortColDef, setSortColDef } = useSortedRows(filteredRows, cols, sortModel);
   const { paginatedRows, normalizedModel } = useCurrentPageRows(sortedRows, pagination);
 
@@ -272,7 +275,7 @@ const Grid: FC<GridProps> = ({
       data-testid="rbdg-top-level-div"
       className={classNames(unwrappedAdditionalStyleModel.topLevelDiv)}
     >
-      {filterState && filterModel && (
+      {normalizedTableFilterModel && (
         <div
           data-testid="rbdg-filter-inputs-div"
           className={classNames(unwrappedAdditionalStyleModel.filterInputsDiv)}
@@ -287,9 +290,9 @@ const Grid: FC<GridProps> = ({
           />
           {filterOptionsVisible && (
             <FilterOptionsTable
-              caption={filterModel.filterTableCaption}
-              filterState={filterState}
-              setFilterState={filterModel.setTableFilterState}
+              caption={filterModel!.filterTableCaption}
+              filterState={filterState!}
+              setFilterState={normalizedTableFilterModel.setTableFilterState}
               styleModel={styleModel?.filterInputTableStyleModel}
             />
           )}
@@ -334,9 +337,7 @@ const Grid: FC<GridProps> = ({
                   sortingEnabled && sortable
                     ? {
                         sortOrder:
-                          sortColDef?.name === name
-                            ? sortColDef.order
-                            : null,
+                          sortColDef?.name === name ? sortColDef.order : null,
                         setSortOrder: (order) => {
                           setSortColDef &&
                             setSortColDef(order && { name, order });
