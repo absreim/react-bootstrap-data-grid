@@ -1,6 +1,6 @@
 "use client";
 
-import { FC } from "react";
+import { FC, Fragment } from "react";
 import { ColDef, EditableTableFilterState, RowDef } from "@/grid";
 import FilteringTestHarness from "@/app/filtering/FilteringTestHarness";
 import { dateToDatetimeInputStr, dateToInputStr } from "@/grid/util/datetime";
@@ -374,114 +374,129 @@ const combinedFilterState: EditableTableFilterState = {
   },
 };
 
+interface TestParams {
+  testId: string;
+  cols: ColDef[];
+  rows: RowDef[];
+  initialState: EditableTableFilterState;
+}
+
+const testParamsList: TestParams[] = [
+  {
+    testId: "number less than grid container",
+    cols: numTestCols,
+    rows: numTestRows,
+    initialState: lessThanFilterState,
+  },
+  {
+    testId: "number greater than grid container",
+    cols: numTestCols,
+    rows: numTestRows,
+    initialState: greaterThanFilterState,
+  },
+  {
+    testId: "number equals grid container",
+    cols: numTestCols,
+    rows: numTestRows,
+    initialState: equalToFilterState,
+  },
+  {
+    testId: "number leq grid container",
+    cols: numTestCols,
+    rows: numTestRows,
+    initialState: leqFilterState,
+  },
+  {
+    testId: "number geq grid container",
+    cols: numTestCols,
+    rows: numTestRows,
+    initialState: geqFilterState,
+  },
+  {
+    testId: "string contains grid container",
+    cols: strTestCols,
+    rows: strTestRows,
+    initialState: containsFilterState,
+  },
+  {
+    testId: "string starts with grid container",
+    cols: strTestCols,
+    rows: strTestRows,
+    initialState: startsWithFilterState,
+  },
+  {
+    testId: "string ends with grid container",
+    cols: strTestCols,
+    rows: strTestRows,
+    initialState: endsWithFilterState,
+  },
+  {
+    testId: "start date grid container",
+    cols: dateTestCols,
+    rows: dateTestRows,
+    initialState: startFromDateFilterState,
+  },
+  {
+    testId: "end date grid container",
+    cols: dateTestCols,
+    rows: dateTestRows,
+    initialState: endAtDateFilterState,
+  },
+  {
+    testId: "between dates grid container",
+    cols: dateTestCols,
+    rows: dateTestRows,
+    initialState: betweenDatesFilterState,
+  },
+  {
+    testId: "start datetime grid container",
+    cols: datetimeTestCols,
+    rows: datetimeTestRows,
+    initialState: startFromDatetimeFilterState,
+  },
+  {
+    testId: "end datetime grid container",
+    cols: datetimeTestCols,
+    rows: datetimeTestRows,
+    initialState: endAtDatetimeFilterState,
+  },
+  {
+    testId: "between datetimes grid container",
+    cols: datetimeTestCols,
+    rows: datetimeTestRows,
+    initialState: betweenDatetimesFilterState,
+  },
+  {
+    testId: "combined grid container",
+    cols: combinedTestCols,
+    rows: combinedTestRows,
+    initialState: combinedFilterState,
+  },
+];
+
 const Test: FC = () => {
   return (
     <>
-      <div data-testid="number less than grid container">
-        <FilteringTestHarness
-          cols={numTestCols}
-          rows={numTestRows}
-          initialFilterState={lessThanFilterState}
-        />
-      </div>
-      <div data-testid="number greater than grid container">
-        <FilteringTestHarness
-          cols={numTestCols}
-          rows={numTestRows}
-          initialFilterState={greaterThanFilterState}
-        />
-      </div>
-      <div data-testid="number equals grid container">
-        <FilteringTestHarness
-          cols={numTestCols}
-          rows={numTestRows}
-          initialFilterState={equalToFilterState}
-        />
-      </div>
-      <div data-testid="number leq grid container">
-        <FilteringTestHarness
-          cols={numTestCols}
-          rows={numTestRows}
-          initialFilterState={leqFilterState}
-        />
-      </div>
-      <div data-testid="number geq grid container">
-        <FilteringTestHarness
-          cols={numTestCols}
-          rows={numTestRows}
-          initialFilterState={geqFilterState}
-        />
-      </div>
-      <div data-testid="string contains grid container">
-        <FilteringTestHarness
-          cols={strTestCols}
-          rows={strTestRows}
-          initialFilterState={containsFilterState}
-        />
-      </div>
-      <div data-testid="string starts with grid container">
-        <FilteringTestHarness
-          cols={strTestCols}
-          rows={strTestRows}
-          initialFilterState={startsWithFilterState}
-        />
-      </div>
-      <div data-testid="string ends with grid container">
-        <FilteringTestHarness
-          cols={strTestCols}
-          rows={strTestRows}
-          initialFilterState={endsWithFilterState}
-        />
-      </div>
-      <div data-testid="start date grid container">
-        <FilteringTestHarness
-          cols={dateTestCols}
-          rows={dateTestRows}
-          initialFilterState={startFromDateFilterState}
-        />
-      </div>
-      <div data-testid="end date grid container">
-        <FilteringTestHarness
-          cols={dateTestCols}
-          rows={dateTestRows}
-          initialFilterState={endAtDateFilterState}
-        />
-      </div>
-      <div data-testid="between dates grid container">
-        <FilteringTestHarness
-          cols={dateTestCols}
-          rows={dateTestRows}
-          initialFilterState={betweenDatesFilterState}
-        />
-      </div>
-      <div data-testid="start datetime grid container">
-        <FilteringTestHarness
-          cols={datetimeTestCols}
-          rows={datetimeTestRows}
-          initialFilterState={startFromDatetimeFilterState}
-        />
-      </div>
-      <div data-testid="end datetime grid container">
-        <FilteringTestHarness
-          cols={datetimeTestCols}
-          rows={datetimeTestRows}
-          initialFilterState={endAtDatetimeFilterState}
-        />
-      </div>
-      <div data-testid="between datetimes grid container">
-        <FilteringTestHarness
-          cols={datetimeTestCols}
-          rows={datetimeTestRows}
-          initialFilterState={betweenDatetimesFilterState}
-        />
-      </div>
-      <div data-testid="combined grid container">
-        <FilteringTestHarness
-          cols={combinedTestCols}
-          rows={combinedTestRows}
-          initialFilterState={combinedFilterState}
-        />
-      </div>
+      {testParamsList.map(({ testId, cols, rows, initialState }) => (
+        <Fragment key={testId}>
+          <div data-testid={`${testId}-controlled`}>
+            <FilteringTestHarness
+              cols={cols}
+              rows={rows}
+              initialFilterState={initialState}
+              controlled
+            />
+          </div>
+          <div data-testid={`${testId}-uncontrolled`}>
+            <FilteringTestHarness
+              cols={cols}
+              rows={rows}
+              initialFilterState={initialState}
+              controlled={false}
+            />
+          </div>
+        </Fragment>
+      ))}
     </>
   );
 };
