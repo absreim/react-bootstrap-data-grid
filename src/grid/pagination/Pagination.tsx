@@ -13,7 +13,7 @@ export interface PaginationProps {
 
 const Pagination: FC<PaginationProps> = ({
   normalizedModel,
-  prePagingNumRows
+  prePagingNumRows,
 }) => {
   const {
     pageSizeOptions,
@@ -24,7 +24,7 @@ const Pagination: FC<PaginationProps> = ({
     componentSize,
     maxPageButtons,
     pageSelectorAriaLabel,
-    pageSelectorJustifyContent
+    pageSelectorJustifyContent,
   } = normalizedModel;
 
   const numPages = Math.ceil(prePagingNumRows / pageSizeOptions[pageSizeIndex]);

@@ -62,13 +62,15 @@ const useFilterStateStore: (
     return null;
   }
 
-  return filterModel.type === "uncontrolled" ? {
-    tableFilterState: internalFilterState,
-    setTableFilterState: setInternalFilterState
-  } : {
-    tableFilterState: filterModel.tableFilterState,
-    setTableFilterState: filterModel.setTableFilterState
-  }
+  return filterModel.type === "uncontrolled"
+    ? {
+        tableFilterState: internalFilterState,
+        setTableFilterState: setInternalFilterState,
+      }
+    : {
+        tableFilterState: filterModel.tableFilterState,
+        setTableFilterState: filterModel.setTableFilterState,
+      };
 };
 
 export default useFilterStateStore;

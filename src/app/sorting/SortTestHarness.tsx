@@ -12,19 +12,21 @@ const SortTestHarness: FC<SortTestHarnessProps> = ({
   cols,
   rows,
   initialSortDef,
-  controlled
+  controlled,
 }) => {
   const [sortColDef, setSortColDef] = useState<SortColDef | null>(
     initialSortDef,
   );
 
-  const tableSortModel: TableSortModel = controlled ? {
-    sortColDef,
-    setSortColDef,
-  } : {
-    type: "uncontrolled",
-    initialSortColDef: sortColDef
-  };
+  const tableSortModel: TableSortModel = controlled
+    ? {
+        sortColDef,
+        setSortColDef,
+      }
+    : {
+        type: "uncontrolled",
+        initialSortColDef: sortColDef,
+      };
 
   return <Grid rows={rows} cols={cols} sortModel={tableSortModel} />;
 };

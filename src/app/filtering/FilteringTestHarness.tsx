@@ -19,7 +19,7 @@ const FilteringTestHarness: FC<FilteringTestHarnessProps> = ({
   rows,
   initialFilterState,
   controlled,
-  caption
+  caption,
 }) => {
   const [filterState, setFilterState] = useState(initialFilterState);
   const filterModel: FilterModel = useMemo(

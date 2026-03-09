@@ -64,7 +64,9 @@ const Test: FC = () => {
             <PaginationFeatureTestHarness {...{ ...props, controlled: true }} />
           </div>
           <div data-testid={`${testId}-uncontrolled`}>
-            <PaginationFeatureTestHarness {...{ ...props, controlled: false }} />
+            <PaginationFeatureTestHarness
+              {...{ ...props, controlled: false }}
+            />
           </div>
         </Fragment>
       ))}

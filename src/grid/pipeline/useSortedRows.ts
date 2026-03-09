@@ -40,7 +40,10 @@ const useSortedRows: (
   setSortColDef: ((sortColDef: SortColDef | null) => void) | undefined;
 } = (rows, cols, sortModel) => {
   const [internalSortColDef, setInternalSortColDef] =
-    useState<SortColDef | null>(sortModel?.type === "uncontrolled" && sortModel.initialSortColDef || null);
+    useState<SortColDef | null>(
+      (sortModel?.type === "uncontrolled" && sortModel.initialSortColDef) ||
+        null,
+    );
   const sortColDef =
     sortModel?.type === "uncontrolled"
       ? internalSortColDef

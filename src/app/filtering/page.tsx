@@ -479,7 +479,7 @@ const testParamsList: TestParams[] = [
     cols: combinedTestCols,
     rows: combinedTestRows,
     initialState: combinedFilterState,
-    caption: "filter table test caption"
+    caption: "filter table test caption",
   },
 ];
 

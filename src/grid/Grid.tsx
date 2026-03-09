@@ -69,8 +69,12 @@ const Grid: FC<GridProps> = ({
   const filteredRows = useFilter(rows, editableFilterState);
   const filterState = useFilterStateFromEditable(cols, editableFilterState);
 
-  const { sortedRows, sortingEnabled, sortColDef, setSortColDef } = useSortedRows(filteredRows, cols, sortModel);
-  const { paginatedRows, normalizedModel } = useCurrentPageRows(sortedRows, pagination);
+  const { sortedRows, sortingEnabled, sortColDef, setSortColDef } =
+    useSortedRows(filteredRows, cols, sortModel);
+  const { paginatedRows, normalizedModel } = useCurrentPageRows(
+    sortedRows,
+    pagination,
+  );
 
   const showSelectCol = selectModel && selectModel.mode !== "row";
   const ariaColIndexOffset = showSelectCol ? 1 : 0;

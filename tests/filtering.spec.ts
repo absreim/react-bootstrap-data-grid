@@ -461,11 +461,13 @@ test("caption works correctly", async ({ page }) => {
       .getByRole("button", { name: "Show Filter Options" })
       .click();
 
-    const filterOptionsTable = container.getByTestId("rbdg-filter-inputs-div").getByRole("table");
+    const filterOptionsTable = container
+      .getByTestId("rbdg-filter-inputs-div")
+      .getByRole("table");
     const caption = filterOptionsTable.getByRole("caption");
     await expect(caption).toHaveText("filter table test caption");
   }
-})
+});
 
 test("no initial state mode works correctly", async ({ page }) => {
   const container = page.getByTestId("no initial state grid container");
