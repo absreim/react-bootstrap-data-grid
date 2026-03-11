@@ -51,8 +51,16 @@ export interface AdditionalComponentsStyleModel {
   filterUiToggleButton?: string[];
 }
 
+export interface ToolbarStyleModel {
+  activeButton?: string[];
+  inactiveButton?: string[];
+  toolbar?: string[];
+  interfaceContainer?: string[];
+}
+
 export interface StyleModel {
   mainTableStyleModel?: TableStyleModel;
   filterInputTableStyleModel?: FilterInputTableStyleModel;
   additionalComponentsStyleModel?: AdditionalComponentsStyleModel;
+  toolbarStyleModel?: ToolbarStyleModel;
 }

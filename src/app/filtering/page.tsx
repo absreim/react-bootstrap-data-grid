@@ -381,6 +381,7 @@ interface TestParams {
   rows: RowDef[];
   initialState: EditableTableFilterState;
   caption?: string;
+  useToolbar?: boolean;
 }
 
 const testParamsList: TestParams[] = [
@@ -481,33 +482,45 @@ const testParamsList: TestParams[] = [
     initialState: combinedFilterState,
     caption: "filter table test caption",
   },
+  {
+    testId: "toolbar interface grid container",
+    cols: combinedTestCols,
+    rows: combinedTestRows,
+    initialState: combinedFilterState,
+    caption: "This table should appear underneath the toolbar",
+    useToolbar: true,
+  },
 ];
 
 const Test: FC = () => {
   return (
     <>
-      {testParamsList.map(({ testId, cols, rows, initialState, caption }) => (
-        <Fragment key={testId}>
-          <div data-testid={`${testId}-controlled`}>
-            <FilteringTestHarness
-              cols={cols}
-              rows={rows}
-              initialFilterState={initialState}
-              controlled
-              caption={caption}
-            />
-          </div>
-          <div data-testid={`${testId}-uncontrolled`}>
-            <FilteringTestHarness
-              cols={cols}
-              rows={rows}
-              initialFilterState={initialState}
-              controlled={false}
-              caption={caption}
-            />
-          </div>
-        </Fragment>
-      ))}
+      {testParamsList.map(
+        ({ testId, cols, rows, initialState, caption, useToolbar }) => (
+          <Fragment key={testId}>
+            <div data-testid={`${testId}-controlled`}>
+              <FilteringTestHarness
+                cols={cols}
+                rows={rows}
+                initialFilterState={initialState}
+                controlled
+                caption={caption}
+                useToolbar={useToolbar}
+              />
+            </div>
+            <div data-testid={`${testId}-uncontrolled`}>
+              <FilteringTestHarness
+                cols={cols}
+                rows={rows}
+                initialFilterState={initialState}
+                controlled={false}
+                caption={caption}
+                useToolbar={useToolbar}
+              />
+            </div>
+          </Fragment>
+        ),
+      )}
       <div data-testid={"no initial state grid container"}>
         <NoInitStateTestHarness
           cols={combinedTestCols}

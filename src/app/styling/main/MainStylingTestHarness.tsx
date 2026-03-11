@@ -132,7 +132,7 @@ const styleModel: StyleModel = {
   },
 };
 
-const MainTableStylingTestHarness: FC = () => {
+const MainStylingTestHarness: FC = () => {
   const [currentPage, setCurrentPage] = useState<number>(2);
   const [pageSizeIndex, setPageSizeIndex] = useState<number>(0);
   const pagination: GridPaginationState = useMemo(
@@ -184,4 +184,4 @@ const MainTableStylingTestHarness: FC = () => {
   );
 };
 
-export default MainTableStylingTestHarness;
+export default MainStylingTestHarness;

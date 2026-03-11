@@ -1,10 +1,10 @@
 import { FC } from "react";
-import MainTableStylingTestHarness from "@/app/styling/main/MainTableStylingTestHarness";
+import MainStylingTestHarness from "@/app/styling/main/MainStylingTestHarness";
 
 const Test: FC = () => {
   return (
     <>
-      <MainTableStylingTestHarness />
+      <MainStylingTestHarness />
     </>
   );
 };
