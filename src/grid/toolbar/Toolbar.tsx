@@ -40,7 +40,7 @@ const Toolbar: FC<ToolbarProps> = ({
   activeClasses,
   inactiveClasses,
 }) => (
-  <div className="hstack justify-content-start">
+  <div className="hstack gap-2 justify-content-start">
     {Object.keys(buttonsInfo)
       .filter(
         (toolbarOption) => !!enabledFeatures[toolbarOption as ToolbarOption],

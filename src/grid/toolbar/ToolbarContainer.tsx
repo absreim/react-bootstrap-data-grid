@@ -19,7 +19,7 @@ const ToolbarContainer: FC<ToolbarContainerProps> = ({ interfaces }) => {
   // TODO: mention in documentation that Bootstrap 5.3 is required due to the
   // use of the z-index utility
   return (
-    <div className="vstack gap-2">
+    <div className="vstack">
       <Toolbar
         enabledFeatures={enabledFeatures}
         option={option}
@@ -27,7 +27,9 @@ const ToolbarContainer: FC<ToolbarContainerProps> = ({ interfaces }) => {
       />
       <div>
         {option !== null && (
-          <div className="position-absolute z-1">{interfaces[option]}</div>
+          <div className="position-absolute z-1 bg-body border shadow p-2">
+            {interfaces[option]}
+          </div>
         )}
       </div>
     </div>
