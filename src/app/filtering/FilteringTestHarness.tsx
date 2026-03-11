@@ -12,6 +12,7 @@ interface FilteringTestHarnessProps {
   initialFilterState: EditableTableFilterState;
   controlled: boolean;
   caption?: string;
+  useToolbar?: boolean;
 }
 
 const FilteringTestHarness: FC<FilteringTestHarnessProps> = ({
@@ -20,6 +21,7 @@ const FilteringTestHarness: FC<FilteringTestHarnessProps> = ({
   initialFilterState,
   controlled,
   caption,
+  useToolbar,
 }) => {
   const [filterState, setFilterState] = useState(initialFilterState);
   const filterModel: FilterModel = useMemo(
@@ -38,7 +40,14 @@ const FilteringTestHarness: FC<FilteringTestHarnessProps> = ({
     [caption, controlled, filterState, initialFilterState],
   );
 
-  return <Grid rows={rows} cols={cols} filterModel={filterModel} />;
+  return (
+    <Grid
+      rows={rows}
+      cols={cols}
+      filterModel={filterModel}
+      useToolbar={useToolbar}
+    />
+  );
 };
 
 export default FilteringTestHarness;

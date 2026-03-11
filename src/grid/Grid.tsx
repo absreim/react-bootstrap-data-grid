@@ -39,6 +39,8 @@ import { ColSortModel, TableSortModel } from "./sorting/types";
 import { GridPaginationState } from "./pagination/types";
 import isSubset from "./util/isSubset";
 import useFilterStateStore from "./pipeline/useFilterStateStore";
+import useInterfaces, { InterfaceParams } from "./toolbar/useInterfaces";
+import ToolbarContainer from "./toolbar/ToolbarContainer";
 
 export interface GridProps {
   rows: RowDef[];
@@ -50,6 +52,7 @@ export interface GridProps {
   editModel?: EditModel;
   caption?: string;
   styleModel?: StyleModel;
+  useToolbar?: boolean;
 }
 
 const Grid: FC<GridProps> = ({
@@ -62,6 +65,7 @@ const Grid: FC<GridProps> = ({
   editModel,
   caption,
   styleModel,
+  useToolbar,
 }) => {
   const normalizedTableFilterModel = useFilterStateStore(filterModel, cols);
   const editableFilterState =
@@ -86,6 +90,28 @@ const Grid: FC<GridProps> = ({
 
   const [filterOptionsVisible, setFilterOptionsVisible] =
     useState<boolean>(false);
+
+  const toolbarInterfaceParams: InterfaceParams = useMemo(
+    () => ({
+      filtering:
+        useToolbar && filterState && filterModel && normalizedTableFilterModel
+          ? {
+              filterState: filterState,
+              setFilterState: normalizedTableFilterModel.setTableFilterState,
+              caption: filterModel.filterTableCaption,
+              styleModel: styleModel?.filterInputTableStyleModel,
+            }
+          : undefined,
+    }),
+    [
+      filterModel,
+      filterState,
+      normalizedTableFilterModel,
+      styleModel?.filterInputTableStyleModel,
+      useToolbar,
+    ],
+  );
+  const toolbarInterfaces = useInterfaces(toolbarInterfaceParams);
 
   const handleToggleFilterOptions = () => {
     setFilterOptionsVisible(!filterOptionsVisible);
@@ -279,7 +305,7 @@ const Grid: FC<GridProps> = ({
       data-testid="rbdg-top-level-div"
       className={classNames(unwrappedAdditionalStyleModel.topLevelDiv)}
     >
-      {normalizedTableFilterModel && (
+      {normalizedTableFilterModel && !useToolbar && (
         <div
           data-testid="rbdg-filter-inputs-div"
           className={classNames(unwrappedAdditionalStyleModel.filterInputsDiv)}
@@ -302,6 +328,7 @@ const Grid: FC<GridProps> = ({
           )}
         </div>
       )}
+      {useToolbar && <ToolbarContainer interfaces={toolbarInterfaces} />}
       <div
         data-testid="rbdg-table-and-pagination-div"
         className={classNames(

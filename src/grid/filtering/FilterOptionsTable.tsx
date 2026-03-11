@@ -19,7 +19,7 @@ import classNames from "classnames";
 import { unwrapFilterInputTableStyleModel } from "../styling/styleModelUnwrappers";
 import { FilterInputTableStyleModel } from "../styling/types";
 
-interface FilterOptionsTableProps {
+export interface FilterOptionsTableProps {
   filterState: TableFilterState;
   setFilterState: (filterState: EditableTableFilterState) => void;
   caption?: string;

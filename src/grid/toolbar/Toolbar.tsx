@@ -40,7 +40,7 @@ const Toolbar: FC<ToolbarProps> = ({
   activeClasses,
   inactiveClasses,
 }) => (
-  <div className="hstack gap-2 justify-content-end">
+  <div className="hstack justify-content-start">
     {Object.keys(buttonsInfo)
       .filter(
         (toolbarOption) => !!enabledFeatures[toolbarOption as ToolbarOption],
@@ -53,8 +53,8 @@ const Toolbar: FC<ToolbarProps> = ({
           key={toolbarOption}
           className={classNames(
             ...(option === toolbarOption
-              ? activeClasses || ["btn-primary", "active"]
-              : inactiveClasses || ["btn-secondary"]),
+              ? activeClasses || ["btn", "btn-primary", "active"]
+              : inactiveClasses || ["btn", "btn-secondary"]),
           )}
           title={buttonsInfo[toolbarOption as ToolbarOption].label}
           onClick={() => {
