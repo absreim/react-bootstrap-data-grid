@@ -525,3 +525,36 @@ test("no initial state mode works correctly", async ({ page }) => {
   gridTable = container.locator('table[aria-rowcount="1"]');
   await expect(gridTable).toBeVisible();
 });
+
+test("filtering interface works correctly from the toolbar", async ({ page }) => {
+  const testIdPrefix = "toolbar interface grid container";
+  for (const testId of getTestIdVariants(testIdPrefix)) {
+    const container = page.getByTestId(testId);
+
+    let gridTable = container.locator('table[aria-rowcount="1"]');
+    await expect(gridTable).toBeVisible();
+
+    const toolbar = container.getByRole("toolbar");
+    const filterToggle = toolbar.getByRole("button", { name: "Filtering" });
+    await filterToggle.click();
+
+    await container
+      .locator('input[aria-label="String Column Column Filter Toggle"]')
+      .uncheck();
+    await container
+      .locator('input[aria-label="Number Column Column Filter Toggle"]')
+      .uncheck();
+    await container
+      .locator('input[aria-label="Date Column Column Filter Toggle"]')
+      .uncheck();
+    await container
+      .locator('input[aria-label="Datetime Column Column Filter Toggle"]')
+      .uncheck();
+
+    await container.getByRole("button", { name: "Submit" }).click();
+    await filterToggle.click();
+
+    gridTable = container.locator('table[aria-rowcount="5"]');
+    await expect(gridTable).toBeVisible();
+  }
+});

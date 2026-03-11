@@ -6,16 +6,17 @@ export interface ToolbarProps {
   enabledFeatures: Partial<Record<ToolbarOption, boolean>>;
   option: ToolbarOption | null;
   setOption: (option: ToolbarOption | null) => void;
+  toolbarClasses?: string[];
   activeClasses?: string[];
   inactiveClasses?: string[];
 }
 
-interface ButtonInfo {
+interface ButtonSpec {
   label: string;
   icon: ReactNode;
 }
 
-const buttonsInfo: Record<ToolbarOption, ButtonInfo> = {
+const buttonSpecs: Record<ToolbarOption, ButtonSpec> = {
   filtering: {
     label: "Filtering",
     icon: (
@@ -37,17 +38,23 @@ const Toolbar: FC<ToolbarProps> = ({
   enabledFeatures,
   option,
   setOption,
+  toolbarClasses,
   activeClasses,
   inactiveClasses,
 }) => (
-  <div className="hstack gap-2 justify-content-start">
-    {Object.keys(buttonsInfo)
+  <div
+    className={classNames(
+      toolbarClasses || ["hstack", "gap-2", "justify-content-start"],
+    )}
+    role="toolbar"
+  >
+    {Object.keys(buttonSpecs)
       .filter(
         (toolbarOption) => !!enabledFeatures[toolbarOption as ToolbarOption],
       )
       .map((toolbarOption) => (
         <button
-          aria-label={buttonsInfo[toolbarOption as ToolbarOption].label}
+          aria-label={buttonSpecs[toolbarOption as ToolbarOption].label}
           aria-roledescription={`Grouped toggle button to show/hide ${toolbarOption} UI`}
           aria-pressed={option === toolbarOption}
           key={toolbarOption}
@@ -56,7 +63,7 @@ const Toolbar: FC<ToolbarProps> = ({
               ? activeClasses || ["btn", "btn-primary", "active"]
               : inactiveClasses || ["btn", "btn-secondary"]),
           )}
-          title={buttonsInfo[toolbarOption as ToolbarOption].label}
+          title={buttonSpecs[toolbarOption as ToolbarOption].label}
           onClick={() => {
             setOption(
               option === toolbarOption
@@ -65,7 +72,7 @@ const Toolbar: FC<ToolbarProps> = ({
             );
           }}
         >
-          {buttonsInfo[toolbarOption as ToolbarOption].icon}
+          {buttonSpecs[toolbarOption as ToolbarOption].icon}
         </button>
       ))}
   </div>

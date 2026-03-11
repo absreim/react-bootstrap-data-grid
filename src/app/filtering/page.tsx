@@ -483,7 +483,7 @@ const testParamsList: TestParams[] = [
     caption: "filter table test caption",
   },
   {
-    testId: "toolbar filtering interface grid container",
+    testId: "toolbar interface grid container",
     cols: combinedTestCols,
     rows: combinedTestRows,
     initialState: combinedFilterState,

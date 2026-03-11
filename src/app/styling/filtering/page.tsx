@@ -1,10 +1,10 @@
 import { FC } from "react";
-import FilterOptionsStylingTestHarness from "@/app/styling/filtering/FilterOptionsStylingTestHarness";
+import FilterStylingTestHarness from "@/app/styling/filtering/FilterStylingTestHarness";
 
 const Test: FC = () => {
   return (
     <>
-      <FilterOptionsStylingTestHarness />
+      <FilterStylingTestHarness />
     </>
   );
 };

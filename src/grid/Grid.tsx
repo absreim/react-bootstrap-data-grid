@@ -328,7 +328,12 @@ const Grid: FC<GridProps> = ({
           )}
         </div>
       )}
-      {useToolbar && <ToolbarContainer interfaces={toolbarInterfaces} />}
+      {useToolbar && (
+        <ToolbarContainer
+          interfaces={toolbarInterfaces}
+          styleModel={styleModel?.toolbarStyleModel}
+        />
+      )}
       <div
         data-testid="rbdg-table-and-pagination-div"
         className={classNames(
