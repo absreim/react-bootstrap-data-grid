@@ -1,4 +1,10 @@
-import { FC, FormEventHandler, ReactNode, useMemo, useState } from "react";
+import {
+  FC,
+  ReactNode,
+  SubmitEventHandler,
+  useMemo,
+  useState,
+} from "react";
 import StringFilterRow from "./StringFilterRow";
 import {
   EditableTableFilterState,
@@ -178,7 +184,7 @@ const FilterOptionsTable: FC<FilterOptionsTableProps> = ({
       }
     });
 
-  const onSubmit: FormEventHandler<HTMLFormElement> = (event) => {
+  const onSubmit: SubmitEventHandler = (event) => {
     event.preventDefault();
 
     const editableTableFilterState =
@@ -186,7 +192,9 @@ const FilterOptionsTable: FC<FilterOptionsTableProps> = ({
     setFilterState(editableTableFilterState);
   };
 
-  // TODO: consider using an accordion to show and hide this component
+  // TODO: consider using an accordion to show and hide this component.
+  // Will eventually be a moot point due to the toolbar being implemented, but
+  // still worth considering for backwards compatibility.
   return (
     <form onSubmit={onSubmit}>
       <table className={classNames("table", ...unwrappedStyleModel.table)}>

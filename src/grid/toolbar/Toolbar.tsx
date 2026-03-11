@@ -3,6 +3,7 @@ import { FC, ReactNode } from "react";
 import classNames from "classnames";
 
 export interface ToolbarProps {
+  enabledFeatures: Partial<Record<ToolbarOption, boolean>>;
   option: ToolbarOption | null;
   setOption: (option: ToolbarOption | null) => void;
   activeClasses?: string[];
@@ -33,33 +34,40 @@ const buttonsInfo: Record<ToolbarOption, ButtonInfo> = {
 
 // TODO: figure out tabindex and accessibility
 const Toolbar: FC<ToolbarProps> = ({
+  enabledFeatures,
   option,
   setOption,
   activeClasses,
   inactiveClasses,
 }) => (
   <div className="hstack gap-2 justify-content-end">
-    {Object.keys(buttonsInfo).map((toolbarOption) => (
-      <button
-        aria-label={buttonsInfo[toolbarOption as ToolbarOption].label}
-        aria-roledescription={`Grouped toggle button to show/hide ${toolbarOption} UI`}
-        aria-pressed={option === toolbarOption}
-        key={toolbarOption}
-        className={classNames(
-          ...(option === toolbarOption
-            ? activeClasses || ["btn-primary", "active"]
-            : inactiveClasses || ["btn-secondary"]),
-        )}
-        title={buttonsInfo[toolbarOption as ToolbarOption].label}
-        onClick={() => {
-          setOption(
-            option === toolbarOption ? null : (toolbarOption as ToolbarOption),
-          );
-        }}
-      >
-        {buttonsInfo[toolbarOption as ToolbarOption].icon}
-      </button>
-    ))}
+    {Object.keys(buttonsInfo)
+      .filter(
+        (toolbarOption) => !!enabledFeatures[toolbarOption as ToolbarOption],
+      )
+      .map((toolbarOption) => (
+        <button
+          aria-label={buttonsInfo[toolbarOption as ToolbarOption].label}
+          aria-roledescription={`Grouped toggle button to show/hide ${toolbarOption} UI`}
+          aria-pressed={option === toolbarOption}
+          key={toolbarOption}
+          className={classNames(
+            ...(option === toolbarOption
+              ? activeClasses || ["btn-primary", "active"]
+              : inactiveClasses || ["btn-secondary"]),
+          )}
+          title={buttonsInfo[toolbarOption as ToolbarOption].label}
+          onClick={() => {
+            setOption(
+              option === toolbarOption
+                ? null
+                : (toolbarOption as ToolbarOption),
+            );
+          }}
+        >
+          {buttonsInfo[toolbarOption as ToolbarOption].icon}
+        </button>
+      ))}
   </div>
 );
 
