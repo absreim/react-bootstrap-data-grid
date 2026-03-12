@@ -26,9 +26,10 @@ export interface SingleSelectModel {
   type: "single";
   selected: RowId | null;
   setSelected: (selected: RowId | null) => void;
-  // string to uniquely identify the group of radio buttons
-  // must be unique across all radio button groups on the web page
-  groupName: string;
+  // String to uniquely identify the group of radio buttons
+  // must be unique across all radio button groups on the web page.
+  // No longer needed to be specified since useId can be used to generate an ID.
+  groupName?: string;
 }
 
 export type SelectModel = SingleSelectModel | MultiSelectModel;

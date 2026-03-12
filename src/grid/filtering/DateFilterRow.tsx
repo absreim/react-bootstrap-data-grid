@@ -1,10 +1,9 @@
-import { ChangeEventHandler, FC, useMemo } from "react";
+import { ChangeEventHandler, FC, useId } from "react";
 import {
   DateFilterScheme,
   dateFilterSchemeNames,
   DateFormFilterState,
 } from "./types";
-import { nanoid } from "nanoid/non-secure";
 import FilterRow, { CommonFilterRowStyleProps } from "./FilterRow";
 import classNames from "classnames";
 
@@ -72,7 +71,7 @@ const DateFilterRow: FC<DateFilterRowProps> = ({
   const { enabled, scheme, startDate, endDate } = filterState;
   const inputType = includeTime ? "datetime-local" : "date";
 
-  const inputId = useMemo(() => nanoid(), []);
+  const inputId = useId();
   const startDateInputId = `$startDate-${inputId}`;
   const endDateInputId = `$endDate-${inputId}`;
 

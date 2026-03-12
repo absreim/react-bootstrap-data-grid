@@ -86,4 +86,5 @@ export const unwrapAdditionalComponentsStyleModel: (
   filterInputsDiv: styleModel?.filterInputsDiv || [],
   tableAndPaginationDiv: styleModel?.tableAndPaginationDiv || [],
   filterUiToggleButton: styleModel?.filterUiToggleButton || [],
+  paginationUiDiv: styleModel?.paginationUiDiv || [],
 });

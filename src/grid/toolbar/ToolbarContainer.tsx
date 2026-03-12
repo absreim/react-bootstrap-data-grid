@@ -16,7 +16,8 @@ const ToolbarContainer: FC<ToolbarContainerProps> = ({
   const [option, setOption] = useState<ToolbarOption | null>(null);
   const enabledFeatures = Object.keys(interfaces).reduce(
     (prev, toolbarOption) => {
-      prev[toolbarOption as ToolbarOption] = true;
+      prev[toolbarOption as ToolbarOption] =
+        !!interfaces[toolbarOption as ToolbarOption];
       return prev;
     },
     {} as Partial<Record<ToolbarOption, boolean>>,
@@ -34,7 +35,7 @@ const ToolbarContainer: FC<ToolbarContainerProps> = ({
         activeClasses={styleModel?.activeButton}
         inactiveClasses={styleModel?.inactiveButton}
       />
-      <div>
+      <div className="position-relative">
         {option !== null && (
           <div
             data-testid="toolbar feature interface content container"

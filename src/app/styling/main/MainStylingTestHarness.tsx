@@ -79,6 +79,7 @@ const styleModel: StyleModel = {
   additionalComponentsStyleModel: {
     topLevelDiv: ["top-level-div-test-class"],
     tableAndPaginationDiv: ["table-and-pagination-div-test-class"],
+    paginationUiDiv: ["pagination-ui-div-test-class"],
   },
   mainTableStyleModel: {
     table: ["main-table-test-class"],

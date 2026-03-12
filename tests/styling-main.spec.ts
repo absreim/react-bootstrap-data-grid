@@ -9,6 +9,7 @@ test("single element styles work", async ({ page }) => {
   const tableAndPaginationDiv = page.getByTestId(
     "rbdg-table-and-pagination-div",
   );
+  const paginationUiDiv = page.getByTestId("pagination ui container div");
   const table = page.getByRole("table");
   const tbody = page.locator("tbody");
   const thead = page.locator("thead");
@@ -23,6 +24,7 @@ test("single element styles work", async ({ page }) => {
   await expect(tableAndPaginationDiv).toHaveClass(
     "table-and-pagination-div-test-class",
   );
+  await expect(paginationUiDiv).toHaveClass("pagination-ui-div-test-class");
   await expect(table).toContainClass("main-table-test-class table");
   await expect(tbody).toHaveClass("main-table-body-test-class");
   await expect(thead).toHaveClass("main-table-thead-test-class");

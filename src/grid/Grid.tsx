@@ -1,6 +1,6 @@
 "use client";
 
-import { FC, MouseEventHandler, useMemo, useState } from "react";
+import { FC, MouseEventHandler, useId, useMemo, useState } from "react";
 import { ColDef, FormattedRow, RowData, RowDef, RowId } from "./types";
 import ColHeaderCell from "./ColHeaderCell";
 import useFilter from "./pipeline/useFilter";
@@ -41,6 +41,7 @@ import isSubset from "./util/isSubset";
 import useFilterStateStore from "./pipeline/useFilterStateStore";
 import useInterfaces, { InterfaceParams } from "./toolbar/useInterfaces";
 import ToolbarContainer from "./toolbar/ToolbarContainer";
+import useExportFn from "./export/useExportFn";
 
 export interface GridProps {
   rows: RowDef[];
@@ -90,6 +91,12 @@ const Grid: FC<GridProps> = ({
 
   const [filterOptionsVisible, setFilterOptionsVisible] =
     useState<boolean>(false);
+  const exportFnInfo = useExportFn({
+    rows,
+    cols,
+    filteredRows: filterModel && filteredRows,
+    currentPageRows: pagination && paginatedRows,
+  });
 
   const toolbarInterfaceParams: InterfaceParams = useMemo(
     () => ({
@@ -102,11 +109,16 @@ const Grid: FC<GridProps> = ({
               styleModel: styleModel?.filterInputTableStyleModel,
             }
           : undefined,
+      exporting: useToolbar
+        ? { exportFnInfo, styleModel: styleModel?.exportFormStyleModel }
+        : undefined,
     }),
     [
+      exportFnInfo,
       filterModel,
       filterState,
       normalizedTableFilterModel,
+      styleModel?.exportFormStyleModel,
       styleModel?.filterInputTableStyleModel,
       useToolbar,
     ],
@@ -179,6 +191,7 @@ const Grid: FC<GridProps> = ({
   };
 
   // used to group radio buttons for selection
+  const gridId = useId();
   const getSelectInputModel: (
     id: RowId,
     selectModel: SelectModel,
@@ -186,7 +199,7 @@ const Grid: FC<GridProps> = ({
     if (selectModel.type === "single") {
       return {
         type: "radio",
-        name: selectModel.groupName,
+        name: selectModel.groupName || gridId,
       };
     }
 
@@ -479,6 +492,7 @@ const Grid: FC<GridProps> = ({
           <Pagination
             normalizedModel={normalizedModel}
             prePagingNumRows={sortedRows.length}
+            containerDivClasses={unwrappedAdditionalStyleModel.paginationUiDiv}
           />
         )}
       </div>
