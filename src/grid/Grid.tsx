@@ -41,6 +41,7 @@ import isSubset from "./util/isSubset";
 import useFilterStateStore from "./pipeline/useFilterStateStore";
 import useInterfaces, { InterfaceParams } from "./toolbar/useInterfaces";
 import ToolbarContainer from "./toolbar/ToolbarContainer";
+import useExportFn from "./export/useExportFn";
 
 export interface GridProps {
   rows: RowDef[];
@@ -90,6 +91,12 @@ const Grid: FC<GridProps> = ({
 
   const [filterOptionsVisible, setFilterOptionsVisible] =
     useState<boolean>(false);
+  const exportFnInfo = useExportFn({
+    rows,
+    cols,
+    filteredRows,
+    currentPageRows: paginatedRows,
+  });
 
   const toolbarInterfaceParams: InterfaceParams = useMemo(
     () => ({
@@ -102,8 +109,10 @@ const Grid: FC<GridProps> = ({
               styleModel: styleModel?.filterInputTableStyleModel,
             }
           : undefined,
+      exporting: useToolbar ? exportFnInfo : undefined,
     }),
     [
+      exportFnInfo,
       filterModel,
       filterState,
       normalizedTableFilterModel,
