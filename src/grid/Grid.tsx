@@ -1,6 +1,6 @@
 "use client";
 
-import { FC, MouseEventHandler, useMemo, useState } from "react";
+import { FC, MouseEventHandler, useId, useMemo, useState } from "react";
 import { ColDef, FormattedRow, RowData, RowDef, RowId } from "./types";
 import ColHeaderCell from "./ColHeaderCell";
 import useFilter from "./pipeline/useFilter";
@@ -179,6 +179,7 @@ const Grid: FC<GridProps> = ({
   };
 
   // used to group radio buttons for selection
+  const gridId = useId();
   const getSelectInputModel: (
     id: RowId,
     selectModel: SelectModel,
@@ -186,7 +187,7 @@ const Grid: FC<GridProps> = ({
     if (selectModel.type === "single") {
       return {
         type: "radio",
-        name: selectModel.groupName,
+        name: selectModel.groupName || gridId,
       };
     }
 
