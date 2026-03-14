@@ -1,5 +1,5 @@
 import { ExportFnInfo, FileType, Stage } from "./useExportFn";
-import { FC, Fragment, useId, useState } from "react";
+import { FC, SubmitEventHandler, useId, useState } from "react";
 
 export interface ExportFormProps {
   exportFnInfo: ExportFnInfo;
@@ -77,7 +77,8 @@ const ExportForm: FC<ExportFormProps> = ({
     }
   ]
 
-  const handleSubmit = () => {
+  const handleSubmit: SubmitEventHandler = (event) => {
+    event.preventDefault();
     const { stage, fileType, formatted } = formState;
     exportFn(stage, fileType, formatted)
   }
@@ -87,7 +88,7 @@ const ExportForm: FC<ExportFormProps> = ({
       <fieldset>
         <legend>Choose data to export</legend>
         {stageOptions.map(({ value, label, disabled }) => (
-          <Fragment key={value}>
+          <div className="form-check" key={value}>
             <input
               className="form-check-input"
               type="radio"
@@ -100,13 +101,13 @@ const ExportForm: FC<ExportFormProps> = ({
             <label className="form-check-label" htmlFor={`${formId}-${value}`}>
               {label}
             </label>
-          </Fragment>
+          </div>
         ))}
       </fieldset>
       <fieldset>
         <legend>Choose whether to apply formatters</legend>
         {formatOptions.map(({ formatted, label, disabled }) => (
-          <Fragment key={String(formatted)}>
+          <div className="form-check" key={String(formatted)}>
             <input
               className="form-check-input"
               type="radio"
@@ -122,13 +123,13 @@ const ExportForm: FC<ExportFormProps> = ({
             >
               {label}
             </label>
-          </Fragment>
+          </div>
         ))}
       </fieldset>
       <fieldset>
         <legend>Choose the file type</legend>
         {fileTypeOptions.map(({ fileType, label }) => (
-          <Fragment key={fileType}>
+          <div className="form-check" key={fileType}>
             <input
               className="form-check-input"
               type="radio"
@@ -143,7 +144,7 @@ const ExportForm: FC<ExportFormProps> = ({
             >
               {label}
             </label>
-          </Fragment>
+          </div>
         ))}
       </fieldset>
       <button type="submit" className="btn btn-secondary">
