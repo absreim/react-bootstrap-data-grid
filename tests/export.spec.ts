@@ -24,9 +24,8 @@ const downloadAndRead: (
   const downloadPromise = page.waitForEvent("download");
   await container.getByRole("button", { name: "Submit" }).click();
   const download = await downloadPromise;
-  await download.saveAs(download.suggestedFilename());
 
-  return fs.readFileSync(download.suggestedFilename(), "utf8");
+  return fs.readFileSync(await download.path(), "utf8");
 };
 
 test("unavailable options are disabled", async ({ page }) => {
