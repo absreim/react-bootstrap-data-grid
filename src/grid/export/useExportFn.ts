@@ -100,7 +100,7 @@ const exportCsv: (
   {
     const formattedRows = applyFormatters(rows, cols, useDefaultFormatters);
     const flattenedRows = flattenExportRows(formattedRows);
-    const csv = Papa.unparse(flattenedRows);
+    const csv = Papa.unparse(flattenedRows , { header: true });
     downloadFile(csv, "export.csv", "text/csv");
   };
 
