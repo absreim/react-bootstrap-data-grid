@@ -4,11 +4,20 @@ import ExportTestHarness from "@/app/export/ExportTestHarness";
 const Page: FC = () => {
   return (
     <>
-      <ExportTestHarness
-        enableFiltering={true}
-        enablePaginaton={true}
-        enableFormatters={true}
-      />
+      <div data-testid="options disabled test container">
+        <ExportTestHarness
+          enableFiltering={false}
+          enablePaginaton={false}
+          enableFormatters={false}
+        />
+      </div>
+      <div data-testid="options enabled test container">
+        <ExportTestHarness
+          enableFiltering={true}
+          enablePaginaton={true}
+          enableFormatters={true}
+        />
+      </div>
     </>
   );
 };

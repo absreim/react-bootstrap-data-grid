@@ -94,8 +94,8 @@ const Grid: FC<GridProps> = ({
   const exportFnInfo = useExportFn({
     rows,
     cols,
-    filteredRows,
-    currentPageRows: paginatedRows,
+    filteredRows: filterModel && filteredRows,
+    currentPageRows: pagination && paginatedRows,
   });
 
   const toolbarInterfaceParams: InterfaceParams = useMemo(

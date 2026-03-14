@@ -1,5 +1,5 @@
 import { ToolbarOption } from "./types";
-import { FC, ReactNode } from "react";
+import { FC, ReactNode, useEffect, useState } from "react";
 import classNames from "classnames";
 
 export interface ToolbarProps {
@@ -56,7 +56,15 @@ const Toolbar: FC<ToolbarProps> = ({
   toolbarClasses,
   activeClasses,
   inactiveClasses,
-}) => (
+}) => {
+  const [mounted, setMounted] = useState(false);
+  useEffect(() => {
+    // Needed to work around race condition with Playwright and SSR hydration
+    // eslint-disable-next-line react-hooks/set-state-in-effect
+    setMounted(true);
+  }, []);
+
+  return (
   <div
     className={classNames(
       toolbarClasses || ["hstack", "gap-2", "justify-content-start"],
@@ -86,11 +94,12 @@ const Toolbar: FC<ToolbarProps> = ({
                 : (toolbarOption as ToolbarOption),
             );
           }}
+          disabled={!mounted}
         >
           {buttonSpecs[toolbarOption as ToolbarOption].icon}
         </button>
       ))}
   </div>
-);
+)};
 
 export default Toolbar;
