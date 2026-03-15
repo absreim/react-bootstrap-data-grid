@@ -59,7 +59,7 @@ const Toolbar: FC<ToolbarProps> = ({
 }) => (
   <div
     className={classNames(
-      toolbarClasses || ["hstack", "gap-2", "justify-content-start"],
+      toolbarClasses || ["hstack", "gap-2", "justify-content-start", "px-2"],
     )}
     role="toolbar"
   >
@@ -75,8 +75,8 @@ const Toolbar: FC<ToolbarProps> = ({
           key={toolbarOption}
           className={classNames(
             ...(option === toolbarOption
-              ? activeClasses || ["btn", "btn-primary", "active"]
-              : inactiveClasses || ["btn", "btn-secondary"]),
+              ? activeClasses || ["btn", "btn-outline-secondary", "active"]
+              : inactiveClasses || ["btn", "btn-outline-secondary"]),
           )}
           title={buttonSpecs[toolbarOption as ToolbarOption].label}
           onClick={() => {

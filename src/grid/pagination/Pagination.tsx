@@ -3,17 +3,18 @@ import PageSizeSelector from "./PageSizeSelector";
 import PageSelector from "./PageSelector";
 import { JustifyContentSetting } from "../types";
 import { NormalizedPaginationModel } from "./types";
+import classNames from "classnames";
 
 export interface PaginationProps {
   normalizedModel: NormalizedPaginationModel;
   prePagingNumRows: number;
-  pageSelectorAriaLabel?: string; // aria-label of the nav element
-  pageSelectorJustifyContent?: JustifyContentSetting;
+  containerDivClasses: string[];
 }
 
 const Pagination: FC<PaginationProps> = ({
   normalizedModel,
   prePagingNumRows,
+  containerDivClasses,
 }) => {
   const {
     pageSizeOptions,
@@ -45,7 +46,14 @@ const Pagination: FC<PaginationProps> = ({
   };
 
   return (
-    <div className="d-flex justify-content-end gap-2">
+    <div
+      data-testid="pagination ui container div"
+      className={classNames(
+        containerDivClasses.length > 0
+          ? containerDivClasses
+          : ["d-flex", "justify-content-end", "gap-2", "px-2"],
+      )}
+    >
       <PageSizeSelector
         componentSize={componentSize}
         pageSizeOptions={pageSizeOptions}

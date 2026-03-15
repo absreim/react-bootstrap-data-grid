@@ -489,6 +489,7 @@ const Grid: FC<GridProps> = ({
           <Pagination
             normalizedModel={normalizedModel}
             prePagingNumRows={sortedRows.length}
+            containerDivClasses={unwrappedAdditionalStyleModel.paginationUiDiv}
           />
         )}
       </div>

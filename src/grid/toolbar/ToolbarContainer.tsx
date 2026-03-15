@@ -16,7 +16,7 @@ const ToolbarContainer: FC<ToolbarContainerProps> = ({
   const [option, setOption] = useState<ToolbarOption | null>(null);
   const enabledFeatures = Object.keys(interfaces).reduce(
     (prev, toolbarOption) => {
-      prev[toolbarOption as ToolbarOption] = true;
+      prev[toolbarOption as ToolbarOption] = !!interfaces[toolbarOption as ToolbarOption];
       return prev;
     },
     {} as Partial<Record<ToolbarOption, boolean>>,

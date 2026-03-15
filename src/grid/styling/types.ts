@@ -49,6 +49,7 @@ export interface AdditionalComponentsStyleModel {
   filterInputsDiv?: string[];
   tableAndPaginationDiv?: string[];
   filterUiToggleButton?: string[];
+  paginationUiDiv?: string[];
 }
 
 export interface ToolbarStyleModel {
