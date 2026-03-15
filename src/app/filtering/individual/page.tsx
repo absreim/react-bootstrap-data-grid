@@ -369,7 +369,7 @@ const testParamsList: TestParams[] = [
     cols: datetimeTestCols,
     rows: datetimeTestRows,
     initialState: betweenDatetimesFilterState,
-  }
+  },
 ];
 
 const Test: FC = () => {

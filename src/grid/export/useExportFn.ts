@@ -13,7 +13,11 @@ export interface UseExportFnsParams {
 
 export type Stage = "original" | "filtered" | "paged";
 export type FileType = "csv" | "json";
-export type ExportFn = (stage: Stage, fileType: FileType, formatted: boolean) => void
+export type ExportFn = (
+  stage: Stage,
+  fileType: FileType,
+  formatted: boolean,
+) => void;
 
 export interface ExportFnInfo {
   exportFn: ExportFn;
@@ -85,24 +89,26 @@ const flattenExportRows: (
 ) => Record<string, string | number>[] = (rows) =>
   rows.map(({ id, data }) => ({ id, ...data }));
 
-const exportJson: (rows: RowDef[], cols: ColDef[], useDefaultFormatters: boolean) => void = (rows, cols, useDefaultFormatters) =>
-  {
-    const formattedRows = applyFormatters(rows, cols, useDefaultFormatters);
-    const json = JSON.stringify(formattedRows, null, 2);
-    downloadFile(json, "export.json", "application/json");
-  }
+const exportJson: (
+  rows: RowDef[],
+  cols: ColDef[],
+  useDefaultFormatters: boolean,
+) => void = (rows, cols, useDefaultFormatters) => {
+  const formattedRows = applyFormatters(rows, cols, useDefaultFormatters);
+  const json = JSON.stringify(formattedRows, null, 2);
+  downloadFile(json, "export.json", "application/json");
+};
 
 const exportCsv: (
   rows: RowDef[],
   cols: ColDef[],
   useDefaultFormatters: boolean,
-) => void = (rows, cols, useDefaultFormatters) =>
-  {
-    const formattedRows = applyFormatters(rows, cols, useDefaultFormatters);
-    const flattenedRows = flattenExportRows(formattedRows);
-    const csv = Papa.unparse(flattenedRows , { header: true });
-    downloadFile(csv, "export.csv", "text/csv");
-  };
+) => void = (rows, cols, useDefaultFormatters) => {
+  const formattedRows = applyFormatters(rows, cols, useDefaultFormatters);
+  const flattenedRows = flattenExportRows(formattedRows);
+  const csv = Papa.unparse(flattenedRows, { header: true });
+  downloadFile(csv, "export.csv", "text/csv");
+};
 
 const useExportFn: (params: UseExportFnsParams) => ExportFnInfo = ({
   rows,
@@ -160,12 +166,15 @@ const useExportFn: (params: UseExportFnsParams) => ExportFnInfo = ({
     [cols, currentPageRows, filteredRows, formattersExist, rows],
   );
 
-  return useMemo(() => ({
-    exportFn,
-    formattersExist,
-    paginationEnabled: !!currentPageRows,
-    filteringEnabled: !!filteredRows
-  }), [currentPageRows, exportFn, filteredRows, formattersExist])
+  return useMemo(
+    () => ({
+      exportFn,
+      formattersExist,
+      paginationEnabled: !!currentPageRows,
+      filteringEnabled: !!filteredRows,
+    }),
+    [currentPageRows, exportFn, filteredRows, formattersExist],
+  );
 };
 
 export default useExportFn;

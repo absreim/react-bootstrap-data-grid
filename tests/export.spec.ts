@@ -240,4 +240,4 @@ test("custom styles work correctly", async ({ page }) => {
 
   const submit = form.getByRole("button");
   await expect(submit).toHaveClass("submit-button-test-class");
-})
+});

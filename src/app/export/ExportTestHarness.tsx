@@ -121,7 +121,7 @@ const styleModel: ExportFormStyleModel = {
   radioInput: ["radio-input-test-class"],
   radioLabel: ["radio-label-test-class"],
   submitButton: ["submit-button-test-class"],
-}
+};
 
 const ExportTestHarness: FC<ExportTestHarnessProps> = ({
   enableFiltering,
@@ -161,9 +161,13 @@ const ExportTestHarness: FC<ExportTestHarnessProps> = ({
             }
           : undefined
       }
-      styleModel={enableStyles ? {
-        exportFormStyleModel: styleModel
-      } : undefined}
+      styleModel={
+        enableStyles
+          ? {
+              exportFormStyleModel: styleModel,
+            }
+          : undefined
+      }
       useToolbar={true}
     />
   );

@@ -71,7 +71,7 @@ const DateFilterRow: FC<DateFilterRowProps> = ({
   const { enabled, scheme, startDate, endDate } = filterState;
   const inputType = includeTime ? "datetime-local" : "date";
 
-  const inputId = useId()
+  const inputId = useId();
   const startDateInputId = `$startDate-${inputId}`;
   const endDateInputId = `$endDate-${inputId}`;
 

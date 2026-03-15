@@ -21,7 +21,7 @@ const ExportForm: FC<ExportFormProps> = ({
     paginationEnabled,
     filteringEnabled,
   },
-  styleModel
+  styleModel,
 }) => {
   const formId = useId();
   const [formState, setFormState] = useState<FormState>({
@@ -30,34 +30,41 @@ const ExportForm: FC<ExportFormProps> = ({
     fileType: "json",
   });
 
-  const getChangeHandler: (field: keyof FormState, value: any) => () => void = (field, value) => {
+  const getChangeHandler: (field: keyof FormState, value: any) => () => void = (
+    field,
+    value,
+  ) => {
     return () => {
       setFormState((prev) => ({
         ...prev,
         [field]: value,
       }));
     };
-  }
+  };
 
   const stageOptions: { value: Stage; label: string; disabled: boolean }[] = [
     {
       value: "original",
       label: "Original rows",
-      disabled: false
+      disabled: false,
     },
     {
       value: "filtered",
       label: `After filters applied${filteringEnabled ? "" : " (filtering disabled)"}`,
-      disabled: !filteringEnabled
+      disabled: !filteringEnabled,
     },
     {
       value: "paged",
       label: `Current page only${paginationEnabled ? "" : " (pagination disabled)"}`,
-      disabled: !paginationEnabled
-    }
+      disabled: !paginationEnabled,
+    },
   ];
 
-  const formatOptions: { formatted: boolean; label: string; disabled: boolean }[] = [
+  const formatOptions: {
+    formatted: boolean;
+    label: string;
+    disabled: boolean;
+  }[] = [
     {
       formatted: false,
       label: "Use original data",
@@ -66,28 +73,28 @@ const ExportForm: FC<ExportFormProps> = ({
     {
       formatted: true,
       label: `Apply formatters to data${formattersExist ? "" : " (no formatters defined)"}`,
-      disabled: !formattersExist
-    }
+      disabled: !formattersExist,
+    },
   ];
 
-  const fileTypeOptions: { fileType: FileType, label: string }[] = [
+  const fileTypeOptions: { fileType: FileType; label: string }[] = [
     {
       fileType: "json",
-      label: "JSON"
+      label: "JSON",
     },
     {
       fileType: "csv",
-      label: "CSV"
-    }
-  ]
+      label: "CSV",
+    },
+  ];
 
   const handleSubmit: SubmitEventHandler = (event) => {
     event.preventDefault();
     const { stage, fileType, formatted } = formState;
-    exportFn(stage, fileType, formatted)
-  }
+    exportFn(stage, fileType, formatted);
+  };
 
-  const legendClasses = classNames(styleModel?.legend || [])
+  const legendClasses = classNames(styleModel?.legend || []);
   const radioContainerClasses = classNames(
     styleModel?.radioContainer || ["form-check"],
   );

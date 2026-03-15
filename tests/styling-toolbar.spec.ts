@@ -24,4 +24,4 @@ test("toolbar custom classes work as expected", async ({ page }) => {
   await expect(interfaceContainer).toHaveClass(
     "interface-container-test-class",
   );
-})
+});

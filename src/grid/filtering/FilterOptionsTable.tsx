@@ -1,10 +1,4 @@
-import {
-  FC,
-  ReactNode,
-  SubmitEventHandler,
-  useMemo,
-  useState,
-} from "react";
+import { FC, ReactNode, SubmitEventHandler, useMemo, useState } from "react";
 import StringFilterRow from "./StringFilterRow";
 import {
   EditableTableFilterState,
