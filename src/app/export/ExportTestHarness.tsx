@@ -1,12 +1,18 @@
 "use client";
 
 import { FC, useMemo } from "react";
-import Grid, { ColDef, EditableTableFilterState, RowDef } from "@/grid";
+import Grid, {
+  ColDef,
+  EditableTableFilterState,
+  ExportFormStyleModel,
+  RowDef,
+} from "@/grid";
 
 export interface ExportTestHarnessProps {
   enableFiltering: boolean;
   enablePaginaton: boolean;
   enableFormatters: boolean;
+  enableStyles: boolean;
 }
 
 const combinedTestCols: ColDef[] = [
@@ -109,10 +115,19 @@ const combinedFilterState: EditableTableFilterState = {
   },
 };
 
+const styleModel: ExportFormStyleModel = {
+  legend: ["legend-test-class"],
+  radioContainer: ["radio-container-test-class"],
+  radioInput: ["radio-input-test-class"],
+  radioLabel: ["radio-label-test-class"],
+  submitButton: ["submit-button-test-class"],
+}
+
 const ExportTestHarness: FC<ExportTestHarnessProps> = ({
   enableFiltering,
   enablePaginaton,
   enableFormatters,
+  enableStyles,
 }) => {
   const cols = useMemo(
     () =>
@@ -146,6 +161,9 @@ const ExportTestHarness: FC<ExportTestHarnessProps> = ({
             }
           : undefined
       }
+      styleModel={enableStyles ? {
+        exportFormStyleModel: styleModel
+      } : undefined}
       useToolbar={true}
     />
   );

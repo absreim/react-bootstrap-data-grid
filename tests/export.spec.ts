@@ -213,3 +213,31 @@ test("unformatted CSV export works correctly", async ({ page }) => {
   const data = Papa.parse(fileContents, { header: true }).data;
   expect(data).toEqual(parsedUnformattedCsvOutput);
 });
+
+test("custom styles work correctly", async ({ page }) => {
+  const container = await openExport(page, "styles test container");
+  const form = container.locator("form");
+
+  const divs = await form.locator("div").all();
+  for (const div of divs) {
+    await expect(div).toHaveClass("radio-container-test-class");
+  }
+
+  const legends = await form.locator("legend").all();
+  for (const legend of legends) {
+    await expect(legend).toHaveClass("legend-test-class");
+  }
+
+  const labels = await form.locator("label").all();
+  for (const label of labels) {
+    await expect(label).toHaveClass("radio-label-test-class");
+  }
+
+  const inputs = await form.getByRole("radio").all();
+  for (const input of inputs) {
+    await expect(input).toHaveClass("radio-input-test-class");
+  }
+
+  const submit = form.getByRole("button");
+  await expect(submit).toHaveClass("submit-button-test-class");
+})

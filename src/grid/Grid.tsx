@@ -109,13 +109,16 @@ const Grid: FC<GridProps> = ({
               styleModel: styleModel?.filterInputTableStyleModel,
             }
           : undefined,
-      exporting: useToolbar ? exportFnInfo : undefined,
+      exporting: useToolbar
+        ? { exportFnInfo, styleModel: styleModel?.exportFormStyleModel }
+        : undefined,
     }),
     [
       exportFnInfo,
       filterModel,
       filterState,
       normalizedTableFilterModel,
+      styleModel?.exportFormStyleModel,
       styleModel?.filterInputTableStyleModel,
       useToolbar,
     ],

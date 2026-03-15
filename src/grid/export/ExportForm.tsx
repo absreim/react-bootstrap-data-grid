@@ -1,8 +1,11 @@
 import { ExportFnInfo, FileType, Stage } from "./useExportFn";
 import { FC, SubmitEventHandler, useId, useState } from "react";
+import { ExportFormStyleModel } from "../styling/types";
+import classNames from "classnames";
 
 export interface ExportFormProps {
   exportFnInfo: ExportFnInfo;
+  styleModel?: ExportFormStyleModel;
 }
 
 interface FormState {
@@ -18,6 +21,7 @@ const ExportForm: FC<ExportFormProps> = ({
     paginationEnabled,
     filteringEnabled,
   },
+  styleModel
 }) => {
   const formId = useId();
   const [formState, setFormState] = useState<FormState>({
@@ -83,14 +87,28 @@ const ExportForm: FC<ExportFormProps> = ({
     exportFn(stage, fileType, formatted)
   }
 
+  const legendClasses = classNames(styleModel?.legend || [])
+  const radioContainerClasses = classNames(
+    styleModel?.radioContainer || ["form-check"],
+  );
+  const radioInputClasses = classNames(
+    styleModel?.radioInput || ["form-check-input"],
+  );
+  const radioLabelClasses = classNames(
+    styleModel?.radioLabel || ["form-check-label"],
+  );
+  const submitButtonClasses = classNames(
+    styleModel?.submitButton || ["btn", "btn-secondary"],
+  );
+
   return (
     <form onSubmit={handleSubmit}>
       <fieldset>
-        <legend>Choose data to export</legend>
+        <legend className={legendClasses}>Choose data to export</legend>
         {stageOptions.map(({ value, label, disabled }) => (
-          <div className="form-check" key={value}>
+          <div className={radioContainerClasses} key={value}>
             <input
-              className="form-check-input"
+              className={radioInputClasses}
               type="radio"
               id={`${formId}-${value}`}
               value={value}
@@ -98,18 +116,20 @@ const ExportForm: FC<ExportFormProps> = ({
               onChange={getChangeHandler("stage", value)}
               disabled={disabled}
             />
-            <label className="form-check-label" htmlFor={`${formId}-${value}`}>
+            <label className={radioLabelClasses} htmlFor={`${formId}-${value}`}>
               {label}
             </label>
           </div>
         ))}
       </fieldset>
       <fieldset>
-        <legend>Choose whether to apply formatters</legend>
+        <legend className={legendClasses}>
+          Choose whether to apply formatters
+        </legend>
         {formatOptions.map(({ formatted, label, disabled }) => (
-          <div className="form-check" key={String(formatted)}>
+          <div className={radioContainerClasses} key={String(formatted)}>
             <input
-              className="form-check-input"
+              className={radioInputClasses}
               type="radio"
               id={`${formId}-${formatted}`}
               value={String(formatted)}
@@ -118,7 +138,7 @@ const ExportForm: FC<ExportFormProps> = ({
               disabled={disabled}
             />
             <label
-              className="form-check-label"
+              className={radioLabelClasses}
               htmlFor={`${formId}-${formatted}`}
             >
               {label}
@@ -127,11 +147,11 @@ const ExportForm: FC<ExportFormProps> = ({
         ))}
       </fieldset>
       <fieldset>
-        <legend>Choose the file type</legend>
+        <legend className={legendClasses}>Choose the file type</legend>
         {fileTypeOptions.map(({ fileType, label }) => (
-          <div className="form-check" key={fileType}>
+          <div className={radioContainerClasses} key={fileType}>
             <input
-              className="form-check-input"
+              className={radioInputClasses}
               type="radio"
               id={`${formId}-${fileType}`}
               value={fileType}
@@ -139,7 +159,7 @@ const ExportForm: FC<ExportFormProps> = ({
               onChange={getChangeHandler("fileType", fileType)}
             />
             <label
-              className="form-check-label"
+              className={radioLabelClasses}
               htmlFor={`${formId}-${fileType}`}
             >
               {label}
@@ -147,7 +167,7 @@ const ExportForm: FC<ExportFormProps> = ({
           </div>
         ))}
       </fieldset>
-      <button type="submit" className="btn btn-secondary">
+      <button type="submit" className={submitButtonClasses}>
         Submit
       </button>
     </form>

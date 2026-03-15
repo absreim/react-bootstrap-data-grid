@@ -9,6 +9,7 @@ const Page: FC = () => {
           enableFiltering={false}
           enablePaginaton={false}
           enableFormatters={false}
+          enableStyles={false}
         />
       </div>
       <div data-testid="options enabled test container">
@@ -16,6 +17,15 @@ const Page: FC = () => {
           enableFiltering={true}
           enablePaginaton={true}
           enableFormatters={true}
+          enableStyles={false}
+        />
+      </div>
+      <div data-testid="styles test container">
+        <ExportTestHarness
+          enableFiltering={true}
+          enablePaginaton={true}
+          enableFormatters={true}
+          enableStyles={true}
         />
       </div>
     </>

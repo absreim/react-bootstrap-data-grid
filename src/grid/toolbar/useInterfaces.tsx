@@ -6,14 +6,14 @@ import { ExportFnInfo } from "../export/useExportFn";
 
 export interface InterfaceParams {
   filtering?: FilterOptionsTableProps;
-  exporting?: ExportFnInfo
+  exporting?: ExportFormProps
 }
 
 const useInterfaces: (params: InterfaceParams) => ToolbarInterfaces = ({ filtering, exporting }: InterfaceParams) => {
   return useMemo(
     () => ({
       filtering: filtering ? <FilterOptionsTable {...filtering} /> : undefined,
-      exporting: exporting ? <ExportForm exportFnInfo={exporting} /> : undefined,
+      exporting: exporting ? <ExportForm {...exporting} /> : undefined,
     }),
     [exporting, filtering],
   );
