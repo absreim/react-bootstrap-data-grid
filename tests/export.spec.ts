@@ -96,7 +96,7 @@ test("filtered JSON export works correctly", async ({ page }) => {
   const container = await openExport(page, "options enabled test container");
 
   const filteredRowsOption = container.getByRole("radio", {
-    name: "After filters applied",
+    name: "After filters applied (3 rows)",
   });
   await filteredRowsOption.check();
 
@@ -109,7 +109,7 @@ test("paged JSON export works correctly", async ({ page }) => {
   const container = await openExport(page, "options enabled test container");
 
   const paginatedRowsOption = container.getByRole("radio", {
-    name: "Current page only",
+    name: "Current page only (2 rows)",
   });
   await paginatedRowsOption.check();
 

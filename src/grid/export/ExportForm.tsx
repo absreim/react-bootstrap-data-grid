@@ -20,6 +20,7 @@ const ExportForm: FC<ExportFormProps> = ({
     formattersExist,
     paginationEnabled,
     filteringEnabled,
+    rowCounts,
   },
   styleModel,
 }) => {
@@ -42,20 +43,31 @@ const ExportForm: FC<ExportFormProps> = ({
     };
   };
 
+  const getRowCountLabel: (
+    featureType: string,
+    count: number | undefined,
+  ) => string = (featureType, count) => {
+    if (count === undefined) {
+      return `${featureType} disabled`;
+    }
+
+    return `${count} ${count === 1 ? "row" : "rows"}`;
+  };
+
   const stageOptions: { value: Stage; label: string; disabled: boolean }[] = [
     {
       value: "original",
-      label: "Original rows",
+      label: `Original rows (total ${rowCounts.total} ${rowCounts.total === 1 ? "row" : "rows"})`,
       disabled: false,
     },
     {
       value: "filtered",
-      label: `After filters applied${filteringEnabled ? "" : " (filtering disabled)"}`,
+      label: `After filters applied (${getRowCountLabel("filtering", rowCounts.filtered)})`,
       disabled: !filteringEnabled,
     },
     {
       value: "paged",
-      label: `Current page only${paginationEnabled ? "" : " (pagination disabled)"}`,
+      label: `Current page only (${getRowCountLabel("pagination", rowCounts.currentPage)})`,
       disabled: !paginationEnabled,
     },
   ];

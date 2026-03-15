@@ -24,6 +24,11 @@ export interface ExportFnInfo {
   formattersExist: boolean;
   filteringEnabled: boolean;
   paginationEnabled: boolean;
+  rowCounts: {
+    total: number;
+    filtered?: number;
+    currentPage?: number;
+  }
 }
 
 const downloadFile: (data: BlobPart, filename: string, type: string) => void = (
@@ -172,8 +177,13 @@ const useExportFn: (params: UseExportFnsParams) => ExportFnInfo = ({
       formattersExist,
       paginationEnabled: !!currentPageRows,
       filteringEnabled: !!filteredRows,
+      rowCounts: {
+        total: rows.length,
+        filtered: filteredRows?.length,
+        currentPage: currentPageRows?.length,
+      }
     }),
-    [currentPageRows, exportFn, filteredRows, formattersExist],
+    [currentPageRows, exportFn, filteredRows, formattersExist, rows.length],
   );
 };
 
