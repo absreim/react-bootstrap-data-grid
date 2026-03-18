@@ -2,7 +2,7 @@ import type { Metadata } from "next";
 import "./global.scss";
 
 export const metadata: Metadata = {
-  title: "React Bootstrap Data Grid Test Site",
+  title: "react-bootstrap-data-grid Test Site",
   description:
     "Playwright test targets for the react-bootstrap-data-grid project",
 };
