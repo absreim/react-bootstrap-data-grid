@@ -125,7 +125,7 @@ const formattedJsonOutput = [
       strCol: "2",
       numCol: "non-zero",
       dateCol: "1640995200000",
-      datetimeCol: "1640966460000",
+      datetimeCol: new Date("2022-01-01T01:01").valueOf().toString(),
     },
   },
   {
@@ -134,7 +134,7 @@ const formattedJsonOutput = [
       strCol: "4",
       numCol: "zero",
       dateCol: "1675296000000",
-      datetimeCol: "1675270920000",
+      datetimeCol: new Date("2023-02-02T02:02").valueOf().toString(),
     },
   },
   {
@@ -143,7 +143,7 @@ const formattedJsonOutput = [
       strCol: "4",
       numCol: "non-zero",
       dateCol: "1743724800000",
-      datetimeCol: "1709402580000",
+      datetimeCol: new Date("2024-03-03T03:03").valueOf().toString(),
     },
   },
   {
@@ -152,7 +152,7 @@ const formattedJsonOutput = [
       strCol: "4",
       numCol: "non-zero",
       dateCol: "1709424000000",
-      datetimeCol: "1743707040000",
+      datetimeCol: new Date("2025-04-04T04:04").valueOf().toString(),
     },
   },
 ];
