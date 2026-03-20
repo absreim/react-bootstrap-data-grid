@@ -77,6 +77,7 @@ export const unwrapFilterInputTableStyleModel: (
     ? filterTableStyleModel.endDateInput
     : () => [],
   submitButton: filterTableStyleModel?.submitButton || [],
+  form: filterTableStyleModel?.form || [],
 });
 
 export const unwrapAdditionalComponentsStyleModel: (

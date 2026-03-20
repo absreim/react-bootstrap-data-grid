@@ -28,6 +28,7 @@ test("toggle button custom style works", async ({ page }) => {
 
 test("filter table single element styles work", async ({ page }) => {
   const filterInputsDiv = page.getByTestId("rbdg-filter-inputs-div");
+  const form = filterInputsDiv.locator("form");
   const table = filterInputsDiv.getByRole("table");
   const tbody = table.locator("tbody");
   const thead = table.locator("thead");
@@ -35,6 +36,7 @@ test("filter table single element styles work", async ({ page }) => {
   const caption = table.getByRole("caption");
   const submitButton = filterInputsDiv.getByRole("button", { name: "Submit" });
 
+  await expect(form).toHaveClass("table-responsive");
   await expect(table).toHaveClass("table filter-input-table-test-class");
   await expect(tbody).toHaveClass("filter-input-table-body-test-class");
   await expect(thead).toHaveClass("filter-input-table-thead-test-class");

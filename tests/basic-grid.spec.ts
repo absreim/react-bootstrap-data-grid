@@ -74,3 +74,12 @@ test("displays the specified caption", async ({ page }) => {
   const captionElement = workingGridContainer.getByRole("caption");
   await expect(captionElement).toHaveText("basic test grid");
 });
+
+test("renders a responsive table when the relevant prop is passed", async ({
+  page,
+}) => {
+  const responsiveGridContainer = page.getByTestId("responsive grid container");
+
+  const tableContainer = responsiveGridContainer.getByTestId("rbdg-table-div");
+  await expect(tableContainer).toHaveClass("table-responsive");
+});

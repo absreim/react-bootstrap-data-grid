@@ -28,7 +28,7 @@ export interface ExportFnInfo {
     total: number;
     filtered?: number;
     currentPage?: number;
-  }
+  };
 }
 
 const downloadFile: (data: BlobPart, filename: string, type: string) => void = (
@@ -181,7 +181,7 @@ const useExportFn: (params: UseExportFnsParams) => ExportFnInfo = ({
         total: rows.length,
         filtered: filteredRows?.length,
         currentPage: currentPageRows?.length,
-      }
+      },
     }),
     [currentPageRows, exportFn, filteredRows, formattersExist, rows.length],
   );

@@ -186,11 +186,8 @@ const FilterOptionsTable: FC<FilterOptionsTableProps> = ({
     setFilterState(editableTableFilterState);
   };
 
-  // TODO: consider using an accordion to show and hide this component.
-  // Will eventually be a moot point due to the toolbar being implemented, but
-  // still worth considering for backwards compatibility.
   return (
-    <form onSubmit={onSubmit}>
+    <form onSubmit={onSubmit} className={classNames(styleModel?.form)}>
       <table className={classNames("table", ...unwrappedStyleModel.table)}>
         {caption && (
           <caption className={classNames(unwrappedStyleModel.caption)}>

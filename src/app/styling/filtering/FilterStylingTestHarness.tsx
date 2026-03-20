@@ -44,6 +44,7 @@ const styleModel: StyleModel = {
     ],
     endDateInput: (rowIndex) => [`end-date-input-test-class-row-${rowIndex}`],
     submitButton: ["submit-button-test-class"],
+    form: ["table-responsive"],
   },
   toolbarStyleModel: {
     activeButton: ["active-button-test-class"],

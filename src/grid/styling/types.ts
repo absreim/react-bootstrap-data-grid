@@ -42,6 +42,7 @@ export type FilterInputTableStyleModel = SharedTableStyleModel & {
   startDateInput?: (rowIndex: number) => string[];
   endDateInput?: (rowIndex: number) => string[];
   submitButton?: string[];
+  form?: string[];
 };
 
 export interface AdditionalComponentsStyleModel {
