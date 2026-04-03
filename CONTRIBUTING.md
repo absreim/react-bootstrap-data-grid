@@ -86,7 +86,7 @@ To publish a package after successfully building it for distribution, change to 
 use the NPM CLI:
 
 ```bash
-cd ./dist
+cd ./dist/community
 ```
 
 Login with the NPM CLI. Run the following command and click the login link to log in with your browser.

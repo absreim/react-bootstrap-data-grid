@@ -4,7 +4,7 @@
   "private": true,
   "description": "Monorepo containing a documentation site as well as the component's code for a data grid UI component for use with web apps using React and Bootstrap.",
   "homepage": "https://react-bootstrap-data-grid.vercel.app/",
-  "license": "MIT",
+  "license": "VARIES BY SUBDIR. SEE LICENSE.md FILES.",
   "author": "Brook Li",
   "scripts": {
     "dev": "next dev",

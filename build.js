@@ -8,19 +8,21 @@ const { execSync } = require("child_process");
 // CONFIG
 // --------------------
 const root = path.resolve(__dirname, "./src/grid");
-const distDir = "./dist";
+const distDir = "./dist/community";
 
 const srcScss = path.join(root, "style.scss");
 const distScss = path.join(distDir, "style.scss");
 const distCss = path.join(distDir, "style.css");
 
-const templateDir = path.join(__dirname, "dist-templates");
+const templateDir = path.join(__dirname, "dist-templates/community");
 
 // --------------------
 // HELPERS
 // --------------------
 function cleanDist(dir) {
-  if (!fs.existsSync(dir)) return;
+  if (!fs.existsSync(dir)) {
+    fs.mkdirSync(dir, { recursive: true });
+  }
 
   for (const entry of fs.readdirSync(dir, { withFileTypes: true })) {
     const fullPath = path.join(dir, entry.name);
