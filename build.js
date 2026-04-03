@@ -7,23 +7,29 @@ const { execSync } = require("child_process");
 // --------------------
 // CONFIG
 // --------------------
-const root = path.resolve(__dirname, "./src/grid");
-const distDir = "./dist/community";
+const isPro = process.argv[2] === "pro";
+const root = path.resolve(__dirname, `./src/${isPro ? "grid-pro" : "grid"}`);
+const distDir = `./dist/${isPro ? "pro" : "community"}`;
+const packDir = `./package/${isPro ? "pro" : "community"}`;
 
 const srcScss = path.join(root, "style.scss");
 const distScss = path.join(distDir, "style.scss");
 const distCss = path.join(distDir, "style.css");
 
-const templateDir = path.join(__dirname, "dist-templates/community");
+const templateDir = path.join(__dirname, `dist-templates/${ isPro ? "pro" : "community"}`);
 
 // --------------------
 // HELPERS
 // --------------------
-function cleanDist(dir) {
-  if (!fs.existsSync(dir)) {
-    fs.mkdirSync(dir, { recursive: true });
-  }
+function createDirs(...dirs) {
+  dirs.forEach((dir) => {
+    if (!fs.existsSync(dir)) {
+      fs.mkdirSync(dir, { recursive: true });
+    }
+  })
+}
 
+function cleanDist(dir) {
   for (const entry of fs.readdirSync(dir, { withFileTypes: true })) {
     const fullPath = path.join(dir, entry.name);
 
@@ -60,6 +66,7 @@ if (!fs.existsSync(srcScss)) {
   throw new Error(`Missing SCSS file: ${srcScss}`);
 }
 
+createDirs(distDir, packDir);
 cleanDist(distDir);
 copyWithDirs(srcScss, distScss);
 compileScss(distScss, distCss);
