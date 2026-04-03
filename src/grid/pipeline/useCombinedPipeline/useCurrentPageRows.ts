@@ -1,17 +1,19 @@
 import { useMemo, useState } from "react";
-import { RowDef } from "../types";
+import { RowDef } from "../../types";
 import {
   NormalizedPaginationModel,
   GridPaginationState,
-} from "../pagination/types";
+} from "../../pagination/types";
+
+export interface CurrentPageRowsOutput {
+  paginatedRows: RowDef[];
+  normalizedModel: NormalizedPaginationModel | null;
+}
 
 const useCurrentPageRows: (
   sortedRows: RowDef[],
   paginationModel: GridPaginationState | undefined,
-) => {
-  paginatedRows: RowDef[];
-  normalizedModel: NormalizedPaginationModel | null;
-} = (sortedRows, paginationModel) => {
+) => CurrentPageRowsOutput = (sortedRows, paginationModel) => {
   const componentSize = paginationModel?.componentSize || "medium";
   const isControlled = paginationModel?.type !== "uncontrolled";
   const [internalPageSizeIndex, setInternalPageSizeIndex] = useState<number>(

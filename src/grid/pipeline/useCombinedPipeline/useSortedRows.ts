@@ -1,6 +1,13 @@
 import { useMemo, useState } from "react";
-import { ColDataTypeStrings, ColDef, RowDef } from "../types";
-import { SortColDef, TableSortModel } from "../sorting/types";
+import { ColDataTypeStrings, ColDef, ColDefBase, RowDef } from "../../types";
+import { SortColDef, TableSortModel } from "../../sorting/types";
+
+export interface SortedRowsOutput {
+  sortedRows: RowDef[];
+  sortingEnabled: boolean;
+  sortColDef: SortColDef | null | undefined;
+  setSortColDef: ((sortColDef: SortColDef | null) => void) | undefined;
+}
 
 const getTypeComparator: (
   typeStr: ColDataTypeStrings,
@@ -31,14 +38,9 @@ const getRowComparator: (
 
 const useSortedRows: (
   rows: RowDef[],
-  cols: ColDef[],
+  cols: ColDefBase[],
   sortModel: TableSortModel | undefined,
-) => {
-  sortedRows: RowDef[];
-  sortingEnabled: boolean;
-  sortColDef: SortColDef | null | undefined;
-  setSortColDef: ((sortColDef: SortColDef | null) => void) | undefined;
-} = (rows, cols, sortModel) => {
+) => SortedRowsOutput = (rows, cols, sortModel) => {
   const [internalSortColDef, setInternalSortColDef] =
     useState<SortColDef | null>(
       (sortModel?.type === "uncontrolled" && sortModel.initialSortColDef) ||

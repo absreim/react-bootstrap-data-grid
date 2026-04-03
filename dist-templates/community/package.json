@@ -1,7 +1,7 @@
 {
   "name": "@absreim/react-bootstrap-data-grid",
   "description": "Data grid UI component for use with web apps using React and Bootstrap",
-  "version": "2.3.0",
+  "version": "2.4.0",
   "license": "MIT",
   "author": "Brook Li",
   "homepage": "https://react-bootstrap-data-grid.vercel.app/",
@@ -29,6 +29,6 @@
   "repository": {
     "type": "git",
     "url": "git+https://github.com/absreim/react-bootstrap-data-grid.git",
-    "directory": "grid"
+    "directory": "src/grid"
   }
 }

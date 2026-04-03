@@ -10,6 +10,7 @@ const arrowPlaceholder = (
     fill="currentColor"
     viewBox="0 0 16 16"
   >
+    <title>(not being sorted)</title>
     <desc>Empty transparent square for styling purposes</desc>
   </svg>
 );

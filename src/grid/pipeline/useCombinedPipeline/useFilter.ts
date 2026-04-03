@@ -1,11 +1,11 @@
-import { RowDef } from "../types";
+import { RowDef } from "../../types";
 import { useMemo } from "react";
 import {
   DateFilterState,
   EditableTableFilterState,
   NumberFilterState,
   StringFilterState,
-} from "../filtering/types";
+} from "../../filtering/types";
 
 const useFilter: (
   rows: RowDef[],

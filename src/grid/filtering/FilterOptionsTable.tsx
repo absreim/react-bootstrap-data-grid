@@ -7,7 +7,7 @@ import {
   TableFilterState,
 } from "./types";
 import NumberFilterRow from "./NumberFilterRow";
-import useFormStateFromTableFilterState from "./useFormStateFromTableFilterState";
+import useFilterFormState from "./useFilterFormState";
 import DateFilterRow from "./DateFilterRow";
 import classNames from "classnames";
 import { unwrapFilterInputTableStyleModel } from "../styling/styleModelUnwrappers";
@@ -87,7 +87,7 @@ const FilterOptionsTable: FC<FilterOptionsTableProps> = ({
   caption,
   styleModel,
 }) => {
-  const formFilterState = useFormStateFromTableFilterState(filterState);
+  const formFilterState = useFilterFormState(filterState);
   const [formState, setFormState] = useState(formFilterState);
 
   const unwrappedStyleModel = useMemo(

@@ -1,5 +1,5 @@
 import { test } from "@playwright/test";
-import { validateGridContents } from "./util";
+import { validateGridContents } from "../util";
 
 test.beforeEach(async ({ page }) => {
   await page.goto("filtering/other");

@@ -1,12 +1,13 @@
 "use client";
 
-import { FC, ReactNode, useRef, useState } from "react";
+import { CSSProperties, FC, ReactNode, useRef, useState } from "react";
 import { dateToDatetimeInputStr, dateToInputStr } from "../util/datetime";
 import { ColDataType, ColDataTypeStrings, RowId } from "../types";
 import EditControlsCell from "./EditControlsCell";
 import React from "react";
 import classNames from "classnames";
 import { CellData } from "./types";
+import getWidthStyle from "../util/getWidthStyle";
 
 export type EditableRowProps = Pick<
   React.ComponentProps<"tr">,
@@ -25,6 +26,7 @@ export type EditableRowProps = Pick<
   cancelButtonClasses: string[];
   startButtonClasses: string[];
   saveButtonClasses: string[];
+  editControlCellStyles?: CSSProperties;
 };
 
 const initValueToFormValue: (
@@ -76,6 +78,7 @@ const EditableRow: FC<EditableRowProps> = ({
   startButtonClasses,
   cancelButtonClasses,
   deleteButtonClasses,
+  editControlCellStyles,
 }) => {
   const trRef = useRef<HTMLTableRowElement>(null);
   const [isEditing, setIsEditing] = useState<boolean>(false);
@@ -122,11 +125,12 @@ const EditableRow: FC<EditableRowProps> = ({
       data-rowid={dataRowId}
     >
       {children}
-      {cellData.map(({ type, value, formattedValue, label }, index) => (
+      {cellData.map(({ type, value, formattedValue, label, width }, index) => (
         <td
           key={index}
           aria-colindex={index + ariaColIndexOffset + 1}
           className={classNames(dataCellClasses(index))}
+          style={getWidthStyle(width)}
         >
           {isEditing && !!updateCallback ? (
             <input
@@ -158,6 +162,7 @@ const EditableRow: FC<EditableRowProps> = ({
           deleteButtonClasses={deleteButtonClasses}
           cancelButtonClasses={cancelButtonClasses}
           saveButtonClasses={saveButtonClasses}
+          style={editControlCellStyles}
         />
       )}
     </tr>
