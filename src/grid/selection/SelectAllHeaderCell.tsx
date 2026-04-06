@@ -1,14 +1,15 @@
 "use client";
 
-import { FC, useEffect, useRef } from "react";
+import { CSSProperties, FC, useEffect, useRef } from "react";
 import classNames from "classnames";
-import { SelectionInfo, SelectType } from "./types";
+import { SelectionInfo } from "./types";
 
 interface SelectAllHeaderCellProps {
   onClick: () => void;
   selectionInfo: SelectionInfo;
   totalRows: number;
   additionalClasses?: string[];
+  style?: CSSProperties;
 }
 
 interface CheckboxState {
@@ -71,6 +72,7 @@ const SelectAllHeaderCell: FC<SelectAllHeaderCellProps> = ({
   selectionInfo,
   totalRows,
   additionalClasses,
+  style
 }) => {
   const noRows = totalRows === 0;
   const { indeterminate, checked, disabled, description } = getCheckboxState(
@@ -85,6 +87,7 @@ const SelectAllHeaderCell: FC<SelectAllHeaderCellProps> = ({
 
   return (
     <th
+      style={style}
       aria-colindex={1}
       title={description}
       aria-description={description}

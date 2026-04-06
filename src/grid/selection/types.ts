@@ -14,15 +14,18 @@ export type SelectMode = "column" | "row" | "both";
 // Equivalent to the options for the "type" field in SelectModel
 export type SelectType = "single" | "multi";
 
-export interface MultiSelectModel {
+interface BaseSelectModel {
   mode: SelectMode;
+  selectColWidth?: number;
+}
+
+export type MultiSelectModel = BaseSelectModel & {
   type: "multi";
   selected: RowId[];
   setSelected: (selected: RowId[]) => void;
 }
 
-export interface SingleSelectModel {
-  mode: SelectMode;
+export type SingleSelectModel = BaseSelectModel & {
   type: "single";
   selected: RowId | null;
   setSelected: (selected: RowId | null) => void;

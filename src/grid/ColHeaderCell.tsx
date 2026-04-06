@@ -1,6 +1,6 @@
 "use client";
 
-import { FC, ReactNode } from "react";
+import { CSSProperties, FC, ReactNode } from "react";
 import downArrow from "./sorting/downArrow";
 import upArrow from "./sorting/upArrow";
 import arrowPlaceholder from "./sorting/arrowPlaceholder";
@@ -13,6 +13,7 @@ interface ColHeaderCellProps {
   sortModel?: ColSortModel;
   ariaColIndex: number;
   additionalClasses?: string[];
+  style?: CSSProperties;
 }
 
 const ColHeaderCell: FC<ColHeaderCellProps> = ({
@@ -20,6 +21,7 @@ const ColHeaderCell: FC<ColHeaderCellProps> = ({
   sortModel,
   ariaColIndex,
   additionalClasses,
+  style
 }) => {
   const { isHovering, handleMouseOver, handleMouseOut } =
     useControlledHover<HTMLTableCellElement>();
@@ -82,6 +84,7 @@ const ColHeaderCell: FC<ColHeaderCellProps> = ({
           : "Column header that can be clicked to change the sorting mode"
       }
       aria-colindex={ariaColIndex}
+      style={style}
     >
       {label}
       {getSortSymbol()}

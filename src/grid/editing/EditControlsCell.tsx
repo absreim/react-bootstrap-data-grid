@@ -1,4 +1,4 @@
-import { FC, MouseEventHandler } from "react";
+import { CSSProperties, FC, MouseEventHandler } from "react";
 import classNames from "classnames";
 
 export interface EditControlsCellProps {
@@ -13,6 +13,7 @@ export interface EditControlsCellProps {
   deleteButtonClasses: string[];
   startButtonClasses: string[];
   cancelButtonClasses: string[];
+  style?: CSSProperties;
 }
 
 const stopPropagationWrapper: (

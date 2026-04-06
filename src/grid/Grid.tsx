@@ -1,7 +1,20 @@
 "use client";
 
-import { FC, MouseEventHandler, useId, useMemo, useState } from "react";
-import { ColDef, FormattedRow, RowData, RowDef, RowId } from "./types";
+import {
+  FC,
+  MouseEventHandler,
+  useId,
+  useMemo,
+  useState,
+} from "react";
+import {
+  ColDef,
+  DisplayMode,
+  FormattedRow,
+  RowData,
+  RowDef,
+  RowId,
+} from "./types";
 import ColHeaderCell from "./ColHeaderCell";
 import useFilter from "./pipeline/useFilter";
 import ToggleButton from "./ToggleButton";
@@ -42,6 +55,7 @@ import useFilterStateStore from "./pipeline/useFilterStateStore";
 import useInterfaces, { InterfaceParams } from "./toolbar/useInterfaces";
 import ToolbarContainer from "./toolbar/ToolbarContainer";
 import useExportFn from "./export/useExportFn";
+import getWidthStyle from "./util/getWidthStyle";
 
 export interface GridProps {
   rows: RowDef[];
@@ -55,6 +69,7 @@ export interface GridProps {
   styleModel?: StyleModel;
   useToolbar?: boolean;
   responsive?: boolean;
+  displayMode?: DisplayMode;
 }
 
 const Grid: FC<GridProps> = ({
@@ -69,6 +84,7 @@ const Grid: FC<GridProps> = ({
   styleModel,
   useToolbar,
   responsive,
+  displayMode,
 }) => {
   const normalizedTableFilterModel = useFilterStateStore(filterModel, cols);
   const editableFilterState =
@@ -321,6 +337,7 @@ const Grid: FC<GridProps> = ({
         "table",
         {
           "table-hover": rowsAreSelectable,
+          "d-block": displayMode === "block",
         },
         unwrappedTableModel.table,
       )}
@@ -338,13 +355,14 @@ const Grid: FC<GridProps> = ({
         >
           {showSelectCol && (
             <SelectAllHeaderCell
+              style={getWidthStyle(selectModel?.selectColWidth)}
               selectionInfo={selectionInfo!}
               onClick={selectAllOnClick}
               totalRows={rows.length}
               additionalClasses={unwrappedTableModel.rowSelectColTh}
             />
           )}
-          {cols.map(({ name, label, sortable }, index) => {
+          {cols.map(({ name, label, sortable, width }, index) => {
             const colSortModel: ColSortModel | undefined =
               sortingEnabled && sortable
                 ? {
@@ -362,6 +380,7 @@ const Grid: FC<GridProps> = ({
                 sortModel={colSortModel}
                 ariaColIndex={index + 1 + (showSelectCol ? 1 : 0)}
                 additionalClasses={unwrappedTableModel.theadTh(index)}
+                style={getWidthStyle(width)}
               />
             );
           })}
@@ -369,6 +388,7 @@ const Grid: FC<GridProps> = ({
             <th
               aria-colindex={cols.length + 1 + (showSelectCol ? 1 : 0)}
               className={classNames(unwrappedTableModel.editColTh)}
+              style={getWidthStyle(editModel?.editColWidth)}
             >
               Edit Controls
             </th>
@@ -429,6 +449,7 @@ const Grid: FC<GridProps> = ({
                     unwrappedTableModel.rowSelectColTd(row.id, index),
                   )}
                   aria-colindex={1}
+                  style={getWidthStyle(selectModel.selectColWidth)}
                 >
                   <SelectionInput
                     selected={selectedSet.has(row.id)}

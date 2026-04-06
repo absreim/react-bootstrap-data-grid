@@ -9,6 +9,7 @@ export interface ColDef<ValueType = any> {
   label: string;
   formatter?: (value: ValueType) => string;
   sortable?: boolean; // default false
+  width?: number;
 }
 
 type ValidRowData = Record<string, any>;
@@ -36,3 +37,5 @@ export type JustifyContentSetting =
   | "evenly";
 
 export type Size = "small" | "medium" | "large";
+
+export type DisplayMode = "table" | "block";
