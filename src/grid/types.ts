@@ -1,4 +1,10 @@
-import { CellData } from "./editing/types";
+import { CellData, EditModel } from "./editing/types";
+import { GridPaginationState } from "./pagination/types";
+import { ColSortModel, TableSortModel } from "./sorting/types";
+import { FilterModel } from "./filtering/types";
+import { SelectModel } from "./selection/types";
+import { StyleModel } from "./styling/types";
+import { CSSProperties } from "react";
 
 export type ColDataType = string | number | Date;
 export type ColDataTypeStrings = "string" | "number" | "date" | "datetime";
@@ -39,3 +45,26 @@ export type JustifyContentSetting =
 export type Size = "small" | "medium" | "large";
 
 export type DisplayMode = "table" | "block";
+
+export interface GridProps {
+  rows: RowDef[];
+  cols: ColDef[];
+  pagination?: GridPaginationState;
+  sortModel?: TableSortModel;
+  filterModel?: FilterModel;
+  selectModel?: SelectModel;
+  editModel?: EditModel;
+  caption?: string;
+  styleModel?: StyleModel;
+  useToolbar?: boolean;
+  responsive?: boolean;
+  displayMode?: DisplayMode;
+}
+
+export interface ColHeaderCellProps {
+  label: string;
+  sortModel?: ColSortModel;
+  ariaColIndex: number;
+  additionalClasses?: string[];
+  style?: CSSProperties;
+}

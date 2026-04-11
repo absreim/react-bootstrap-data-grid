@@ -1,27 +1,19 @@
 "use client";
 
-import { CSSProperties, FC, ReactNode } from "react";
+import { FC, ReactNode } from "react";
 import downArrow from "./sorting/downArrow";
 import upArrow from "./sorting/upArrow";
 import arrowPlaceholder from "./sorting/arrowPlaceholder";
 import classNames from "classnames";
 import useControlledHover from "./util/useControlledHover";
-import { ColSortModel } from "./sorting/types";
-
-interface ColHeaderCellProps {
-  label: string;
-  sortModel?: ColSortModel;
-  ariaColIndex: number;
-  additionalClasses?: string[];
-  style?: CSSProperties;
-}
+import { ColHeaderCellProps } from "./types";
 
 const ColHeaderCell: FC<ColHeaderCellProps> = ({
   label,
   sortModel,
   ariaColIndex,
   additionalClasses,
-  style
+  style,
 }) => {
   const { isHovering, handleMouseOver, handleMouseOut } =
     useControlledHover<HTMLTableCellElement>();

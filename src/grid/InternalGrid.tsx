@@ -1,0 +1,486 @@
+"use client";
+
+import {
+  FC,
+  MouseEventHandler,
+  ReactNode,
+  useId,
+  useMemo,
+  useState,
+} from "react";
+import { RowData, RowDef, RowId, GridProps } from "./types";
+import ToggleButton from "./ToggleButton";
+import FilterOptionsTable from "./filtering/FilterOptionsTable";
+import SelectAllHeaderCell from "./selection/SelectAllHeaderCell";
+import SelectionInput, {
+  SelectionInputModel,
+} from "./selection/SelectionInput";
+import Pagination from "./pagination/Pagination";
+import classNames from "classnames";
+import EditableRow from "./editing/EditableRow";
+import inputStrsToRowData from "./editing/inputStrsToRowData";
+import {
+  unwrapAdditionalComponentsStyleModel,
+  unwrapTableStyleModel,
+} from "./styling/styleModelUnwrappers";
+import {
+  AdditionalComponentsStyleModel,
+  TableStyleModel,
+} from "./styling/types";
+import {
+  MultiExistingSelection,
+  MultiSelectModel,
+  SelectionInfo,
+  SelectModel,
+} from "./selection/types";
+import isSubset from "./util/isSubset";
+import useInterfaces, { InterfaceParams } from "./toolbar/useInterfaces";
+import ToolbarContainer from "./toolbar/ToolbarContainer";
+import useExportFn from "./export/useExportFn";
+import getWidthStyle from "./util/getWidthStyle";
+import { CombinedPipelineOutput } from "./pipeline/useCombinedPipeline";
+
+export interface InternalGridProps {
+  gridProps: GridProps;
+  pipelineOutput: CombinedPipelineOutput;
+  slots: {
+    colHeaderCells: ReactNode;
+  };
+}
+
+const InternalGrid: FC<InternalGridProps> = ({
+  gridProps: {
+    rows,
+    cols,
+    pagination,
+    filterModel,
+    selectModel,
+    editModel,
+    caption,
+    styleModel,
+    useToolbar,
+    responsive,
+    displayMode,
+  },
+  pipelineOutput,
+  slots: { colHeaderCells },
+}) => {
+  const {
+    normalizedTableFilterModel,
+    filteredRows,
+    filterState,
+    sortedRowsOutput: { sortedRows },
+    currentPageRowsOutput: { paginatedRows, normalizedModel },
+    showSelectCol,
+    ariaColIndexOffset,
+    displayRows
+  } = pipelineOutput;
+
+  const [filterOptionsVisible, setFilterOptionsVisible] =
+    useState<boolean>(false);
+  const exportFnInfo = useExportFn({
+    rows,
+    cols,
+    filteredRows: filterModel && filteredRows,
+    currentPageRows: pagination && paginatedRows,
+  });
+
+  const toolbarInterfaceParams: InterfaceParams = useMemo(
+    () => ({
+      filtering:
+        useToolbar && filterState && filterModel && normalizedTableFilterModel
+          ? {
+              filterState: filterState,
+              setFilterState: normalizedTableFilterModel.setTableFilterState,
+              caption: filterModel.filterTableCaption,
+              styleModel: styleModel?.filterInputTableStyleModel,
+            }
+          : undefined,
+      exporting: useToolbar
+        ? { exportFnInfo, styleModel: styleModel?.exportFormStyleModel }
+        : undefined,
+    }),
+    [
+      exportFnInfo,
+      filterModel,
+      filterState,
+      normalizedTableFilterModel,
+      styleModel?.exportFormStyleModel,
+      styleModel?.filterInputTableStyleModel,
+      useToolbar,
+    ],
+  );
+  const toolbarInterfaces = useInterfaces(toolbarInterfaceParams);
+
+  const handleToggleFilterOptions = () => {
+    setFilterOptionsVisible(!filterOptionsVisible);
+  };
+
+  const getSelectionExists: () => boolean = () => {
+    if (!selectModel) {
+      return false;
+    }
+
+    if (selectModel.type === "single") {
+      return selectModel.selected !== null;
+    }
+
+    return (selectModel as MultiSelectModel).selected.length > 0;
+  };
+  const selectionExists = getSelectionExists();
+
+  const selectAllOnClick: () => void = () => {
+    if (!selectModel) {
+      return;
+    }
+
+    if (selectionExists && selectModel.type === "single") {
+      selectModel.setSelected(null);
+      return;
+    }
+
+    if (selectionExists && selectModel.type === "multi") {
+      selectModel.setSelected([]);
+      return;
+    }
+
+    if (!selectionExists && selectModel.type === "multi") {
+      const allRowIndices = rows.map((_, index) => index);
+      selectModel.setSelected(allRowIndices);
+    }
+
+    // Button should be disabled in the case of selectionExists &&
+    // selectModel.type === "single", so function execution should never get
+    // to this point.
+  };
+
+  const getSelectHandler: (index: RowId) => () => void = (index) => () => {
+    if (!selectModel) {
+      return;
+    }
+
+    if (selectModel.type === "single") {
+      selectModel.setSelected(index);
+      return;
+    }
+
+    selectModel.setSelected(selectModel.selected.concat(index));
+  };
+
+  const getDeselectHandler: (index: RowId) => () => void = (index) => () => {
+    if (!selectModel || selectModel.type === "single") {
+      return;
+    }
+
+    selectModel.setSelected(
+      selectModel.selected.filter((num) => num !== index),
+    );
+  };
+
+  // used to group radio buttons for selection
+  const gridId = useId();
+  const getSelectInputModel: (
+    id: RowId,
+    selectModel: SelectModel,
+  ) => SelectionInputModel = (id, selectModel) => {
+    if (selectModel.type === "single") {
+      return {
+        type: "radio",
+        name: selectModel.groupName || gridId,
+      };
+    }
+
+    return {
+      type: "checkbox",
+      deselectCallback: getDeselectHandler(id),
+    };
+  };
+
+  const selectedSet = new Set<RowId>();
+  if (selectModel && selectModel.type === "multi") {
+    selectModel.selected.forEach((value) => selectedSet.add(value));
+  }
+  if (
+    selectModel &&
+    selectModel.type === "single" &&
+    selectModel.selected !== null
+  ) {
+    selectedSet.add(selectModel.selected);
+  }
+
+  const rowsAreSelectable = !!(selectModel && selectModel.mode !== "column");
+
+  const selectionInfo: SelectionInfo | null = useMemo(() => {
+    if (!selectModel) {
+      return null;
+    }
+
+    if (selectModel.type === "single") {
+      return {
+        selectType: "single",
+        existingSelection: selectionExists,
+      };
+    }
+
+    const getMultiExistingSelection: (
+      selectionExists: boolean,
+      rows: RowDef[],
+    ) => MultiExistingSelection = (selectionExists, rows) => {
+      const rowIndices = rows.map((_, index) => index);
+
+      // Note that isFullSelection is true if there are no rows at all. In that case, the return value of this function
+      // should be "none", not "full".
+      const isFullSelection = isSubset(rowIndices, selectModel.selected!);
+
+      if (!selectionExists) {
+        return "none";
+      }
+
+      if (isFullSelection) {
+        return "full";
+      }
+
+      return "partial";
+    };
+
+    return {
+      selectType: "multi",
+      existingSelection: getMultiExistingSelection(selectionExists, rows),
+    };
+  }, [selectModel, selectionExists, rows]);
+
+  const getRowClickHandler: (
+    index: RowId,
+  ) => MouseEventHandler<HTMLTableRowElement> = (index) => () => {
+    if (!rowsAreSelectable) {
+      return;
+    }
+
+    if (selectedSet.has(index)) {
+      getDeselectHandler(index)();
+      return;
+    }
+
+    getSelectHandler(index)();
+  };
+
+  const getAriaSelectedValue: (id: RowId) => "true" | "false" | undefined = (
+    id,
+  ) => {
+    if (!selectModel) {
+      return undefined;
+    }
+
+    return String(selectedSet.has(id)) as "true" | "false";
+  };
+
+  const getInputStrSubmitCallback:
+    | ((id: RowId) => (inputStrs: string[]) => void)
+    | undefined =
+    editModel &&
+    ((id) => {
+      const idSpecificCallback = editModel.getUpdateCallback(id);
+      return (inputStrs: string[]) => {
+        const rowData: RowData = inputStrsToRowData(cols, inputStrs);
+        idSpecificCallback(rowData);
+      };
+    });
+
+  // To give the developer the ability to specify between removing existing styles
+  // and simply adding additional ones, we should migrate off of this "unwrapped"
+  // design over time and instead apply logic based on the original params that
+  // can be undefined.
+  const unwrappedTableModel: Required<TableStyleModel> = useMemo(
+    () => unwrapTableStyleModel(styleModel?.mainTableStyleModel),
+    [styleModel?.mainTableStyleModel],
+  );
+
+  const unwrappedAdditionalStyleModel: Required<AdditionalComponentsStyleModel> =
+    useMemo(
+      () =>
+        unwrapAdditionalComponentsStyleModel(
+          styleModel?.additionalComponentsStyleModel,
+        ),
+      [styleModel?.additionalComponentsStyleModel],
+    );
+
+  const mainTable = (
+    <table
+      className={classNames(
+        "table",
+        {
+          "table-hover": rowsAreSelectable,
+          "d-block": displayMode === "block",
+        },
+        unwrappedTableModel.table,
+      )}
+      aria-rowcount={filteredRows.length + 1}
+    >
+      {caption !== undefined && (
+        <caption className={classNames(unwrappedTableModel.caption)}>
+          {caption}
+        </caption>
+      )}
+      <thead className={classNames(unwrappedTableModel.thead)}>
+        <tr
+          aria-rowindex={1}
+          className={classNames(unwrappedTableModel.theadTr)}
+        >
+          {showSelectCol && (
+            <SelectAllHeaderCell
+              style={getWidthStyle(selectModel?.selectColWidth)}
+              selectionInfo={selectionInfo!}
+              onClick={selectAllOnClick}
+              totalRows={rows.length}
+              additionalClasses={unwrappedTableModel.rowSelectColTh}
+            />
+          )}
+          {colHeaderCells}
+          {editModel && (
+            <th
+              aria-colindex={cols.length + 1 + (showSelectCol ? 1 : 0)}
+              className={classNames(unwrappedTableModel.editColTh)}
+              style={getWidthStyle(editModel?.editColWidth)}
+            >
+              Edit Controls
+            </th>
+          )}
+        </tr>
+      </thead>
+      <tbody className={classNames(unwrappedTableModel.tbody)}>
+        {displayRows.map((row, index) => {
+          return (
+            <EditableRow
+              onClick={getRowClickHandler(row.id)}
+              className={classNames(
+                {
+                  "table-active": selectedSet.has(row.id),
+                },
+                unwrappedTableModel.tbodyTr(row.id, index),
+              )}
+              key={row.id}
+              aria-rowindex={index + 2}
+              dataRowId={row.id}
+              aria-selected={getAriaSelectedValue(row.id)}
+              ariaColIndexOffset={ariaColIndexOffset}
+              cellData={row.contents}
+              updateCallback={
+                getInputStrSubmitCallback && getInputStrSubmitCallback(row.id)
+              }
+              deleteCallback={
+                editModel?.getDeleteCallback &&
+                editModel.getDeleteCallback(row.id)
+              }
+              dataCellClasses={(colIndex) =>
+                unwrappedTableModel.tbodyTd(row.id, index, colIndex)
+              }
+              dataCellInputClasses={(colIndex) =>
+                unwrappedTableModel.tbodyTdInput(row.id, index, colIndex)
+              }
+              editCellClasses={unwrappedTableModel.editColTd(row.id, index)}
+              saveButtonClasses={unwrappedTableModel.editSaveButton(
+                row.id,
+                index,
+              )}
+              deleteButtonClasses={unwrappedTableModel.editDeleteButton(
+                row.id,
+                index,
+              )}
+              startButtonClasses={unwrappedTableModel.editStartButton(
+                row.id,
+                index,
+              )}
+              cancelButtonClasses={unwrappedTableModel.editCancelButton(
+                row.id,
+                index,
+              )}
+            >
+              {showSelectCol && (
+                <td
+                  className={classNames(
+                    unwrappedTableModel.rowSelectColTd(row.id, index),
+                  )}
+                  aria-colindex={1}
+                  style={getWidthStyle(selectModel!.selectColWidth)}
+                >
+                  <SelectionInput
+                    selected={selectedSet.has(row.id)}
+                    selectionInputModel={getSelectInputModel(
+                      row.id,
+                      selectModel!,
+                    )}
+                    selectCallback={getSelectHandler(row.id)}
+                    additionalClasses={unwrappedTableModel.rowSelectInput(
+                      row.id,
+                      index,
+                    )}
+                  />
+                </td>
+              )}
+            </EditableRow>
+          );
+        })}
+      </tbody>
+    </table>
+  );
+
+  return (
+    <div
+      data-testid="rbdg-top-level-div"
+      className={classNames(unwrappedAdditionalStyleModel.topLevelDiv)}
+    >
+      {normalizedTableFilterModel && !useToolbar && (
+        <div
+          data-testid="rbdg-filter-inputs-div"
+          className={classNames(unwrappedAdditionalStyleModel.filterInputsDiv)}
+        >
+          <ToggleButton
+            isActive={filterOptionsVisible}
+            label={`${filterOptionsVisible ? "Hide" : "Show "} Filter Options`}
+            onClick={handleToggleFilterOptions}
+            classes={
+              styleModel?.additionalComponentsStyleModel?.filterUiToggleButton
+            }
+          />
+          {filterOptionsVisible && (
+            <FilterOptionsTable
+              caption={filterModel!.filterTableCaption}
+              filterState={filterState!}
+              setFilterState={normalizedTableFilterModel.setTableFilterState}
+              styleModel={styleModel?.filterInputTableStyleModel}
+            />
+          )}
+        </div>
+      )}
+      {useToolbar && (
+        <ToolbarContainer
+          interfaces={toolbarInterfaces}
+          styleModel={styleModel?.toolbarStyleModel}
+        />
+      )}
+      <div
+        data-testid="rbdg-table-and-pagination-div"
+        className={classNames(
+          unwrappedAdditionalStyleModel.tableAndPaginationDiv,
+        )}
+      >
+        {responsive ? (
+          <div data-testid="rbdg-table-div" className="table-responsive">
+            {mainTable}
+          </div>
+        ) : (
+          <>{mainTable}</>
+        )}
+        {normalizedModel && (
+          <Pagination
+            normalizedModel={normalizedModel}
+            prePagingNumRows={sortedRows.length}
+            containerDivClasses={unwrappedAdditionalStyleModel.paginationUiDiv}
+          />
+        )}
+      </div>
+    </div>
+  );
+};
+
+export default InternalGrid;
