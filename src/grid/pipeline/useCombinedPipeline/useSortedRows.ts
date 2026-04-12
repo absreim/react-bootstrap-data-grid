@@ -1,6 +1,6 @@
 import { useMemo, useState } from "react";
-import { ColDataTypeStrings, ColDef, RowDef } from "../types";
-import { SortColDef, TableSortModel } from "../sorting/types";
+import { ColDataTypeStrings, ColDef, RowDef } from "../../types";
+import { SortColDef, TableSortModel } from "../../sorting/types";
 
 export interface SortedRowsOutput {
   sortedRows: RowDef[];

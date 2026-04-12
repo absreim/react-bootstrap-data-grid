@@ -2,8 +2,8 @@ import {
   EditableTableFilterState,
   FilterModel,
   NormalizedTableFilterModel,
-} from "../filtering/types";
-import { ColDef } from "../types";
+} from "../../filtering/types";
+import { ColDef } from "../../types";
 import { useState } from "react";
 
 const generateEmptyFilterState: (cols: ColDef[]) => EditableTableFilterState = (

@@ -1,9 +1,9 @@
 import { useMemo, useState } from "react";
-import { RowDef } from "../types";
+import { RowDef } from "../../types";
 import {
   NormalizedPaginationModel,
   GridPaginationState,
-} from "../pagination/types";
+} from "../../pagination/types";
 
 export interface CurrentPageRowsOutput {
   paginatedRows: RowDef[];

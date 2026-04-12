@@ -5,12 +5,12 @@ import useSortedRows, { SortedRowsOutput } from "./useSortedRows";
 import useCurrentPageRows, {
   CurrentPageRowsOutput,
 } from "./useCurrentPageRows";
-import { FormattedRow, GridProps, RowDef } from "../types";
+import { FormattedRow, GridProps, RowDef } from "../../types";
 import useDisplayRows from "./useDisplayRows";
 import {
   NormalizedTableFilterModel,
   TableFilterState,
-} from "../filtering/types";
+} from "../../filtering/types";
 
 export type CombinedPipelineParams = Pick<GridProps, "cols" | "rows" | "filterModel" | "sortModel" | "pagination" | "selectModel">;
 export interface CombinedPipelineOutput {

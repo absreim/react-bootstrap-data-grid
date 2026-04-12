@@ -4,10 +4,10 @@ import {
   ColDef,
   ColDataType,
   ColDataTypeStrings,
-} from "../types";
+} from "../../types";
 import { useMemo } from "react";
-import { CellData } from "../editing/types";
-import { dateToDatetimeInputStr, dateToInputStr } from "../util/datetime";
+import { CellData } from "../../editing/types";
+import { dateToDatetimeInputStr, dateToInputStr } from "../../util/datetime";
 
 const getFormattedValue: (
   value: ColDataType,

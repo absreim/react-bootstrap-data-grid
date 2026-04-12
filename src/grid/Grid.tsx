@@ -25,6 +25,7 @@ const Grid: FC<GridProps> = (props) => {
           },
         }
         : undefined;
+
     return (
       <ColHeaderCell
         key={name}
