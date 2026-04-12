@@ -52,7 +52,8 @@ const GridPro: FC<GridProProps> = (props) => {
           styleModel.mainTableStyleModel.theadTh(index)
         }
         width={width}
-        resizeable={resizeable && displayMode === "block"}
+        displayMode={displayMode}
+        resizeable={resizeable}
       />
     );
   });

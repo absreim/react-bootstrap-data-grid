@@ -1,63 +1,20 @@
 "use client";
 
-import { FC, ReactNode } from "react";
-import downArrow from "../../sorting/downArrow";
-import upArrow from "../../sorting/upArrow";
-import arrowPlaceholder from "../../sorting/arrowPlaceholder";
+import { FC } from "react";
 import classNames from "classnames";
-import useControlledHover from "../../util/useControlledHover";
 import { ColHeaderCellProps } from "../../types";
 import getWidthStyle from "../../util/getWidthStyle";
+import useSortHeaderStates from "./useSortHeaderStates";
 
 const ColHeaderCell: FC<ColHeaderCellProps> = ({
   label,
   sortModel,
   ariaColIndex,
   additionalClasses,
-  width
+  width,
 }) => {
-  const { isHovering, handleMouseOver, handleMouseOut } =
-    useControlledHover<HTMLTableCellElement>();
-  const handleClick: () => void = () => {
-    if (!sortModel) {
-      return;
-    }
-
-    switch (sortModel.sortOrder) {
-      case null: {
-        sortModel.setSortOrder("asc");
-        return;
-      }
-      case "asc": {
-        sortModel.setSortOrder("desc");
-        return;
-      }
-      case "desc": {
-        sortModel.setSortOrder(null);
-      }
-    }
-  };
-
-  const getSortSymbol: () => ReactNode = () => {
-    if (!sortModel) {
-      return null;
-    }
-
-    switch (sortModel.sortOrder) {
-      case null: {
-        if (isHovering) {
-          return upArrow(true);
-        }
-        return arrowPlaceholder;
-      }
-      case "asc": {
-        return upArrow(false);
-      }
-      case "desc": {
-        return downArrow;
-      }
-    }
-  };
+  const { handleClick, handleMouseOver, handleMouseOut, sortSymbol } =
+    useSortHeaderStates(sortModel);
 
   return (
     <th
@@ -80,7 +37,7 @@ const ColHeaderCell: FC<ColHeaderCellProps> = ({
       style={getWidthStyle(width)}
     >
       {label}
-      {getSortSymbol()}
+      {sortSymbol}
     </th>
   );
 };

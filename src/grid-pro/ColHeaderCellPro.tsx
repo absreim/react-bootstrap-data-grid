@@ -1,13 +1,10 @@
 "use client";
 
-import { FC, ReactNode } from "react";
-import useControlledHover from "../grid/util/useControlledHover";
-import upArrow from "../grid/sorting/upArrow";
-import arrowPlaceholder from "../grid/sorting/arrowPlaceholder";
-import downArrow from "../grid/sorting/downArrow";
+import { FC, useMemo, useState } from "react";
 import classNames from "classnames";
 import getWidthStyle from "../grid/util/getWidthStyle";
 import { ColHeaderCellProProps } from "./types";
+import useSortHeaderStates from "../grid/main/ColHeaderCell/useSortHeaderStates";
 
 const ColHeaderCellPro: FC<ColHeaderCellProProps> = ({
   label,
@@ -15,61 +12,74 @@ const ColHeaderCellPro: FC<ColHeaderCellProProps> = ({
   ariaColIndex,
   additionalClasses,
   width,
-  resizeable
+  resizeable,
+  displayMode,
 }) => {
-  const { isHovering, handleMouseOver, handleMouseOut } =
-    useControlledHover<HTMLTableCellElement>();
-  const handleClick: () => void = () => {
-    if (!sortModel) {
-      return;
+  const actuallyResizeable = displayMode === "block" && resizeable;
+  const cellIsClickable = !!(!actuallyResizeable && sortModel);
+  const { handleClick, handleMouseOver, handleMouseOut, sortSymbol } =
+    useSortHeaderStates(sortModel);
+  const [curWidth, setCurWidth] = useState(
+    actuallyResizeable ? width || 100 : width,
+  );
+
+  const clickToSortCellContents = useMemo(() => {
+    if (!width || displayMode === "table") {
+      // Testing has shown that content gets cut off in a table cell only if
+      // the table "display" property is "block" and both "min-width" and
+      // "max-width" are specified on all cells in the column.
+      return (
+        <div>
+          {label}
+          {sortSymbol}
+        </div>
+      );
     }
 
-    switch (sortModel.sortOrder) {
-      case null: {
-        sortModel.setSortOrder("asc");
-        return;
-      }
-      case "asc": {
-        sortModel.setSortOrder("desc");
-        return;
-      }
-      case "desc": {
-        sortModel.setSortOrder(null);
-      }
-    }
-  };
+    return (
+      <div className="d-flex justify-content-between">
+        <div className="text-truncate">{label}</div>
+        <div>{sortSymbol}</div>
+      </div>
+    );
+  }, [displayMode, label, sortSymbol, width]);
 
-  const getSortSymbol: () => ReactNode = () => {
-    if (!sortModel) {
-      return null;
+  const cellContents = useMemo(() => {
+    if (!resizeable) {
+      return clickToSortCellContents;
     }
 
-    switch (sortModel.sortOrder) {
-      case null: {
-        if (isHovering) {
-          return upArrow(true);
-        }
-        return arrowPlaceholder;
-      }
-      case "asc": {
-        return upArrow(false);
-      }
-      case "desc": {
-        return downArrow;
-      }
-    }
-  };
+    const dragHandleIcon = (
+      <svg
+        xmlns="http://www.w3.org/2000/svg"
+        width="16"
+        height="16"
+        fill="currentColor"
+        viewBox="0 0 16 16"
+      >
+        <path d="M7 2a1 1 0 1 1-2 0 1 1 0 0 1 2 0m3 0a1 1 0 1 1-2 0 1 1 0 0 1 2 0M7 5a1 1 0 1 1-2 0 1 1 0 0 1 2 0m3 0a1 1 0 1 1-2 0 1 1 0 0 1 2 0M7 8a1 1 0 1 1-2 0 1 1 0 0 1 2 0m3 0a1 1 0 1 1-2 0 1 1 0 0 1 2 0m-3 3a1 1 0 1 1-2 0 1 1 0 0 1 2 0m3 0a1 1 0 1 1-2 0 1 1 0 0 1 2 0m-3 3a1 1 0 1 1-2 0 1 1 0 0 1 2 0m3 0a1 1 0 1 1-2 0 1 1 0 0 1 2 0" />
+      </svg>
+    );
+
+    // TODO: add event handler for dragging action
+    return (
+      <div className="d-flex justify-content-between">
+        {clickToSortCellContents}
+        <div>{dragHandleIcon}</div>
+      </div>
+    );
+  }, [clickToSortCellContents, resizeable]);
 
   return (
     <th
       className={classNames(
         {
-          "rbdg-clickable-grid-header-cell": sortModel,
+          "rbdg-clickable-grid-header-cell": cellIsClickable,
           "table-active": sortModel?.sortOrder,
         },
         additionalClasses || [],
       )}
-      onClick={sortModel && handleClick}
+      onClick={cellIsClickable ? handleClick : undefined}
       onMouseOver={handleMouseOver}
       onMouseOut={handleMouseOut}
       aria-description={
@@ -78,11 +88,8 @@ const ColHeaderCellPro: FC<ColHeaderCellProProps> = ({
           : "Column header that can be clicked to change the sorting mode"
       }
       aria-colindex={ariaColIndex}
-      style={getWidthStyle(width)}
-    >
-      {label}
-      {getSortSymbol()}
-    </th>
+      style={getWidthStyle(curWidth)}
+    >{cellContents}</th>
   );
 };
 
