@@ -3,10 +3,9 @@
 import { FC } from "react";
 import { ColSortModel } from "../grid";
 import useCombinedPipeline from "../grid/pipeline/useCombinedPipeline";
-import ColHeaderCell from "../grid/ColHeaderCell";
-import getWidthStyle from "../grid/util/getWidthStyle";
 import InternalGrid from "../grid/InternalGrid";
 import { GridProProps } from "./types";
+import ColHeaderCellPro from "./ColHeaderCellPro";
 
 const GridPro: FC<GridProProps> = (props) => {
   const {
@@ -17,6 +16,7 @@ const GridPro: FC<GridProProps> = (props) => {
     pagination,
     selectModel,
     styleModel,
+    displayMode
   } = props;
   const combinedPipelineOutput = useCombinedPipeline({
     rows,
@@ -30,7 +30,7 @@ const GridPro: FC<GridProProps> = (props) => {
     sortedRowsOutput: { sortColDef, setSortColDef, sortingEnabled },
     showSelectCol,
   } = combinedPipelineOutput;
-  const colHeaderCells = cols.map(({ name, label, sortable, width }, index) => {
+  const colHeaderCells = cols.map(({ name, label, sortable, width, resizeable }, index) => {
     const colSortModel: ColSortModel | undefined =
       sortingEnabled && sortable
         ? {
@@ -42,7 +42,7 @@ const GridPro: FC<GridProProps> = (props) => {
         : undefined;
 
     return (
-      <ColHeaderCell
+      <ColHeaderCellPro
         key={name}
         label={label}
         sortModel={colSortModel}
@@ -51,7 +51,8 @@ const GridPro: FC<GridProProps> = (props) => {
           styleModel?.mainTableStyleModel?.theadTh &&
           styleModel.mainTableStyleModel.theadTh(index)
         }
-        style={getWidthStyle(width)}
+        width={width}
+        resizeable={resizeable && displayMode === "block"}
       />
     );
   });

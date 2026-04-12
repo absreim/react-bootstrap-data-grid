@@ -4,8 +4,7 @@ import { FC } from "react";
 import { GridProps } from "./types";
 import InternalGrid from "./InternalGrid";
 import { ColSortModel } from "./sorting/types";
-import ColHeaderCell from "./ColHeaderCell";
-import getWidthStyle from "./util/getWidthStyle";
+import ColHeaderCell from "./main/ColHeaderCell";
 import useCombinedPipeline from "./pipeline/useCombinedPipeline";
 
 const Grid: FC<GridProps> = (props) => {
@@ -36,7 +35,7 @@ const Grid: FC<GridProps> = (props) => {
           styleModel?.mainTableStyleModel?.theadTh &&
           styleModel.mainTableStyleModel.theadTh(index)
         }
-        style={getWidthStyle(width)}
+        width={width}
       />
     );
   })

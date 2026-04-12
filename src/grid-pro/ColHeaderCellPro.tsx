@@ -1,19 +1,21 @@
 "use client";
 
 import { FC, ReactNode } from "react";
-import downArrow from "./sorting/downArrow";
-import upArrow from "./sorting/upArrow";
-import arrowPlaceholder from "./sorting/arrowPlaceholder";
+import useControlledHover from "../grid/util/useControlledHover";
+import upArrow from "../grid/sorting/upArrow";
+import arrowPlaceholder from "../grid/sorting/arrowPlaceholder";
+import downArrow from "../grid/sorting/downArrow";
 import classNames from "classnames";
-import useControlledHover from "./util/useControlledHover";
-import { ColHeaderCellProps } from "./types";
+import getWidthStyle from "../grid/util/getWidthStyle";
+import { ColHeaderCellProProps } from "./types";
 
-const ColHeaderCell: FC<ColHeaderCellProps> = ({
+const ColHeaderCellPro: FC<ColHeaderCellProProps> = ({
   label,
   sortModel,
   ariaColIndex,
   additionalClasses,
-  style,
+  width,
+  resizeable
 }) => {
   const { isHovering, handleMouseOver, handleMouseOut } =
     useControlledHover<HTMLTableCellElement>();
@@ -76,7 +78,7 @@ const ColHeaderCell: FC<ColHeaderCellProps> = ({
           : "Column header that can be clicked to change the sorting mode"
       }
       aria-colindex={ariaColIndex}
-      style={style}
+      style={getWidthStyle(width)}
     >
       {label}
       {getSortSymbol()}
@@ -84,4 +86,4 @@ const ColHeaderCell: FC<ColHeaderCellProps> = ({
   );
 };
 
-export default ColHeaderCell;
+export default ColHeaderCellPro;

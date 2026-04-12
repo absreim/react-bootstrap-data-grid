@@ -9,7 +9,7 @@ import {
   useState,
 } from "react";
 import { RowData, RowDef, RowId, GridProps } from "./types";
-import ToggleButton from "./ToggleButton";
+import ToggleButton from "./main/ToggleButton";
 import FilterOptionsTable from "./filtering/FilterOptionsTable";
 import SelectAllHeaderCell from "./selection/SelectAllHeaderCell";
 import SelectionInput, {

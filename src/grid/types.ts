@@ -4,7 +4,6 @@ import { ColSortModel, TableSortModel } from "./sorting/types";
 import { FilterModel } from "./filtering/types";
 import { SelectModel } from "./selection/types";
 import { StyleModel } from "./styling/types";
-import { CSSProperties } from "react";
 
 export type ColDataType = string | number | Date;
 export type ColDataTypeStrings = "string" | "number" | "date" | "datetime";
@@ -66,5 +65,5 @@ export interface ColHeaderCellProps {
   sortModel?: ColSortModel;
   ariaColIndex: number;
   additionalClasses?: string[];
-  style?: CSSProperties;
+  width?: number;
 }

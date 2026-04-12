@@ -1,4 +1,4 @@
-import { ColDef, GridProps } from "../grid";
+import { ColDef, ColHeaderCellProps, GridProps } from "../grid";
 
 export type ProColDef<ValueType = any> = ColDef<ValueType> & {
   resizeable?: boolean;
@@ -6,4 +6,8 @@ export type ProColDef<ValueType = any> = ColDef<ValueType> & {
 
 export type GridProProps = Omit<GridProps, "cols"> & {
   cols: ProColDef[];
+}
+
+export type ColHeaderCellProProps = ColHeaderCellProps & {
+  resizeable?: boolean;
 }
