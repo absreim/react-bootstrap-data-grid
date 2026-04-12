@@ -19,6 +19,8 @@ const ColHeaderCellPro: FC<ColHeaderCellProProps> = ({
   const cellIsClickable = !!(!actuallyResizeable && sortModel);
   const { handleClick, handleMouseOver, handleMouseOut, sortSymbol } =
     useSortHeaderStates(sortModel);
+  // TODO: left this state up to the table level or rely only on a useEffect
+  // hook to set the widths
   const [curWidth, setCurWidth] = useState(
     actuallyResizeable ? width || 100 : width,
   );
@@ -37,12 +39,28 @@ const ColHeaderCellPro: FC<ColHeaderCellProProps> = ({
     }
 
     return (
-      <div className="d-flex justify-content-between">
+      <div
+        className={classNames("d-flex", "justify-content-between", {
+          "rbdg-sort-toggler": !cellIsClickable,
+        })}
+        onClick={!cellIsClickable ? handleClick : undefined}
+        onMouseOver={!cellIsClickable ? handleMouseOver : undefined}
+        onMouseOut={!cellIsClickable ? handleMouseOut : undefined}
+      >
         <div className="text-truncate">{label}</div>
         <div>{sortSymbol}</div>
       </div>
     );
-  }, [displayMode, label, sortSymbol, width]);
+  }, [
+    cellIsClickable,
+    displayMode,
+    handleClick,
+    handleMouseOut,
+    handleMouseOver,
+    label,
+    sortSymbol,
+    width,
+  ]);
 
   const cellContents = useMemo(() => {
     if (!resizeable) {
@@ -74,14 +92,14 @@ const ColHeaderCellPro: FC<ColHeaderCellProProps> = ({
     <th
       className={classNames(
         {
-          "rbdg-clickable-grid-header-cell": cellIsClickable,
+          "rbdg-sort-toggler": cellIsClickable,
           "table-active": sortModel?.sortOrder,
         },
         additionalClasses || [],
       )}
       onClick={cellIsClickable ? handleClick : undefined}
-      onMouseOver={handleMouseOver}
-      onMouseOut={handleMouseOut}
+      onMouseOver={cellIsClickable ? handleMouseOver : undefined}
+      onMouseOut={cellIsClickable ? handleMouseOut : undefined}
       aria-description={
         sortModel
           ? "Column header"
@@ -89,7 +107,9 @@ const ColHeaderCellPro: FC<ColHeaderCellProProps> = ({
       }
       aria-colindex={ariaColIndex}
       style={getWidthStyle(curWidth)}
-    >{cellContents}</th>
+    >
+      {cellContents}
+    </th>
   );
 };
 
