@@ -1,5 +1,5 @@
 import { useMemo, useState } from "react";
-import { ColDataTypeStrings, ColDef, RowDef } from "../../types";
+import { ColDataTypeStrings, ColDef, ColDefBase, RowDef } from "../../types";
 import { SortColDef, TableSortModel } from "../../sorting/types";
 
 export interface SortedRowsOutput {
@@ -38,7 +38,7 @@ const getRowComparator: (
 
 const useSortedRows: (
   rows: RowDef[],
-  cols: ColDef[],
+  cols: ColDefBase[],
   sortModel: TableSortModel | undefined,
 ) => SortedRowsOutput = (rows, cols, sortModel) => {
   const [internalSortColDef, setInternalSortColDef] =

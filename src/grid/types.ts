@@ -8,14 +8,17 @@ import { StyleModel } from "./styling/types";
 export type ColDataType = string | number | Date;
 export type ColDataTypeStrings = "string" | "number" | "date" | "datetime";
 
-export interface ColDef<ValueType = any> {
+export interface ColDefBase<ValueType = any> {
   type: ColDataTypeStrings;
   name: string;
   label: string;
   formatter?: (value: ValueType) => string;
   sortable?: boolean; // default false
-  width?: number;
 }
+
+export type ColDef<ValueType = any> = ColDefBase<ValueType> & {
+  width?: number;
+};
 
 type ValidRowData = Record<string, any>;
 
@@ -32,6 +35,14 @@ export interface FormattedRow {
   contents: CellData[];
   id: RowId;
 }
+
+export type AugCellData = CellData & {
+  width?: number;
+}
+
+export type AugFormattedRow = Omit<FormattedRow, "contents"> & {
+  contents: AugCellData[];
+};
 
 export type JustifyContentSetting =
   | "start"
@@ -59,6 +70,11 @@ export interface GridProps {
   responsive?: boolean;
   displayMode?: DisplayMode;
 }
+
+// All props that community and pro versions have in common
+export type BaseGridProps = Omit<GridProps, "cols"> & {
+  cols: ColDefBase[];
+};
 
 export interface ColHeaderCellProps {
   label: string;

@@ -1,4 +1,4 @@
-import { ColDef, RowData, RowId } from "../types";
+import { ColDefBase, RowData, RowId } from "../types";
 import { EditModel } from "../editing/types";
 import inputStrsToRowData from "../editing/inputStrsToRowData";
 
@@ -8,7 +8,7 @@ export type UseGetInputStrSubmitCallbackHook =
 
 const useGetInputStrSubmitCallback: (
   editModel: EditModel | undefined,
-  cols: ColDef[],
+  cols: ColDefBase[],
 ) => UseGetInputStrSubmitCallbackHook = (editModel, cols) => {
   const getInputStrSubmitCallback:
     | ((id: RowId) => (inputStrs: string[]) => void)

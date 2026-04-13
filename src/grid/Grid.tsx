@@ -1,7 +1,7 @@
 "use client";
 
-import { FC } from "react";
-import { GridProps } from "./types";
+import { FC, useMemo } from "react";
+import { AugFormattedRow, GridProps } from "./types";
 import InternalGrid from "./InternalGrid";
 import { ColSortModel } from "./sorting/types";
 import ColHeaderCell from "./main/ColHeaderCell";
@@ -13,6 +13,8 @@ import SelectionInput from "./selection/SelectionInput";
 import useGridSelectionFns from "./pipeline/useGridSelectionFns";
 import useUnwrappedGridStyles from "./pipeline/useUnwrappedGridStyles";
 import useGetInputStrSubmitCallback from "./pipeline/useGetInputStrSubmitCallback";
+import { ColNameToWidth } from "./pipeline/types";
+import useAugFormattedRows from "./pipeline/useAugFormattedRows";
 
 const Grid: FC<GridProps> = (props) => {
   const {
@@ -54,6 +56,12 @@ const Grid: FC<GridProps> = (props) => {
     editModel,
     cols,
   );
+  const colNameToWidth: ColNameToWidth = useMemo(() => {
+    const map: Record<string, number | undefined> = {};
+    cols.forEach(({ name, width }) => (map[name] = width));
+    return map;
+  }, [cols]);
+  const augFormattedRows: AugFormattedRow[] = useAugFormattedRows(colNameToWidth, displayRows);
 
   const colHeaderCells = cols.map(({ name, label, sortable, width }, index) => {
     const colSortModel: ColSortModel | undefined =
@@ -81,7 +89,7 @@ const Grid: FC<GridProps> = (props) => {
     );
   });
 
-  const bodyRows = displayRows.map((row, index) => {
+  const bodyRows = augFormattedRows.map((row, index) => {
     return (
       <EditableRow
         onClick={getRowClickHandler(row.id)}

@@ -1,7 +1,7 @@
 "use client";
 
-import { FC } from "react";
-import { ColSortModel } from "../grid";
+import { FC, useMemo } from "react";
+import { AugFormattedRow, ColSortModel } from "../grid";
 import useCombinedPipeline from "../grid/pipeline/useCombinedPipeline";
 import InternalGrid from "../grid/InternalGrid";
 import { GridProProps } from "./types";
@@ -13,6 +13,8 @@ import EditableRow from "../grid/editing/EditableRow";
 import classNames from "classnames";
 import getWidthStyle from "../grid/util/getWidthStyle";
 import SelectionInput from "../grid/selection/SelectionInput";
+import { ColNameToWidth } from "../grid/pipeline/types";
+import useAugFormattedRows from "../grid/pipeline/useAugFormattedRows";
 
 const GridPro: FC<GridProProps> = (props) => {
   const {
@@ -55,6 +57,22 @@ const GridPro: FC<GridProProps> = (props) => {
     editModel,
     cols,
   );
+  const colNameToWidth: ColNameToWidth = useMemo(() => {
+    const map: Record<string, number | undefined> = {};
+    cols.forEach(({ name, width }) => {
+      if (typeof width === "object") {
+        map[name] = width.width;
+        return;
+      }
+
+      map[name] = width;
+    });
+    return map;
+  }, [cols]);
+  const augFormattedRows: AugFormattedRow[] = useAugFormattedRows(
+    colNameToWidth,
+    displayRows,
+  );
 
   const colHeaderCells = cols.map(
     ({ name, label, sortable, width, resizeable }, index) => {
@@ -68,6 +86,8 @@ const GridPro: FC<GridProProps> = (props) => {
             }
           : undefined;
 
+      const widthNum: number | undefined = typeof width === "object" ? width.width : width;
+
       return (
         <ColHeaderCellPro
           key={name}
@@ -78,7 +98,7 @@ const GridPro: FC<GridProProps> = (props) => {
             styleModel?.mainTableStyleModel?.theadTh &&
             styleModel.mainTableStyleModel.theadTh(index)
           }
-          width={width}
+          width={widthNum}
           displayMode={displayMode}
           resizeable={resizeable}
         />
@@ -86,7 +106,7 @@ const GridPro: FC<GridProProps> = (props) => {
     },
   );
 
-  const bodyRows = displayRows.map((row, index) => {
+  const bodyRows = augFormattedRows.map((row, index) => {
     return (
       <EditableRow
         onClick={getRowClickHandler(row.id)}

@@ -1,4 +1,10 @@
-import { ColDataType, ColDataTypeStrings, RowData, RowId } from "../types";
+import {
+  ColDataType,
+  ColDataTypeStrings,
+  ColDef,
+  RowData,
+  RowId,
+} from "../types";
 
 export interface CellData {
   fieldName: string;

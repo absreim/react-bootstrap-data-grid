@@ -3,7 +3,7 @@ import {
   FilterModel,
   NormalizedTableFilterModel,
 } from "../../filtering/types";
-import { ColDef } from "../../types";
+import { ColDef, ColDefBase } from "../../types";
 import { useState } from "react";
 
 const generateEmptyFilterState: (cols: ColDef[]) => EditableTableFilterState = (
@@ -46,7 +46,7 @@ const generateEmptyFilterState: (cols: ColDef[]) => EditableTableFilterState = (
 
 const useFilterStateStore: (
   filterModel: FilterModel | undefined,
-  cols: ColDef[],
+  cols: ColDefBase[],
 ) => NormalizedTableFilterModel | null = (filterModel, cols) => {
   // Initial states being from prop values means that should uncontrolled
   // FilterModel starting values change, the changes will not take effect

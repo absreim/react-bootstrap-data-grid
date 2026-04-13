@@ -1,7 +1,7 @@
 "use client";
 
 import { FC, ReactNode, useMemo, useState } from "react";
-import { GridProps } from "./types";
+import { BaseGridProps } from "./types";
 import ToggleButton from "./main/ToggleButton";
 import FilterOptionsTable from "./filtering/FilterOptionsTable";
 import SelectAllHeaderCell from "./selection/SelectAllHeaderCell";
@@ -16,7 +16,7 @@ import { UseGridSelectionFnsHook } from "./pipeline/useGridSelectionFns";
 import { UseUnwrappedGridStylesHook } from "./pipeline/useUnwrappedGridStyles";
 
 export interface InternalGridProps {
-  gridProps: GridProps;
+  gridProps: BaseGridProps;
   hooks: {
     selectFns: UseGridSelectionFnsHook;
     pipelineOutput: UseCombinedPipelineHook;

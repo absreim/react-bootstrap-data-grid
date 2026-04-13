@@ -5,14 +5,19 @@ import useSortedRows, { SortedRowsOutput } from "./useSortedRows";
 import useCurrentPageRows, {
   CurrentPageRowsOutput,
 } from "./useCurrentPageRows";
-import { FormattedRow, GridProps, RowDef } from "../../types";
+import { ColDefBase, FormattedRow, GridProps, RowDef } from "../../types";
 import useDisplayRows from "./useDisplayRows";
 import {
   NormalizedTableFilterModel,
   TableFilterState,
 } from "../../filtering/types";
 
-export type CombinedPipelineParams = Pick<GridProps, "cols" | "rows" | "filterModel" | "sortModel" | "pagination" | "selectModel">;
+export type CombinedPipelineParams = Pick<
+  GridProps,
+  "rows" | "filterModel" | "sortModel" | "pagination" | "selectModel"
+> & {
+  cols: ColDefBase[];
+};
 export interface UseCombinedPipelineHook {
   normalizedTableFilterModel: NormalizedTableFilterModel | null;
   filteredRows: RowDef[];

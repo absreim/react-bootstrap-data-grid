@@ -73,7 +73,6 @@ const useDisplayRows: (
           ariaColIndex: index + 1 + ariaColIndexOffset,
           formattedValue: getFormattedValue(value, formatter, typeString),
           label: cols[index].label,
-          width: cols[index].width,
         };
       });
       return { contents: displayRow, id: row.id };
