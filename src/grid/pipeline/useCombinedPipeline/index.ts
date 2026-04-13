@@ -13,7 +13,7 @@ import {
 } from "../../filtering/types";
 
 export type CombinedPipelineParams = Pick<GridProps, "cols" | "rows" | "filterModel" | "sortModel" | "pagination" | "selectModel">;
-export interface CombinedPipelineOutput {
+export interface UseCombinedPipelineHook {
   normalizedTableFilterModel: NormalizedTableFilterModel | null;
   filteredRows: RowDef[];
   filterState: TableFilterState | null;
@@ -26,7 +26,7 @@ export interface CombinedPipelineOutput {
 
 const UseCombinedPipeline: (
   params: CombinedPipelineParams,
-) => CombinedPipelineOutput = ({
+) => UseCombinedPipelineHook = ({
   filterModel,
   cols,
   rows,

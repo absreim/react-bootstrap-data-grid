@@ -1,50 +1,30 @@
 "use client";
 
-import {
-  FC,
-  MouseEventHandler,
-  ReactNode,
-  useId,
-  useMemo,
-  useState,
-} from "react";
-import { RowData, RowDef, RowId, GridProps } from "./types";
+import { FC, ReactNode, useMemo, useState } from "react";
+import { GridProps } from "./types";
 import ToggleButton from "./main/ToggleButton";
 import FilterOptionsTable from "./filtering/FilterOptionsTable";
 import SelectAllHeaderCell from "./selection/SelectAllHeaderCell";
-import SelectionInput, {
-  SelectionInputModel,
-} from "./selection/SelectionInput";
 import Pagination from "./pagination/Pagination";
 import classNames from "classnames";
-import EditableRow from "./editing/EditableRow";
-import inputStrsToRowData from "./editing/inputStrsToRowData";
-import {
-  unwrapAdditionalComponentsStyleModel,
-  unwrapTableStyleModel,
-} from "./styling/styleModelUnwrappers";
-import {
-  AdditionalComponentsStyleModel,
-  TableStyleModel,
-} from "./styling/types";
-import {
-  MultiExistingSelection,
-  MultiSelectModel,
-  SelectionInfo,
-  SelectModel,
-} from "./selection/types";
-import isSubset from "./util/isSubset";
 import useInterfaces, { InterfaceParams } from "./toolbar/useInterfaces";
 import ToolbarContainer from "./toolbar/ToolbarContainer";
 import useExportFn from "./export/useExportFn";
 import getWidthStyle from "./util/getWidthStyle";
-import { CombinedPipelineOutput } from "./pipeline/useCombinedPipeline";
+import { UseCombinedPipelineHook } from "./pipeline/useCombinedPipeline";
+import { UseGridSelectionFnsHook } from "./pipeline/useGridSelectionFns";
+import { UseUnwrappedGridStylesHook } from "./pipeline/useUnwrappedGridStyles";
 
 export interface InternalGridProps {
   gridProps: GridProps;
-  pipelineOutput: CombinedPipelineOutput;
+  hooks: {
+    selectFns: UseGridSelectionFnsHook;
+    pipelineOutput: UseCombinedPipelineHook;
+    unwrappedStyles: UseUnwrappedGridStylesHook;
+  };
   slots: {
     colHeaderCells: ReactNode;
+    bodyRows: ReactNode;
   };
 }
 
@@ -62,8 +42,12 @@ const InternalGrid: FC<InternalGridProps> = ({
     responsive,
     displayMode,
   },
-  pipelineOutput,
-  slots: { colHeaderCells },
+  hooks: {
+    pipelineOutput,
+    selectFns,
+    unwrappedStyles,
+  },
+  slots: { colHeaderCells, bodyRows },
 }) => {
   const {
     normalizedTableFilterModel,
@@ -72,8 +56,6 @@ const InternalGrid: FC<InternalGridProps> = ({
     sortedRowsOutput: { sortedRows },
     currentPageRowsOutput: { paginatedRows, normalizedModel },
     showSelectCol,
-    ariaColIndexOffset,
-    displayRows
   } = pipelineOutput;
 
   const [filterOptionsVisible, setFilterOptionsVisible] =
@@ -116,193 +98,9 @@ const InternalGrid: FC<InternalGridProps> = ({
     setFilterOptionsVisible(!filterOptionsVisible);
   };
 
-  const getSelectionExists: () => boolean = () => {
-    if (!selectModel) {
-      return false;
-    }
-
-    if (selectModel.type === "single") {
-      return selectModel.selected !== null;
-    }
-
-    return (selectModel as MultiSelectModel).selected.length > 0;
-  };
-  const selectionExists = getSelectionExists();
-
-  const selectAllOnClick: () => void = () => {
-    if (!selectModel) {
-      return;
-    }
-
-    if (selectionExists && selectModel.type === "single") {
-      selectModel.setSelected(null);
-      return;
-    }
-
-    if (selectionExists && selectModel.type === "multi") {
-      selectModel.setSelected([]);
-      return;
-    }
-
-    if (!selectionExists && selectModel.type === "multi") {
-      const allRowIndices = rows.map((_, index) => index);
-      selectModel.setSelected(allRowIndices);
-    }
-
-    // Button should be disabled in the case of selectionExists &&
-    // selectModel.type === "single", so function execution should never get
-    // to this point.
-  };
-
-  const getSelectHandler: (index: RowId) => () => void = (index) => () => {
-    if (!selectModel) {
-      return;
-    }
-
-    if (selectModel.type === "single") {
-      selectModel.setSelected(index);
-      return;
-    }
-
-    selectModel.setSelected(selectModel.selected.concat(index));
-  };
-
-  const getDeselectHandler: (index: RowId) => () => void = (index) => () => {
-    if (!selectModel || selectModel.type === "single") {
-      return;
-    }
-
-    selectModel.setSelected(
-      selectModel.selected.filter((num) => num !== index),
-    );
-  };
-
-  // used to group radio buttons for selection
-  const gridId = useId();
-  const getSelectInputModel: (
-    id: RowId,
-    selectModel: SelectModel,
-  ) => SelectionInputModel = (id, selectModel) => {
-    if (selectModel.type === "single") {
-      return {
-        type: "radio",
-        name: selectModel.groupName || gridId,
-      };
-    }
-
-    return {
-      type: "checkbox",
-      deselectCallback: getDeselectHandler(id),
-    };
-  };
-
-  const selectedSet = new Set<RowId>();
-  if (selectModel && selectModel.type === "multi") {
-    selectModel.selected.forEach((value) => selectedSet.add(value));
-  }
-  if (
-    selectModel &&
-    selectModel.type === "single" &&
-    selectModel.selected !== null
-  ) {
-    selectedSet.add(selectModel.selected);
-  }
-
-  const rowsAreSelectable = !!(selectModel && selectModel.mode !== "column");
-
-  const selectionInfo: SelectionInfo | null = useMemo(() => {
-    if (!selectModel) {
-      return null;
-    }
-
-    if (selectModel.type === "single") {
-      return {
-        selectType: "single",
-        existingSelection: selectionExists,
-      };
-    }
-
-    const getMultiExistingSelection: (
-      selectionExists: boolean,
-      rows: RowDef[],
-    ) => MultiExistingSelection = (selectionExists, rows) => {
-      const rowIndices = rows.map((_, index) => index);
-
-      // Note that isFullSelection is true if there are no rows at all. In that case, the return value of this function
-      // should be "none", not "full".
-      const isFullSelection = isSubset(rowIndices, selectModel.selected!);
-
-      if (!selectionExists) {
-        return "none";
-      }
-
-      if (isFullSelection) {
-        return "full";
-      }
-
-      return "partial";
-    };
-
-    return {
-      selectType: "multi",
-      existingSelection: getMultiExistingSelection(selectionExists, rows),
-    };
-  }, [selectModel, selectionExists, rows]);
-
-  const getRowClickHandler: (
-    index: RowId,
-  ) => MouseEventHandler<HTMLTableRowElement> = (index) => () => {
-    if (!rowsAreSelectable) {
-      return;
-    }
-
-    if (selectedSet.has(index)) {
-      getDeselectHandler(index)();
-      return;
-    }
-
-    getSelectHandler(index)();
-  };
-
-  const getAriaSelectedValue: (id: RowId) => "true" | "false" | undefined = (
-    id,
-  ) => {
-    if (!selectModel) {
-      return undefined;
-    }
-
-    return String(selectedSet.has(id)) as "true" | "false";
-  };
-
-  const getInputStrSubmitCallback:
-    | ((id: RowId) => (inputStrs: string[]) => void)
-    | undefined =
-    editModel &&
-    ((id) => {
-      const idSpecificCallback = editModel.getUpdateCallback(id);
-      return (inputStrs: string[]) => {
-        const rowData: RowData = inputStrsToRowData(cols, inputStrs);
-        idSpecificCallback(rowData);
-      };
-    });
-
-  // To give the developer the ability to specify between removing existing styles
-  // and simply adding additional ones, we should migrate off of this "unwrapped"
-  // design over time and instead apply logic based on the original params that
-  // can be undefined.
-  const unwrappedTableModel: Required<TableStyleModel> = useMemo(
-    () => unwrapTableStyleModel(styleModel?.mainTableStyleModel),
-    [styleModel?.mainTableStyleModel],
-  );
-
-  const unwrappedAdditionalStyleModel: Required<AdditionalComponentsStyleModel> =
-    useMemo(
-      () =>
-        unwrapAdditionalComponentsStyleModel(
-          styleModel?.additionalComponentsStyleModel,
-        ),
-      [styleModel?.additionalComponentsStyleModel],
-    );
+  const { rowsAreSelectable, selectionInfo, selectAllOnClick } = selectFns;
+  const { unwrappedTableModel, unwrappedAdditionalStyleModel } =
+    unwrappedStyles;
 
   const mainTable = (
     <table
@@ -348,78 +146,7 @@ const InternalGrid: FC<InternalGridProps> = ({
         </tr>
       </thead>
       <tbody className={classNames(unwrappedTableModel.tbody)}>
-        {displayRows.map((row, index) => {
-          return (
-            <EditableRow
-              onClick={getRowClickHandler(row.id)}
-              className={classNames(
-                {
-                  "table-active": selectedSet.has(row.id),
-                },
-                unwrappedTableModel.tbodyTr(row.id, index),
-              )}
-              key={row.id}
-              aria-rowindex={index + 2}
-              dataRowId={row.id}
-              aria-selected={getAriaSelectedValue(row.id)}
-              ariaColIndexOffset={ariaColIndexOffset}
-              cellData={row.contents}
-              updateCallback={
-                getInputStrSubmitCallback && getInputStrSubmitCallback(row.id)
-              }
-              deleteCallback={
-                editModel?.getDeleteCallback &&
-                editModel.getDeleteCallback(row.id)
-              }
-              dataCellClasses={(colIndex) =>
-                unwrappedTableModel.tbodyTd(row.id, index, colIndex)
-              }
-              dataCellInputClasses={(colIndex) =>
-                unwrappedTableModel.tbodyTdInput(row.id, index, colIndex)
-              }
-              editCellClasses={unwrappedTableModel.editColTd(row.id, index)}
-              saveButtonClasses={unwrappedTableModel.editSaveButton(
-                row.id,
-                index,
-              )}
-              deleteButtonClasses={unwrappedTableModel.editDeleteButton(
-                row.id,
-                index,
-              )}
-              startButtonClasses={unwrappedTableModel.editStartButton(
-                row.id,
-                index,
-              )}
-              cancelButtonClasses={unwrappedTableModel.editCancelButton(
-                row.id,
-                index,
-              )}
-            >
-              {showSelectCol && (
-                <td
-                  className={classNames(
-                    unwrappedTableModel.rowSelectColTd(row.id, index),
-                  )}
-                  aria-colindex={1}
-                  style={getWidthStyle(selectModel!.selectColWidth)}
-                >
-                  <SelectionInput
-                    selected={selectedSet.has(row.id)}
-                    selectionInputModel={getSelectInputModel(
-                      row.id,
-                      selectModel!,
-                    )}
-                    selectCallback={getSelectHandler(row.id)}
-                    additionalClasses={unwrappedTableModel.rowSelectInput(
-                      row.id,
-                      index,
-                    )}
-                  />
-                </td>
-              )}
-            </EditableRow>
-          );
-        })}
+        {bodyRows}
       </tbody>
     </table>
   );
