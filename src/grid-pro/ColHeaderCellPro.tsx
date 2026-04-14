@@ -1,6 +1,6 @@
 "use client";
 
-import { FC, useMemo, useState } from "react";
+import { FC, PointerEventHandler, useCallback, useMemo, useRef, useState } from "react";
 import classNames from "classnames";
 import getWidthStyle from "../grid/util/getWidthStyle";
 import { ColHeaderCellProProps } from "./types";
@@ -12,18 +12,13 @@ const ColHeaderCellPro: FC<ColHeaderCellProProps> = ({
   ariaColIndex,
   additionalClasses,
   width,
-  resizeable,
   displayMode,
+  setWidth
 }) => {
-  const actuallyResizeable = displayMode === "block" && resizeable;
-  const cellIsClickable = !!(!actuallyResizeable && sortModel);
+  const resizeable = setWidth !== undefined;
+  const cellIsClickable = !!(resizeable && sortModel);
   const { handleClick, handleMouseOver, handleMouseOut, sortSymbol } =
     useSortHeaderStates(sortModel);
-  // TODO: left this state up to the table level or rely only on a useEffect
-  // hook to set the widths
-  const [curWidth, setCurWidth] = useState(
-    actuallyResizeable ? width || 100 : width,
-  );
 
   const clickToSortCellContents = useMemo(() => {
     if (!width || displayMode === "table") {
@@ -62,6 +57,24 @@ const ColHeaderCellPro: FC<ColHeaderCellProProps> = ({
     width,
   ]);
 
+  const thRef = useRef<HTMLTableCellElement>(null);
+  const onPointerDown: PointerEventHandler<HTMLTableCellElement> = useCallback(
+    (event: PointerEvent) => {
+      if (thRef.current === null || setWidth === undefined) {
+        return;
+      }
+
+      // Note: as it stands, if a rerender happens while the user is resizing a
+      // cell, it may override the width of the cell until the user moves the
+      // mouse again.
+      // This behavior can be prevented by storing the current width of the cell
+      // in a ref and having this component conditionally render based on the
+      // value of the ref. I.e., if the ref has a value, use that value for the
+      // width instead of the "width" prop.
+    },
+    [],
+  );
+
   const cellContents = useMemo(() => {
     if (!resizeable) {
       return clickToSortCellContents;
@@ -90,6 +103,7 @@ const ColHeaderCellPro: FC<ColHeaderCellProProps> = ({
 
   return (
     <th
+      ref={thRef}
       className={classNames(
         {
           "rbdg-sort-toggler": cellIsClickable,
@@ -106,7 +120,7 @@ const ColHeaderCellPro: FC<ColHeaderCellProProps> = ({
           : "Column header that can be clicked to change the sorting mode"
       }
       aria-colindex={ariaColIndex}
-      style={getWidthStyle(curWidth)}
+      style={getWidthStyle(width)}
     >
       {cellContents}
     </th>

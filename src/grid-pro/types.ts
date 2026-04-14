@@ -11,7 +11,7 @@ export type GridProProps = Omit<GridProps, "cols"> & {
 
 export type ColHeaderCellProProps = ColHeaderCellProps &
   Pick<GridProps, "displayMode"> & {
-    resizeable?: boolean;
+    setWidth?: (width: number) => void;
   };
 
 export interface WidthModel {
