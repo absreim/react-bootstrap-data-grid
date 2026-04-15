@@ -57,7 +57,7 @@ const GridPro: FC<GridProProps> = (props) => {
   );
 
   const colHeaderCells = cols.map(
-    ({ name, label, sortable, width, resizeable }, index) => {
+    ({ name, label, sortable, resizeable }, index) => {
       const colSortModel: ColSortModel | undefined =
         sortingEnabled && sortable
           ? {
@@ -67,8 +67,6 @@ const GridPro: FC<GridProProps> = (props) => {
               },
             }
           : undefined;
-
-      const widthNum: number | undefined = typeof width === "object" ? width.width : width;
 
       return (
         <ColHeaderCellPro
@@ -80,14 +78,16 @@ const GridPro: FC<GridProProps> = (props) => {
             styleModel?.mainTableStyleModel?.theadTh &&
             styleModel.mainTableStyleModel.theadTh(index)
           }
-          width={widthNum}
+          width={resizeModel[name].width}
           displayMode={displayMode}
-          resizeable={resizeable}
+          setWidth={resizeModel[name].setWidth}
         />
       );
     },
   );
 
+  // TODO: Make text truncate for body cells for columns where resizing is
+  // enabled
   const bodyRows = (
     <BodyRows
       augFormattedRows={augFormattedRows}

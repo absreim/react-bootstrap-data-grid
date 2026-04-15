@@ -8,15 +8,25 @@ const { execSync } = require("child_process");
 // CONFIG
 // --------------------
 const isPro = process.argv[2] === "pro";
-const root = path.resolve(__dirname, `./src/${isPro ? "grid-pro" : "grid"}`);
+const srcDir = path.resolve(__dirname, "./src");
+const communityRoot = path.resolve(srcDir, "./grid");
+const proRoot = path.resolve(srcDir, "./grid-pro");
+const root = isPro ? proRoot : communityRoot;
 const distDir = `./dist/${isPro ? "pro" : "community"}`;
 const packDir = `./package/${isPro ? "pro" : "community"}`;
 
-const srcScss = path.join(root, "style.scss");
+const srcScss = path.join(communityRoot, "style.scss");
 const distScss = path.join(distDir, "style.scss");
 const distCss = path.join(distDir, "style.css");
 
-const templateDir = path.join(__dirname, `dist-templates/${ isPro ? "pro" : "community"}`);
+const proSrcScss = path.join(proRoot, "style.scss");
+const proDistScss = path.join(distDir, "pro.scss");
+const proDistCss = path.join(distDir, "pro.css");
+
+const templateDir = path.join(
+  __dirname,
+  `dist-templates/${isPro ? "pro" : "community"}`,
+);
 
 // --------------------
 // HELPERS
@@ -26,7 +36,7 @@ function createDirs(...dirs) {
     if (!fs.existsSync(dir)) {
       fs.mkdirSync(dir, { recursive: true });
     }
-  })
+  });
 }
 
 function cleanDist(dir) {
@@ -70,5 +80,9 @@ createDirs(distDir, packDir);
 cleanDist(distDir);
 copyWithDirs(srcScss, distScss);
 compileScss(distScss, distCss);
+if (isPro) {
+  copyWithDirs(proSrcScss, proDistScss);
+  compileScss(proDistScss, proDistCss);
+}
 compileTs(root);
 copyDirContents(templateDir, distDir);

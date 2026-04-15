@@ -1,3 +1,10 @@
-.rbdg-sort-toggler {
-  cursor: pointer;
+.rdbg-drag-marker-container {
+  cursor: col-resize;
+  width: 1rem;
+  height: 1rem;
+  touch-action: none;
+}
+
+.rdbg-drag-marker {
+  pointer-events: none;
 }

@@ -1,15 +1,18 @@
 "use client";
 
-import Grid, { ColDef, RowDef } from "@/grid-pro";
+import { RowDef } from "@/grid-pro";
 import { FC } from "react";
 import { dateToDatetimeInputStr, dateToInputStr } from "@/grid-pro";
+import GridPro from "@/grid-pro/GridPro";
+import { ProColDef } from "@/grid-pro/types";
 
-const cols: ColDef[] = [
+const cols: ProColDef[] = [
   {
     name: "strCol",
     label: "String Column",
     type: "string",
     width: 100,
+    resizeable: true,
   },
   {
     name: "numCol",
@@ -23,13 +26,13 @@ const cols: ColDef[] = [
     type: "date",
     formatter: dateToInputStr,
     width: 150,
+    resizeable: true,
   },
   {
     name: "datetimeCol",
     label: "Datetime Column",
     type: "datetime",
     formatter: dateToDatetimeInputStr,
-    width: 150,
   },
 ];
 
@@ -72,7 +75,7 @@ const rows: RowDef<TestRow>[] = [
 
 const ResizeTestHarness: FC = () => {
   return (
-    <Grid
+    <GridPro
       displayMode="block"
       rows={rows}
       cols={cols}
