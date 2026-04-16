@@ -54,14 +54,21 @@ const ColHeaderCellPro: FC<ColHeaderCellProProps> = ({
           "overflow-x-hidden",
           {
             "rbdg-sort-toggler": sortDivClickable,
+            "text-truncate": !!sortModel,
           },
         )}
         onClick={sortDivClickable ? handleClick : undefined}
         onMouseOver={sortDivClickable ? handleMouseOver : undefined}
         onMouseOut={sortDivClickable ? handleMouseOut : undefined}
       >
-        <div className="text-truncate">{label}</div>
-        <div>{sortSymbol}</div>
+        {sortModel ? (
+          <>
+            <div className="text-truncate">{label}</div>
+            <div>{sortSymbol}</div>
+          </>
+        ) : (
+          label
+        )}
       </div>
     );
   }, [
@@ -71,6 +78,7 @@ const ColHeaderCellPro: FC<ColHeaderCellProProps> = ({
     handleMouseOver,
     label,
     sortDivClickable,
+    sortModel,
     sortSymbol,
     width,
   ]);

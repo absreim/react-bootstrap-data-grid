@@ -86,8 +86,6 @@ const GridPro: FC<GridProProps> = (props) => {
     },
   );
 
-  // TODO: Make text truncate for body cells for columns where resizing is
-  // enabled
   const bodyRows = (
     <BodyRows
       augFormattedRows={augFormattedRows}

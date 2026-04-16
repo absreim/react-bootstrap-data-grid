@@ -129,7 +129,11 @@ const EditableRow: FC<EditableRowProps> = ({
         <td
           key={index}
           aria-colindex={index + ariaColIndexOffset + 1}
-          className={classNames(dataCellClasses(index))}
+          className={classNames(
+            dataCellClasses(index),
+            "overflow-x-hidden",
+            "rbdg-data-cell",
+          )}
           style={getWidthStyle(width)}
         >
           {isEditing && !!updateCallback ? (
