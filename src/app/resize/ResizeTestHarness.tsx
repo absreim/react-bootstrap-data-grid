@@ -1,6 +1,6 @@
 "use client";
 
-import { RowDef } from "@/grid-pro";
+import { RowDef, StyleModel } from "@/grid-pro";
 import { FC } from "react";
 import { dateToDatetimeInputStr, dateToInputStr } from "@/grid-pro";
 import GridPro from "@/grid-pro/GridPro";
@@ -73,12 +73,19 @@ const rows: RowDef<TestRow>[] = [
   },
 ];
 
+const styleModel: StyleModel = {
+  mainTableStyleModel: {
+    tbodyTd: () => ["overflow-x-hidden", "resize-test-data-cell"],
+  },
+};
+
 const ResizeTestHarness: FC = () => {
   return (
     <GridPro
       displayMode="block"
       rows={rows}
       cols={cols}
+      styleModel={styleModel}
     />
   );
 };

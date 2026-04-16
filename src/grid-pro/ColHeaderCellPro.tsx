@@ -48,13 +48,13 @@ const ColHeaderCellPro: FC<ColHeaderCellProProps> = ({
     return (
       <div
         className={classNames(
-          "d-flex",
-          "justify-content-between",
           "flex-shrink-1",
           "overflow-x-hidden",
           {
             "rbdg-sort-toggler": sortDivClickable,
-            "text-truncate": !!sortModel,
+            "text-truncate": displayMode === "block",
+            "d-flex": !!sortModel,
+            "justify-content-between": !!sortModel
           },
         )}
         onClick={sortDivClickable ? handleClick : undefined}

@@ -25,3 +25,10 @@
 
 @import "../grid/style";
 @import "../grid-pro/style";
+
+// Test project-specific styles
+
+.resize-test-data-cell {
+  text-overflow: ellipsis;
+  text-wrap: nowrap;
+}
