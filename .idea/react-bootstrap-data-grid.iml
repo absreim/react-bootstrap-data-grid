@@ -11,6 +11,8 @@
       <excludeFolder url="file://$MODULE_DIR$/.swc" />
       <excludeFolder url="file://$MODULE_DIR$/playwright-report" />
       <excludeFolder url="file://$MODULE_DIR$/test-results" />
+      <excludeFolder url="file://$MODULE_DIR$/.omc" />
+      <excludeFolder url="file://$MODULE_DIR$/package" />
     </content>
     <orderEntry type="inheritedJdk" />
     <orderEntry type="sourceFolder" forTests="false" />

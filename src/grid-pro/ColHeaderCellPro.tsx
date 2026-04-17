@@ -24,13 +24,16 @@ const ColHeaderCellPro: FC<ColHeaderCellProProps> = ({
   width,
   displayMode,
   setWidth,
+  minResizeWidth,
+  maxResizeWidth,
 }) => {
   const resizeable = setWidth !== undefined;
   const cellIsClickable = !!(resizeable && sortModel);
   const sortDivClickable = resizeable && sortModel;
   const { handleClick, handleMouseOver, handleMouseOut, sortSymbol } =
     useSortHeaderStates(sortModel);
-  const minResizeWidth = sortModel ? 64 : 32;
+  const defaultMinResizeWidth = sortModel ? 64 : 32;
+  const effectiveMinResizeWidth = minResizeWidth || defaultMinResizeWidth;
 
   const clickToSortCellContents = useMemo(() => {
     if (!width || displayMode === "table") {
@@ -47,16 +50,12 @@ const ColHeaderCellPro: FC<ColHeaderCellProProps> = ({
 
     return (
       <div
-        className={classNames(
-          "flex-shrink-1",
-          "overflow-x-hidden",
-          {
-            "rbdg-sort-toggler": sortDivClickable,
-            "text-truncate": displayMode === "block",
-            "d-flex": !!sortModel,
-            "justify-content-between": !!sortModel
-          },
-        )}
+        className={classNames("flex-shrink-1", "overflow-x-hidden", {
+          "rbdg-sort-toggler": sortDivClickable,
+          "text-truncate": displayMode === "block",
+          "d-flex": !!sortModel,
+          "justify-content-between": !!sortModel,
+        })}
         onClick={sortDivClickable ? handleClick : undefined}
         onMouseOver={sortDivClickable ? handleMouseOver : undefined}
         onMouseOut={sortDivClickable ? handleMouseOut : undefined}
@@ -115,7 +114,10 @@ const ColHeaderCellPro: FC<ColHeaderCellProProps> = ({
 
       const onPointerMove: (event: PointerEvent) => void = (event) => {
         const diff = event.clientX - origX;
-        const newWidth = Math.max(minResizeWidth, width + diff);
+        let newWidth = Math.max(effectiveMinResizeWidth, width + diff);
+        if (maxResizeWidth) {
+          newWidth = Math.min(maxResizeWidth, newWidth);
+        }
         setWidthStyle(cellsToUpdate, newWidth);
       };
       target.addEventListener("pointermove", onPointerMove);
@@ -142,7 +144,7 @@ const ColHeaderCellPro: FC<ColHeaderCellProProps> = ({
       };
       target.addEventListener("pointerup", onPointerUp, { once: true });
     },
-    [ariaColIndex, minResizeWidth, setWidth, width],
+    [ariaColIndex, effectiveMinResizeWidth, maxResizeWidth, setWidth, width],
   );
 
   const cellContents = useMemo(() => {

@@ -3,6 +3,8 @@ import { ColDef, ColDefBase, ColHeaderCellProps, GridProps } from "../grid";
 export type ProColDef<ValueType = any> = ColDefBase<ValueType> & {
   resizeable?: boolean;
   width?: ColDef["width"] | WidthModel;
+  minResizeWidth?: number;
+  maxResizeWidth?: number;
 };
 
 export type GridProProps = Omit<GridProps, "cols"> & {
@@ -12,9 +14,10 @@ export type GridProProps = Omit<GridProps, "cols"> & {
 export type ColHeaderCellProProps = ColHeaderCellProps &
   Pick<GridProps, "displayMode"> & {
     setWidth?: (width: number) => void;
-  };
+  } & Pick<ProColDef, "minResizeWidth" | "maxResizeWidth">;
 
 export interface WidthModel {
   width: number;
   setWidth: (width: number) => void;
 }
+

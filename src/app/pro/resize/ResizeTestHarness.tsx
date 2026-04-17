@@ -13,6 +13,7 @@ const cols: ProColDef[] = [
     type: "string",
     width: 100,
     resizeable: true,
+    minResizeWidth: 50,
   },
   {
     name: "numCol",
@@ -27,12 +28,17 @@ const cols: ProColDef[] = [
     formatter: dateToInputStr,
     width: 150,
     resizeable: true,
+    maxResizeWidth: 300,
   },
   {
     name: "datetimeCol",
     label: "Datetime Column",
     type: "datetime",
     formatter: dateToDatetimeInputStr,
+    width: 150,
+    resizeable: true,
+    minResizeWidth: 150,
+    maxResizeWidth: 300,
   },
 ];
 

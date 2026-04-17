@@ -57,7 +57,7 @@ const GridPro: FC<GridProProps> = (props) => {
   );
 
   const colHeaderCells = cols.map(
-    ({ name, label, sortable, resizeable }, index) => {
+    ({ name, label, sortable, minResizeWidth, maxResizeWidth }, index) => {
       const colSortModel: ColSortModel | undefined =
         sortingEnabled && sortable
           ? {
@@ -81,6 +81,8 @@ const GridPro: FC<GridProProps> = (props) => {
           width={resizeModel[name].width}
           displayMode={displayMode}
           setWidth={resizeModel[name].setWidth}
+          minResizeWidth={minResizeWidth}
+          maxResizeWidth={maxResizeWidth}
         />
       );
     },
