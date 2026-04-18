@@ -41,7 +41,7 @@ test("unsorted column becomes sorted after clicking on the header cell", async (
     const strColHeaderCell = unsortedToSortedContainer.getByRole(
       "columnheader",
       {
-        name: "String Column",
+        name: "String Column(not being sorted)",
         exact: true,
       },
     );

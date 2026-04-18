@@ -27,4 +27,3 @@ test("sorting still works even if resizing is enabled", async ({ page }) => {
   ).toBeVisible();
   await validateGridContents(tbody, [["1"], ["3"], ["2"]]);
 })
-
