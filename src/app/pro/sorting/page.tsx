@@ -1,5 +1,5 @@
 import { FC } from "react";
-import ResizeSortTestHarness from "@/app/pro/sort/ResizeSortTestHarness";
+import ResizeSortTestHarness from "./ResizeSortTestHarness";
 
 const Page: FC = () => <ResizeSortTestHarness />;
 
