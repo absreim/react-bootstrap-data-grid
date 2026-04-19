@@ -85,6 +85,10 @@ const ColHeaderCellPro: FC<ColHeaderCellProProps> = ({
   const thRef = useRef<HTMLTableCellElement>(null);
   const onPointerDown: PointerEventHandler<HTMLDivElement> = useCallback(
     (event) => {
+      if (event.button === 2) {
+        return;
+      }
+
       if (
         thRef.current === null ||
         setWidth === undefined ||
@@ -154,6 +158,7 @@ const ColHeaderCellPro: FC<ColHeaderCellProProps> = ({
 
     const dragHandleIcon = (
       <svg
+        aria-hidden
         xmlns="http://www.w3.org/2000/svg"
         width="16"
         height="16"
@@ -171,12 +176,25 @@ const ColHeaderCellPro: FC<ColHeaderCellProProps> = ({
         <div
           className="rdbg-drag-marker-container"
           onPointerDown={onPointerDown}
+          role="separator"
+          tabIndex={0}
+          aria-label="Resize column"
+          aria-valuenow={width}
+          aria-valuemin={minResizeWidth}
+          aria-valuemax={maxResizeWidth}
         >
           {dragHandleIcon}
         </div>
       </div>
     );
-  }, [clickToSortCellContents, onPointerDown, resizeable]);
+  }, [
+    clickToSortCellContents,
+    maxResizeWidth,
+    minResizeWidth,
+    onPointerDown,
+    resizeable,
+    width,
+  ]);
 
   return (
     <th
