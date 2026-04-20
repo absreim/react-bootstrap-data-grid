@@ -1,5 +1,4 @@
-import { Locator } from "playwright-core";
-import { expect } from "@playwright/test";
+import { expect, Locator } from "@playwright/test";
 
 // Caveats:
 // - Assumes no columns in front of the data columns, like the selection control column
@@ -16,5 +15,31 @@ export const validateGridContents: (
       const td = tr.getByRole("cell", { name: value, exact: true });
       await expect(td).toHaveAttribute("aria-colindex", String(j + 1));
     }
+  }
+};
+
+export const confirmColWidth: (
+  targetWidth: number,
+  tolerance: number,
+  ariaColIndex: number,
+  container: Locator,
+) => Promise<void> = async (
+  targetWidth,
+  tolerance,
+  ariaColIndex,
+  container,
+) => {
+  const cells = await container
+    .locator(`[aria-colindex="${ariaColIndex}"]`)
+    .all();
+  for (const cell of cells) {
+    await expect(async () => {
+      const widthStr = await cell.evaluate((el) =>
+        window.getComputedStyle(el).getPropertyValue("width"),
+      );
+      const width = parseFloat(widthStr);
+      expect(width).toBeGreaterThanOrEqual(targetWidth - tolerance);
+      expect(width).toBeLessThanOrEqual(targetWidth + tolerance);
+    }).toPass();
   }
 };

@@ -13,6 +13,7 @@ const cols: ColDef[] = [
     type: "number",
     name: "numCol",
     label: "Number Column",
+    width: 150
   },
   {
     type: "date",
@@ -91,6 +92,9 @@ const Test: FC = () => {
       </div>
       <div data-testid="responsive grid container">
         <Grid rows={rows} cols={cols} responsive={true} />
+      </div>
+      <div data-testid="block grid container">
+        <Grid rows={rows} cols={cols} displayMode="block" />
       </div>
     </>
   );

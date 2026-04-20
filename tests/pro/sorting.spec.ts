@@ -26,4 +26,4 @@ test("sorting still works even if resizing is enabled", async ({ page }) => {
     page.locator('tr[aria-rowindex="3"][data-rowid="3"]'),
   ).toBeVisible();
   await validateGridContents(tbody, [["1"], ["3"], ["2"]]);
-})
+});

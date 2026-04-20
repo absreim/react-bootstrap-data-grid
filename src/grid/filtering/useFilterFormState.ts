@@ -2,7 +2,7 @@ import { DateFilterState, FilterFormState, TableFilterState } from "./types";
 import { useMemo } from "react";
 import { dateToDatetimeInputStr, dateToInputStr } from "../util/datetime";
 
-const useFormStateFromTableFilterState: (
+const useFilterFormState: (
   tableFilterState: TableFilterState,
 ) => FilterFormState = (tableFilterState) => {
   return useMemo(
@@ -87,4 +87,4 @@ const useFormStateFromTableFilterState: (
   );
 };
 
-export default useFormStateFromTableFilterState;
+export default useFilterFormState;

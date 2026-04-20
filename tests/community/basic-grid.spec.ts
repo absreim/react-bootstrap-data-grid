@@ -1,4 +1,21 @@
-import { test, expect } from "@playwright/test";
+import { test, expect, Locator } from "@playwright/test";
+import { confirmColWidth } from "../util";
+
+const confirmWidthStyle: (
+  targetWidth: number,
+  ariaColIndex: number,
+  container: Locator,
+) => Promise<void> = async (targetWidth, ariaColIndex, container) => {
+  const cells = await container
+    .locator(`[aria-colindex="${ariaColIndex}"]`)
+    .all();
+  for (const cell of cells) {
+    const minWidthRegex = new RegExp(`min-width:\\s*${targetWidth}px`);
+    await expect(cell).toHaveAttribute("style", minWidthRegex);
+    const maxWidthRegex = new RegExp(`max-width:\\s*${targetWidth}px`);
+    await expect(cell).toHaveAttribute("style", maxWidthRegex);
+  }
+};
 
 test.beforeEach(async ({ page }) => {
   await page.goto("/");
@@ -82,4 +99,14 @@ test("renders a responsive table when the relevant prop is passed", async ({
 
   const tableContainer = responsiveGridContainer.getByTestId("rbdg-table-div");
   await expect(tableContainer).toHaveClass("table-responsive");
+});
+
+test("setting a width applies the width to the style attribute", async ({ page }) => {
+  const workingGridContainer = page.getByTestId("functioning grid container");
+  await confirmWidthStyle(150, 2, workingGridContainer);
+});
+
+test("in block display mode, setting a width causes the column to be that width", async ({ page }) => {
+  const blockGridContainer = page.getByTestId("block grid container");
+  await confirmColWidth(150, 1, 2, blockGridContainer );
 });
