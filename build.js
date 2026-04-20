@@ -20,7 +20,6 @@ const distScss = path.join(distDir, "style.scss");
 const distCss = path.join(distDir, "style.css");
 
 const proSrcScss = path.join(proRoot, "style.scss");
-const proDistScss = path.join(distDir, "pro.scss");
 const proDistCss = path.join(distDir, "pro.css");
 
 const templateDir = path.join(
@@ -78,11 +77,12 @@ if (!fs.existsSync(srcScss)) {
 
 createDirs(distDir, packDir);
 cleanDist(distDir);
-copyWithDirs(srcScss, distScss);
-compileScss(distScss, distCss);
 if (isPro) {
-  copyWithDirs(proSrcScss, proDistScss);
-  compileScss(proDistScss, proDistCss);
+  compileScss(proSrcScss, proDistCss);
+}
+else {
+  copyWithDirs(srcScss, distScss);
+  compileScss(distScss, distCss);
 }
 compileTs(root);
 copyDirContents(templateDir, distDir);
