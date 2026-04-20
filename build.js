@@ -79,8 +79,7 @@ createDirs(distDir, packDir);
 cleanDist(distDir);
 if (isPro) {
   compileScss(proSrcScss, proDistCss);
-}
-else {
+} else {
   copyWithDirs(srcScss, distScss);
   compileScss(distScss, distCss);
 }

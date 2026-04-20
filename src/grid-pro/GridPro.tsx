@@ -47,17 +47,31 @@ const GridPro: FC<GridProProps> = (props) => {
     cols,
   );
   const resizeModel = useResizeModel(cols, displayMode);
-  const colNameToWidth: ColNameToWidth = useMemo(() => Object.keys(resizeModel).reduce((prev, fieldName) => {
-    prev[fieldName] = resizeModel[fieldName].width;
-    return prev;
-  }, {} as ColNameToWidth), [resizeModel]);
+  const colNameToWidth: ColNameToWidth = useMemo(
+    () =>
+      Object.keys(resizeModel).reduce((prev, fieldName) => {
+        prev[fieldName] = resizeModel[fieldName].width;
+        return prev;
+      }, {} as ColNameToWidth),
+    [resizeModel],
+  );
   const augFormattedRows: AugFormattedRow[] = useAugFormattedRows(
     colNameToWidth,
     displayRows,
   );
 
   const colHeaderCells = cols.map(
-    ({ name, label, sortable, minResizeWidth, maxResizeWidth, keyboardResizeStep }, index) => {
+    (
+      {
+        name,
+        label,
+        sortable,
+        minResizeWidth,
+        maxResizeWidth,
+        keyboardResizeStep,
+      },
+      index,
+    ) => {
       const colSortModel: ColSortModel | undefined =
         sortingEnabled && sortable
           ? {

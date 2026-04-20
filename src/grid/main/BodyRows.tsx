@@ -34,7 +34,7 @@ const BodyRows: FC<BodyRowsProps> = ({
   combinedPipelineOutput: { showSelectCol, ariaColIndexOffset },
   selectModel,
   editModel,
-  getInputStrSubmitCallback
+  getInputStrSubmitCallback,
 }) =>
   augFormattedRows.map((row, index) => {
     return (

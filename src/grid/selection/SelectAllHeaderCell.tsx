@@ -72,7 +72,7 @@ const SelectAllHeaderCell: FC<SelectAllHeaderCellProps> = ({
   selectionInfo,
   totalRows,
   additionalClasses,
-  style
+  style,
 }) => {
   const noRows = totalRows === 0;
   const { indeterminate, checked, disabled, description } = getCheckboxState(

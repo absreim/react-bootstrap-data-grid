@@ -47,10 +47,7 @@ const UseCombinedPipeline: (
 
   const sortedRowsOutput = useSortedRows(filteredRows, cols, sortModel);
   const { sortedRows } = sortedRowsOutput;
-  const currentPageRowsOutput = useCurrentPageRows(
-    sortedRows,
-    pagination,
-  );
+  const currentPageRowsOutput = useCurrentPageRows(sortedRows, pagination);
 
   const showSelectCol = !!(selectModel && selectModel.mode !== "row");
   const ariaColIndexOffset = showSelectCol ? 1 : 0;

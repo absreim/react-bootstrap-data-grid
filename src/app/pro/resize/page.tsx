@@ -29,6 +29,6 @@ const Page: FC = () => {
       ></div>
     </>
   );
-}
+};
 
 export default Page;

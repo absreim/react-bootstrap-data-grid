@@ -26,10 +26,7 @@ export interface UseGridSelectionFnsHook {
 const useGridSelectionFns: (
   selectModel: SelectModel | undefined,
   rows: RowDef[],
-) => UseGridSelectionFnsHook = (
-  selectModel,
-  rows
-) => {
+) => UseGridSelectionFnsHook = (selectModel, rows) => {
   const selectionExists = useMemo(() => {
     if (!selectModel) {
       return false;

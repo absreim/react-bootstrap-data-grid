@@ -38,7 +38,7 @@ export interface FormattedRow {
 
 export type AugCellData = CellData & {
   width?: number;
-}
+};
 
 export type AugFormattedRow = Omit<FormattedRow, "contents"> & {
   contents: AugCellData[];

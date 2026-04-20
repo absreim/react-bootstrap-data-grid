@@ -23,7 +23,7 @@ export type MultiSelectModel = BaseSelectModel & {
   type: "multi";
   selected: RowId[];
   setSelected: (selected: RowId[]) => void;
-}
+};
 
 export type SingleSelectModel = BaseSelectModel & {
   type: "single";
@@ -33,7 +33,7 @@ export type SingleSelectModel = BaseSelectModel & {
   // must be unique across all radio button groups on the web page.
   // No longer needed to be specified since useId can be used to generate an ID.
   groupName?: string;
-}
+};
 
 export type SelectModel = SingleSelectModel | MultiSelectModel;
 

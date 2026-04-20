@@ -13,7 +13,7 @@ const cols: ColDef[] = [
     type: "number",
     name: "numCol",
     label: "Number Column",
-    width: 150
+    width: 150,
   },
   {
     type: "date",

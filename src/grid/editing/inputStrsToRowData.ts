@@ -1,9 +1,9 @@
 import { ColDefBase, RowData } from "../types";
 
-const inputStrsToRowData: (cols: ColDefBase[], inputStrs: string[]) => RowData = (
-  cols,
-  inputStrs,
-) => {
+const inputStrsToRowData: (
+  cols: ColDefBase[],
+  inputStrs: string[],
+) => RowData = (cols, inputStrs) => {
   const newRow: RowData = {};
   inputStrs.forEach((value, index) => {
     const col = cols[index];

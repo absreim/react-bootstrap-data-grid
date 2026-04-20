@@ -42,11 +42,7 @@ const InternalGrid: FC<InternalGridProps> = ({
     responsive,
     displayMode,
   },
-  hooks: {
-    pipelineOutput,
-    selectFns,
-    unwrappedStyles,
-  },
+  hooks: { pipelineOutput, selectFns, unwrappedStyles },
   slots: { colHeaderCells, bodyRows },
 }) => {
   const {

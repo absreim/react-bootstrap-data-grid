@@ -101,12 +101,16 @@ test("renders a responsive table when the relevant prop is passed", async ({
   await expect(tableContainer).toHaveClass("table-responsive");
 });
 
-test("setting a width applies the width to the style attribute", async ({ page }) => {
+test("setting a width applies the width to the style attribute", async ({
+  page,
+}) => {
   const workingGridContainer = page.getByTestId("functioning grid container");
   await confirmWidthStyle(150, 2, workingGridContainer);
 });
 
-test("in block display mode, setting a width causes the column to be that width", async ({ page }) => {
+test("in block display mode, setting a width causes the column to be that width", async ({
+  page,
+}) => {
   const blockGridContainer = page.getByTestId("block grid container");
-  await confirmColWidth(150, 1, 2, blockGridContainer );
+  await confirmColWidth(150, 1, 2, blockGridContainer);
 });
