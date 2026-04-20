@@ -38,3 +38,39 @@ test("resize works properly with controlled width state and no limits", async ({
   await dragHandle.dragTo(leftDragTarget);
   await confirmColWidth(125, 10, 3, table);
 });
+
+test("pressing escape key cancels a resize in progress", async ({ page }) => {
+  const table = page.getByRole("table");
+  const strHeaderCell = page.getByRole("columnheader", {
+    name: "String Column",
+  });
+  const dragHandle = strHeaderCell.getByRole("separator");
+  const leftDragTarget = page.getByTestId("leftDragTarget");
+
+  await dragHandle.hover();
+  await page.mouse.down();
+  await leftDragTarget.hover();
+  await page.keyboard.press("Escape");
+  await page.mouse.up();
+
+  await confirmColWidth(100, 1, 1, table);
+});
+
+test("keyboard resizing works and obeys limits", async ({ page }) => {
+  const table = page.getByRole("table");
+
+  // focus on datetime column header separator
+  await page.keyboard.press("Tab");
+  await page.keyboard.press("Tab");
+  await page.keyboard.press("Tab");
+
+  await page.keyboard.press("ArrowRight");
+  await confirmColWidth(250, 1, 4, table);
+  await page.keyboard.press("ArrowRight");
+  await confirmColWidth(300, 1, 4, table);
+
+  await page.keyboard.press("ArrowLeft");
+  await confirmColWidth(200, 1, 4, table);
+  await page.keyboard.press("ArrowLeft");
+  await confirmColWidth(150, 1, 4, table);
+});

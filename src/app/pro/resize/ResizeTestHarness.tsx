@@ -52,43 +52,47 @@ const styleModel: StyleModel = {
 const ResizeTestHarness: FC = () => {
   const [dateColWidth, setDateColWidth] = useState(150);
 
-  const cols: ProColDef[] = useMemo(() => [
-    {
-      name: "strCol",
-      label: "String Column",
-      type: "string",
-      width: 100,
-      resizeable: true,
-      minResizeWidth: 50,
-    },
-    {
-      name: "numCol",
-      label: "Number Column",
-      type: "number",
-      width: 100,
-    },
-    {
-      name: "dateCol",
-      label: "Date Column",
-      type: "date",
-      formatter: dateToInputStr,
-      width: {
-        width: dateColWidth,
-        setWidth: setDateColWidth
+  const cols: ProColDef[] = useMemo(
+    () => [
+      {
+        name: "strCol",
+        label: "String Column",
+        type: "string",
+        width: 100,
+        resizeable: true,
+        minResizeWidth: 50,
       },
-      resizeable: true,
-    },
-    {
-      name: "datetimeCol",
-      label: "Datetime Column",
-      type: "datetime",
-      formatter: dateToDatetimeInputStr,
-      width: 150,
-      resizeable: true,
-      minResizeWidth: 150,
-      maxResizeWidth: 300,
-    },
-  ], [dateColWidth]);
+      {
+        name: "numCol",
+        label: "Number Column",
+        type: "number",
+        width: 100,
+      },
+      {
+        name: "dateCol",
+        label: "Date Column",
+        type: "date",
+        formatter: dateToInputStr,
+        width: {
+          width: dateColWidth,
+          setWidth: setDateColWidth,
+        },
+        resizeable: true,
+      },
+      {
+        name: "datetimeCol",
+        label: "Datetime Column",
+        type: "datetime",
+        formatter: dateToDatetimeInputStr,
+        width: 150,
+        resizeable: true,
+        minResizeWidth: 150,
+        maxResizeWidth: 300,
+        keyboardResizeStep: 100,
+      },
+    ],
+    [dateColWidth],
+  );
 
   return (
     <GridPro

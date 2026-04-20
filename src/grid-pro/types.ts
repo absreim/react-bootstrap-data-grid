@@ -5,6 +5,7 @@ export type ProColDef<ValueType = any> = ColDefBase<ValueType> & {
   width?: ColDef["width"] | WidthModel;
   minResizeWidth?: number;
   maxResizeWidth?: number;
+  keyboardResizeStep?: number;
 };
 
 export type GridProProps = Omit<GridProps, "cols"> & {
@@ -14,10 +15,12 @@ export type GridProProps = Omit<GridProps, "cols"> & {
 export type ColHeaderCellProProps = ColHeaderCellProps &
   Pick<GridProps, "displayMode"> & {
     setWidth?: (width: number) => void;
-  } & Pick<ProColDef, "minResizeWidth" | "maxResizeWidth">;
+  } & Pick<
+    ProColDef,
+    "minResizeWidth" | "maxResizeWidth" | "keyboardResizeStep"
+  >;
 
 export interface WidthModel {
   width: number;
   setWidth: (width: number) => void;
 }
-

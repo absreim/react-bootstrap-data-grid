@@ -1,6 +1,13 @@
 "use client";
 
-import { FC, PointerEventHandler, useCallback, useMemo, useRef } from "react";
+import {
+  FC,
+  PointerEventHandler,
+  KeyboardEventHandler,
+  useCallback,
+  useMemo,
+  useRef,
+} from "react";
 import classNames from "classnames";
 import getWidthStyle from "../grid/util/getWidthStyle";
 import { ColHeaderCellProProps } from "./types";
@@ -26,6 +33,7 @@ const ColHeaderCellPro: FC<ColHeaderCellProProps> = ({
   setWidth,
   minResizeWidth,
   maxResizeWidth,
+  keyboardResizeStep,
 }) => {
   const resizeable = setWidth !== undefined;
   const cellIsClickable = !!(resizeable && sortModel);
@@ -34,6 +42,7 @@ const ColHeaderCellPro: FC<ColHeaderCellProProps> = ({
     useSortHeaderStates(sortModel);
   const defaultMinResizeWidth = sortModel ? 64 : 32;
   const effectiveMinResizeWidth = minResizeWidth || defaultMinResizeWidth;
+  const effectiveKbdResizeStep = keyboardResizeStep || 10;
 
   const clickToSortCellContents = useMemo(() => {
     if (!width || displayMode === "table") {
@@ -81,6 +90,38 @@ const ColHeaderCellPro: FC<ColHeaderCellProProps> = ({
     sortSymbol,
     width,
   ]);
+
+  const onKeyDown: KeyboardEventHandler<HTMLDivElement> = useCallback(
+    (e) => {
+      if (setWidth === undefined || width === undefined) {
+        return;
+      }
+
+      if (e.code === "ArrowLeft") {
+        setWidth(
+          Math.max(effectiveMinResizeWidth, width - effectiveKbdResizeStep),
+        );
+        return;
+      }
+
+      if (e.code === "ArrowRight") {
+        setWidth(
+          Math.min(
+            maxResizeWidth || Number.MAX_VALUE,
+            width + effectiveKbdResizeStep,
+          ),
+        );
+        return;
+      }
+    },
+    [
+      effectiveKbdResizeStep,
+      effectiveMinResizeWidth,
+      maxResizeWidth,
+      setWidth,
+      width,
+    ],
+  );
 
   const thRef = useRef<HTMLTableCellElement>(null);
   const onPointerDown: PointerEventHandler<HTMLDivElement> = useCallback(
@@ -182,6 +223,7 @@ const ColHeaderCellPro: FC<ColHeaderCellProProps> = ({
           aria-valuenow={width}
           aria-valuemin={minResizeWidth}
           aria-valuemax={maxResizeWidth}
+          onKeyDown={onKeyDown}
         >
           {dragHandleIcon}
         </div>
@@ -191,6 +233,7 @@ const ColHeaderCellPro: FC<ColHeaderCellProProps> = ({
     clickToSortCellContents,
     maxResizeWidth,
     minResizeWidth,
+    onKeyDown,
     onPointerDown,
     resizeable,
     width,
