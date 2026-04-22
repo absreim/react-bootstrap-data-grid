@@ -177,7 +177,7 @@ const ColHeaderCellPro: FC<ColHeaderCellProProps> = ({
       };
       document.addEventListener("keydown", onKeyDown, { once: true });
 
-      const onPointerUp: () => void = () => {
+      const onPointerUp: (event: PointerEvent) => void = () => {
         if (thRef.current !== null) {
           const newWidth = Number(
             thRef.current.style.minWidth.replace("px", ""),
@@ -224,6 +224,7 @@ const ColHeaderCellPro: FC<ColHeaderCellProProps> = ({
           aria-valuemin={minResizeWidth}
           aria-valuemax={maxResizeWidth}
           onKeyDown={onKeyDown}
+          onClick={(e) => e.stopPropagation()}
         >
           {dragHandleIcon}
         </div>

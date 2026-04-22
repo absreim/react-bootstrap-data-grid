@@ -10,6 +10,7 @@ const cols: ProColDef[] = [
     label: "Resizeable Sortable Column",
     type: "number",
     width: 150,
+    maxResizeWidth: 300,
     resizeable: true,
     sortable: true,
   },
@@ -41,12 +42,24 @@ const rows: RowDef<TestRow>[] = [
 ];
 
 const ResizeSortTestHarness: FC = () => (
-  <GridPro
-    displayMode="block"
-    rows={rows}
-    cols={cols}
-    sortModel={{ type: "uncontrolled", initialSortColDef: null }}
-  />
+  <>
+    <GridPro
+      displayMode="block"
+      rows={rows}
+      cols={cols}
+      sortModel={{ type: "uncontrolled", initialSortColDef: null }}
+    />
+    <div
+      data-testid="dragTarget"
+      style={{
+        position: "absolute",
+        width: 16,
+        height: 16,
+        left: 700,
+        background: "black",
+      }}
+    ></div>
+  </>
 );
 
 export default ResizeSortTestHarness;

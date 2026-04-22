@@ -20,7 +20,7 @@ const distScss = path.join(distDir, "style.scss");
 const distCss = path.join(distDir, "style.css");
 
 const proSrcScss = path.join(proRoot, "style.scss");
-const proDistCss = path.join(distDir, "pro.css");
+const proDistCss = path.join(distDir, "style.css");
 
 const templateDir = path.join(
   __dirname,
