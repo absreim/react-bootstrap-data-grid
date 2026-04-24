@@ -3,91 +3,91 @@
 import { FC, Fragment } from "react";
 import { ColDef, EditableTableFilterState, RowDef } from "@/grid";
 import FilteringTestHarness from "@/app/filtering/FilteringTestHarness";
-import { dateToInputStr } from "@/grid/util/datetime";
+import { dateToDatetimeInputStr } from "@/grid/util/datetime";
 import { TestParams } from "@/app/filtering/types";
 
-const dateTestCols: ColDef[] = [
+const datetimeTestCols: ColDef[] = [
   {
-    type: "date",
-    name: "dateCol",
-    label: "Date Column",
-    formatter: dateToInputStr,
+    type: "datetime",
+    name: "datetimeCol",
+    label: "Datetime Column",
+    formatter: dateToDatetimeInputStr,
   },
 ];
 
-const dateTestRows: RowDef<{ dateCol: Date }>[] = [
+const datetimeTestRows: RowDef<{ datetimeCol: Date }>[] = [
   {
-    id: "0",
+    id: 0,
     data: {
-      dateCol: new Date("2022-12-25"),
+      datetimeCol: new Date("2022-12-25T23:59"),
     },
   },
   {
-    id: "1",
+    id: 1,
     data: {
-      dateCol: new Date("2023-01-15"),
+      datetimeCol: new Date("2023-01-15T10:00"),
     },
   },
   {
-    id: "2",
+    id: 2,
     data: {
-      dateCol: new Date("2023-06-30"),
+      datetimeCol: new Date("2023-01-15T20:00"),
     },
   },
   {
-    id: "3",
+    id: 3,
     data: {
-      dateCol: new Date("2024-03-20"),
+      datetimeCol: new Date("2024-04-20T00:00"),
     },
   },
 ];
 
-const startFromDateFilterState: EditableTableFilterState = {
-  dateCol: {
+const startFromDatetimeFilterState: EditableTableFilterState = {
+  datetimeCol: {
     enabled: true,
-    type: "date",
+    type: "datetime",
     scheme: "startFrom",
-    startDate: new Date("2023-01-15"),
+    startDate: new Date("2023-01-15T10:00"),
   },
 };
 
-const endAtDateFilterState: EditableTableFilterState = {
-  dateCol: {
+const endAtDatetimeFilterState: EditableTableFilterState = {
+  datetimeCol: {
     enabled: true,
-    type: "date",
+    type: "datetime",
     scheme: "endAt",
-    endDate: new Date("2023-06-30"),
+    endDate: new Date("2024-04-20T00:01"),
   },
 };
 
-const betweenDatesFilterState: EditableTableFilterState = {
-  dateCol: {
+const betweenDatetimesFilterState: EditableTableFilterState = {
+  datetimeCol: {
     enabled: true,
-    type: "date",
+    type: "datetime",
     scheme: "between",
-    startDate: new Date("2022-11-30"),
-    endDate: new Date("2025-01-05"),
+    startDate: new Date("2023-01-15T09:00"),
+    endDate: new Date("2024-04-21T00:00"),
   },
 };
 
 const testParamsList: TestParams[] = [
   {
-    testId: "start date grid container",
-    cols: dateTestCols,
-    rows: dateTestRows,
-    initialState: startFromDateFilterState,
+    testId: "start datetime grid container",
+    cols: datetimeTestCols,
+    rows: datetimeTestRows,
+    initialState: startFromDatetimeFilterState,
   },
   {
-    testId: "end date grid container",
-    cols: dateTestCols,
-    rows: dateTestRows,
-    initialState: endAtDateFilterState,
+    testId: "end datetime grid container",
+    cols: datetimeTestCols,
+    rows: datetimeTestRows,
+    initialState: endAtDatetimeFilterState,
   },
   {
-    testId: "between dates grid container",
-    cols: dateTestCols,
-    rows: dateTestRows,
-    initialState: betweenDatesFilterState,
+    testId: "between datetimes grid container",
+    cols: datetimeTestCols,
+    rows: datetimeTestRows,
+    initialState: betweenDatetimesFilterState,
   },
 ];
 

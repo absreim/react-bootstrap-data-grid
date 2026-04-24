@@ -20,7 +20,7 @@ const ColHeaderCell: FC<ColHeaderCellProps> = ({
     <th
       className={classNames(
         {
-          "rbdg-clickable-grid-header-cell": sortModel,
+          "rbdg-sort-toggler": sortModel,
           "table-active": sortModel?.sortOrder,
         },
         additionalClasses || [],

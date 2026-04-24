@@ -3,6 +3,7 @@
 import { FC, Fragment } from "react";
 import { ColDef, EditableTableFilterState, RowDef } from "@/grid";
 import FilteringTestHarness from "@/app/filtering/FilteringTestHarness";
+import { TestParams } from "@/app/filtering/types";
 
 const numTestCols: ColDef[] = [
   {
@@ -146,15 +147,6 @@ const endsWithFilterState: EditableTableFilterState = {
     searchString: "bar",
   },
 };
-
-interface TestParams {
-  testId: string;
-  cols: ColDef[];
-  rows: RowDef[];
-  initialState: EditableTableFilterState;
-  caption?: string;
-  useToolbar?: boolean;
-}
 
 const testParamsList: TestParams[] = [
   {

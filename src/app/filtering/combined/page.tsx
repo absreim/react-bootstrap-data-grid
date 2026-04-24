@@ -5,6 +5,7 @@ import { ColDef, EditableTableFilterState, RowDef } from "@/grid";
 import FilteringTestHarness from "@/app/filtering/FilteringTestHarness";
 import { dateToDatetimeInputStr, dateToInputStr } from "@/grid/util/datetime";
 import NoInitStateTestHarness from "@/app/filtering/NoInitStateTestHarness";
+import { TestParams } from "@/app/filtering/types";
 
 const combinedTestCols: ColDef[] = [
   {
@@ -103,15 +104,6 @@ const combinedFilterState: EditableTableFilterState = {
     endDate: new Date("2025-01-01T00:00"),
   },
 };
-
-interface TestParams {
-  testId: string;
-  cols: ColDef[];
-  rows: RowDef[];
-  initialState: EditableTableFilterState;
-  caption?: string;
-  useToolbar?: boolean;
-}
 
 const testParamsList: TestParams[] = [
   {
