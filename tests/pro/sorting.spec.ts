@@ -28,7 +28,9 @@ test("sorting still works even if resizing is enabled", async ({ page }) => {
   await validateGridContents(tbody, [["1"], ["3"], ["2"]]);
 });
 
-test("using the resize handle does not cause the sort order to change", async ({ page }) => {
+test("using the resize handle does not cause the sort order to change", async ({
+  page,
+}) => {
   const headerCell = page.getByRole("columnheader", {
     name: "Resizeable Sortable Column",
   });

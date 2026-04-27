@@ -65,7 +65,9 @@ test("Clicking on a button causes it to be the focusable button of the toolbar",
   );
   await expect(filterButton).toBeVisible();
 
-  let exportButton = twoElementContainer.getByRole("button", { name: "Export" });
+  let exportButton = twoElementContainer.getByRole("button", {
+    name: "Export",
+  });
   await exportButton.click();
   await exportButton.click();
   await page.keyboard.press("Tab");

@@ -4,7 +4,8 @@ import {
   KeyboardEventHandler,
   ReactNode,
   useEffect,
-  useMemo, useRef,
+  useMemo,
+  useRef,
   useState,
 } from "react";
 import classNames from "classnames";
@@ -89,7 +90,9 @@ const Toolbar: FC<ToolbarProps> = ({
       return;
     }
 
-    const currentIndex = enabledOptions.findIndex((option) => option === actualOption);
+    const currentIndex = enabledOptions.findIndex(
+      (option) => option === actualOption,
+    );
     if (currentIndex === -1) {
       // Should not happen due normalization of the value by the actualOption useMemo hook.
       // This branch is put here anyway for explanatory purposes.
@@ -106,16 +109,22 @@ const Toolbar: FC<ToolbarProps> = ({
       return;
     }
 
-    if (event.code === "ArrowRight" && currentIndex + 1 >= enabledOptions.length) {
+    if (
+      event.code === "ArrowRight" &&
+      currentIndex + 1 >= enabledOptions.length
+    ) {
       setFocusableOption(enabledOptions[0]);
       return;
     }
 
-    if (event.code === "ArrowRight" && currentIndex + 1 < enabledOptions.length) {
+    if (
+      event.code === "ArrowRight" &&
+      currentIndex + 1 < enabledOptions.length
+    ) {
       setFocusableOption(enabledOptions[currentIndex + 1]);
       return;
     }
-  }
+  };
 
   useEffect(() => {
     if (actualOption === null) {
@@ -137,7 +146,7 @@ const Toolbar: FC<ToolbarProps> = ({
     if (focusTarget) {
       focusTarget.focus();
     }
-  }, [actualOption])
+  }, [actualOption]);
 
   return (
     <div
