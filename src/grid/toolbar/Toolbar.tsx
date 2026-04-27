@@ -1,5 +1,12 @@
 import { ToolbarOption } from "./types";
-import { FC, ReactNode } from "react";
+import {
+  FC,
+  KeyboardEventHandler,
+  ReactNode,
+  useEffect,
+  useMemo, useRef,
+  useState,
+} from "react";
 import classNames from "classnames";
 
 export interface ToolbarProps {
@@ -48,7 +55,6 @@ const buttonSpecs: Record<ToolbarOption, ButtonSpec> = {
   },
 };
 
-// TODO: figure out tabindex and accessibility
 const Toolbar: FC<ToolbarProps> = ({
   enabledFeatures,
   option,
@@ -56,19 +62,96 @@ const Toolbar: FC<ToolbarProps> = ({
   toolbarClasses,
   activeClasses,
   inactiveClasses,
-}) => (
-  <div
-    className={classNames(
-      toolbarClasses || ["hstack", "gap-2", "justify-content-start", "px-2"],
-    )}
-    role="toolbar"
-  >
-    {Object.keys(buttonSpecs)
-      .filter(
+}) => {
+  const enabledOptions = useMemo(
+    () =>
+      Object.keys(buttonSpecs).filter(
         (toolbarOption) => !!enabledFeatures[toolbarOption as ToolbarOption],
-      )
-      .map((toolbarOption) => (
+      ) as ToolbarOption[],
+    [enabledFeatures],
+  );
+  const [focusableOption, setFocusableOption] = useState<ToolbarOption | null>(
+    enabledOptions[0] || null,
+  );
+  const divRef = useRef<HTMLDivElement | null>(null);
+
+  // Deals with cases where selected option is no longer available due to enabledFeatures prop getting changed.
+  const actualOption = useMemo(() => {
+    if (focusableOption === null || !enabledOptions.includes(focusableOption)) {
+      return enabledOptions[0] || null;
+    }
+
+    return focusableOption;
+  }, [enabledOptions, focusableOption]);
+
+  const onKeydown: KeyboardEventHandler<HTMLDivElement> = (event) => {
+    if (actualOption === null) {
+      return;
+    }
+
+    const currentIndex = enabledOptions.findIndex((option) => option === actualOption);
+    if (currentIndex === -1) {
+      // Should not happen due normalization of the value by the actualOption useMemo hook.
+      // This branch is put here anyway for explanatory purposes.
+      return;
+    }
+
+    if (event.code === "ArrowLeft" && currentIndex - 1 < 0) {
+      setFocusableOption(enabledOptions[enabledOptions.length - 1]);
+      return;
+    }
+
+    if (event.code === "ArrowLeft" && currentIndex - 1 >= 0) {
+      setFocusableOption(enabledOptions[currentIndex - 1]);
+      return;
+    }
+
+    if (event.code === "ArrowRight" && currentIndex + 1 >= enabledOptions.length) {
+      setFocusableOption(enabledOptions[0]);
+      return;
+    }
+
+    if (event.code === "ArrowRight" && currentIndex + 1 < enabledOptions.length) {
+      setFocusableOption(enabledOptions[currentIndex + 1]);
+      return;
+    }
+  }
+
+  useEffect(() => {
+    if (actualOption === null) {
+      return;
+    }
+
+    if (divRef.current === null) {
+      return;
+    }
+
+    if (!divRef.current.contains(document.activeElement)) {
+      return;
+    }
+
+    const focusTarget: HTMLButtonElement | null = divRef.current.querySelector(
+      `:scope > button[data-toolbar-option="${actualOption}"]`,
+    );
+
+    if (focusTarget) {
+      focusTarget.focus();
+    }
+  }, [actualOption])
+
+  return (
+    <div
+      ref={divRef}
+      className={classNames(
+        toolbarClasses || ["hstack", "gap-2", "justify-content-start", "px-2"],
+      )}
+      role="toolbar"
+      onKeyDown={onKeydown}
+    >
+      {enabledOptions.map((toolbarOption) => (
         <button
+          tabIndex={actualOption === toolbarOption ? 0 : -1}
+          data-toolbar-option={toolbarOption}
           aria-label={buttonSpecs[toolbarOption as ToolbarOption].label}
           aria-roledescription={`Grouped toggle button to show/hide ${toolbarOption} UI`}
           aria-pressed={option === toolbarOption}
@@ -80,6 +163,7 @@ const Toolbar: FC<ToolbarProps> = ({
           )}
           title={buttonSpecs[toolbarOption as ToolbarOption].label}
           onClick={() => {
+            setFocusableOption(toolbarOption);
             setOption(
               option === toolbarOption
                 ? null
@@ -90,7 +174,8 @@ const Toolbar: FC<ToolbarProps> = ({
           {buttonSpecs[toolbarOption as ToolbarOption].icon}
         </button>
       ))}
-  </div>
-);
+    </div>
+  );
+};
 
 export default Toolbar;

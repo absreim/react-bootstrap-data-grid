@@ -23,8 +23,6 @@ const ToolbarContainer: FC<ToolbarContainerProps> = ({
     {} as Partial<Record<ToolbarOption, boolean>>,
   );
 
-  // TODO: mention in documentation that Bootstrap 5.3 is required due to the
-  // use of the z-index utility
   return (
     <div className="vstack" data-testid="toolbar container">
       <Toolbar
