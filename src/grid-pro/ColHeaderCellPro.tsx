@@ -12,6 +12,7 @@ import classNames from "classnames";
 import getWidthStyle from "../grid/util/getWidthStyle";
 import { ColHeaderCellProProps } from "./types";
 import useSortHeaderStates from "../grid/main/ColHeaderCell/useSortHeaderStates";
+import VerticalGrip from "./assets/VerticalGrip";
 
 const setWidthStyle: (cells: HTMLTableCellElement[], width: number) => void = (
   cells,
@@ -197,25 +198,11 @@ const ColHeaderCellPro: FC<ColHeaderCellProProps> = ({
       return clickToSortCellContents;
     }
 
-    const dragHandleIcon = (
-      <svg
-        aria-hidden
-        xmlns="http://www.w3.org/2000/svg"
-        width="16"
-        height="16"
-        fill="currentColor"
-        viewBox="0 0 16 16"
-        className="rdbg-drag-marker"
-      >
-        <path d="M7 2a1 1 0 1 1-2 0 1 1 0 0 1 2 0m3 0a1 1 0 1 1-2 0 1 1 0 0 1 2 0M7 5a1 1 0 1 1-2 0 1 1 0 0 1 2 0m3 0a1 1 0 1 1-2 0 1 1 0 0 1 2 0M7 8a1 1 0 1 1-2 0 1 1 0 0 1 2 0m3 0a1 1 0 1 1-2 0 1 1 0 0 1 2 0m-3 3a1 1 0 1 1-2 0 1 1 0 0 1 2 0m3 0a1 1 0 1 1-2 0 1 1 0 0 1 2 0m-3 3a1 1 0 1 1-2 0 1 1 0 0 1 2 0m3 0a1 1 0 1 1-2 0 1 1 0 0 1 2 0" />
-      </svg>
-    );
-
     return (
       <div className="d-flex justify-content-between">
         {clickToSortCellContents}
         <div
-          className="rdbg-drag-marker-container"
+          className="rbdg-draggable-container rbdg-resize-container"
           onPointerDown={onPointerDown}
           role="separator"
           tabIndex={0}
@@ -226,7 +213,7 @@ const ColHeaderCellPro: FC<ColHeaderCellProProps> = ({
           onKeyDown={onKeyDown}
           onClick={(e) => e.stopPropagation()}
         >
-          {dragHandleIcon}
+          <VerticalGrip className="rbdg-draggable-icon" />
         </div>
       </div>
     );

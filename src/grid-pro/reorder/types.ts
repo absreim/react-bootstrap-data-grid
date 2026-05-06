@@ -1,5 +1,7 @@
 import { RowId } from "../";
 
+export type ReorderCallback = (id: RowId, destIndex: number) => void;
+
 export interface ReorderModel {
-  callback: (id: RowId, destIndex: number) => void
+  callback: ReorderCallback;
 }
