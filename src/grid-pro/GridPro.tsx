@@ -13,6 +13,7 @@ import { ColNameToWidth } from "../grid/pipeline/types";
 import useAugFormattedRows from "../grid/pipeline/useAugFormattedRows";
 import useResizeModel from "./resize/useResizeModel";
 import BodyRows from "../grid/main/BodyRows";
+import ReorderHeaderCell from "./reorder/ReorderHeaderCell";
 
 const GridPro: FC<GridProProps> = (props) => {
   const {
@@ -25,6 +26,7 @@ const GridPro: FC<GridProProps> = (props) => {
     selectModel,
     styleModel,
     displayMode,
+    reorder
   } = props;
 
   const combinedPipelineOutput = useCombinedPipeline({
@@ -115,6 +117,8 @@ const GridPro: FC<GridProProps> = (props) => {
     />
   );
 
+  const prefixHeader = reorder ? <ReorderHeaderCell /> : null;
+
   return (
     <InternalGrid
       gridProps={props}
@@ -123,7 +127,7 @@ const GridPro: FC<GridProProps> = (props) => {
         selectFns: gridSelectionFns,
         unwrappedStyles,
       }}
-      slots={{ colHeaderCells, bodyRows }}
+      slots={{ colHeaderCells, bodyRows, prefixHeader }}
     />
   );
 };

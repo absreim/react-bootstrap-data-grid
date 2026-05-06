@@ -1,4 +1,5 @@
 import { ColDef, ColDefBase, ColHeaderCellProps, GridProps } from "../grid";
+import { ReorderModel } from "./reorder/types";
 
 export type ProColDef<ValueType = any> = ColDefBase<ValueType> & {
   resizeable?: boolean;
@@ -10,6 +11,7 @@ export type ProColDef<ValueType = any> = ColDefBase<ValueType> & {
 
 export type GridProProps = Omit<GridProps, "cols"> & {
   cols: ProColDef[];
+  reorder?: ReorderModel;
 };
 
 export type ColHeaderCellProProps = ColHeaderCellProps &

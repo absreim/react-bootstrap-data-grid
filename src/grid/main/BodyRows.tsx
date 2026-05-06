@@ -1,5 +1,5 @@
 import { AugFormattedRow } from "../types";
-import { FC } from "react";
+import { FC, ReactNode } from "react";
 import EditableRow from "../editing/EditableRow";
 import classNames from "classnames";
 import getWidthStyle from "../util/getWidthStyle";
@@ -19,6 +19,8 @@ interface BodyRowsProps {
   selectModel: SelectModel | undefined;
   editModel: EditModel | undefined;
   getInputStrSubmitCallback: UseGetInputStrSubmitCallbackHook;
+  additionalColIndexOffset?: number;
+  prefixCells?: (augFormattedRows: AugFormattedRow) => ReactNode;
 }
 
 const BodyRows: FC<BodyRowsProps> = ({
@@ -35,6 +37,8 @@ const BodyRows: FC<BodyRowsProps> = ({
   selectModel,
   editModel,
   getInputStrSubmitCallback,
+  additionalColIndexOffset,
+  prefixCells
 }) =>
   augFormattedRows.map((row, index) => {
     return (
@@ -50,7 +54,9 @@ const BodyRows: FC<BodyRowsProps> = ({
         aria-rowindex={index + 2}
         dataRowId={row.id}
         aria-selected={getAriaSelectedValue(row.id)}
-        ariaColIndexOffset={ariaColIndexOffset}
+        ariaColIndexOffset={
+          ariaColIndexOffset + (additionalColIndexOffset || 0)
+        }
         cellData={row.contents}
         updateCallback={
           getInputStrSubmitCallback && getInputStrSubmitCallback(row.id)
@@ -76,6 +82,7 @@ const BodyRows: FC<BodyRowsProps> = ({
           index,
         )}
       >
+        {prefixCells && prefixCells(row)}
         {showSelectCol && (
           <td
             className={classNames(
