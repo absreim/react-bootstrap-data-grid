@@ -20,7 +20,7 @@ export type ColDef<ValueType = any> = ColDefBase<ValueType> & {
   width?: number;
 };
 
-type ValidRowData = Record<string, any>;
+export type ValidRowData = Record<string, any>;
 
 export type RowData<Data extends ValidRowData = ValidRowData> = Data;
 
@@ -31,10 +31,19 @@ export interface RowDef<Data extends ValidRowData = ValidRowData> {
   data: RowData<Data>;
 }
 
-export interface FormattedRow {
+export type AugRowDef<Data extends ValidRowData = ValidRowData> =
+  RowDef<Data> & {
+    origIndex: number;
+  };
+
+export type PostPaginationRowDef<Data extends ValidRowData = ValidRowData> =
+  AugRowDef & {
+    prePaginationIndex: number;
+  };
+
+export type FormattedRow = {
   contents: CellData[];
-  id: RowId;
-}
+} & Omit<PostPaginationRowDef, "data">;
 
 export type AugCellData = CellData & {
   width?: number;

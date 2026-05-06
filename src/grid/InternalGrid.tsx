@@ -25,6 +25,7 @@ export interface InternalGridProps {
   slots: {
     colHeaderCells: ReactNode;
     bodyRows: ReactNode;
+    prefixHeader?: ReactNode;
   };
 }
 
@@ -43,7 +44,7 @@ const InternalGrid: FC<InternalGridProps> = ({
     displayMode,
   },
   hooks: { pipelineOutput, selectFns, unwrappedStyles },
-  slots: { colHeaderCells, bodyRows },
+  slots: { colHeaderCells, bodyRows, prefixHeader },
 }) => {
   const {
     normalizedTableFilterModel,
@@ -120,6 +121,7 @@ const InternalGrid: FC<InternalGridProps> = ({
           aria-rowindex={1}
           className={classNames(unwrappedTableModel.theadTr)}
         >
+          {prefixHeader}
           {showSelectCol && (
             <SelectAllHeaderCell
               style={getWidthStyle(selectModel?.selectColWidth)}
@@ -127,6 +129,7 @@ const InternalGrid: FC<InternalGridProps> = ({
               onClick={selectAllOnClick}
               totalRows={rows.length}
               additionalClasses={unwrappedTableModel.rowSelectColTh}
+              colIndexOffset={prefixHeader ? 1 : 0}
             />
           )}
           {colHeaderCells}

@@ -1,9 +1,9 @@
 import { useMemo, useState } from "react";
-import { ColDataTypeStrings, ColDef, ColDefBase, RowDef } from "../../types";
+import { AugRowDef, ColDataTypeStrings, ColDefBase, RowDef } from "../../types";
 import { SortColDef, TableSortModel } from "../../sorting/types";
 
 export interface SortedRowsOutput {
-  sortedRows: RowDef[];
+  sortedRows: AugRowDef[];
   sortingEnabled: boolean;
   sortColDef: SortColDef | null | undefined;
   setSortColDef: ((sortColDef: SortColDef | null) => void) | undefined;
@@ -37,7 +37,7 @@ const getRowComparator: (
 };
 
 const useSortedRows: (
-  rows: RowDef[],
+  rows: AugRowDef[],
   cols: ColDefBase[],
   sortModel: TableSortModel | undefined,
 ) => SortedRowsOutput = (rows, cols, sortModel) => {

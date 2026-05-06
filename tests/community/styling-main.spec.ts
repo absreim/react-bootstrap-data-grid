@@ -54,7 +54,7 @@ const displayIndexToOrigIndex: Record<0 | 1, number> = {
 test("body rows and cells styling works", async ({ page }) => {
   const tbody = page.locator("tbody");
   for (let displayIndex = 0; displayIndex < 2; displayIndex++) {
-    const tr = tbody.locator(`tr[aria-rowindex="${displayIndex + 2}"]`);
+    const tr = tbody.locator(`tr[aria-rowindex="${displayIndex + 5}"]`);
     const origIndex = displayIndexToOrigIndex[displayIndex as 0 | 1];
     await expect(tr).toHaveClass(
       [
@@ -77,7 +77,7 @@ test("body rows and cells styling works", async ({ page }) => {
 test("select column control styling works", async ({ page }) => {
   const tbody = page.locator("tbody");
   for (let displayIndex = 0; displayIndex < 2; displayIndex++) {
-    const tr = tbody.locator(`tr[aria-rowindex="${displayIndex + 2}"]`);
+    const tr = tbody.locator(`tr[aria-rowindex="${displayIndex + 5}"]`);
     const origIndex = displayIndexToOrigIndex[displayIndex as 0 | 1];
     const td = tr.locator('td[aria-colindex="1"]');
     await expect(td).toHaveClass(
@@ -99,7 +99,7 @@ test("select column control styling works", async ({ page }) => {
 test("edit control styling works", async ({ page }) => {
   const tbody = page.locator("tbody");
   for (let displayIndex = 0; displayIndex < 2; displayIndex++) {
-    const tr = tbody.locator(`tr[aria-rowindex="${displayIndex + 2}"]`);
+    const tr = tbody.locator(`tr[aria-rowindex="${displayIndex + 5}"]`);
     const origIndex = displayIndexToOrigIndex[displayIndex as 0 | 1];
     const deleteButton = tr.getByRole("button", { name: "Delete" });
     const editButton = tr.getByRole("button", { name: "Edit" });

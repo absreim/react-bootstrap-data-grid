@@ -10,6 +10,7 @@ interface SelectAllHeaderCellProps {
   totalRows: number;
   additionalClasses?: string[];
   style?: CSSProperties;
+  colIndexOffset?: number;
 }
 
 interface CheckboxState {
@@ -73,6 +74,7 @@ const SelectAllHeaderCell: FC<SelectAllHeaderCellProps> = ({
   totalRows,
   additionalClasses,
   style,
+  colIndexOffset,
 }) => {
   const noRows = totalRows === 0;
   const { indeterminate, checked, disabled, description } = getCheckboxState(
@@ -88,7 +90,7 @@ const SelectAllHeaderCell: FC<SelectAllHeaderCellProps> = ({
   return (
     <th
       style={style}
-      aria-colindex={1}
+      aria-colindex={1 + (colIndexOffset || 0)}
       title={description}
       aria-description={description}
       className={classNames(

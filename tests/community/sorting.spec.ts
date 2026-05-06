@@ -57,9 +57,18 @@ test("unsorted column becomes sorted after clicking on the header cell", async (
       'tr[aria-rowindex="4"] > td[aria-colindex="1"]',
     );
 
+    const sortedColHeaderCell = unsortedToSortedContainer.getByRole(
+      "columnheader",
+      {
+        name: "String Column(sorted ascending)",
+        exact: true,
+      },
+    );
+
     await expect(firstRowCell).toHaveText("a");
     await expect(secondRowCell).toHaveText("b");
     await expect(thirdRowCell).toHaveText("c");
+    await expect(sortedColHeaderCell).toHaveAttribute("aria-sort", "ascending");
   }
 });
 
@@ -90,6 +99,7 @@ test("asc sorted column becomes desc sorted after clicking on the header cell", 
     await expect(strColHeaderCell).toHaveAccessibleName(
       "String Column(sorted descending)",
     );
+    await expect(strColHeaderCell).toHaveAttribute("aria-sort", "descending");
 
     await expect(firstRowCell).toHaveText("c");
     await expect(secondRowCell).toHaveText("b");

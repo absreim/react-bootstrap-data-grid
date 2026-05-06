@@ -18,6 +18,7 @@ export type CombinedPipelineParams = Pick<
 > & {
   cols: ColDefBase[];
 };
+
 export interface UseCombinedPipelineHook {
   normalizedTableFilterModel: NormalizedTableFilterModel | null;
   filteredRows: RowDef[];
@@ -29,7 +30,7 @@ export interface UseCombinedPipelineHook {
   displayRows: FormattedRow[];
 }
 
-const UseCombinedPipeline: (
+const useCombinedPipeline: (
   params: CombinedPipelineParams,
 ) => UseCombinedPipelineHook = ({
   filterModel,
@@ -70,4 +71,4 @@ const UseCombinedPipeline: (
   };
 };
 
-export default UseCombinedPipeline;
+export default useCombinedPipeline;

@@ -5,6 +5,7 @@ import classNames from "classnames";
 import { ColHeaderCellProps } from "../../types";
 import getWidthStyle from "../../util/getWidthStyle";
 import useSortHeaderStates from "./useSortHeaderStates";
+import sortOrderToAriaSort from "../../sorting/sortOrderToAriaSort";
 
 const ColHeaderCell: FC<ColHeaderCellProps> = ({
   label,
@@ -34,6 +35,9 @@ const ColHeaderCell: FC<ColHeaderCellProps> = ({
           : "Column header that can be clicked to change the sorting mode"
       }
       aria-colindex={ariaColIndex}
+      aria-sort={
+        sortModel ? sortOrderToAriaSort(sortModel.sortOrder) : undefined
+      }
       style={getWidthStyle(width)}
     >
       {label}

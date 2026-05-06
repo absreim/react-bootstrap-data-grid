@@ -31,3 +31,30 @@
   text-overflow: ellipsis;
   text-wrap: nowrap;
 }
+
+.custom-reorder-ghost {
+  opacity: 50%;
+  font-weight: bold;
+  position: fixed;
+  padding: 0.5rem;
+  z-index: 2;
+}
+
+.custom-reorder-dragged-row-pred {
+  border-bottom-color: var(--bs-warning);
+}
+
+.custom-reorder-dragged-row {
+  border-top-width: 1px;
+  opacity: 50%;
+  border-color: var(--bs-warning);
+}
+
+.custom-reorder-above-drag-target-row {
+  border-bottom-color: var(--bs-info);
+}
+
+.custom-reorder-below-drag-target-row {
+  border-top-width: 1px;
+  border-top-color: var(--bs-info);
+}

@@ -1,6 +1,6 @@
 "use client";
 
-import { FC, useMemo } from "react";
+import { FC, useCallback, useMemo } from "react";
 import { AugFormattedRow, ColSortModel } from "../grid";
 import useCombinedPipeline from "../grid/pipeline/useCombinedPipeline";
 import InternalGrid from "../grid/InternalGrid";
@@ -13,6 +13,8 @@ import { ColNameToWidth } from "../grid/pipeline/types";
 import useAugFormattedRows from "../grid/pipeline/useAugFormattedRows";
 import useResizeModel from "./resize/useResizeModel";
 import BodyRows from "../grid/main/BodyRows";
+import ReorderHeaderCell from "./reorder/ReorderHeaderCell";
+import ReorderHandleCell from "./reorder/ReorderHandleCell";
 
 const GridPro: FC<GridProProps> = (props) => {
   const {
@@ -25,6 +27,7 @@ const GridPro: FC<GridProProps> = (props) => {
     selectModel,
     styleModel,
     displayMode,
+    reorder,
   } = props;
 
   const combinedPipelineOutput = useCombinedPipeline({
@@ -39,6 +42,7 @@ const GridPro: FC<GridProProps> = (props) => {
     sortedRowsOutput: { sortColDef, setSortColDef, sortingEnabled },
     showSelectCol,
     displayRows,
+    filterState,
   } = combinedPipelineOutput;
   const gridSelectionFns = useGridSelectionFns(selectModel, rows);
   const unwrappedStyles = useUnwrappedGridStyles(styleModel);
@@ -103,6 +107,36 @@ const GridPro: FC<GridProProps> = (props) => {
     },
   );
 
+  const filteringOccurring = !!(
+    filterState &&
+    Object.values(filterState).find(
+      ({ editableState }) => editableState.enabled,
+    )
+  );
+  const sortingOccurring = !!sortColDef;
+
+  const renderPrefixCells = useCallback(
+    (augRow: AugFormattedRow) => {
+      if (!reorder) {
+        return null;
+      }
+
+      const reorderCallback = (destIndex: number) =>
+        reorder.callback(augRow.id, destIndex);
+
+      return (
+        <ReorderHandleCell
+          rowId={augRow.id}
+          ariaRowIndex={augRow.prePaginationIndex + 2}
+          disabled={filteringOccurring || sortingOccurring}
+          reorderCallback={reorderCallback}
+          styleModel={styleModel?.reorderModel}
+        />
+      );
+    },
+    [filteringOccurring, reorder, sortingOccurring, styleModel?.reorderModel],
+  );
+
   const bodyRows = (
     <BodyRows
       augFormattedRows={augFormattedRows}
@@ -112,8 +146,12 @@ const GridPro: FC<GridProProps> = (props) => {
       combinedPipelineOutput={combinedPipelineOutput}
       editModel={editModel}
       getInputStrSubmitCallback={getInputStrSubmitCallback}
+      renderPrefixCells={renderPrefixCells}
+      additionalColIndexOffset={reorder ? 1 : 0}
     />
   );
+
+  const prefixHeader = reorder ? <ReorderHeaderCell /> : null;
 
   return (
     <InternalGrid
@@ -123,7 +161,7 @@ const GridPro: FC<GridProProps> = (props) => {
         selectFns: gridSelectionFns,
         unwrappedStyles,
       }}
-      slots={{ colHeaderCells, bodyRows }}
+      slots={{ colHeaderCells, bodyRows, prefixHeader }}
     />
   );
 };

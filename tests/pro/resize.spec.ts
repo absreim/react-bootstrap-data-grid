@@ -50,6 +50,8 @@ test("pressing escape key cancels a resize in progress", async ({ page }) => {
   await dragHandle.hover();
   await page.mouse.down();
   await leftDragTarget.hover();
+  // random key press to ensure event listener doesn't get removed prematurely
+  await page.keyboard.press("Shift");
   await page.keyboard.press("Escape");
   await page.mouse.up();
 

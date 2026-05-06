@@ -12,6 +12,10 @@ import classNames from "classnames";
 import getWidthStyle from "../grid/util/getWidthStyle";
 import { ColHeaderCellProProps } from "./types";
 import useSortHeaderStates from "../grid/main/ColHeaderCell/useSortHeaderStates";
+import VerticalGrip from "./assets/VerticalGrip";
+import { KeyboardCleanupFnParam, PointerCleanupFnParam } from "./util/types";
+import regDragCleanup from "./util/regDragCleanup";
+import sortOrderToAriaSort from "../grid/sorting/sortOrderToAriaSort";
 
 const setWidthStyle: (cells: HTMLTableCellElement[], width: number) => void = (
   cells,
@@ -36,7 +40,7 @@ const ColHeaderCellPro: FC<ColHeaderCellProProps> = ({
   keyboardResizeStep,
 }) => {
   const resizeable = setWidth !== undefined;
-  const cellIsClickable = !!(resizeable && sortModel);
+  const cellIsClickable = !!(!resizeable && sortModel);
   const sortDivClickable = resizeable && sortModel;
   const { handleClick, handleMouseOver, handleMouseOut, sortSymbol } =
     useSortHeaderStates(sortModel);
@@ -126,7 +130,7 @@ const ColHeaderCellPro: FC<ColHeaderCellProProps> = ({
   const thRef = useRef<HTMLTableCellElement>(null);
   const onPointerDown: PointerEventHandler<HTMLDivElement> = useCallback(
     (event) => {
-      if (event.button === 2) {
+      if (event.button !== 0) {
         return;
       }
 
@@ -165,29 +169,37 @@ const ColHeaderCellPro: FC<ColHeaderCellProProps> = ({
         }
         setWidthStyle(cellsToUpdate, newWidth);
       };
-      target.addEventListener("pointermove", onPointerMove);
 
-      const removePointerMove = () =>
-        target.removeEventListener("pointermove", onPointerMove);
-      const onKeyDown: (event: KeyboardEvent) => void = (event) => {
-        if (event.code === "Escape") {
-          setWidthStyle(cellsToUpdate, width);
-          removePointerMove();
-        }
-      };
-      document.addEventListener("keydown", onKeyDown, { once: true });
+      const onKeyDown: KeyboardCleanupFnParam =
+        (removeListeners) => (event) => {
+          if (event.code === "Escape") {
+            setWidthStyle(cellsToUpdate, width);
+            removeListeners();
+          }
+        };
 
-      const onPointerUp: (event: PointerEvent) => void = () => {
+      const onPointerUp: PointerCleanupFnParam = (removeListeners) => () => {
         if (thRef.current !== null) {
           const newWidth = Number(
             thRef.current.style.minWidth.replace("px", ""),
           );
           setWidth(newWidth);
         }
-        removePointerMove();
-        document.removeEventListener("keydown", onKeyDown);
+        removeListeners();
       };
-      target.addEventListener("pointerup", onPointerUp, { once: true });
+
+      const onContextMenu: (event: PointerEvent) => void = (event) => {
+        event.preventDefault();
+      };
+
+      regDragCleanup({
+        element: target,
+        onPointerMove,
+        onPointerUp,
+        onPointerCancel: onPointerUp,
+        onKeyDown,
+        onContextMenu,
+      });
     },
     [ariaColIndex, effectiveMinResizeWidth, maxResizeWidth, setWidth, width],
   );
@@ -197,28 +209,15 @@ const ColHeaderCellPro: FC<ColHeaderCellProProps> = ({
       return clickToSortCellContents;
     }
 
-    const dragHandleIcon = (
-      <svg
-        aria-hidden
-        xmlns="http://www.w3.org/2000/svg"
-        width="16"
-        height="16"
-        fill="currentColor"
-        viewBox="0 0 16 16"
-        className="rdbg-drag-marker"
-      >
-        <path d="M7 2a1 1 0 1 1-2 0 1 1 0 0 1 2 0m3 0a1 1 0 1 1-2 0 1 1 0 0 1 2 0M7 5a1 1 0 1 1-2 0 1 1 0 0 1 2 0m3 0a1 1 0 1 1-2 0 1 1 0 0 1 2 0M7 8a1 1 0 1 1-2 0 1 1 0 0 1 2 0m3 0a1 1 0 1 1-2 0 1 1 0 0 1 2 0m-3 3a1 1 0 1 1-2 0 1 1 0 0 1 2 0m3 0a1 1 0 1 1-2 0 1 1 0 0 1 2 0m-3 3a1 1 0 1 1-2 0 1 1 0 0 1 2 0m3 0a1 1 0 1 1-2 0 1 1 0 0 1 2 0" />
-      </svg>
-    );
-
     return (
       <div className="d-flex justify-content-between">
         {clickToSortCellContents}
         <div
-          className="rdbg-drag-marker-container"
+          className="rbdg-draggable-container rbdg-resize-container"
           onPointerDown={onPointerDown}
           role="separator"
           tabIndex={0}
+          title="Resize column"
           aria-label="Resize column"
           aria-valuenow={width}
           aria-valuemin={minResizeWidth}
@@ -226,7 +225,7 @@ const ColHeaderCellPro: FC<ColHeaderCellProProps> = ({
           onKeyDown={onKeyDown}
           onClick={(e) => e.stopPropagation()}
         >
-          {dragHandleIcon}
+          <VerticalGrip className="rbdg-draggable-icon" />
         </div>
       </div>
     );
@@ -259,6 +258,9 @@ const ColHeaderCellPro: FC<ColHeaderCellProProps> = ({
           : "Column header that can be clicked to change the sorting mode"
       }
       aria-colindex={ariaColIndex}
+      aria-sort={
+        sortModel ? sortOrderToAriaSort(sortModel.sortOrder) : undefined
+      }
       style={getWidthStyle(width)}
     >
       {cellContents}

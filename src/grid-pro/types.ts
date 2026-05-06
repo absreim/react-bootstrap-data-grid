@@ -1,4 +1,11 @@
-import { ColDef, ColDefBase, ColHeaderCellProps, GridProps } from "../grid";
+import {
+  ColDef,
+  ColDefBase,
+  ColHeaderCellProps,
+  GridProps,
+  StyleModel,
+} from "../grid";
+import { ReorderModel, ReorderStyleModel } from "./reorder/types";
 
 export type ProColDef<ValueType = any> = ColDefBase<ValueType> & {
   resizeable?: boolean;
@@ -8,8 +15,10 @@ export type ProColDef<ValueType = any> = ColDefBase<ValueType> & {
   keyboardResizeStep?: number;
 };
 
-export type GridProProps = Omit<GridProps, "cols"> & {
+export type GridProProps = Omit<GridProps, "cols" | "styleModel"> & {
   cols: ProColDef[];
+  reorder?: ReorderModel;
+  styleModel?: ProStyleModel;
 };
 
 export type ColHeaderCellProProps = ColHeaderCellProps &
@@ -24,3 +33,9 @@ export interface WidthModel {
   width: number;
   setWidth: (width: number) => void;
 }
+
+export interface ProStyleSubmodels {
+  reorderModel?: ReorderStyleModel;
+}
+
+export type ProStyleModel = ProStyleSubmodels & StyleModel;
