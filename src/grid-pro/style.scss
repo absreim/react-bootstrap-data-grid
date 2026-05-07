@@ -22,6 +22,10 @@
   }
 }
 
+.rbdg-reorder-dragged-row {
+  border-style: dotted;
+}
+
 // Typical button reset to make it look like a plain div
 .rbdg-plain-icon-button {
   display: inline-flex;
@@ -35,4 +39,10 @@
 
   -webkit-appearance: none;
   appearance: none;
+}
+
+.rbdg-drag-ghost {
+  opacity: 50%;
+  position: fixed;
+  z-index: 2; // float above toolbar panels
 }
