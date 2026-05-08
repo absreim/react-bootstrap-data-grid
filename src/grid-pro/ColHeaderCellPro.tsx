@@ -127,7 +127,7 @@ const ColHeaderCellPro: FC<ColHeaderCellProProps> = ({
   const thRef = useRef<HTMLTableCellElement>(null);
   const onPointerDown: PointerEventHandler<HTMLDivElement> = useCallback(
     (event) => {
-      if (event.button === 2) {
+      if (event.button !== 0) {
         return;
       }
 

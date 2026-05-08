@@ -1,6 +1,6 @@
 "use client";
 
-import { FC, useMemo } from "react";
+import { FC, useCallback, useMemo } from "react";
 import { AugFormattedRow, ColSortModel } from "../grid";
 import useCombinedPipeline from "../grid/pipeline/useCombinedPipeline";
 import InternalGrid from "../grid/InternalGrid";
@@ -14,6 +14,7 @@ import useAugFormattedRows from "../grid/pipeline/useAugFormattedRows";
 import useResizeModel from "./resize/useResizeModel";
 import BodyRows from "../grid/main/BodyRows";
 import ReorderHeaderCell from "./reorder/ReorderHeaderCell";
+import ReorderHandleCell from "./reorder/ReorderHandleCell";
 
 const GridPro: FC<GridProProps> = (props) => {
   const {
@@ -104,6 +105,14 @@ const GridPro: FC<GridProProps> = (props) => {
       );
     },
   );
+
+  const prefixCells = useCallback((augRow: AugFormattedRow, index: number) => {
+    if (!reorder) {
+      return null;
+    }
+
+    return <ReorderHandleCell rowId={augRow.id} index={index} />
+  }, [reorder]);
 
   const bodyRows = (
     <BodyRows

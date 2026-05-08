@@ -73,7 +73,11 @@ const ReorderHandleCell: FC<ReorderHandleCellProps> = ({
   const onPointerDown: PointerEventHandler<HTMLButtonElement> = useCallback(
     (event) => {
       const target = event.target as HTMLButtonElement;
-      const { pointerId, clientX, clientY } = event;
+      const { pointerId, clientX, clientY, button } = event;
+
+      if (button !== 0) {
+        return;
+      }
 
       function getTBody() {
         let cursor: HTMLElement = target;
