@@ -22,7 +22,7 @@ interface DropTargetRef {
 type DropTargetRefValue = null | {
   index: number;
   upper: boolean;
-}
+};
 
 function dropTargetRefValuesEqual(
   first: DropTargetRefValue,
@@ -74,7 +74,6 @@ const ReorderHandleCell: FC<ReorderHandleCellProps> = ({
     (event) => {
       const target = event.target as HTMLButtonElement;
       const { pointerId, clientX, clientY } = event;
-      target.setPointerCapture(pointerId);
 
       function getTBody() {
         let cursor: HTMLElement = target;
@@ -128,7 +127,10 @@ const ReorderHandleCell: FC<ReorderHandleCellProps> = ({
         current: null,
       };
 
-      function detectEnclosure(): DropTargetRefValue {
+      function detectEnclosure(
+        clientX: number,
+        clientY: number,
+      ): DropTargetRefValue {
         for (const rect of rectToIndex.keys()) {
           if (
             clientY < rect.top ||
@@ -162,7 +164,18 @@ const ReorderHandleCell: FC<ReorderHandleCellProps> = ({
         return null;
       }
 
-      function updateStyles(currentDropTargetVal: DropTargetRefValue): void {
+      function restoreOrigClasses(index: number): void {
+        trs[index].className = origClassesByIndex[index];
+      }
+
+      function applyRowClasses(index: number, classes: string[]) {
+        trs[index].className = [
+          origClassesByIndex[index],
+          classes.join(" "),
+        ].join(" ");
+      }
+
+      function updateRowStyles(currentDropTargetVal: DropTargetRefValue): void {
         if (
           dropTargetRefValuesEqual(dropTargetRef.current, currentDropTargetVal)
         ) {
@@ -178,26 +191,77 @@ const ReorderHandleCell: FC<ReorderHandleCellProps> = ({
         }
 
         if (dropTargetRef.current !== null) {
-          trs[dropTargetRef.current.index].removeAttribute("style");
+          restoreOrigClasses(dropTargetRef.current.index);
         }
 
         if (currentDropTargetVal.upper) {
-          trs[currentDropTargetVal.index].style.borderTop = "4px solid blue";
+          applyRowClasses(currentDropTargetVal.index, intTopBorderRowClasses);
         }
 
         if (!currentDropTargetVal.upper) {
-          trs[currentDropTargetVal.index].style.borderBottom = "4px solid blue";
+          applyRowClasses(
+            currentDropTargetVal.index,
+            intBottomBorderRowClasses,
+          );
         }
 
         dropTargetRef.current = currentDropTargetVal;
       }
+
+      target.setPointerCapture(pointerId);
+      const dragGhost = createDragGhost();
+      applyRowClasses(index, intDraggedRowClasses);
+
+      function onPointerMove({ clientX, clientY }: PointerEvent): void {
+        dragGhost.style.left = `${clientX}px`;
+        dragGhost.style.top = `${clientY}px`;
+
+        const dragTargetVal = detectEnclosure(clientX, clientY);
+        updateRowStyles(dragTargetVal);
+      }
+
+      target.addEventListener("pointermove", onPointerMove);
+
+      function cleanUpDragStates() {
+        dragGhost.remove();
+        target.removeEventListener("pointermove", onPointerMove);
+        trs.forEach((_, index) => restoreOrigClasses(index));
+      }
+
+      function onKeydown(event: KeyboardEvent): void {
+        if (event.code === "Escape") {
+          cleanUpDragStates();
+          dropTargetRef.current = null;
+        }
+      }
+
+      document.addEventListener("keydown", onKeydown);
+
+      function onPointerUp(): void {
+        cleanUpDragStates();
+        if (dropTargetRef.current !== null) {
+          reorderCallback(dropTargetRef.current.index);
+          document.removeEventListener("keydown", onKeydown);
+        }
+      }
+
+      target.addEventListener("pointerup", onPointerUp, { once: true });
     },
-    [index, intGhostTableClasses, rowId],
+    [
+      index,
+      intBottomBorderRowClasses,
+      intDraggedRowClasses,
+      intGhostTableClasses,
+      intTopBorderRowClasses,
+      reorderCallback,
+      rowId,
+    ],
   );
 
   return (
     <th aria-colindex={1}>
       <button
+        onPointerDown={onPointerDown}
         className="rbdg-draggable-container rbdg-reorder-container rbdg-plain-icon-button"
         disabled={disabled}
       >

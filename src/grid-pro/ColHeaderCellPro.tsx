@@ -176,7 +176,7 @@ const ColHeaderCellPro: FC<ColHeaderCellProProps> = ({
           removePointerMove();
         }
       };
-      document.addEventListener("keydown", onKeyDown, { once: true });
+      document.addEventListener("keydown", onKeyDown);
 
       const onPointerUp: (event: PointerEvent) => void = () => {
         if (thRef.current !== null) {
