@@ -15,15 +15,15 @@
 }
 
 .rbdg-reorder-container {
-  cursor: grab;
+  cursor: grab !important;
 
   &:active {
-    cursor: grabbing;
+    cursor: grabbing !important;
   }
 }
 
 .rbdg-reorder-dragged-row {
-  border-style: dotted;
+  border-style: dotted !important;
 }
 
 // Typical button reset to make it look like a plain div
@@ -45,4 +45,12 @@
   opacity: 50%;
   position: fixed;
   z-index: 2; // float above toolbar panels
+}
+
+.rbdg-dragged-over-top {
+  border-top: 3px solid;
+}
+
+.rbdg-dragged-over-bottom {
+  border-bottom: 3px solid;
 }

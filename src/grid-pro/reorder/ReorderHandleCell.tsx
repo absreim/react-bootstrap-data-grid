@@ -56,12 +56,12 @@ const ReorderHandleCell: FC<ReorderHandleCellProps> = ({
   );
 
   const intTopBorderRowClasses = useMemo(
-    () => topBorderRowClasses || ["border", "border-top-3"],
+    () => topBorderRowClasses || ["rbdg-dragged-over-top"],
     [topBorderRowClasses],
   );
 
   const intBottomBorderRowClasses = useMemo(
-    () => bottomBorderRowClasses || ["border", "border-bottom-3"],
+    () => bottomBorderRowClasses || ["rbdg-dragged-over-bottom"],
     [bottomBorderRowClasses],
   );
 
@@ -113,6 +113,7 @@ const ReorderHandleCell: FC<ReorderHandleCellProps> = ({
         bodyTr.appendChild(indexTd);
         tbody.appendChild(bodyTr);
 
+        document.body.appendChild(ghostTable);
         return ghostTable;
       }
 
@@ -122,7 +123,7 @@ const ReorderHandleCell: FC<ReorderHandleCellProps> = ({
 
       const rectToIndex = trs.reduce((map, element, trIndex) => {
         if (trIndex !== index) {
-          map.set(element.getBoundingClientRect(), index);
+          map.set(element.getBoundingClientRect(), trIndex);
         }
         return map;
       }, new Map<DOMRect, number>());
@@ -188,7 +189,7 @@ const ReorderHandleCell: FC<ReorderHandleCellProps> = ({
 
         if (currentDropTargetVal === null) {
           trs.forEach((tr) => {
-            tr.removeAttribute("style");
+            tr.removeAttribute("style"); // todo: change to remove classes instead
           });
           dropTargetRef.current = null;
           return;
