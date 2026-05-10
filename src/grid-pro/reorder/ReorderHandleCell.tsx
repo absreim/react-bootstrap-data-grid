@@ -266,6 +266,7 @@ const ReorderHandleCell: FC<ReorderHandleCellProps> = ({
   return (
     <th aria-colindex={1}>
       <button
+        title="Reorder Row"
         onPointerDown={onPointerDown}
         className="rbdg-draggable-container rbdg-reorder-container rbdg-plain-icon-button"
         disabled={disabled}

@@ -1,7 +1,7 @@
 "use client";
 
 import { dateToDatetimeInputStr, dateToInputStr, RowDef } from "@/grid";
-import GridPro, { ProColDef } from "@/grid-pro";
+import GridPro, { ProColDef, reorderRows } from "@/grid-pro";
 import { FC, useCallback, useState } from "react";
 import { ReorderCallback } from "@/grid-pro/reorder/types";
 
@@ -71,35 +71,14 @@ const ReorderTestHarness: FC = () => {
   const [rows, setRows] = useState(initRows);
   const reorderCallback: ReorderCallback = useCallback(
     (id, destIndex) => {
-      const rowsCopy = rows.slice();
-      const srcIndex = rowsCopy.findIndex((rowsCopy) => rowsCopy.id === id);
-      const srcContents = rowsCopy[srcIndex];
-      rowsCopy.splice(srcIndex, 1);
-
-      if (destIndex === 0) {
-        rowsCopy.splice(0, 0, srcContents);
-        setRows(rowsCopy);
-        return;
-      }
-
-      if (srcIndex < destIndex) {
-        rowsCopy.splice(destIndex - 1, 0, srcContents);
-        setRows(rowsCopy);
-        return;
-      }
-
-      rowsCopy.splice(destIndex, 0, srcContents);
-      setRows(rowsCopy);
+      const newRows = reorderRows(rows, id, destIndex);
+      setRows(newRows);
     },
     [rows],
   );
 
   return (
-    <GridPro
-      rows={rows}
-      cols={cols}
-      reorder={{ callback: reorderCallback }}
-    />
+    <GridPro rows={rows} cols={cols} reorder={{ callback: reorderCallback }} />
   );
 };
 

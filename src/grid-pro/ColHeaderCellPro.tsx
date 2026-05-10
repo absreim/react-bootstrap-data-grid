@@ -206,6 +206,7 @@ const ColHeaderCellPro: FC<ColHeaderCellProProps> = ({
           onPointerDown={onPointerDown}
           role="separator"
           tabIndex={0}
+          title="Resize column"
           aria-label="Resize column"
           aria-valuenow={width}
           aria-valuemin={minResizeWidth}

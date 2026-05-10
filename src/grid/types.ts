@@ -20,7 +20,7 @@ export type ColDef<ValueType = any> = ColDefBase<ValueType> & {
   width?: number;
 };
 
-type ValidRowData = Record<string, any>;
+export type ValidRowData = Record<string, any>;
 
 export type RowData<Data extends ValidRowData = ValidRowData> = Data;
 
