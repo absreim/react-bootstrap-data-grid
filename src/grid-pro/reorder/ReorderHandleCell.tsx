@@ -188,9 +188,7 @@ const ReorderHandleCell: FC<ReorderHandleCellProps> = ({
         }
 
         if (currentDropTargetVal === null) {
-          trs.forEach((tr) => {
-            tr.removeAttribute("style"); // todo: change to remove classes instead
-          });
+          rectToIndex.values().forEach((index) => restoreOrigClasses(index));
           dropTargetRef.current = null;
           return;
         }
@@ -245,7 +243,9 @@ const ReorderHandleCell: FC<ReorderHandleCellProps> = ({
       function onPointerUp(): void {
         cleanUpDragStates();
         if (dropTargetRef.current !== null) {
-          reorderCallback(dropTargetRef.current.index);
+          reorderCallback(
+            dropTargetRef.current.index + (dropTargetRef.current.upper ? 0 : 1),
+          );
           document.removeEventListener("keydown", onKeydown);
         }
       }

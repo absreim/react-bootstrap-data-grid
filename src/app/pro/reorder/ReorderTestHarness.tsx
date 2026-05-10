@@ -71,10 +71,25 @@ const ReorderTestHarness: FC = () => {
   const [rows, setRows] = useState(initRows);
   const reorderCallback: ReorderCallback = useCallback(
     (id, destIndex) => {
-      const srcIndex = rows.findIndex((row) => row.id === id);
-      rows.splice(destIndex, 0, rows[srcIndex]);
-      const newRows = rows.splice(srcIndex, 1);
-      setRows(newRows);
+      const rowsCopy = rows.slice();
+      const srcIndex = rowsCopy.findIndex((rowsCopy) => rowsCopy.id === id);
+      const srcContents = rowsCopy[srcIndex];
+      rowsCopy.splice(srcIndex, 1);
+
+      if (destIndex === 0) {
+        rowsCopy.splice(0, 0, srcContents);
+        setRows(rowsCopy);
+        return;
+      }
+
+      if (srcIndex < destIndex) {
+        rowsCopy.splice(destIndex - 1, 0, srcContents);
+        setRows(rowsCopy);
+        return;
+      }
+
+      rowsCopy.splice(destIndex, 0, srcContents);
+      setRows(rowsCopy);
     },
     [rows],
   );
