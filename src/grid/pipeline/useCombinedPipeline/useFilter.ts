@@ -1,4 +1,4 @@
-import { RowDef } from "../../types";
+import { AugRowDef, RowDef } from "../../types";
 import { useMemo } from "react";
 import {
   DateFilterState,
@@ -10,13 +10,18 @@ import {
 const useFilter: (
   rows: RowDef[],
   filterState: EditableTableFilterState | null,
-) => RowDef[] = (rows, filterState) => {
+) => AugRowDef[] = (rows, filterState) => {
   return useMemo(() => {
+    const augRows = rows.map((row, index) => ({
+      origIndex: index,
+      ...row
+    }));
+
     if (filterState === null) {
-      return rows;
+      return augRows;
     }
 
-    return rows.filter((row) => {
+    return augRows.filter((row) => {
       function checkIfPassesStringFilter(
         value: string,
         state: StringFilterState,

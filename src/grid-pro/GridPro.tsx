@@ -27,7 +27,7 @@ const GridPro: FC<GridProProps> = (props) => {
     selectModel,
     styleModel,
     displayMode,
-    reorder
+    reorder,
   } = props;
 
   const combinedPipelineOutput = useCombinedPipeline({
@@ -106,13 +106,28 @@ const GridPro: FC<GridProProps> = (props) => {
     },
   );
 
-  const prefixCells = useCallback((augRow: AugFormattedRow, index: number) => {
-    if (!reorder) {
-      return null;
-    }
+  const filteringEnabled = !!filterModel;
 
-    return <ReorderHandleCell rowId={augRow.id} index={index} />
-  }, [reorder]);
+  const renderPrefixCells = useCallback(
+    (augRow: AugFormattedRow) => {
+      if (!reorder) {
+        return null;
+      }
+
+      const reorderCallback = (destIndex: number) =>
+        reorder.callback(augRow.id, destIndex);
+
+      return (
+        <ReorderHandleCell
+          rowId={augRow.id}
+          index={augRow.origIndex}
+          disabled={filteringEnabled || sortingEnabled}
+          reorderCallback={reorderCallback}
+        />
+      );
+    },
+    [filteringEnabled, reorder, sortingEnabled],
+  );
 
   const bodyRows = (
     <BodyRows
@@ -123,6 +138,7 @@ const GridPro: FC<GridProProps> = (props) => {
       combinedPipelineOutput={combinedPipelineOutput}
       editModel={editModel}
       getInputStrSubmitCallback={getInputStrSubmitCallback}
+      renderPrefixCells={renderPrefixCells}
     />
   );
 

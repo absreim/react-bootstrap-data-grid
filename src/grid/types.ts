@@ -31,8 +31,14 @@ export interface RowDef<Data extends ValidRowData = ValidRowData> {
   data: RowData<Data>;
 }
 
+export type AugRowDef<Data extends ValidRowData = ValidRowData> =
+  RowDef<Data> & {
+    origIndex: number;
+  };
+
 export interface FormattedRow {
   contents: CellData[];
+  origIndex: number;
   id: RowId;
 }
 

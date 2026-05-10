@@ -20,7 +20,7 @@ interface BodyRowsProps {
   editModel: EditModel | undefined;
   getInputStrSubmitCallback: UseGetInputStrSubmitCallbackHook;
   additionalColIndexOffset?: number;
-  prefixCells?: (augFormattedRows: AugFormattedRow) => ReactNode;
+  renderPrefixCells?: (augFormattedRows: AugFormattedRow) => ReactNode;
 }
 
 const BodyRows: FC<BodyRowsProps> = ({
@@ -38,7 +38,7 @@ const BodyRows: FC<BodyRowsProps> = ({
   editModel,
   getInputStrSubmitCallback,
   additionalColIndexOffset,
-  prefixCells
+  renderPrefixCells,
 }) =>
   augFormattedRows.map((row, index) => {
     return (
@@ -82,7 +82,7 @@ const BodyRows: FC<BodyRowsProps> = ({
           index,
         )}
       >
-        {prefixCells && prefixCells(row)}
+        {renderPrefixCells && renderPrefixCells(row)}
         {showSelectCol && (
           <td
             className={classNames(
