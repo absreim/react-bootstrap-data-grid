@@ -1,6 +1,8 @@
 import { FC, PointerEventHandler, useCallback, useMemo } from "react";
 import HorizontalGrip from "../assets/HorizontalGrip";
 import { RowId } from "../";
+import { KeyboardCleanupFnParam, PointerCleanupFnParam } from "../util/types";
+import regDragCleanup from "../util/regDragCleanup";
 
 export interface ReorderHandleCellProps {
   rowId: RowId;
@@ -51,7 +53,7 @@ const ReorderHandleCell: FC<ReorderHandleCellProps> = ({
 }) => {
   const intDraggedRowClasses = useMemo(
     () =>
-      draggedRowClasses || ["border", "border-3", "rbdg-reorder-dragged-row"],
+      draggedRowClasses || ["rbdg-reorder-dragged-row"],
     [draggedRowClasses],
   );
 
@@ -225,32 +227,42 @@ const ReorderHandleCell: FC<ReorderHandleCellProps> = ({
 
       target.addEventListener("pointermove", onPointerMove);
 
+      function onContextMenu(event: PointerEvent) {
+        event.preventDefault();
+      }
+
       function cleanUpDragStates() {
         dragGhost.remove();
-        target.removeEventListener("pointermove", onPointerMove);
         trs.forEach((_, index) => restoreOrigClasses(index));
       }
 
-      function onKeydown(event: KeyboardEvent): void {
-        if (event.code === "Escape") {
-          cleanUpDragStates();
-          dropTargetRef.current = null;
-        }
-      }
+      const onKeyDown: KeyboardCleanupFnParam =
+        (removeListeners) => (event) => {
+          if (event.code === "Escape") {
+            removeListeners();
+            cleanUpDragStates();
+            dropTargetRef.current = null;
+          }
+        };
 
-      document.addEventListener("keydown", onKeydown);
-
-      function onPointerUp(): void {
+      const onPointerUp: PointerCleanupFnParam = (removeListeners) => () => {
+        removeListeners();
         cleanUpDragStates();
         if (dropTargetRef.current !== null) {
           reorderCallback(
             dropTargetRef.current.index + (dropTargetRef.current.upper ? 0 : 1),
           );
-          document.removeEventListener("keydown", onKeydown);
         }
       }
 
-      target.addEventListener("pointerup", onPointerUp, { once: true });
+      regDragCleanup({
+        element: target,
+        onPointerMove,
+        onPointerUp,
+        onPointerCancel: onPointerUp,
+        onKeyDown,
+        onContextMenu
+      });
     },
     [
       index,

@@ -23,7 +23,7 @@
 }
 
 .rbdg-reorder-dragged-row {
-  border-style: dotted !important;
+  border-color: var(--bs-table-active-color) !important;
 }
 
 // Typical button reset to make it look like a plain div
@@ -48,9 +48,11 @@
 }
 
 .rbdg-dragged-over-top {
-  border-top: 3px solid;
+  border-top: 1px solid;
+  border-top-color: var(--bs-table-active-color);
 }
 
 .rbdg-dragged-over-bottom {
-  border-bottom: 3px solid;
+  border-bottom: 1px solid;
+  border-bottom-color: var(--bs-table-active-color);
 }
