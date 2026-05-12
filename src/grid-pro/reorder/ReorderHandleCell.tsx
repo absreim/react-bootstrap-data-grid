@@ -225,8 +225,6 @@ const ReorderHandleCell: FC<ReorderHandleCellProps> = ({
         updateRowStyles(dragTargetVal);
       }
 
-      target.addEventListener("pointermove", onPointerMove);
-
       function onContextMenu(event: PointerEvent) {
         event.preventDefault();
       }

@@ -13,6 +13,8 @@ import getWidthStyle from "../grid/util/getWidthStyle";
 import { ColHeaderCellProProps } from "./types";
 import useSortHeaderStates from "../grid/main/ColHeaderCell/useSortHeaderStates";
 import VerticalGrip from "./assets/VerticalGrip";
+import { KeyboardCleanupFnParam, PointerCleanupFnParam } from "./util/types";
+import regDragCleanup from "./util/regDragCleanup";
 
 const setWidthStyle: (cells: HTMLTableCellElement[], width: number) => void = (
   cells,
@@ -166,29 +168,36 @@ const ColHeaderCellPro: FC<ColHeaderCellProProps> = ({
         }
         setWidthStyle(cellsToUpdate, newWidth);
       };
-      target.addEventListener("pointermove", onPointerMove);
 
-      const removePointerMove = () =>
-        target.removeEventListener("pointermove", onPointerMove);
-      const onKeyDown: (event: KeyboardEvent) => void = (event) => {
+      const onKeyDown: KeyboardCleanupFnParam = (removeListeners) => (event) => {
         if (event.code === "Escape") {
           setWidthStyle(cellsToUpdate, width);
-          removePointerMove();
+          removeListeners();
         }
       };
-      document.addEventListener("keydown", onKeyDown);
 
-      const onPointerUp: (event: PointerEvent) => void = () => {
+      const onPointerUp: PointerCleanupFnParam = (removeListeners ) => () => {
         if (thRef.current !== null) {
           const newWidth = Number(
             thRef.current.style.minWidth.replace("px", ""),
           );
           setWidth(newWidth);
         }
-        removePointerMove();
-        document.removeEventListener("keydown", onKeyDown);
+        removeListeners();
       };
-      target.addEventListener("pointerup", onPointerUp, { once: true });
+
+      const onContextMenu: (event: PointerEvent) => void = (event) => {
+        event.preventDefault();
+      }
+
+      regDragCleanup({
+        element: target,
+        onPointerMove,
+        onPointerUp,
+        onPointerCancel: onPointerUp,
+        onKeyDown,
+        onContextMenu
+      });
     },
     [ariaColIndex, effectiveMinResizeWidth, maxResizeWidth, setWidth, width],
   );
