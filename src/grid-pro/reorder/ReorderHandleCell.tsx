@@ -74,7 +74,7 @@ const ReorderHandleCell: FC<ReorderHandleCellProps> = ({
   );
 
   const intGhostTableClasses = useMemo(
-    () => ghostTableClasses || ["table", "rbdg-drag-ghost"],
+    () => ghostTableClasses || ["border", "rbdg-drag-ghost"],
     [ghostTableClasses],
   );
 
@@ -88,33 +88,14 @@ const ReorderHandleCell: FC<ReorderHandleCellProps> = ({
       }
 
       function createDragGhost() {
-        const ghostTable = document.createElement("table");
-        ghostTable.className = intGhostTableClasses.join(" ");
-        ghostTable.style.left = `${clientX}px`;
-        ghostTable.style.top = `${clientY}px`;
+        const ghostDiv = document.createElement("div");
+        ghostDiv.className = intGhostTableClasses.join(" ");
+        ghostDiv.style.left = `${clientX}px`;
+        ghostDiv.style.top = `${clientY}px`;
+        ghostDiv.textContent = `ID: ${rowId}`;
 
-        const thead = ghostTable.createTHead();
-        const headTr = document.createElement("tr");
-        const idTh = document.createElement("th");
-        idTh.textContent = "ID";
-        headTr.appendChild(idTh);
-        const indexTh = document.createElement("th");
-        indexTh.textContent = "Index";
-        headTr.appendChild(indexTh);
-        thead.appendChild(headTr);
-
-        const tbody = ghostTable.createTBody();
-        const bodyTr = document.createElement("tr");
-        const idTd = document.createElement("td");
-        idTd.textContent = String(rowId);
-        bodyTr.appendChild(idTd);
-        const indexTd = document.createElement("td");
-        indexTd.textContent = String(index);
-        bodyTr.appendChild(indexTd);
-        tbody.appendChild(bodyTr);
-
-        document.body.appendChild(ghostTable);
-        return ghostTable;
+        document.body.appendChild(ghostDiv);
+        return ghostDiv;
       }
 
       const drageeTh = target.parentElement!;

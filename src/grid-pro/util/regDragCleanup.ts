@@ -39,6 +39,11 @@ const regDragCleanup: (params: DragCleanupParams) => void = ({
   element.addEventListener("pointercancel", augOnPointerCancel);
   element.addEventListener("keydown", augOnKeyDown);
   element.addEventListener("contextmenu", onContextMenu);
+
+  listenerRef.up = augOnPointerUp;
+  listenerRef.cancel = augOnPointerCancel;
+  listenerRef.keydown = augOnKeyDown;
+  listenerRef.contextmenu = onContextMenu;
 };
 
 export default regDragCleanup;

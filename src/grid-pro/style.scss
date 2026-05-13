@@ -38,8 +38,9 @@
 }
 
 .rbdg-drag-ghost {
-  opacity: 50%;
+  opacity: 75%;
   position: fixed;
+  padding: 0.5rem;
   z-index: 2; // float above toolbar panels
 }
 
