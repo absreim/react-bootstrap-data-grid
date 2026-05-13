@@ -12,6 +12,7 @@ export interface ReorderHandleCellProps {
   // generally, reordering is disabled when sorting or filtering is enabled
   disabled: boolean;
   draggedRowClasses?: string[];
+  draggedRowPredecessorClasses?: string[];
   topBorderRowClasses?: string[];
   bottomBorderRowClasses?: string[];
   ghostTableClasses?: string[];
@@ -47,23 +48,28 @@ const ReorderHandleCell: FC<ReorderHandleCellProps> = ({
   disabled,
   reorderCallback,
   draggedRowClasses,
+  draggedRowPredecessorClasses,
   topBorderRowClasses,
   bottomBorderRowClasses,
   ghostTableClasses,
 }) => {
   const intDraggedRowClasses = useMemo(
-    () =>
-      draggedRowClasses || ["rbdg-reorder-dragged-row"],
+    () => draggedRowClasses || ["rbdg-reorder-dragged-row"],
     [draggedRowClasses],
   );
 
+  const intDraggedRowPredecessorClasses = useMemo(
+    () => draggedRowPredecessorClasses || ["rbdg-reorder-dragged-row-pred"],
+    [draggedRowPredecessorClasses],
+  );
+
   const intTopBorderRowClasses = useMemo(
-    () => topBorderRowClasses || ["rbdg-dragged-over-top"],
+    () => topBorderRowClasses || ["reorder-above-drag-target-row"],
     [topBorderRowClasses],
   );
 
   const intBottomBorderRowClasses = useMemo(
-    () => bottomBorderRowClasses || ["rbdg-dragged-over-bottom"],
+    () => bottomBorderRowClasses || ["reorder-below-drag-target-row"],
     [bottomBorderRowClasses],
   );
 
@@ -79,14 +85,6 @@ const ReorderHandleCell: FC<ReorderHandleCellProps> = ({
 
       if (button !== 0) {
         return;
-      }
-
-      function getTBody() {
-        let cursor: HTMLElement = target;
-        while (cursor.tagName !== "TBODY") {
-          cursor = cursor.parentElement!;
-        }
-        return cursor;
       }
 
       function createDragGhost() {
@@ -119,12 +117,18 @@ const ReorderHandleCell: FC<ReorderHandleCellProps> = ({
         return ghostTable;
       }
 
-      const tbody = getTBody();
+      const drageeTh = target.parentElement!;
+      const drageeTr = drageeTh.parentElement!;
+      const tbody = drageeTr.parentElement!;
+      const thead = tbody.parentElement!.firstChild!;
+      const headTr = thead!.firstChild as HTMLTableRowElement;
       const trs = Array.from(tbody.children);
       const origClassesByIndex = trs.map((tr) => tr.className);
+      const origHeadTrClasses = headTr.className;
+      const drageeTrIndex = Number(drageeTr.ariaRowIndex) - 2;
 
       const rectToIndex = trs.reduce((map, element, trIndex) => {
-        if (trIndex !== index) {
+        if (trIndex !== drageeTrIndex) {
           map.set(element.getBoundingClientRect(), trIndex);
         }
         return map;
@@ -151,19 +155,19 @@ const ReorderHandleCell: FC<ReorderHandleCellProps> = ({
           const midY = Math.floor(rect.top + rect.bottom) / 2;
           const rectIndex = rectToIndex.get(rect)!;
 
-          if (clientY <= midY && rectIndex - 1 === index) {
+          if (clientY <= midY && rectIndex - 1 === drageeTrIndex) {
             return null;
           }
 
-          if (clientY <= midY && rectIndex - 1 !== index) {
+          if (clientY <= midY && rectIndex - 1 !== drageeTrIndex) {
             return { index: rectIndex, upper: true };
           }
 
-          if (clientY > midY && rectIndex + 1 === index) {
+          if (clientY > midY && rectIndex + 1 === drageeTrIndex) {
             return null;
           }
 
-          if (clientY > midY && rectIndex + 1 !== index) {
+          if (clientY > midY && rectIndex + 1 !== drageeTrIndex) {
             return { index: rectIndex, upper: false };
           }
         }
@@ -171,15 +175,68 @@ const ReorderHandleCell: FC<ReorderHandleCellProps> = ({
         return null;
       }
 
-      function restoreOrigClasses(index: number): void {
-        trs[index].className = origClassesByIndex[index];
+      function restoreRowClasses(trIndex: number): void {
+        trs[trIndex].className = origClassesByIndex[trIndex];
       }
 
-      function applyRowClasses(index: number, classes: string[]) {
-        trs[index].className = [
-          origClassesByIndex[index],
-          classes.join(" "),
-        ].join(" ");
+      function restoreAllCasses(final: boolean) {
+        trs.forEach((_, trIndex) => restoreRowClasses(trIndex));
+
+        if (final) {
+          headTr.className = origHeadTrClasses;
+        }
+
+        if (!final) {
+          applyDrageeStyles();
+        }
+      }
+
+      function applyRowClasses(trIndex: number, classes: string[]) {
+        trs[trIndex].className = [origClassesByIndex[trIndex], classes.join(" ")]
+          .join(" ")
+          .trim();
+      }
+
+      function applyDrageeStyles() {
+        applyRowClasses(drageeTrIndex, intDraggedRowClasses);
+        if (drageeTrIndex - 1 === -1) {
+          headTr.className = [
+            origHeadTrClasses,
+            intDraggedRowPredecessorClasses.join(" "),
+          ]
+            .join(" ")
+            .trim();
+          return;
+        }
+
+        applyRowClasses(drageeTrIndex - 1, intDraggedRowPredecessorClasses);
+      }
+
+      function applyDragStyles(trIndex: number, upper: boolean) {
+        if (upper) {
+          applyRowClasses(trIndex, intBottomBorderRowClasses);
+        }
+
+        if (upper && trIndex - 1 >= 0) {
+          applyRowClasses(trIndex - 1, intTopBorderRowClasses);
+        }
+
+        if (upper && trIndex - 1 === -1) {
+          headTr.className = [
+            origHeadTrClasses,
+            intTopBorderRowClasses.join(" "),
+          ]
+            .join(" ")
+            .trim();
+        }
+
+        if (!upper) {
+          applyRowClasses(trIndex, intTopBorderRowClasses);
+        }
+
+        if (!upper && trIndex + 1 < trs.length) {
+          applyRowClasses(trIndex + 1, intBottomBorderRowClasses);
+        }
       }
 
       function updateRowStyles(currentDropTargetVal: DropTargetRefValue): void {
@@ -190,32 +247,23 @@ const ReorderHandleCell: FC<ReorderHandleCellProps> = ({
         }
 
         if (currentDropTargetVal === null) {
-          rectToIndex.values().forEach((index) => restoreOrigClasses(index));
+          restoreAllCasses(false);
           dropTargetRef.current = null;
           return;
         }
 
         if (dropTargetRef.current !== null) {
-          restoreOrigClasses(dropTargetRef.current.index);
+          restoreAllCasses(false);
         }
 
-        if (currentDropTargetVal.upper) {
-          applyRowClasses(currentDropTargetVal.index, intTopBorderRowClasses);
-        }
-
-        if (!currentDropTargetVal.upper) {
-          applyRowClasses(
-            currentDropTargetVal.index,
-            intBottomBorderRowClasses,
-          );
-        }
+        applyDragStyles(currentDropTargetVal.index, currentDropTargetVal.upper);
 
         dropTargetRef.current = currentDropTargetVal;
       }
 
       target.setPointerCapture(pointerId);
       const dragGhost = createDragGhost();
-      applyRowClasses(index, intDraggedRowClasses);
+      applyDrageeStyles();
 
       function onPointerMove({ clientX, clientY }: PointerEvent): void {
         dragGhost.style.left = `${clientX}px`;
@@ -231,7 +279,7 @@ const ReorderHandleCell: FC<ReorderHandleCellProps> = ({
 
       function cleanUpDragStates() {
         dragGhost.remove();
-        trs.forEach((_, index) => restoreOrigClasses(index));
+        restoreAllCasses(true);
       }
 
       const onKeyDown: KeyboardCleanupFnParam =
@@ -251,7 +299,9 @@ const ReorderHandleCell: FC<ReorderHandleCellProps> = ({
             dropTargetRef.current.index + (dropTargetRef.current.upper ? 0 : 1),
           );
         }
-      }
+      };
+
+      target.focus();
 
       regDragCleanup({
         element: target,
@@ -259,13 +309,14 @@ const ReorderHandleCell: FC<ReorderHandleCellProps> = ({
         onPointerUp,
         onPointerCancel: onPointerUp,
         onKeyDown,
-        onContextMenu
+        onContextMenu,
       });
     },
     [
       index,
       intBottomBorderRowClasses,
       intDraggedRowClasses,
+      intDraggedRowPredecessorClasses,
       intGhostTableClasses,
       intTopBorderRowClasses,
       reorderCallback,

@@ -22,10 +22,6 @@
   }
 }
 
-.rbdg-reorder-dragged-row {
-  border-color: var(--bs-table-active-color) !important;
-}
-
 // Typical button reset to make it look like a plain div
 .rbdg-plain-icon-button {
   display: inline-flex;
@@ -47,12 +43,23 @@
   z-index: 2; // float above toolbar panels
 }
 
-.rbdg-dragged-over-top {
-  border-top: 1px solid;
-  border-top-color: var(--bs-table-active-color);
+.rbdg-reorder-dragged-row-pred {
+  border-bottom-color: var(--bs-success);
 }
 
-.rbdg-dragged-over-bottom {
-  border-bottom: 1px solid;
-  border-bottom-color: var(--bs-table-active-color);
+.rbdg-reorder-dragged-row {
+  border-top-width: 1px;
+  border-left-width: 1px;
+  border-right-width: 1px;
+  opacity: 50%;
+  border-color: var(--bs-success);
+}
+
+.reorder-above-drag-target-row {
+  border-bottom-color: var(--bs-primary);
+}
+
+.reorder-below-drag-target-row {
+  border-top-width: 1px;
+  border-top-color: var(--bs-primary);
 }

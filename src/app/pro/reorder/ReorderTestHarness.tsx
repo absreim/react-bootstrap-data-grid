@@ -14,7 +14,7 @@ interface TestRow {
 
 const initRows: RowDef<TestRow>[] = [
   {
-    id: 0,
+    id: "x",
     data: {
       strCol: "First Row",
       numCol: 1,
@@ -23,7 +23,7 @@ const initRows: RowDef<TestRow>[] = [
     },
   },
   {
-    id: 1,
+    id: "y",
     data: {
       strCol: "Second Row",
       numCol: 2,
@@ -32,7 +32,7 @@ const initRows: RowDef<TestRow>[] = [
     },
   },
   {
-    id: 2,
+    id: "z",
     data: {
       strCol: "Third Row",
       numCol: 3,
