@@ -120,7 +120,7 @@ const GridPro: FC<GridProProps> = (props) => {
       return (
         <ReorderHandleCell
           rowId={augRow.id}
-          index={augRow.origIndex}
+          ariaRowIndex={augRow.prePaginationIndex + 2}
           disabled={filteringEnabled || sortingEnabled}
           reorderCallback={reorderCallback}
         />

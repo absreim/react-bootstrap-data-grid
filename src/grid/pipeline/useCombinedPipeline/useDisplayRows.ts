@@ -3,7 +3,7 @@ import {
   ColDef,
   ColDataType,
   ColDataTypeStrings,
-  AugRowDef,
+  PostPaginationRowDef,
 } from "../../types";
 import { useMemo } from "react";
 import { CellData } from "../../editing/types";
@@ -30,7 +30,7 @@ const getFormattedValue: (
 };
 
 const useDisplayRows: (
-  currentPageRows: AugRowDef[],
+  currentPageRows: PostPaginationRowDef[],
   cols: ColDef[],
   ariaColIndexOffset: number,
 ) => FormattedRow[] = (currentPageRows, cols, ariaColIndexOffset) =>
@@ -75,7 +75,12 @@ const useDisplayRows: (
           label: cols[index].label,
         };
       });
-      return { contents: displayRow, id: row.id, origIndex: row.origIndex };
+      return {
+        contents: displayRow,
+        id: row.id,
+        origIndex: row.origIndex,
+        prePaginationIndex: row.prePaginationIndex,
+      };
     });
   }, [currentPageRows, cols, ariaColIndexOffset]);
 

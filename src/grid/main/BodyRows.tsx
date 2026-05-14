@@ -51,7 +51,7 @@ const BodyRows: FC<BodyRowsProps> = ({
           unwrappedTableModel.tbodyTr(row.id, index),
         )}
         key={row.id}
-        aria-rowindex={index + 2}
+        aria-rowindex={row.prePaginationIndex + 2}
         dataRowId={row.id}
         aria-selected={getAriaSelectedValue(row.id)}
         ariaColIndexOffset={

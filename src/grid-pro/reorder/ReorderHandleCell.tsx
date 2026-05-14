@@ -6,7 +6,7 @@ import regDragCleanup from "../util/regDragCleanup";
 
 export interface ReorderHandleCellProps {
   rowId: RowId;
-  index: number;
+  ariaRowIndex: number;
   // id of current row should be included in the function
   reorderCallback: (destIndex: number) => void;
   // generally, reordering is disabled when sorting or filtering is enabled
@@ -44,7 +44,7 @@ function dropTargetRefValuesEqual(
 
 const ReorderHandleCell: FC<ReorderHandleCellProps> = ({
   rowId,
-  index,
+  ariaRowIndex,
   disabled,
   reorderCallback,
   draggedRowClasses,
@@ -315,7 +315,6 @@ const ReorderHandleCell: FC<ReorderHandleCellProps> = ({
       });
     },
     [
-      index,
       intBottomBorderRowClasses,
       intDraggedRowClasses,
       intDraggedRowPredecessorClasses,
@@ -326,10 +325,13 @@ const ReorderHandleCell: FC<ReorderHandleCellProps> = ({
     ],
   );
 
+  const label = `$Reorder Row ${ariaRowIndex}`;
+
   return (
     <th aria-colindex={1}>
       <button
-        title="Reorder Row"
+        aria-label={label}
+        title={label}
         onPointerDown={onPointerDown}
         className="rbdg-draggable-container rbdg-reorder-container rbdg-plain-icon-button"
         disabled={disabled}

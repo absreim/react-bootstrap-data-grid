@@ -1,12 +1,12 @@
 import { useMemo, useState } from "react";
-import { AugRowDef, RowDef } from "../../types";
+import { AugRowDef, PostPaginationRowDef } from "../../types";
 import {
   NormalizedPaginationModel,
   GridPaginationState,
 } from "../../pagination/types";
 
 export interface CurrentPageRowsOutput {
-  paginatedRows: AugRowDef[];
+  paginatedRows: PostPaginationRowDef[];
   normalizedModel: NormalizedPaginationModel | null;
 }
 
@@ -38,7 +38,13 @@ const useCurrentPageRows: (
 
   return useMemo(() => {
     if (paginationModel === undefined) {
-      return { paginatedRows: sortedRows, normalizedModel: null };
+      return {
+        paginatedRows: sortedRows.map((row, index) => ({
+          ...row,
+          prePaginationIndex: index,
+        })),
+        normalizedModel: null,
+      };
     }
 
     const pageSizeOptions = paginationModel?.pageSizeOptions || [10, 25, 100];
@@ -57,7 +63,12 @@ const useCurrentPageRows: (
     const pageSize = pageSizeOptions[pageSizeIndex];
     const lowerIndex = pageSize * (currentPage - 1);
     const upperIndex = lowerIndex + pageSize;
-    const paginatedRows = sortedRows.slice(lowerIndex, upperIndex);
+    const paginatedRows = sortedRows
+      .slice(lowerIndex, upperIndex)
+      .map((row, index) => ({
+        ...row,
+        prePaginationIndex: lowerIndex + index,
+      }));
 
     return { paginatedRows, normalizedModel };
   }, [

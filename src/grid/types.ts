@@ -36,11 +36,13 @@ export type AugRowDef<Data extends ValidRowData = ValidRowData> =
     origIndex: number;
   };
 
-export interface FormattedRow {
-  contents: CellData[];
-  origIndex: number;
-  id: RowId;
+export type PostPaginationRowDef<Data extends ValidRowData = ValidRowData> = AugRowDef & {
+  prePaginationIndex: number;
 }
+
+export type FormattedRow =  {
+  contents: CellData[];
+} & Omit<PostPaginationRowDef, "data">
 
 export type AugCellData = CellData & {
   width?: number;
