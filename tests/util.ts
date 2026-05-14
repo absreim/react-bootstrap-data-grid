@@ -6,9 +6,10 @@ import { expect, Locator } from "@playwright/test";
 export const validateGridContents: (
   tbody: Locator,
   contents: string[][],
-) => Promise<void> = async (tbody, contents) => {
+  rowIndexOffset?: number
+) => Promise<void> = async (tbody, contents, rowIndexOffset = 0) => {
   for (let i = 0; i < contents.length; i++) {
-    const tr = tbody.locator(`tr[aria-rowindex="${i + 2}"]`);
+    const tr = tbody.locator(`tr[aria-rowindex="${rowIndexOffset + i + 2}"]`);
     const row = contents[i];
     for (let j = 0; j < row.length; j++) {
       const value = row[j];

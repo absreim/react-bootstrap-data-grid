@@ -23,6 +23,7 @@ const PageSizeSelector: FC<PageSizeSelectorProps> = ({
   return (
     <div>
       <select
+        name="rowsPerPage"
         className={classNames({
           "form-select": true,
           "form-select-lg": componentSize === "large",
