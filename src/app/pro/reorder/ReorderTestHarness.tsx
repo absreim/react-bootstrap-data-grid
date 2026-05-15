@@ -2,7 +2,7 @@
 
 import { dateToDatetimeInputStr, dateToInputStr, RowDef } from "@/grid";
 import GridPro, { ProColDef, reorderRows } from "@/grid-pro";
-import { FC, useCallback, useState } from "react";
+import { FC, useCallback, useEffect, useRef, useState } from "react";
 import { ReorderCallback } from "@/grid-pro/reorder/types";
 
 interface TestRow {
@@ -10,6 +10,15 @@ interface TestRow {
   numCol: number;
   dateCol: Date;
   datetimeCol: Date;
+}
+
+interface DragTargetRectInfo {
+  left: number;
+  top: number;
+  height: number;
+  width: number;
+  rowId: string;
+  upper: boolean;
 }
 
 const initRows: RowDef<TestRow>[] = [
@@ -68,6 +77,7 @@ const cols: ProColDef[] = [
 ];
 
 const ReorderTestHarness: FC = () => {
+  const divRef = useRef<HTMLDivElement>(null);
   const [rows, setRows] = useState(initRows);
   const reorderCallback: ReorderCallback = useCallback(
     (id, destIndex) => {
@@ -77,8 +87,65 @@ const ReorderTestHarness: FC = () => {
     [rows],
   );
 
+  useEffect(() => {
+    if (!divRef.current) {
+      return;
+    }
+
+    const trs = divRef.current.querySelectorAll(":scope tbody tr") as NodeListOf<HTMLTableRowElement>;
+    const dragTargets = Array.from(trs).map((tr) => {
+      const boundingRect = tr.getBoundingClientRect();
+      const upperHalfCoords = {
+        left: boundingRect.left + 100,
+        top: Math.ceil(boundingRect.top),
+        height: Math.floor(boundingRect.height / 2) - 1,
+        width: 100,
+        rowId: tr.getAttribute("data-rowid")!,
+        upper: true,
+      }
+      const lowerHalfCoords = {
+        left: boundingRect.left + 100,
+        top: Math.ceil(boundingRect.top + boundingRect.height / 2 + 1),
+        height: Math.floor(boundingRect.height / 2) - 1,
+        width: 100,
+        rowId: tr.getAttribute("data-rowid")!,
+        upper: false,
+      };
+
+      function createTargetDiv(info: DragTargetRectInfo) {
+        const targetDiv = document.createElement("div");
+        targetDiv.style.position = "fixed";
+        targetDiv.style.left = `${info.left}px`;
+        targetDiv.style.top = `${info.top}px`;
+        targetDiv.style.height = `${info.height}px`;
+        targetDiv.style.width = `${info.width}px`;
+        targetDiv.style.zIndex = "2";
+        targetDiv.style.background = "gray";
+        targetDiv.style.opacity = "50%";
+        targetDiv.id = `drag-target-${info.rowId}-${info.upper ? "upper" : "lower"}`;
+        return targetDiv;
+      }
+
+      return [
+        createTargetDiv(upperHalfCoords),
+        createTargetDiv(lowerHalfCoords),
+      ];
+    }).flat();
+    dragTargets.forEach((div) => divRef.current!.appendChild(div));
+
+    return () => {
+      dragTargets.forEach((div) => div.remove());
+    }
+  }, []);
+
   return (
-    <GridPro rows={rows} cols={cols} reorder={{ callback: reorderCallback }} />
+    <div ref={divRef}>
+      <GridPro
+        rows={rows}
+        cols={cols}
+        reorder={{ callback: reorderCallback }}
+      />
+    </div>
   );
 };
 
