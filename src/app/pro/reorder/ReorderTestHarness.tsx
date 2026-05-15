@@ -122,7 +122,10 @@ const ReorderTestHarness: FC = () => {
         targetDiv.style.zIndex = "2";
         targetDiv.style.background = "gray";
         targetDiv.style.opacity = "50%";
-        targetDiv.id = `drag-target-${info.rowId}-${info.upper ? "upper" : "lower"}`;
+        targetDiv.setAttribute(
+          "data-testid",
+          `drag-target-${info.rowId}-${info.upper ? "upper" : "lower"}`,
+        );
         return targetDiv;
       }
 

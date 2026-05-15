@@ -325,7 +325,7 @@ const ReorderHandleCell: FC<ReorderHandleCellProps> = ({
     ],
   );
 
-  const label = `$Reorder Row ${ariaRowIndex}`;
+  const label = `Reorder Row ${ariaRowIndex}`;
 
   return (
     <th aria-colindex={1}>
