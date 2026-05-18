@@ -136,6 +136,7 @@ test("no initial state mode works correctly", async ({ page }) => {
   await expect(gridTable).toBeVisible();
 });
 
+// Flaky test. Possibly due to extra slow filter table inputs.
 test("filtering interface works correctly from the toolbar", async ({
   page,
 }) => {

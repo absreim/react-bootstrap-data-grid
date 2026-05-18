@@ -39,7 +39,7 @@ const ColHeaderCellPro: FC<ColHeaderCellProProps> = ({
   keyboardResizeStep,
 }) => {
   const resizeable = setWidth !== undefined;
-  const cellIsClickable = !!(resizeable && sortModel);
+  const cellIsClickable = !!(!resizeable && sortModel);
   const sortDivClickable = resizeable && sortModel;
   const { handleClick, handleMouseOver, handleMouseOut, sortSymbol } =
     useSortHeaderStates(sortModel);

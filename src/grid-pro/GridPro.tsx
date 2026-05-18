@@ -42,6 +42,7 @@ const GridPro: FC<GridProProps> = (props) => {
     sortedRowsOutput: { sortColDef, setSortColDef, sortingEnabled },
     showSelectCol,
     displayRows,
+    filterState,
   } = combinedPipelineOutput;
   const gridSelectionFns = useGridSelectionFns(selectModel, rows);
   const unwrappedStyles = useUnwrappedGridStyles(styleModel);
@@ -106,7 +107,9 @@ const GridPro: FC<GridProProps> = (props) => {
     },
   );
 
-  const filteringEnabled = !!filterModel;
+  const filteringOccurring =
+    !!(filterState && Object.values(filterState).find(({ editableState }) => editableState.enabled));
+  const sortingOccurring = !!sortColDef;
 
   const renderPrefixCells = useCallback(
     (augRow: AugFormattedRow) => {
@@ -121,12 +124,12 @@ const GridPro: FC<GridProProps> = (props) => {
         <ReorderHandleCell
           rowId={augRow.id}
           ariaRowIndex={augRow.prePaginationIndex + 2}
-          disabled={filteringEnabled || sortingEnabled}
+          disabled={filteringOccurring || sortingOccurring}
           reorderCallback={reorderCallback}
         />
       );
     },
-    [filteringEnabled, reorder, sortingEnabled],
+    [filteringOccurring, reorder, sortingOccurring],
   );
 
   const bodyRows = (

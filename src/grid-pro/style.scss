@@ -35,6 +35,11 @@
 
   -webkit-appearance: none;
   appearance: none;
+
+  &:disabled {
+    pointer-events: none;
+    opacity: 0.65;
+  }
 }
 
 .rbdg-drag-ghost {

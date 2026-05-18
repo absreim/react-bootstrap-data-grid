@@ -56,23 +56,27 @@ const cols: ProColDef[] = [
     name: "strCol",
     label: "String Column",
     type: "string",
+    sortable: true,
   },
   {
     name: "numCol",
     label: "Number Column",
     type: "number",
+    sortable: true,
   },
   {
     name: "dateCol",
     label: "Date Column",
     type: "date",
     formatter: dateToInputStr,
+    sortable: true,
   },
   {
     name: "datetimeCol",
     label: "Datetime Column",
     type: "datetime",
     formatter: dateToDatetimeInputStr,
+    sortable: true,
   },
 ];
 
@@ -144,6 +148,14 @@ const ReorderTestHarness: FC = () => {
   return (
     <div ref={divRef}>
       <GridPro
+        useToolbar
+        sortModel={{
+          type: "uncontrolled",
+          initialSortColDef: null
+        }}
+        filterModel={{
+          type: "uncontrolled"
+        }}
         rows={rows}
         cols={cols}
         reorder={{ callback: reorderCallback }}

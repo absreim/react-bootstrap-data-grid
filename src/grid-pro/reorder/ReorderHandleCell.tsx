@@ -3,6 +3,7 @@ import HorizontalGrip from "../assets/HorizontalGrip";
 import { RowId } from "../";
 import { KeyboardCleanupFnParam, PointerCleanupFnParam } from "../util/types";
 import regDragCleanup from "../util/regDragCleanup";
+import classNames from "classnames";
 
 export interface ReorderHandleCellProps {
   rowId: RowId;
@@ -333,7 +334,12 @@ const ReorderHandleCell: FC<ReorderHandleCellProps> = ({
         aria-label={label}
         title={label}
         onPointerDown={onPointerDown}
-        className="rbdg-draggable-container rbdg-reorder-container rbdg-plain-icon-button"
+        className={classNames(
+          "rbdg-draggable-container", "rbdg-reorder-container", "rbdg-plain-icon-button",
+          {
+            "bs-btn-disabled": disabled
+          }
+        )}
         disabled={disabled}
       >
         <HorizontalGrip className="rbdg-draggable-icon" />
