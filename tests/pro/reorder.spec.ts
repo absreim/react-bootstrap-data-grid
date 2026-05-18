@@ -1,4 +1,4 @@
-import { expect, test } from "@playwright/test";
+import { expect, Page, test } from "@playwright/test";
 import { validateGridContents } from "../util";
 
 test.beforeEach(async ({ page }) => {
@@ -121,4 +121,48 @@ test("bottom row dragee styles work properly", async ({ page }) => {
 
   await expect(firstDataRow).toContainClass("reorder-above-drag-target-row");
   await expect(secondDataRow).toContainClass("reorder-below-drag-target-row");
+});
+
+const checkDragBtnsEnablement: (page: Page, enabled: boolean) => Promise<void> = async (page, enabled) => {
+  const buttonNames = ["Reorder Row 2", "Reorder Row 3", "Reorder Row 4"];
+  for (const buttonName of buttonNames) {
+    const button = page.getByRole("button", { name: buttonName });
+    if (enabled) {
+      await expect(button).toBeEnabled();
+      continue;
+    }
+
+    await expect(button).toBeDisabled();
+  }
+}
+
+test("drag buttons are disabled if sorting is occurring", async ({ page }) => {
+  const unsortedStrColHeader = page.getByRole("columnheader", {
+    name: "String Column(not being sorted)",
+    exact: true,
+  });
+  await unsortedStrColHeader.click();
+
+  await checkDragBtnsEnablement(page, false);
+});
+
+test("drag buttons are disabled if filtering is occurring", async ({ page }) => {
+  const filterToolbarButton = page.getByRole("button", { name: "Filtering" });
+  await filterToolbarButton.click();
+
+  const stringFilterCheckbox = page.getByRole("checkbox", {
+    name: "String Column Column Filter Toggle",
+  });
+  await stringFilterCheckbox.check();
+
+  const stringFilterInput = page.getByRole("textbox", {
+    name: "String Column Column Filter Value",
+  });
+  await stringFilterInput.fill("Row");
+
+  const submitButton = page.getByRole("button", { name: "Submit" });
+  await submitButton.click();
+  await filterToolbarButton.click();
+
+  await checkDragBtnsEnablement(page, false);
 });
