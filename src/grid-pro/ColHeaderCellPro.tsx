@@ -15,6 +15,7 @@ import useSortHeaderStates from "../grid/main/ColHeaderCell/useSortHeaderStates"
 import VerticalGrip from "./assets/VerticalGrip";
 import { KeyboardCleanupFnParam, PointerCleanupFnParam } from "./util/types";
 import regDragCleanup from "./util/regDragCleanup";
+import sortOrderToAriaSort from "../grid/sorting/sortOrderToAriaSort";
 
 const setWidthStyle: (cells: HTMLTableCellElement[], width: number) => void = (
   cells,
@@ -256,6 +257,9 @@ const ColHeaderCellPro: FC<ColHeaderCellProProps> = ({
           : "Column header that can be clicked to change the sorting mode"
       }
       aria-colindex={ariaColIndex}
+      aria-sort={
+        sortModel ? sortOrderToAriaSort(sortModel.sortOrder) : undefined
+      }
       style={getWidthStyle(width)}
     >
       {cellContents}
