@@ -14,7 +14,7 @@ const useFilter: (
   return useMemo(() => {
     const augRows = rows.map((row, index) => ({
       origIndex: index,
-      ...row
+      ...row,
     }));
 
     if (filterState === null) {

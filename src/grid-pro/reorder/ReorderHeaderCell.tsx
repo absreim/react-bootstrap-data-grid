@@ -19,7 +19,6 @@ const spinningArrowIcon = (
 );
 
 const ReorderHeaderCell: FC = () => (
-
   <th
     aria-colindex={1}
     title="Reorder Controls"

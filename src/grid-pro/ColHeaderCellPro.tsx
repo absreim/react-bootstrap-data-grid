@@ -170,14 +170,15 @@ const ColHeaderCellPro: FC<ColHeaderCellProProps> = ({
         setWidthStyle(cellsToUpdate, newWidth);
       };
 
-      const onKeyDown: KeyboardCleanupFnParam = (removeListeners) => (event) => {
-        if (event.code === "Escape") {
-          setWidthStyle(cellsToUpdate, width);
-          removeListeners();
-        }
-      };
+      const onKeyDown: KeyboardCleanupFnParam =
+        (removeListeners) => (event) => {
+          if (event.code === "Escape") {
+            setWidthStyle(cellsToUpdate, width);
+            removeListeners();
+          }
+        };
 
-      const onPointerUp: PointerCleanupFnParam = (removeListeners ) => () => {
+      const onPointerUp: PointerCleanupFnParam = (removeListeners) => () => {
         if (thRef.current !== null) {
           const newWidth = Number(
             thRef.current.style.minWidth.replace("px", ""),
@@ -189,7 +190,7 @@ const ColHeaderCellPro: FC<ColHeaderCellProProps> = ({
 
       const onContextMenu: (event: PointerEvent) => void = (event) => {
         event.preventDefault();
-      }
+      };
 
       regDragCleanup({
         element: target,
@@ -197,7 +198,7 @@ const ColHeaderCellPro: FC<ColHeaderCellProProps> = ({
         onPointerUp,
         onPointerCancel: onPointerUp,
         onKeyDown,
-        onContextMenu
+        onContextMenu,
       });
     },
     [ariaColIndex, effectiveMinResizeWidth, maxResizeWidth, setWidth, width],

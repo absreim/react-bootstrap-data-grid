@@ -88,7 +88,7 @@ const BodyRows: FC<BodyRowsProps> = ({
             className={classNames(
               unwrappedTableModel.rowSelectColTd(row.id, index),
             )}
-            aria-colindex={1}
+            aria-colindex={1 + (additionalColIndexOffset || 0)}
             style={getWidthStyle(selectModel!.selectColWidth)}
           >
             <SelectionInput

@@ -3,19 +3,29 @@ import { validateGridContents } from "../util";
 
 test.beforeEach(async ({ page }) => {
   await page.goto("/pro/reorder");
-})
+});
 
-test("dragging to the lower half of a row works correctly", async ({ page }) => {
+test("dragging to the lower half of a row works correctly", async ({
+  page,
+}) => {
   const dragButton2 = page.getByRole("button", { name: "Reorder Row 2" });
   const dragTarget = page.getByTestId("drag-target-y-lower");
   await dragButton2.dragTo(dragTarget);
 
   const tbody = page.locator("tbody");
-  await validateGridContents(tbody, [
-    ["Second Row", "2", "2026-01-02", "2026-01-02T02:00"],
-    ["First Row", "1", "2026-01-01", "2026-01-01T01:00"],
-    ["Third Row", "3", "2026-01-03", "2026-01-03T03:00"],
-  ]);
+  await validateGridContents(
+    tbody,
+    [
+      ["Second Row", "2", "2026-01-02", "2026-01-02T02:00"],
+      ["First Row", "1", "2026-01-01", "2026-01-01T01:00"],
+      ["Third Row", "3", "2026-01-03", "2026-01-03T03:00"],
+    ],
+    0,
+    2,
+  );
+
+  const xRow = page.locator('tr[data-rowid="x"]');
+  await expect(xRow).toHaveAttribute("aria-selected", "true");
 });
 
 test("dragging to the upper half of a row works correctly", async ({
@@ -26,11 +36,19 @@ test("dragging to the upper half of a row works correctly", async ({
   await dragButton2.dragTo(dragTarget);
 
   const tbody = page.locator("tbody");
-  await validateGridContents(tbody, [
-    ["Second Row", "2", "2026-01-02", "2026-01-02T02:00"],
-    ["First Row", "1", "2026-01-01", "2026-01-01T01:00"],
-    ["Third Row", "3", "2026-01-03", "2026-01-03T03:00"],
-  ]);
+  await validateGridContents(
+    tbody,
+    [
+      ["Second Row", "2", "2026-01-02", "2026-01-02T02:00"],
+      ["First Row", "1", "2026-01-01", "2026-01-01T01:00"],
+      ["Third Row", "3", "2026-01-03", "2026-01-03T03:00"],
+    ],
+    0,
+    2,
+  );
+
+  const xRow = page.locator('tr[data-rowid="x"]');
+  await expect(xRow).toHaveAttribute("aria-selected", "true");
 });
 
 test("dragging to the right below the head works correctly", async ({
@@ -41,11 +59,19 @@ test("dragging to the right below the head works correctly", async ({
   await dragButton4.dragTo(dragTarget);
 
   const tbody = page.locator("tbody");
-  await validateGridContents(tbody, [
-    ["Third Row", "3", "2026-01-03", "2026-01-03T03:00"],
-    ["First Row", "1", "2026-01-01", "2026-01-01T01:00"],
-    ["Second Row", "2", "2026-01-02", "2026-01-02T02:00"],
-  ]);
+  await validateGridContents(
+    tbody,
+    [
+      ["Third Row", "3", "2026-01-03", "2026-01-03T03:00"],
+      ["First Row", "1", "2026-01-01", "2026-01-01T01:00"],
+      ["Second Row", "2", "2026-01-02", "2026-01-02T02:00"],
+    ],
+    0,
+    2,
+  );
+
+  const zRow = page.locator('tr[data-rowid="z"]');
+  await expect(zRow).toHaveAttribute("aria-selected", "false");
 });
 
 test("dragging to the right above the grid bottom border works correctly", async ({
@@ -56,11 +82,19 @@ test("dragging to the right above the grid bottom border works correctly", async
   await dragButton2.dragTo(dragTarget);
 
   const tbody = page.locator("tbody");
-  await validateGridContents(tbody, [
-    ["Second Row", "2", "2026-01-02", "2026-01-02T02:00"],
-    ["Third Row", "3", "2026-01-03", "2026-01-03T03:00"],
-    ["First Row", "1", "2026-01-01", "2026-01-01T01:00"],
-  ]);
+  await validateGridContents(
+    tbody,
+    [
+      ["Second Row", "2", "2026-01-02", "2026-01-02T02:00"],
+      ["Third Row", "3", "2026-01-03", "2026-01-03T03:00"],
+      ["First Row", "1", "2026-01-01", "2026-01-01T01:00"],
+    ],
+    0,
+    2,
+  );
+
+  const xRow = page.locator('tr[data-rowid="x"]');
+  await expect(xRow).toHaveAttribute("aria-selected", "true");
 });
 
 test("top row dragee styles work properly", async ({ page }) => {
@@ -123,7 +157,10 @@ test("bottom row dragee styles work properly", async ({ page }) => {
   await expect(secondDataRow).toContainClass("reorder-below-drag-target-row");
 });
 
-const checkDragBtnsEnablement: (page: Page, enabled: boolean) => Promise<void> = async (page, enabled) => {
+const checkDragBtnsEnablement: (
+  page: Page,
+  enabled: boolean,
+) => Promise<void> = async (page, enabled) => {
   const buttonNames = ["Reorder Row 2", "Reorder Row 3", "Reorder Row 4"];
   for (const buttonName of buttonNames) {
     const button = page.getByRole("button", { name: buttonName });
@@ -134,7 +171,7 @@ const checkDragBtnsEnablement: (page: Page, enabled: boolean) => Promise<void> =
 
     await expect(button).toBeDisabled();
   }
-}
+};
 
 test("drag buttons are disabled if sorting is occurring", async ({ page }) => {
   const unsortedStrColHeader = page.getByRole("columnheader", {
@@ -146,7 +183,9 @@ test("drag buttons are disabled if sorting is occurring", async ({ page }) => {
   await checkDragBtnsEnablement(page, false);
 });
 
-test("drag buttons are disabled if filtering is occurring", async ({ page }) => {
+test("drag buttons are disabled if filtering is occurring", async ({
+  page,
+}) => {
   const filterToolbarButton = page.getByRole("button", { name: "Filtering" });
   await filterToolbarButton.click();
 

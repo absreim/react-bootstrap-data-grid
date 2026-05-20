@@ -68,10 +68,7 @@ test("unsorted column becomes sorted after clicking on the header cell", async (
     await expect(firstRowCell).toHaveText("a");
     await expect(secondRowCell).toHaveText("b");
     await expect(thirdRowCell).toHaveText("c");
-    await expect(sortedColHeaderCell).toHaveAttribute(
-      "aria-sort",
-      "ascending",
-    );
+    await expect(sortedColHeaderCell).toHaveAttribute("aria-sort", "ascending");
   }
 });
 

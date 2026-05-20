@@ -6,15 +6,19 @@ import { expect, Locator } from "@playwright/test";
 export const validateGridContents: (
   tbody: Locator,
   contents: string[][],
-  rowIndexOffset?: number
-) => Promise<void> = async (tbody, contents, rowIndexOffset = 0) => {
+  rowIndexOffset?: number,
+  colIndexOffset?: number
+) => Promise<void> = async (tbody, contents, rowIndexOffset = 0, colIndexOffset = 0) => {
   for (let i = 0; i < contents.length; i++) {
     const tr = tbody.locator(`tr[aria-rowindex="${rowIndexOffset + i + 2}"]`);
     const row = contents[i];
     for (let j = 0; j < row.length; j++) {
       const value = row[j];
       const td = tr.getByRole("cell", { name: value, exact: true });
-      await expect(td).toHaveAttribute("aria-colindex", String(j + 1));
+      await expect(td).toHaveAttribute(
+        "aria-colindex",
+        String(j + 1 + colIndexOffset),
+      );
     }
   }
 };

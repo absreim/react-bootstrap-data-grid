@@ -20,7 +20,7 @@ const regDragCleanup: (params: DragCleanupParams) => void = ({
     cancel: () => {},
     keydown: () => {},
     contextmenu: () => {},
-  }
+  };
 
   const cleanup: () => void = () => {
     element.removeEventListener("pointermove", onPointerMove);
@@ -28,7 +28,7 @@ const regDragCleanup: (params: DragCleanupParams) => void = ({
     element.removeEventListener("pointercancel", listenerRef.cancel);
     element.removeEventListener("keydown", listenerRef.keydown);
     element.removeEventListener("contextmenu", listenerRef.contextmenu);
-  }
+  };
 
   const augOnPointerUp = onPointerUp(cleanup);
   const augOnPointerCancel = onPointerCancel(cleanup);

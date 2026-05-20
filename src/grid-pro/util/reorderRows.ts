@@ -1,6 +1,10 @@
 import { RowDef, RowId, ValidRowData } from "../";
 
-const reorderRows: <Data extends ValidRowData>(rows: RowDef<Data>[], id: RowId, destIndex: number) => RowDef<Data>[] = (rows, id, destIndex) => {
+const reorderRows: <Data extends ValidRowData>(
+  rows: RowDef<Data>[],
+  id: RowId,
+  destIndex: number,
+) => RowDef<Data>[] = (rows, id, destIndex) => {
   const rowsCopy = rows.slice();
   const srcIndex = rowsCopy.findIndex((rowsCopy) => rowsCopy.id === id);
   const srcContents = rowsCopy[srcIndex];
@@ -18,6 +22,6 @@ const reorderRows: <Data extends ValidRowData>(rows: RowDef<Data>[], id: RowId, 
 
   rowsCopy.splice(destIndex, 0, srcContents);
   return rowsCopy;
-}
+};
 
 export default reorderRows;

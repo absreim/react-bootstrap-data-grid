@@ -107,8 +107,12 @@ const GridPro: FC<GridProProps> = (props) => {
     },
   );
 
-  const filteringOccurring =
-    !!(filterState && Object.values(filterState).find(({ editableState }) => editableState.enabled));
+  const filteringOccurring = !!(
+    filterState &&
+    Object.values(filterState).find(
+      ({ editableState }) => editableState.enabled,
+    )
+  );
   const sortingOccurring = !!sortColDef;
 
   const renderPrefixCells = useCallback(
@@ -142,6 +146,7 @@ const GridPro: FC<GridProProps> = (props) => {
       editModel={editModel}
       getInputStrSubmitCallback={getInputStrSubmitCallback}
       renderPrefixCells={renderPrefixCells}
+      additionalColIndexOffset={reorder ? 1 : 0}
     />
   );
 

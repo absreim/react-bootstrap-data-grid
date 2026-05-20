@@ -1,7 +1,7 @@
 import { FC } from "react";
 
 export interface VerticalGripProps {
-  className?: string
+  className?: string;
 }
 
 const VerticalGrip: FC<VerticalGripProps> = ({ className }) => (

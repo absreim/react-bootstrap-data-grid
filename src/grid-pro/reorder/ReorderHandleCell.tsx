@@ -331,14 +331,17 @@ const ReorderHandleCell: FC<ReorderHandleCellProps> = ({
   return (
     <th aria-colindex={1}>
       <button
+        onClick={(event) => event.stopPropagation()}
         aria-label={label}
         title={label}
         onPointerDown={onPointerDown}
         className={classNames(
-          "rbdg-draggable-container", "rbdg-reorder-container", "rbdg-plain-icon-button",
+          "rbdg-draggable-container",
+          "rbdg-reorder-container",
+          "rbdg-plain-icon-button",
           {
-            "bs-btn-disabled": disabled
-          }
+            "bs-btn-disabled": disabled,
+          },
         )}
         disabled={disabled}
       >
