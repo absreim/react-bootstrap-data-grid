@@ -162,7 +162,7 @@ const ReorderTestHarness: FC = () => {
       type: "multi",
       mode: "both",
       selected,
-      setSelected
+      setSelected,
     }),
     [selected],
   );
