@@ -130,10 +130,11 @@ const GridPro: FC<GridProProps> = (props) => {
           ariaRowIndex={augRow.prePaginationIndex + 2}
           disabled={filteringOccurring || sortingOccurring}
           reorderCallback={reorderCallback}
+          styleModel={styleModel?.reorderModel}
         />
       );
     },
-    [filteringOccurring, reorder, sortingOccurring],
+    [filteringOccurring, reorder, sortingOccurring, styleModel?.reorderModel],
   );
 
   const bodyRows = (

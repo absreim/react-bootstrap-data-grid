@@ -4,20 +4,17 @@ import { RowId } from "../";
 import { KeyboardCleanupFnParam, PointerCleanupFnParam } from "../util/types";
 import regDragCleanup from "../util/regDragCleanup";
 import classNames from "classnames";
+import { ReorderStyleModel } from "./types";
 
-export interface ReorderHandleCellProps {
+export type ReorderHandleCellProps = {
   rowId: RowId;
   ariaRowIndex: number;
   // id of current row should be included in the function
   reorderCallback: (destIndex: number) => void;
   // generally, reordering is disabled when sorting or filtering is enabled
   disabled: boolean;
-  draggedRowClasses?: string[];
-  draggedRowPredecessorClasses?: string[];
-  topBorderRowClasses?: string[];
-  bottomBorderRowClasses?: string[];
-  ghostTableClasses?: string[];
-}
+  styleModel?: ReorderStyleModel;
+};
 
 interface DropTargetRef {
   current: DropTargetRefValue;
@@ -48,35 +45,38 @@ const ReorderHandleCell: FC<ReorderHandleCellProps> = ({
   ariaRowIndex,
   disabled,
   reorderCallback,
-  draggedRowClasses,
-  draggedRowPredecessorClasses,
-  topBorderRowClasses,
-  bottomBorderRowClasses,
-  ghostTableClasses,
+  styleModel,
 }) => {
   const intDraggedRowClasses = useMemo(
-    () => draggedRowClasses || ["rbdg-reorder-dragged-row"],
-    [draggedRowClasses],
+    () => styleModel?.draggedRowClasses || ["rbdg-reorder-dragged-row"],
+    [styleModel?.draggedRowClasses],
   );
 
   const intDraggedRowPredecessorClasses = useMemo(
-    () => draggedRowPredecessorClasses || ["rbdg-reorder-dragged-row-pred"],
-    [draggedRowPredecessorClasses],
+    () =>
+      styleModel?.draggedRowPredecessorClasses || [
+        "rbdg-reorder-dragged-row-pred",
+      ],
+    [styleModel?.draggedRowPredecessorClasses],
   );
 
   const intTopBorderRowClasses = useMemo(
-    () => topBorderRowClasses || ["reorder-above-drag-target-row"],
-    [topBorderRowClasses],
+    () =>
+      styleModel?.topBorderRowClasses || ["rbdg-reorder-above-drag-target-row"],
+    [styleModel?.topBorderRowClasses],
   );
 
   const intBottomBorderRowClasses = useMemo(
-    () => bottomBorderRowClasses || ["reorder-below-drag-target-row"],
-    [bottomBorderRowClasses],
+    () =>
+      styleModel?.bottomBorderRowClasses || [
+        "rbdg-reorder-below-drag-target-row",
+      ],
+    [styleModel?.bottomBorderRowClasses],
   );
 
   const intGhostTableClasses = useMemo(
-    () => ghostTableClasses || ["border", "rbdg-drag-ghost"],
-    [ghostTableClasses],
+    () => styleModel?.ghostDivClasses || ["border", "rbdg-drag-ghost"],
+    [styleModel?.ghostDivClasses],
   );
 
   const onPointerDown: PointerEventHandler<HTMLButtonElement> = useCallback(
@@ -94,6 +94,7 @@ const ReorderHandleCell: FC<ReorderHandleCellProps> = ({
         ghostDiv.style.left = `${clientX}px`;
         ghostDiv.style.top = `${clientY}px`;
         ghostDiv.textContent = `ID: ${rowId}`;
+        ghostDiv.setAttribute("data-testid", "rbdg-drag-ghost");
 
         document.body.appendChild(ghostDiv);
         return ghostDiv;

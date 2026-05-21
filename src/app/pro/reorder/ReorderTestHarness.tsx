@@ -10,7 +10,7 @@ import GridPro, {
   SelectModel,
 } from "@/grid-pro";
 import { FC, useCallback, useEffect, useMemo, useRef, useState } from "react";
-import { ReorderCallback } from "@/grid-pro/reorder/types";
+import { ReorderCallback, ReorderStyleModel } from "@/grid-pro/reorder/types";
 
 interface TestRow {
   strCol: string;
@@ -87,7 +87,11 @@ const cols: ProColDef[] = [
   },
 ];
 
-const ReorderTestHarness: FC = () => {
+interface ReorderTestHarnessProps {
+  styleModel?: ReorderStyleModel;
+}
+
+const ReorderTestHarness: FC<ReorderTestHarnessProps> = ({ styleModel }) => {
   const divRef = useRef<HTMLDivElement>(null);
   const [rows, setRows] = useState(initRows);
   const reorderCallback: ReorderCallback = useCallback(
@@ -182,6 +186,7 @@ const ReorderTestHarness: FC = () => {
         cols={cols}
         reorder={{ callback: reorderCallback }}
         selectModel={selectModel}
+        styleModel={styleModel ? { reorderModel: styleModel } : undefined}
       />
     </div>
   );

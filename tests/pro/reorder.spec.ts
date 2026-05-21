@@ -112,13 +112,19 @@ test("top row dragee styles work properly", async ({ page }) => {
   const secondDataRow = page.locator('tr[aria-rowindex="3"]');
   const thirdDataRow = page.locator('tr[aria-rowindex="4"]');
 
-  await expect(secondDataRow).toContainClass("reorder-above-drag-target-row");
-  await expect(thirdDataRow).toContainClass("reorder-below-drag-target-row");
+  await expect(secondDataRow).toContainClass(
+    "rbdg-reorder-above-drag-target-row",
+  );
+  await expect(thirdDataRow).toContainClass(
+    "rbdg-reorder-below-drag-target-row",
+  );
 
   const thirdDataRowLowerPart = page.getByTestId("drag-target-z-lower");
   await thirdDataRowLowerPart.hover({ force: true });
 
-  await expect(thirdDataRow).toContainClass("reorder-above-drag-target-row");
+  await expect(thirdDataRow).toContainClass(
+    "rbdg-reorder-above-drag-target-row",
+  );
 });
 
 test("middle row dragee styles work properly", async ({ page }) => {
@@ -135,8 +141,10 @@ test("middle row dragee styles work properly", async ({ page }) => {
   await firstDataRowUpperPart.hover({ force: true });
 
   const headerRow = page.locator("thead > tr");
-  await expect(headerRow).toContainClass("reorder-above-drag-target-row");
-  await expect(firstDataRow).toContainClass("reorder-below-drag-target-row");
+  await expect(headerRow).toContainClass("rbdg-reorder-above-drag-target-row");
+  await expect(firstDataRow).toContainClass(
+    "rbdg-reorder-below-drag-target-row",
+  );
 });
 
 test("bottom row dragee styles work properly", async ({ page }) => {
@@ -153,8 +161,12 @@ test("bottom row dragee styles work properly", async ({ page }) => {
   await firstDataRowLowerPart.hover({ force: true });
   const firstDataRow = page.locator('tr[aria-rowindex="2"]');
 
-  await expect(firstDataRow).toContainClass("reorder-above-drag-target-row");
-  await expect(secondDataRow).toContainClass("reorder-below-drag-target-row");
+  await expect(firstDataRow).toContainClass(
+    "rbdg-reorder-above-drag-target-row",
+  );
+  await expect(secondDataRow).toContainClass(
+    "rbdg-reorder-below-drag-target-row",
+  );
 });
 
 const checkDragBtnsEnablement: (
