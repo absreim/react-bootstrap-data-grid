@@ -1,0 +1,140 @@
+import { test, expect, Locator } from "@playwright/test";
+import { confirmColWidth } from "../util";
+
+const confirmWidthStyle: (
+  targetWidth: number,
+  ariaColIndex: number,
+  container: Locator,
+) => Promise<void> = async (targetWidth, ariaColIndex, container) => {
+  const cells = await container
+    .locator(`[aria-colindex="${ariaColIndex}"]`)
+    .all();
+  for (const cell of cells) {
+    const minWidthRegex = new RegExp(`min-width:\\s*${targetWidth}px`);
+    await expect(cell).toHaveAttribute("style", minWidthRegex);
+    const maxWidthRegex = new RegExp(`max-width:\\s*${targetWidth}px`);
+    await expect(cell).toHaveAttribute("style", maxWidthRegex);
+  }
+};
+
+["community", "pro"].forEach((edition) => {
+  const url = edition === "pro" ? "/pro" : "/";
+
+  test.describe(`${edition} basic functionality tests`, () => {
+    test.beforeEach(async ({ page }) => {
+      await page.goto(url);
+    });
+
+    test(`${edition} grid displays correct column headings`, async ({
+      page,
+    }) => {
+      const workingGridContainer = page.getByTestId(
+        "functioning grid container",
+      );
+      const theadLocator = workingGridContainer.getByRole("rowgroup");
+
+      await expect(theadLocator.getByText("String Column")).toHaveAttribute(
+        "aria-colindex",
+        "1",
+      );
+      await expect(theadLocator.getByText("Number Column")).toHaveAttribute(
+        "aria-colindex",
+        "2",
+      );
+      await expect(theadLocator.getByText("Date Column")).toHaveAttribute(
+        "aria-colindex",
+        "3",
+      );
+      await expect(theadLocator.getByText("Datetime Column")).toHaveAttribute(
+        "aria-colindex",
+        "4",
+      );
+    });
+
+    test(`${edition} displays values correctly with or without formatters`, async ({
+      page,
+    }) => {
+      const workingGridContainer = page.getByTestId(
+        "functioning grid container",
+      );
+      const firstRow = workingGridContainer.locator(
+        'tbody > tr[aria-rowindex="2"]',
+      );
+
+      await expect(firstRow.getByText("first row string")).toHaveAttribute(
+        "aria-colindex",
+        "1",
+      );
+      await expect(firstRow.getByText("1")).toHaveAttribute(
+        "aria-colindex",
+        "2",
+      );
+      await expect(firstRow.getByText("(A date)")).toHaveAttribute(
+        "aria-colindex",
+        "3",
+      );
+      await expect(firstRow.getByText("(A datetime)")).toHaveAttribute(
+        "aria-colindex",
+        "4",
+      );
+    });
+
+    test(`${edition} displays rows in the correct order`, async ({ page }) => {
+      const workingGridContainer = page.getByTestId(
+        "functioning grid container",
+      );
+      const thirdDataRow = workingGridContainer.locator(
+        'tbody > tr[aria-rowindex="4"]',
+      );
+      const lastDataRow = workingGridContainer.locator(
+        'tbody > tr[aria-rowindex="6"]',
+      );
+
+      await expect(thirdDataRow.getByText("third row string")).toHaveAttribute(
+        "aria-colindex",
+        "1",
+      );
+      await expect(lastDataRow.getByText("5")).toHaveAttribute(
+        "aria-colindex",
+        "2",
+      );
+    });
+
+    test(`${edition} displays the specified caption`, async ({ page }) => {
+      const workingGridContainer = page.getByTestId(
+        "functioning grid container",
+      );
+
+      const captionElement = workingGridContainer.getByRole("caption");
+      await expect(captionElement).toHaveText("basic test grid");
+    });
+
+    test(`${edition} renders a responsive table when the relevant prop is passed`, async ({
+      page,
+    }) => {
+      const responsiveGridContainer = page.getByTestId(
+        "responsive grid container",
+      );
+
+      const tableContainer =
+        responsiveGridContainer.getByTestId("rbdg-table-div");
+      await expect(tableContainer).toHaveClass("table-responsive");
+    });
+
+    test(`${edition} setting a width applies the width to the style attribute`, async ({
+      page,
+    }) => {
+      const workingGridContainer = page.getByTestId(
+        "functioning grid container",
+      );
+      await confirmWidthStyle(150, 2, workingGridContainer);
+    });
+
+    test(`${edition} in block display mode, setting a width causes the column to be that width`, async ({
+      page,
+    }) => {
+      const blockGridContainer = page.getByTestId("block grid container");
+      await confirmColWidth(150, 1, 2, blockGridContainer);
+    });
+  });
+});

@@ -5,6 +5,7 @@ import Grid, {
   RowDef,
 } from "@/grid";
 import { FC, useMemo, useState } from "react";
+import GridPro from "@/grid-pro";
 
 interface FilteringTestHarnessProps {
   cols: ColDef[];
@@ -13,6 +14,7 @@ interface FilteringTestHarnessProps {
   controlled: boolean;
   caption?: string;
   useToolbar?: boolean;
+  pro?: boolean;
 }
 
 const FilteringTestHarness: FC<FilteringTestHarnessProps> = ({
@@ -22,6 +24,7 @@ const FilteringTestHarness: FC<FilteringTestHarnessProps> = ({
   controlled,
   caption,
   useToolbar,
+  pro,
 }) => {
   const [filterState, setFilterState] = useState(initialFilterState);
   const filterModel: FilterModel = useMemo(
@@ -39,6 +42,17 @@ const FilteringTestHarness: FC<FilteringTestHarnessProps> = ({
           },
     [caption, controlled, filterState, initialFilterState],
   );
+
+  if (pro) {
+    return (
+      <GridPro
+        rows={rows}
+        cols={cols}
+        filterModel={filterModel}
+        useToolbar={useToolbar}
+      />
+    );
+  }
 
   return (
     <Grid

@@ -1,5 +1,6 @@
 import { FC, useMemo, useState } from "react";
 import Grid, { ColDef, GridPaginationState, RowDef } from "@/grid";
+import GridPro from "@/grid-pro";
 
 export type PaginationFeatureTestHarnessProps = Omit<
   GridPaginationState,
@@ -10,6 +11,7 @@ export type PaginationFeatureTestHarnessProps = Omit<
   initialPageSizeIndex: number;
   initialPage: number;
   controlled: boolean;
+  pro?: boolean;
 };
 
 const PaginationFeatureTestHarness: FC<PaginationFeatureTestHarnessProps> = ({
@@ -21,6 +23,7 @@ const PaginationFeatureTestHarness: FC<PaginationFeatureTestHarnessProps> = ({
   maxPageButtons,
   componentSize,
   controlled,
+  pro,
 }) => {
   const [pageSizeIndex, setPageSizeIndex] = useState(initialPageSizeIndex);
   const [currentPage, setCurrentPage] = useState(initialPage);
@@ -55,6 +58,10 @@ const PaginationFeatureTestHarness: FC<PaginationFeatureTestHarnessProps> = ({
     pageSizeIndex,
     currentPage,
   ]);
+
+  if (pro) {
+    return <GridPro rows={rows} cols={cols} pagination={paginationState} />;
+  }
 
   return <Grid rows={rows} cols={cols} pagination={paginationState} />;
 };

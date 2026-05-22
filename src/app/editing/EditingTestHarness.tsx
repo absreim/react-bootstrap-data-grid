@@ -3,6 +3,7 @@
 import Grid, { ColDef, RowDef, RowId, UpdateCallbackGenerator } from "@/grid";
 import { FC, useState } from "react";
 import { dateToDatetimeInputStr, dateToInputStr } from "@/grid/util/datetime";
+import GridPro from "@/grid-pro";
 
 const cols: ColDef[] = [
   {
@@ -66,7 +67,7 @@ const initRows: RowDef<TestRow>[] = [
   },
 ];
 
-const EditingTestHarness: FC = () => {
+const EditingTestHarness: FC<{ pro?: boolean }> = ({ pro }) => {
   const [rows, setRows] = useState<RowDef[]>(initRows.slice());
   const getUpdateCallback: UpdateCallbackGenerator = (id) => (rowData) => {
     const newRows = rows.slice();
@@ -89,6 +90,16 @@ const EditingTestHarness: FC = () => {
 
     setRows(rows.toSpliced(index, 1));
   };
+
+  if (pro) {
+    return (
+      <GridPro
+        rows={rows}
+        cols={cols}
+        editModel={{ getUpdateCallback, getDeleteCallback }}
+      />
+    );
+  }
 
   return (
     <Grid

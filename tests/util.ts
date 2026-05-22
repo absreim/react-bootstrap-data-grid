@@ -1,4 +1,4 @@
-import { expect, Locator } from "@playwright/test";
+import { expect, Locator, test } from "@playwright/test";
 
 // Assumes that there are no duplicate values within a row
 export const validateGridContents: (
@@ -50,4 +50,47 @@ export const confirmColWidth: (
       expect(width).toBeLessThanOrEqual(targetWidth + tolerance);
     }).toPass();
   }
+};
+
+export const getTestIdVariants: (testIdPrefix: string) => string[] = (
+  testIdPrefix,
+) => [`${testIdPrefix}-controlled`, `${testIdPrefix}-uncontrolled`];
+
+export const clickSelectAllAndVerify: (
+  container: Locator,
+  name: string,
+  endState: "true" | "false",
+  startChecked: boolean,
+  startIndet: boolean,
+  endName: string,
+  endChecked: boolean,
+) => Promise<void> = async (
+  container,
+  name,
+  endState,
+  startChecked,
+  startIndet,
+  endName,
+  endChecked,
+) => {
+  const selectHeaderCell = container.locator(
+    'thead > tr > th[aria-colindex="1"]',
+  );
+  const selectAllCheckbox = selectHeaderCell.getByRole("checkbox", {
+    name,
+  });
+  await expect(selectAllCheckbox).toHaveJSProperty("checked", startChecked);
+  await expect(selectAllCheckbox).toHaveJSProperty("indeterminate", startIndet);
+  await selectAllCheckbox.click();
+
+  for (let i = 0; i < 4; i++) {
+    const row = container.locator(`tbody > tr[aria-rowindex="${i + 2}"]`);
+    await expect(row).toHaveAttribute("aria-selected", endState);
+  }
+
+  const endSelectAllCheckbox = selectHeaderCell.getByRole("checkbox", {
+    name: endName,
+  });
+  await expect(endSelectAllCheckbox).toHaveJSProperty("checked", endChecked);
+  await expect(endSelectAllCheckbox).toHaveJSProperty("indeterminate", false);
 };

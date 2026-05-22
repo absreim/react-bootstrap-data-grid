@@ -12,6 +12,7 @@ import Grid, {
   TableSortModel,
 } from "@/grid";
 import { FC, useMemo, useState } from "react";
+import GridPro from "@/grid-pro";
 
 const cols: ColDef[] = [
   {
@@ -133,7 +134,7 @@ const styleModel: StyleModel = {
   },
 };
 
-const MainStylingTestHarness: FC = () => {
+const MainStylingTestHarness: FC<{ pro?: boolean }> = ({ pro }) => {
   const [currentPage, setCurrentPage] = useState<number>(2);
   const [pageSizeIndex, setPageSizeIndex] = useState<number>(0);
   const pagination: GridPaginationState = useMemo(
@@ -170,6 +171,21 @@ const MainStylingTestHarness: FC = () => {
     }),
     [selected],
   );
+
+  if (pro) {
+    return (
+      <GridPro
+        rows={rows}
+        cols={cols}
+        pagination={pagination}
+        sortModel={sortModel}
+        editModel={editModel}
+        caption="test caption"
+        styleModel={styleModel}
+        selectModel={selectModel}
+      />
+    );
+  }
 
   return (
     <Grid
