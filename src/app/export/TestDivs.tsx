@@ -9,7 +9,7 @@ const TestDivs: FC<{ pro?: boolean }> = ({ pro }) => (
         enablePaginaton={false}
         enableFormatters={false}
         enableStyles={false}
-        pro
+        pro={pro}
       />
     </div>
     <div data-testid="options enabled test container">
@@ -18,7 +18,7 @@ const TestDivs: FC<{ pro?: boolean }> = ({ pro }) => (
         enablePaginaton={true}
         enableFormatters={true}
         enableStyles={false}
-        pro
+        pro={pro}
       />
     </div>
     <div data-testid="styles test container">
@@ -27,7 +27,7 @@ const TestDivs: FC<{ pro?: boolean }> = ({ pro }) => (
         enablePaginaton={true}
         enableFormatters={true}
         enableStyles={true}
-        pro
+        pro={pro}
       />
     </div>
   </>
