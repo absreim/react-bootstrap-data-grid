@@ -5,14 +5,17 @@ import Grid, {
   ColDef,
   EditableTableFilterState,
   ExportFormStyleModel,
+  GridProps,
   RowDef,
 } from "@/grid";
+import GridPro from "@/grid-pro";
 
 export interface ExportTestHarnessProps {
   enableFiltering: boolean;
   enablePaginaton: boolean;
   enableFormatters: boolean;
   enableStyles: boolean;
+  pro?: boolean;
 }
 
 const combinedTestCols: ColDef[] = [
@@ -128,6 +131,7 @@ const ExportTestHarness: FC<ExportTestHarnessProps> = ({
   enablePaginaton,
   enableFormatters,
   enableStyles,
+  pro
 }) => {
   const cols = useMemo(
     () =>
@@ -140,35 +144,40 @@ const ExportTestHarness: FC<ExportTestHarnessProps> = ({
     [enableFormatters],
   );
 
+  const gridProps: GridProps = useMemo(
+    () => ({
+      rows: combinedTestRows,
+      cols,
+      filterModel: enableFiltering
+        ? {
+            type: "uncontrolled",
+            tableFilterState: combinedFilterState,
+          }
+        : undefined,
+      pagination: enablePaginaton
+        ? {
+            type: "uncontrolled",
+            pageSizeOptions: [2],
+            startingPageSizeIndex: 0,
+          }
+        : undefined,
+      styleModel: enableStyles
+        ? {
+            exportFormStyleModel: styleModel,
+          }
+        : undefined,
+      useToolbar: true
+    }),
+    [cols, enableFiltering, enablePaginaton, enableStyles],
+  );
+
+  if (pro) {
+    return <GridPro {...gridProps} />
+  }
+
   return (
     <Grid
-      rows={combinedTestRows}
-      cols={cols}
-      filterModel={
-        enableFiltering
-          ? {
-              type: "uncontrolled",
-              tableFilterState: combinedFilterState,
-            }
-          : undefined
-      }
-      pagination={
-        enablePaginaton
-          ? {
-              type: "uncontrolled",
-              pageSizeOptions: [2],
-              startingPageSizeIndex: 0,
-            }
-          : undefined
-      }
-      styleModel={
-        enableStyles
-          ? {
-              exportFormStyleModel: styleModel,
-            }
-          : undefined
-      }
-      useToolbar={true}
+      {...gridProps}
     />
   );
 };

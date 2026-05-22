@@ -3,10 +3,6 @@ import * as fs from "node:fs";
 import { Locator } from "playwright-core";
 import Papa from "papaparse";
 
-test.beforeEach(async ({ page }) => {
-  await page.goto("export");
-});
-
 const openExport: (page: Page, testId: string) => Promise<Locator> = async (
   page,
   testId,
@@ -27,96 +23,6 @@ const downloadAndRead: (
 
   return fs.readFileSync(await download.path(), "utf8");
 };
-
-test("unavailable options are disabled", async ({ page }) => {
-  const container = await openExport(page, "options disabled test container");
-
-  const filteredRowsOption = container.getByRole("radio", {
-    name: "After filters applied (filtering disabled)",
-  });
-  await expect(filteredRowsOption).toBeDisabled();
-  const paginatedRowsOption = container.getByRole("radio", {
-    name: "Current page only (pagination disabled)",
-  });
-  await expect(paginatedRowsOption).toBeDisabled();
-  const formattedOption = container.getByRole("radio", {
-    name: "Apply formatters to data (no formatters defined)",
-  });
-  await expect(formattedOption).toBeDisabled();
-});
-
-const unformattedJsonOutput = [
-  {
-    id: 0,
-    data: {
-      strCol: "bc",
-      numCol: 2,
-      dateCol: "2022-01-01",
-      datetimeCol: "2022-01-01T01:01",
-    },
-  },
-  {
-    id: 1,
-    data: {
-      strCol: "adef",
-      numCol: 0,
-      dateCol: "2023-02-02",
-      datetimeCol: "2023-02-02T02:02",
-    },
-  },
-  {
-    id: 2,
-    data: {
-      strCol: "aghi",
-      numCol: 3,
-      dateCol: "2025-04-04",
-      datetimeCol: "2024-03-03T03:03",
-    },
-  },
-  {
-    id: 3,
-    data: {
-      strCol: "ajkl",
-      numCol: 4,
-      dateCol: "2024-03-03",
-      datetimeCol: "2025-04-04T04:04",
-    },
-  },
-];
-
-test("unformatted JSON export works correctly", async ({ page }) => {
-  const container = await openExport(page, "options enabled test container");
-
-  const fileContents = await downloadAndRead(page, container);
-  const fileJson = JSON.parse(fileContents);
-  expect(fileJson).toEqual(unformattedJsonOutput);
-});
-
-test("filtered JSON export works correctly", async ({ page }) => {
-  const container = await openExport(page, "options enabled test container");
-
-  const filteredRowsOption = container.getByRole("radio", {
-    name: "After filters applied (3 rows)",
-  });
-  await filteredRowsOption.check();
-
-  const fileContents = await downloadAndRead(page, container);
-  const fileJson = JSON.parse(fileContents);
-  expect(fileJson).toEqual(unformattedJsonOutput.slice(0, 3));
-});
-
-test("paged JSON export works correctly", async ({ page }) => {
-  const container = await openExport(page, "options enabled test container");
-
-  const paginatedRowsOption = container.getByRole("radio", {
-    name: "Current page only (2 rows)",
-  });
-  await paginatedRowsOption.check();
-
-  const fileContents = await downloadAndRead(page, container);
-  const fileJson = JSON.parse(fileContents);
-  expect(fileJson).toEqual(unformattedJsonOutput.slice(0, 2));
-});
 
 const formattedJsonOutput = [
   {
@@ -157,18 +63,44 @@ const formattedJsonOutput = [
   },
 ];
 
-test("formatted JSON export works correctly", async ({ page }) => {
-  const container = await openExport(page, "options enabled test container");
-
-  const formattedOption = container.getByRole("radio", {
-    name: "Apply formatters to data",
-  });
-  await formattedOption.check();
-
-  const fileContents = await downloadAndRead(page, container);
-  const fileJson = JSON.parse(fileContents);
-  expect(fileJson).toEqual(formattedJsonOutput);
-});
+const unformattedJsonOutput = [
+  {
+    id: 0,
+    data: {
+      strCol: "bc",
+      numCol: 2,
+      dateCol: "2022-01-01",
+      datetimeCol: "2022-01-01T01:01",
+    },
+  },
+  {
+    id: 1,
+    data: {
+      strCol: "adef",
+      numCol: 0,
+      dateCol: "2023-02-02",
+      datetimeCol: "2023-02-02T02:02",
+    },
+  },
+  {
+    id: 2,
+    data: {
+      strCol: "aghi",
+      numCol: 3,
+      dateCol: "2025-04-04",
+      datetimeCol: "2024-03-03T03:03",
+    },
+  },
+  {
+    id: 3,
+    data: {
+      strCol: "ajkl",
+      numCol: 4,
+      dateCol: "2024-03-03",
+      datetimeCol: "2025-04-04T04:04",
+    },
+  },
+];
 
 const parsedUnformattedCsvOutput = [
   {
@@ -201,43 +133,137 @@ const parsedUnformattedCsvOutput = [
   },
 ];
 
-test("unformatted CSV export works correctly", async ({ page }) => {
-  const container = await openExport(page, "options enabled test container");
+["community", "pro"].forEach((edition) => {
+  const url = edition === "pro" ? "export/pro" : "export"
 
-  const csvOption = container.getByRole("radio", {
-    name: "CSV",
-  });
-  await csvOption.check();
+  test.describe(`${edition} export tests`, () => {
+    test.beforeEach(async ({ page }) => {
+      await page.goto(url);
+    });
 
-  const fileContents = await downloadAndRead(page, container);
-  const data = Papa.parse(fileContents, { header: true }).data;
-  expect(data).toEqual(parsedUnformattedCsvOutput);
-});
+    test(`${edition} unavailable options are disabled`, async ({ page }) => {
+      const container = await openExport(
+        page,
+        "options disabled test container",
+      );
 
-test("custom styles work correctly", async ({ page }) => {
-  const container = await openExport(page, "styles test container");
-  const form = container.locator("form");
+      const filteredRowsOption = container.getByRole("radio", {
+        name: "After filters applied (filtering disabled)",
+      });
+      await expect(filteredRowsOption).toBeDisabled();
+      const paginatedRowsOption = container.getByRole("radio", {
+        name: "Current page only (pagination disabled)",
+      });
+      await expect(paginatedRowsOption).toBeDisabled();
+      const formattedOption = container.getByRole("radio", {
+        name: "Apply formatters to data (no formatters defined)",
+      });
+      await expect(formattedOption).toBeDisabled();
+    });
 
-  const divs = await form.locator("div").all();
-  for (const div of divs) {
-    await expect(div).toHaveClass("radio-container-test-class");
-  }
+    test(`${edition} unformatted JSON export works correctly`, async ({ page }) => {
+      const container = await openExport(
+        page,
+        "options enabled test container",
+      );
 
-  const legends = await form.locator("legend").all();
-  for (const legend of legends) {
-    await expect(legend).toHaveClass("legend-test-class");
-  }
+      const fileContents = await downloadAndRead(page, container);
+      const fileJson = JSON.parse(fileContents);
+      expect(fileJson).toEqual(unformattedJsonOutput);
+    });
 
-  const labels = await form.locator("label").all();
-  for (const label of labels) {
-    await expect(label).toHaveClass("radio-label-test-class");
-  }
+    test(`${edition} filtered JSON export works correctly`, async ({ page }) => {
+      const container = await openExport(
+        page,
+        "options enabled test container",
+      );
 
-  const inputs = await form.getByRole("radio").all();
-  for (const input of inputs) {
-    await expect(input).toHaveClass("radio-input-test-class");
-  }
+      const filteredRowsOption = container.getByRole("radio", {
+        name: "After filters applied (3 rows)",
+      });
+      await filteredRowsOption.check();
 
-  const submit = form.getByRole("button");
-  await expect(submit).toHaveClass("submit-button-test-class");
-});
+      const fileContents = await downloadAndRead(page, container);
+      const fileJson = JSON.parse(fileContents);
+      expect(fileJson).toEqual(unformattedJsonOutput.slice(0, 3));
+    });
+
+    test(`${edition} paged JSON export works correctly`, async ({ page }) => {
+      const container = await openExport(
+        page,
+        "options enabled test container",
+      );
+
+      const paginatedRowsOption = container.getByRole("radio", {
+        name: "Current page only (2 rows)",
+      });
+      await paginatedRowsOption.check();
+
+      const fileContents = await downloadAndRead(page, container);
+      const fileJson = JSON.parse(fileContents);
+      expect(fileJson).toEqual(unformattedJsonOutput.slice(0, 2));
+    });
+
+    test(`${edition} formatted JSON export works correctly`, async ({ page }) => {
+      const container = await openExport(
+        page,
+        "options enabled test container",
+      );
+
+      const formattedOption = container.getByRole("radio", {
+        name: "Apply formatters to data",
+      });
+      await formattedOption.check();
+
+      const fileContents = await downloadAndRead(page, container);
+      const fileJson = JSON.parse(fileContents);
+      expect(fileJson).toEqual(formattedJsonOutput);
+    });
+
+    test(`${edition} unformatted CSV export works correctly`, async ({ page }) => {
+      const container = await openExport(
+        page,
+        "options enabled test container",
+      );
+
+      const csvOption = container.getByRole("radio", {
+        name: "CSV",
+      });
+      await csvOption.check();
+
+      const fileContents = await downloadAndRead(page, container);
+      const data = Papa.parse(fileContents, { header: true }).data;
+      expect(data).toEqual(parsedUnformattedCsvOutput);
+    });
+
+    test(`${edition} custom styles work correctly`, async ({ page }) => {
+      const container = await openExport(page, "styles test container");
+      const form = container.locator("form");
+
+      const divs = await form.locator("div").all();
+      for (const div of divs) {
+        await expect(div).toHaveClass("radio-container-test-class");
+      }
+
+      const legends = await form.locator("legend").all();
+      for (const legend of legends) {
+        await expect(legend).toHaveClass("legend-test-class");
+      }
+
+      const labels = await form.locator("label").all();
+      for (const label of labels) {
+        await expect(label).toHaveClass("radio-label-test-class");
+      }
+
+      const inputs = await form.getByRole("radio").all();
+      for (const input of inputs) {
+        await expect(input).toHaveClass("radio-input-test-class");
+      }
+
+      const submit = form.getByRole("button");
+      await expect(submit).toHaveClass("submit-button-test-class");
+    });
+  })
+})
+
+
