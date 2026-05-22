@@ -1,4 +1,4 @@
-import { expect, Locator } from "@playwright/test";
+import { expect, Locator, test } from "@playwright/test";
 
 // Assumes that there are no duplicate values within a row
 export const validateGridContents: (
@@ -51,3 +51,8 @@ export const confirmColWidth: (
     }).toPass();
   }
 };
+
+export const getTestIdVariants: (testIdPrefix: string) => string[] = (
+  testIdPrefix,
+) => [`${testIdPrefix}-controlled`, `${testIdPrefix}-uncontrolled`];
+
