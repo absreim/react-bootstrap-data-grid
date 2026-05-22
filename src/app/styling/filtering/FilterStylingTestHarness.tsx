@@ -7,6 +7,7 @@ import Grid, {
 } from "@/grid";
 import { FC, useMemo, useState } from "react";
 import { cols, rows } from "@/app/styling/multitype-test-data";
+import GridPro from "@/grid-pro";
 
 const styleModel: StyleModel = {
   additionalComponentsStyleModel: {
@@ -54,7 +55,7 @@ const styleModel: StyleModel = {
   },
 };
 
-const FilterStylingTestHarness: FC = () => {
+const FilterStylingTestHarness: FC<{ pro?: boolean }> = ({ pro }) => {
   const [tableFilterState, setTableFilterState] =
     useState<EditableTableFilterState>({
       strCol: {
@@ -91,6 +92,18 @@ const FilterStylingTestHarness: FC = () => {
     }),
     [tableFilterState],
   );
+
+  if (pro) {
+    return (
+      <GridPro
+        rows={rows}
+        cols={cols}
+        filterModel={filterModel}
+        caption="main table test caption"
+        styleModel={styleModel}
+      />
+    );
+  }
 
   return (
     <Grid

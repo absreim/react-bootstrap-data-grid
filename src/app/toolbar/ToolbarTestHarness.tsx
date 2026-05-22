@@ -7,11 +7,13 @@ import Grid, {
   RowDef,
 } from "@/grid";
 import { FC } from "react";
+import GridPro from "@/grid-pro";
 
 interface ToolbarTestHarnessProps {
   // As of this writing, if filtering is not enabled, there is only one button
   // on the toolbar
   enableFiltering: boolean;
+  pro?: boolean;
 }
 
 interface TestRow {
@@ -78,7 +80,19 @@ const cols: ColDef[] = [
 
 const ToolbarTestHarness: FC<ToolbarTestHarnessProps> = ({
   enableFiltering,
+  pro
 }) => {
+  if (pro) {
+    return (
+      <GridPro
+        rows={rows}
+        cols={cols}
+        useToolbar={true}
+        filterModel={enableFiltering ? { type: "uncontrolled" } : undefined}
+      />
+    );
+  }
+
   return (
     <Grid
       rows={rows}
