@@ -7,12 +7,14 @@ import Grid, {
   RowId,
 } from "@/grid";
 import { MultiSelectModelInitialState } from "@/app/selection/types";
+import GridPro from "@/grid-pro";
 
 export interface MultiSelectionTestHarnessProps {
   rows: RowDef[];
   cols: ColDef[];
   initialState: MultiSelectModelInitialState;
   filterModel?: FilterModel;
+  pro?: boolean;
 }
 
 const MultiSelectionTestHarness: FC<MultiSelectionTestHarnessProps> = ({
@@ -20,6 +22,7 @@ const MultiSelectionTestHarness: FC<MultiSelectionTestHarnessProps> = ({
   cols,
   initialState,
   filterModel,
+  pro
 }) => {
   const [selected, setSelected] = useState<RowId[]>(initialState.selected);
   const model: MultiSelectModel = {
@@ -27,6 +30,18 @@ const MultiSelectionTestHarness: FC<MultiSelectionTestHarnessProps> = ({
     selected,
     setSelected,
   };
+
+  if (pro) {
+    return (
+      <GridPro
+        rows={rows}
+        cols={cols}
+        selectModel={model}
+        filterModel={filterModel}
+      />
+    );
+  }
+
   return (
     <Grid
       rows={rows}
