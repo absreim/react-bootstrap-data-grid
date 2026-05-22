@@ -49,6 +49,10 @@ const ColHeaderCellPro: FC<ColHeaderCellProProps> = ({
   const effectiveKbdResizeStep = keyboardResizeStep || 10;
 
   const clickToSortCellContents = useMemo(() => {
+    if (!sortModel) {
+      return <>{label}</>;
+    }
+
     if (!width || displayMode === "table") {
       // Testing has shown that content gets cut off in a table cell only if
       // the table "display" property is "block" and both "min-width" and
@@ -254,8 +258,8 @@ const ColHeaderCellPro: FC<ColHeaderCellProProps> = ({
       onMouseOut={cellIsClickable ? handleMouseOut : undefined}
       aria-description={
         sortModel
-          ? "Column header"
-          : "Column header that can be clicked to change the sorting mode"
+          ? "Column header that can be clicked to change the sorting mode"
+          : "Column header"
       }
       aria-colindex={ariaColIndex}
       aria-sort={

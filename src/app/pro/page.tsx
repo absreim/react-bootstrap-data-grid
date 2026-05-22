@@ -1,7 +1,7 @@
 "use client";
 
 import { FC } from "react";
-import Grid from "@/grid";
+import GridPro from "@/grid-pro";
 import {
   basicGridProps,
   blockGridProps,
@@ -12,13 +12,13 @@ const Test: FC = () => {
   return (
     <>
       <div data-testid="functioning grid container">
-        <Grid {...basicGridProps} />
+        <GridPro {...basicGridProps} />
       </div>
       <div data-testid="responsive grid container">
-        <Grid {...responsiveGridProps} />
+        <GridPro {...responsiveGridProps} />
       </div>
       <div data-testid="block grid container">
-        <Grid {...blockGridProps} />
+        <GridPro {...blockGridProps} />
       </div>
     </>
   );
