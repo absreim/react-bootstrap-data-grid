@@ -24,6 +24,7 @@ export interface SelectionInputProps {
   selectionInputModel: SelectionInputModel;
   selectCallback: () => void;
   additionalClasses?: string[];
+  index: number;
 }
 
 const SelectionInput: FC<SelectionInputProps> = ({
@@ -31,6 +32,7 @@ const SelectionInput: FC<SelectionInputProps> = ({
   selected,
   selectCallback,
   additionalClasses,
+  index,
 }) => {
   const type = selectionInputModel.type;
 
@@ -52,8 +54,9 @@ const SelectionInput: FC<SelectionInputProps> = ({
 
   return (
     <input
+      tabIndex={0}
       className={classNames(additionalClasses || [])}
-      aria-label="Input to select the current row"
+      aria-label={`Select row with index ${index}`}
       onClick={(event) => {
         event.stopPropagation();
       }}

@@ -1,0 +1,133 @@
+import { RowId } from "../";
+import {
+  ActiveKeyboardReorderState,
+  KeyboardReorderState,
+  UseKeyboardReorderOutput,
+} from "./types";
+import { useCallback, useMemo, useState } from "react";
+import trueModulo from "../../grid/util/trueModulo";
+
+const useKeyboardReorder: (
+  displayRowIds: RowId[],
+) => UseKeyboardReorderOutput = (displayRowIds) => {
+  const [state, setState] = useState<KeyboardReorderState | null>(null);
+  // A change the displayed rows can suddenly make the existing state invalid.
+  // To cope with this possibility, the hook checks the validity of the state on
+  // each render and defaults to null when the state is invalid.
+  // Consumers of the hook can then call setState (generally via user
+  // interaction) to set the state back to a valid value.
+  const effectiveState = useMemo(() => {
+    if (displayRowIds.length <= 1 || state === null) {
+      return null;
+    }
+
+    const drageeIndex = displayRowIds.findIndex((id) => state.rowId === id);
+
+    if (drageeIndex < 0) {
+      return null;
+    }
+
+    if (
+      drageeIndex === state.destIndex ||
+      drageeIndex + 1 === state.destIndex
+    ) {
+      return null;
+    }
+
+    return state;
+  }, [displayRowIds, state]);
+
+  const setDragee: (rowId: RowId) => void = useCallback(
+    (rowId) => {
+      const foundIndex = displayRowIds.findIndex((id) => rowId === id);
+      if (foundIndex < 0) {
+        return;
+      }
+
+      // Shouldn't happen under normal circumstances dye to the button being
+      // disabled in the UI. Not sure if some sort of
+      // race condition is possible with React to get this situation to occur.
+      if (displayRowIds.length < 2) {
+        return;
+      }
+
+      if (foundIndex + 2 > displayRowIds.length) {
+        setState({
+          rowId,
+          destIndex: foundIndex - 1,
+        });
+        return;
+      }
+
+      setState({
+        rowId,
+        destIndex: foundIndex + 2,
+      });
+    },
+    [displayRowIds],
+  );
+
+  const output: UseKeyboardReorderOutput = useMemo(() => {
+    if (effectiveState === null) {
+      return {
+        drageeState: null,
+        setDragee,
+      };
+    }
+
+    const moveToPrevTarget: () => void = () => {
+      let newIndex = trueModulo(
+        effectiveState.destIndex - 1,
+        displayRowIds.length + 1,
+      );
+
+      const foundIndex = displayRowIds.findIndex(
+        (id) => effectiveState.rowId === id,
+      );
+      if (newIndex === foundIndex + 1) {
+        newIndex = trueModulo(newIndex - 2, displayRowIds.length + 1);
+      }
+
+      setState({
+        rowId: effectiveState.rowId,
+        destIndex: newIndex,
+      });
+    };
+
+    const moveToNextTarget: () => void = () => {
+      let newIndex = trueModulo(
+        effectiveState.destIndex + 1,
+        displayRowIds.length + 1,
+      );
+
+      const foundIndex = displayRowIds.findIndex(
+        (id) => effectiveState.rowId === id,
+      );
+      if (newIndex === foundIndex) {
+        newIndex = trueModulo(newIndex + 2, displayRowIds.length + 1);
+      }
+
+      setState({
+        rowId: effectiveState.rowId,
+        destIndex: newIndex,
+      });
+    };
+
+    return {
+      drageeState: {
+        ...effectiveState,
+        moveToPrevTarget,
+        moveToNextTarget,
+        clearState: () => setState(null),
+        drageeIndex: displayRowIds.findIndex(
+          (id) => effectiveState.rowId === id,
+        ),
+      } as ActiveKeyboardReorderState,
+      setDragee,
+    };
+  }, [displayRowIds, effectiveState, setDragee]);
+
+  return output;
+};
+
+export default useKeyboardReorder;

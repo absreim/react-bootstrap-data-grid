@@ -1,19 +1,30 @@
-import { FC, PointerEventHandler, useCallback, useMemo } from "react";
+import {
+  FC,
+  KeyboardEventHandler,
+  MouseEventHandler,
+  PointerEventHandler,
+  useCallback,
+  useMemo,
+} from "react";
 import HorizontalGrip from "../assets/HorizontalGrip";
-import { RowId } from "../";
+import { ReorderStyles, RowId } from "../";
 import { KeyboardCleanupFnParam, PointerCleanupFnParam } from "../util/types";
 import regDragCleanup from "../util/regDragCleanup";
 import classNames from "classnames";
-import { ReorderStyleModel } from "./types";
 
 export type ReorderHandleCellProps = {
   rowId: RowId;
   ariaRowIndex: number;
   // id of current row should be included in the function
   reorderCallback: (destIndex: number) => void;
+  keyboardStartCallback: () => void;
   // generally, reordering is disabled when sorting or filtering is enabled
   disabled: boolean;
-  styleModel?: ReorderStyleModel;
+  // Needed to prevent button from being clicked when user uses Enter or Space
+  // keys to do a row reorder. Otherwise, the UI will immediately start the
+  // process to reorder the row again.
+  suppressKeyboardClick: boolean;
+  styles: ReorderStyles;
 };
 
 interface DropTargetRef {
@@ -45,40 +56,16 @@ const ReorderHandleCell: FC<ReorderHandleCellProps> = ({
   ariaRowIndex,
   disabled,
   reorderCallback,
-  styleModel,
+  styles: {
+    draggedRowClasses,
+    draggedRowPredecessorClasses,
+    topBorderRowClasses,
+    bottomBorderRowClasses,
+    ghostDivClasses,
+  },
+  keyboardStartCallback,
+  suppressKeyboardClick,
 }) => {
-  const intDraggedRowClasses = useMemo(
-    () => styleModel?.draggedRowClasses || ["rbdg-reorder-dragged-row"],
-    [styleModel?.draggedRowClasses],
-  );
-
-  const intDraggedRowPredecessorClasses = useMemo(
-    () =>
-      styleModel?.draggedRowPredecessorClasses || [
-        "rbdg-reorder-dragged-row-pred",
-      ],
-    [styleModel?.draggedRowPredecessorClasses],
-  );
-
-  const intTopBorderRowClasses = useMemo(
-    () =>
-      styleModel?.topBorderRowClasses || ["rbdg-reorder-above-drag-target-row"],
-    [styleModel?.topBorderRowClasses],
-  );
-
-  const intBottomBorderRowClasses = useMemo(
-    () =>
-      styleModel?.bottomBorderRowClasses || [
-        "rbdg-reorder-below-drag-target-row",
-      ],
-    [styleModel?.bottomBorderRowClasses],
-  );
-
-  const intGhostTableClasses = useMemo(
-    () => styleModel?.ghostDivClasses || ["border", "rbdg-drag-ghost"],
-    [styleModel?.ghostDivClasses],
-  );
-
   const onPointerDown: PointerEventHandler<HTMLButtonElement> = useCallback(
     (event) => {
       const target = event.target as HTMLButtonElement;
@@ -90,7 +77,7 @@ const ReorderHandleCell: FC<ReorderHandleCellProps> = ({
 
       function createDragGhost() {
         const ghostDiv = document.createElement("div");
-        ghostDiv.className = intGhostTableClasses.join(" ");
+        ghostDiv.className = ghostDivClasses.join(" ");
         ghostDiv.style.left = `${clientX}px`;
         ghostDiv.style.top = `${clientY}px`;
         ghostDiv.textContent = `ID: ${rowId}`;
@@ -120,11 +107,11 @@ const ReorderHandleCell: FC<ReorderHandleCellProps> = ({
       }
 
       function applyDrageeStyles() {
-        applyRowClassesFromOrig(drageeTrIndex, intDraggedRowClasses);
+        applyRowClassesFromOrig(drageeTrIndex, draggedRowClasses);
         if (drageeTrIndex - 1 === -1) {
           headTr.className = [
             origHeadTrClasses,
-            intDraggedRowPredecessorClasses.join(" "),
+            draggedRowPredecessorClasses.join(" "),
           ]
             .join(" ")
             .trim();
@@ -133,7 +120,7 @@ const ReorderHandleCell: FC<ReorderHandleCellProps> = ({
 
         applyRowClassesFromOrig(
           drageeTrIndex - 1,
-          intDraggedRowPredecessorClasses,
+          draggedRowPredecessorClasses,
         );
       }
 
@@ -218,28 +205,25 @@ const ReorderHandleCell: FC<ReorderHandleCellProps> = ({
 
       function applyDragStyles(trIndex: number, upper: boolean) {
         if (upper) {
-          applyRowClassesFromBase(trIndex, intBottomBorderRowClasses);
+          applyRowClassesFromBase(trIndex, bottomBorderRowClasses);
         }
 
         if (upper && trIndex - 1 >= 0) {
-          applyRowClassesFromBase(trIndex - 1, intTopBorderRowClasses);
+          applyRowClassesFromBase(trIndex - 1, topBorderRowClasses);
         }
 
         if (upper && trIndex - 1 === -1) {
-          headTr.className = [
-            baseHeadTrClasses,
-            intTopBorderRowClasses.join(" "),
-          ]
+          headTr.className = [baseHeadTrClasses, topBorderRowClasses.join(" ")]
             .join(" ")
             .trim();
         }
 
         if (!upper) {
-          applyRowClassesFromBase(trIndex, intTopBorderRowClasses);
+          applyRowClassesFromBase(trIndex, topBorderRowClasses);
         }
 
         if (!upper && trIndex + 1 < trs.length) {
-          applyRowClassesFromBase(trIndex + 1, intBottomBorderRowClasses);
+          applyRowClassesFromBase(trIndex + 1, bottomBorderRowClasses);
         }
       }
 
@@ -317,11 +301,11 @@ const ReorderHandleCell: FC<ReorderHandleCellProps> = ({
       });
     },
     [
-      intBottomBorderRowClasses,
-      intDraggedRowClasses,
-      intDraggedRowPredecessorClasses,
-      intGhostTableClasses,
-      intTopBorderRowClasses,
+      bottomBorderRowClasses,
+      draggedRowClasses,
+      draggedRowPredecessorClasses,
+      ghostDivClasses,
+      topBorderRowClasses,
       reorderCallback,
       rowId,
     ],
@@ -329,13 +313,28 @@ const ReorderHandleCell: FC<ReorderHandleCellProps> = ({
 
   const label = `Reorder Row ${ariaRowIndex}`;
 
+  const onClick: MouseEventHandler<HTMLButtonElement> = (event) => {
+    event.stopPropagation();
+    if (event.detail === 0) {
+      keyboardStartCallback();
+    }
+  };
+
+  const onKeydown: KeyboardEventHandler<HTMLButtonElement> = (event) => {
+    if (suppressKeyboardClick) {
+      event.preventDefault();
+    }
+  };
+
   return (
     <th aria-colindex={1}>
       <button
-        onClick={(event) => event.stopPropagation()}
+        tabIndex={0}
+        onClick={onClick}
         aria-label={label}
         title={label}
         onPointerDown={onPointerDown}
+        onKeyDown={onKeydown}
         className={classNames(
           "rbdg-draggable-container",
           "rbdg-reorder-container",
