@@ -128,13 +128,21 @@ const GridPro: FC<GridProProps> = (props) => {
         <ReorderHandleCell
           rowId={augRow.id}
           ariaRowIndex={augRow.prePaginationIndex + 2}
-          disabled={filteringOccurring || sortingOccurring}
+          disabled={
+            filteringOccurring || sortingOccurring || displayRows.length <= 1
+          }
           reorderCallback={reorderCallback}
           styleModel={styleModel?.reorderModel}
         />
       );
     },
-    [filteringOccurring, reorder, sortingOccurring, styleModel?.reorderModel],
+    [
+      displayRows.length,
+      filteringOccurring,
+      reorder,
+      sortingOccurring,
+      styleModel?.reorderModel,
+    ],
   );
 
   const bodyRows = (
