@@ -1,6 +1,6 @@
 "use client";
 
-import { FC, ReactNode, useMemo, useState } from "react";
+import { FC, KeyboardEventHandler, ReactNode, useMemo, useState } from "react";
 import { BaseGridProps } from "./types";
 import ToggleButton from "./main/ToggleButton";
 import FilterOptionsTable from "./filtering/FilterOptionsTable";
@@ -30,6 +30,11 @@ export interface InternalGridProps {
   classes?: {
     headerRow?: string[];
   };
+  listeners?: {
+    mainTable?: {
+      keyDown?: KeyboardEventHandler<HTMLTableElement>
+    }
+  }
 }
 
 const InternalGrid: FC<InternalGridProps> = ({
@@ -49,6 +54,7 @@ const InternalGrid: FC<InternalGridProps> = ({
   hooks: { pipelineOutput, selectFns, unwrappedStyles },
   slots: { colHeaderCells, bodyRows, prefixHeader },
   classes,
+  listeners
 }) => {
   const {
     normalizedTableFilterModel,
@@ -105,6 +111,7 @@ const InternalGrid: FC<InternalGridProps> = ({
 
   const mainTable = (
     <table
+      onKeyDown={listeners?.mainTable?.keyDown}
       className={classNames(
         "table",
         {

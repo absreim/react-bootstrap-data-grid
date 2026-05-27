@@ -1,22 +1,10 @@
 import { RowId } from "../";
+import {
+  ActiveKeyboardReorderState,
+  KeyboardReorderState,
+  UseKeyboardReorderOutput,
+} from "./types";
 import { useCallback, useMemo, useState } from "react";
-
-export interface KeyboardReorderState {
-  rowId: RowId;
-  destIndex: number;
-}
-
-export type ActiveKeyboardReorderState = KeyboardReorderState & {
-  moveToPrevTarget: () => void;
-  moveToNextTarget: () => void;
-  clearState: () => void;
-  drageeIndex: number;
-};
-
-export interface UseKeyboardReorderOutput {
-  drageeState: ActiveKeyboardReorderState | null;
-  setDragee: (rowId: RowId) => void;
-}
 
 const useKeyboardReorder: (
   displayRowIds: RowId[],
@@ -130,7 +118,9 @@ const useKeyboardReorder: (
         moveToPrevTarget,
         moveToNextTarget,
         clearState: () => setState(null),
-        drageeIndex: displayRowIds.findIndex((id) => effectiveState.rowId === id),
+        drageeIndex: displayRowIds.findIndex(
+          (id) => effectiveState.rowId === id,
+        ),
       } as ActiveKeyboardReorderState,
       setDragee,
     };

@@ -17,6 +17,7 @@ import ReorderHeaderCell from "./reorder/ReorderHeaderCell";
 import ReorderHandleCell from "./reorder/ReorderHandleCell";
 import useKeyboardReorder from "./reorder/useKeyboardReorder";
 import useReorderStyles from "./reorder/useReorderStyles";
+import useKeyboardReorderListener from "./reorder/useKeyboardReorderListener";
 
 const GridPro: FC<GridProProps> = (props) => {
   const {
@@ -120,6 +121,7 @@ const GridPro: FC<GridProProps> = (props) => {
     reorderStyles.draggedRowPredecessorClasses,
     reorderStyles.topBorderRowClasses,
   ]);
+  const tableOnKeydown = useKeyboardReorderListener(drageeState, reorder?.callback);
 
   const colHeaderCells = cols.map(
     (
@@ -232,6 +234,11 @@ const GridPro: FC<GridProProps> = (props) => {
       slots={{ colHeaderCells, bodyRows, prefixHeader }}
       classes={{
         headerRow: additionalHeaderRowStyles,
+      }}
+      listeners={{
+        mainTable: {
+          keyDown: tableOnKeydown,
+        },
       }}
     />
   );
