@@ -121,7 +121,10 @@ const GridPro: FC<GridProProps> = (props) => {
     reorderStyles.draggedRowPredecessorClasses,
     reorderStyles.topBorderRowClasses,
   ]);
-  const tableOnKeydown = useKeyboardReorderListener(drageeState, reorder?.callback);
+  const tableOnKeydown = useKeyboardReorderListener(
+    drageeState,
+    reorder?.callback,
+  );
 
   const colHeaderCells = cols.map(
     (
@@ -193,11 +196,13 @@ const GridPro: FC<GridProProps> = (props) => {
           reorderCallback={reorderCallback}
           styles={reorderStyles}
           keyboardStartCallback={() => setDragee(augRow.id)}
+          suppressKeyboardClick={drageeState !== null}
         />
       );
     },
     [
       displayRows.length,
+      drageeState,
       filteringOccurring,
       reorder,
       reorderStyles,

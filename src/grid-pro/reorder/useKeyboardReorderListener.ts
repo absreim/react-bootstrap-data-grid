@@ -25,6 +25,7 @@ const useKeyboardReorderListener: (
     if (event.key === " " || event.key === "Enter") {
       reorderCallback(rowId, destIndex);
       clearState();
+      return;
     }
 
     if (event.key === "Escape") {

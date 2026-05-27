@@ -1,5 +1,6 @@
 import {
   FC,
+  KeyboardEventHandler,
   MouseEventHandler,
   PointerEventHandler,
   useCallback,
@@ -19,6 +20,10 @@ export type ReorderHandleCellProps = {
   keyboardStartCallback: () => void;
   // generally, reordering is disabled when sorting or filtering is enabled
   disabled: boolean;
+  // Needed to prevent button from being clicked when user uses Enter or Space
+  // keys to do a row reorder. Otherwise, the UI will immediately start the
+  // process to reorder the row again.
+  suppressKeyboardClick: boolean;
   styles: ReorderStyles;
 };
 
@@ -59,6 +64,7 @@ const ReorderHandleCell: FC<ReorderHandleCellProps> = ({
     ghostDivClasses,
   },
   keyboardStartCallback,
+  suppressKeyboardClick,
 }) => {
   const onPointerDown: PointerEventHandler<HTMLButtonElement> = useCallback(
     (event) => {
@@ -314,6 +320,12 @@ const ReorderHandleCell: FC<ReorderHandleCellProps> = ({
     }
   };
 
+  const onKeydown: KeyboardEventHandler<HTMLButtonElement> = (event) => {
+    if (suppressKeyboardClick) {
+      event.preventDefault();
+    }
+  }
+
   return (
     <th aria-colindex={1}>
       <button
@@ -321,6 +333,7 @@ const ReorderHandleCell: FC<ReorderHandleCellProps> = ({
         aria-label={label}
         title={label}
         onPointerDown={onPointerDown}
+        onKeyDown={onKeydown}
         className={classNames(
           "rbdg-draggable-container",
           "rbdg-reorder-container",

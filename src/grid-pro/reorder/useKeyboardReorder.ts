@@ -5,6 +5,7 @@ import {
   UseKeyboardReorderOutput,
 } from "./types";
 import { useCallback, useMemo, useState } from "react";
+import trueModulo from "../../grid/util/trueModulo";
 
 const useKeyboardReorder: (
   displayRowIds: RowId[],
@@ -28,7 +29,7 @@ const useKeyboardReorder: (
 
     if (
       drageeIndex === state.destIndex ||
-      drageeIndex === state.destIndex + 1
+      drageeIndex + 1 === state.destIndex
     ) {
       return null;
     }
@@ -75,16 +76,16 @@ const useKeyboardReorder: (
     }
 
     const moveToPrevTarget: () => void = () => {
-      let newIndex = effectiveState.destIndex - 1;
-      if (newIndex < 0) {
-        newIndex = displayRowIds.length;
-      }
+      let newIndex = trueModulo(
+        effectiveState.destIndex - 1,
+        displayRowIds.length + 1,
+      );
 
       const foundIndex = displayRowIds.findIndex(
         (id) => effectiveState.rowId === id,
       );
       if (newIndex === foundIndex + 1) {
-        newIndex = newIndex - 2;
+        newIndex = trueModulo(newIndex - 2, displayRowIds.length + 1);
       }
 
       setState({
@@ -94,16 +95,16 @@ const useKeyboardReorder: (
     };
 
     const moveToNextTarget: () => void = () => {
-      let newIndex = effectiveState.destIndex + 1;
-      if (newIndex > displayRowIds.length) {
-        newIndex = 0;
-      }
+      let newIndex = trueModulo(
+        effectiveState.destIndex + 1,
+        displayRowIds.length + 1,
+      );
 
       const foundIndex = displayRowIds.findIndex(
         (id) => effectiveState.rowId === id,
       );
       if (newIndex === foundIndex) {
-        newIndex = newIndex + 2;
+        newIndex = trueModulo(newIndex + 2, displayRowIds.length + 1);
       }
 
       setState({
