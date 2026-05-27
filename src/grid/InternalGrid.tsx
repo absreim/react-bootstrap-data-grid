@@ -27,6 +27,9 @@ export interface InternalGridProps {
     bodyRows: ReactNode;
     prefixHeader?: ReactNode;
   };
+  classes?: {
+    headerRow?: string[];
+  };
 }
 
 const InternalGrid: FC<InternalGridProps> = ({
@@ -45,6 +48,7 @@ const InternalGrid: FC<InternalGridProps> = ({
   },
   hooks: { pipelineOutput, selectFns, unwrappedStyles },
   slots: { colHeaderCells, bodyRows, prefixHeader },
+  classes,
 }) => {
   const {
     normalizedTableFilterModel,
@@ -119,7 +123,10 @@ const InternalGrid: FC<InternalGridProps> = ({
       <thead className={classNames(unwrappedTableModel.thead)}>
         <tr
           aria-rowindex={1}
-          className={classNames(unwrappedTableModel.theadTr)}
+          className={classNames(
+            unwrappedTableModel.theadTr,
+            classes?.headerRow || [],
+          )}
         >
           {prefixHeader}
           {showSelectCol && (

@@ -9,6 +9,8 @@ export interface KeyboardReorderState {
 export type ActiveKeyboardReorderState = KeyboardReorderState & {
   moveToPrevTarget: () => void;
   moveToNextTarget: () => void;
+  clearState: () => void;
+  drageeIndex: number;
 };
 
 export interface UseKeyboardReorderOutput {
@@ -80,8 +82,8 @@ const useKeyboardReorder: (
     if (effectiveState === null) {
       return {
         drageeState: null,
-        setDragee
-      }
+        setDragee,
+      };
     }
 
     const moveToPrevTarget: () => void = () => {
@@ -90,16 +92,18 @@ const useKeyboardReorder: (
         newIndex = displayRowIds.length;
       }
 
-      const foundIndex = displayRowIds.findIndex((id) => effectiveState.rowId === id);
+      const foundIndex = displayRowIds.findIndex(
+        (id) => effectiveState.rowId === id,
+      );
       if (newIndex === foundIndex + 1) {
         newIndex = newIndex - 2;
       }
 
       setState({
         rowId: effectiveState.rowId,
-        destIndex: newIndex
-      })
-    }
+        destIndex: newIndex,
+      });
+    };
 
     const moveToNextTarget: () => void = () => {
       let newIndex = effectiveState.destIndex + 1;
@@ -118,16 +122,18 @@ const useKeyboardReorder: (
         rowId: effectiveState.rowId,
         destIndex: newIndex,
       });
-    }
+    };
 
     return {
       drageeState: {
         ...effectiveState,
         moveToPrevTarget,
-        moveToNextTarget
-      },
-      setDragee
-    }
+        moveToNextTarget,
+        clearState: () => setState(null),
+        drageeIndex: displayRowIds.findIndex((id) => effectiveState.rowId === id),
+      } as ActiveKeyboardReorderState,
+      setDragee,
+    };
   }, [displayRowIds, effectiveState, setDragee]);
 
   return output;

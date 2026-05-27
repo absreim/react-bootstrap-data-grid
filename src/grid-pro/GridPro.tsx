@@ -1,7 +1,7 @@
 "use client";
 
 import { FC, useCallback, useMemo } from "react";
-import { AugFormattedRow, ColSortModel } from "../grid";
+import { AugFormattedRow, ColSortModel, RowId } from "./";
 import useCombinedPipeline from "../grid/pipeline/useCombinedPipeline";
 import InternalGrid from "../grid/InternalGrid";
 import { GridProProps } from "./types";
@@ -15,6 +15,8 @@ import useResizeModel from "./resize/useResizeModel";
 import BodyRows from "../grid/main/BodyRows";
 import ReorderHeaderCell from "./reorder/ReorderHeaderCell";
 import ReorderHandleCell from "./reorder/ReorderHandleCell";
+import useKeyboardReorder from "./reorder/useKeyboardReorder";
+import useReorderStyles from "./reorder/useReorderStyles";
 
 const GridPro: FC<GridProProps> = (props) => {
   const {
@@ -63,6 +65,61 @@ const GridPro: FC<GridProProps> = (props) => {
     colNameToWidth,
     displayRows,
   );
+
+  const displayRowIds = useMemo(
+    () => displayRows.map(({ id }) => id),
+    [displayRows],
+  );
+  const { drageeState, setDragee } = useKeyboardReorder(displayRowIds);
+  const reorderStyles = useReorderStyles(styleModel?.reorderModel);
+  const additionalBodyRowStyles: (id: RowId, displayIndex: number) => string[] =
+    useCallback(
+      (id, displayIndex) => {
+        if (!drageeState) {
+          return [];
+        }
+
+        const { rowId, drageeIndex, destIndex } = drageeState;
+
+        if (id === rowId) {
+          return reorderStyles.draggedRowClasses;
+        }
+
+        if (drageeIndex > 0 && displayIndex === drageeIndex - 1) {
+          return reorderStyles.draggedRowPredecessorClasses;
+        }
+
+        if (destIndex > 0 && displayIndex === destIndex - 1) {
+          return reorderStyles.topBorderRowClasses;
+        }
+
+        if (destIndex === displayIndex) {
+          return reorderStyles.bottomBorderRowClasses;
+        }
+
+        return [];
+      },
+      [reorderStyles, drageeState],
+    );
+  const additionalHeaderRowStyles: string[] = useMemo(() => {
+    if (!drageeState) {
+      return [];
+    }
+
+    if (drageeState.drageeIndex === 0) {
+      return reorderStyles.draggedRowPredecessorClasses;
+    }
+
+    if (drageeState.destIndex === 0) {
+      return reorderStyles.topBorderRowClasses;
+    }
+
+    return [];
+  }, [
+    drageeState,
+    reorderStyles.draggedRowPredecessorClasses,
+    reorderStyles.topBorderRowClasses,
+  ]);
 
   const colHeaderCells = cols.map(
     (
@@ -132,7 +189,8 @@ const GridPro: FC<GridProProps> = (props) => {
             filteringOccurring || sortingOccurring || displayRows.length <= 1
           }
           reorderCallback={reorderCallback}
-          styleModel={styleModel?.reorderModel}
+          styles={reorderStyles}
+          keyboardStartCallback={() => setDragee(augRow.id)}
         />
       );
     },
@@ -140,8 +198,9 @@ const GridPro: FC<GridProProps> = (props) => {
       displayRows.length,
       filteringOccurring,
       reorder,
+      reorderStyles,
+      setDragee,
       sortingOccurring,
-      styleModel?.reorderModel,
     ],
   );
 
@@ -156,6 +215,7 @@ const GridPro: FC<GridProProps> = (props) => {
       getInputStrSubmitCallback={getInputStrSubmitCallback}
       renderPrefixCells={renderPrefixCells}
       additionalColIndexOffset={reorder ? 1 : 0}
+      additionalRowStyles={additionalBodyRowStyles}
     />
   );
 
@@ -170,6 +230,9 @@ const GridPro: FC<GridProProps> = (props) => {
         unwrappedStyles,
       }}
       slots={{ colHeaderCells, bodyRows, prefixHeader }}
+      classes={{
+        headerRow: additionalHeaderRowStyles,
+      }}
     />
   );
 };

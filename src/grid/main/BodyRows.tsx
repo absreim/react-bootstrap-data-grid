@@ -1,4 +1,4 @@
-import { AugFormattedRow } from "../types";
+import { AugFormattedRow, RowId } from "../types";
 import { FC, ReactNode } from "react";
 import EditableRow from "../editing/EditableRow";
 import classNames from "classnames";
@@ -21,6 +21,7 @@ interface BodyRowsProps {
   getInputStrSubmitCallback: UseGetInputStrSubmitCallbackHook;
   additionalColIndexOffset?: number;
   renderPrefixCells?: (augFormattedRows: AugFormattedRow) => ReactNode;
+  additionalRowStyles?: (rowId: RowId, displayIndex: number) => string[];
 }
 
 const BodyRows: FC<BodyRowsProps> = ({
@@ -39,6 +40,7 @@ const BodyRows: FC<BodyRowsProps> = ({
   getInputStrSubmitCallback,
   additionalColIndexOffset,
   renderPrefixCells,
+  additionalRowStyles,
 }) =>
   augFormattedRows.map((row, index) => {
     return (
@@ -49,6 +51,7 @@ const BodyRows: FC<BodyRowsProps> = ({
             "table-active": selectedSet.has(row.id),
           },
           unwrappedTableModel.tbodyTr(row.id, index),
+          additionalRowStyles ? additionalRowStyles(row.id, index) : [],
         )}
         key={row.id}
         aria-rowindex={row.prePaginationIndex + 2}

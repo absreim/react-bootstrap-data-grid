@@ -13,3 +13,5 @@ export interface ReorderStyleModel {
   bottomBorderRowClasses?: string[];
   ghostDivClasses?: string[];
 }
+
+export type ReorderStyles = Required<ReorderStyleModel>;
