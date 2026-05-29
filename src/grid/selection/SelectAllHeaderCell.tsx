@@ -101,6 +101,7 @@ const SelectAllHeaderCell: FC<SelectAllHeaderCellProps> = ({
       )}
     >
       <input
+        tabIndex={0}
         type="checkbox"
         checked={checked}
         ref={ref}

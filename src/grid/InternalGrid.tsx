@@ -30,11 +30,6 @@ export interface InternalGridProps {
   classes?: {
     headerRow?: string[];
   };
-  listeners?: {
-    mainTable?: {
-      keyDown?: KeyboardEventHandler<HTMLTableElement>
-    }
-  }
 }
 
 const InternalGrid: FC<InternalGridProps> = ({
@@ -54,7 +49,6 @@ const InternalGrid: FC<InternalGridProps> = ({
   hooks: { pipelineOutput, selectFns, unwrappedStyles },
   slots: { colHeaderCells, bodyRows, prefixHeader },
   classes,
-  listeners
 }) => {
   const {
     normalizedTableFilterModel,
@@ -111,7 +105,6 @@ const InternalGrid: FC<InternalGridProps> = ({
 
   const mainTable = (
     <table
-      onKeyDown={listeners?.mainTable?.keyDown}
       className={classNames(
         "table",
         {

@@ -95,6 +95,7 @@ const BodyRows: FC<BodyRowsProps> = ({
             style={getWidthStyle(selectModel!.selectColWidth)}
           >
             <SelectionInput
+              index={index}
               selected={selectedSet.has(row.id)}
               selectionInputModel={getSelectInputModel(row.id, selectModel!)}
               selectCallback={getSelectHandler(row.id)}

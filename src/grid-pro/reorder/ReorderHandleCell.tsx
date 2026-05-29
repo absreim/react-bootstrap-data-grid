@@ -329,6 +329,7 @@ const ReorderHandleCell: FC<ReorderHandleCellProps> = ({
   return (
     <th aria-colindex={1}>
       <button
+        tabIndex={0}
         onClick={onClick}
         aria-label={label}
         title={label}

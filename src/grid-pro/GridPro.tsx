@@ -1,6 +1,6 @@
 "use client";
 
-import { FC, useCallback, useMemo } from "react";
+import { FC, useCallback, useEffect, useMemo } from "react";
 import { AugFormattedRow, ColSortModel, RowId } from "./";
 import useCombinedPipeline from "../grid/pipeline/useCombinedPipeline";
 import InternalGrid from "../grid/InternalGrid";
@@ -125,6 +125,12 @@ const GridPro: FC<GridProProps> = (props) => {
     drageeState,
     reorder?.callback,
   );
+  useEffect(() => {
+    document.addEventListener("keydown", tableOnKeydown);
+    return () => {
+      document.removeEventListener("keydown", tableOnKeydown);
+    }
+  }, [tableOnKeydown])
 
   const colHeaderCells = cols.map(
     (
@@ -239,11 +245,6 @@ const GridPro: FC<GridProProps> = (props) => {
       slots={{ colHeaderCells, bodyRows, prefixHeader }}
       classes={{
         headerRow: additionalHeaderRowStyles,
-      }}
-      listeners={{
-        mainTable: {
-          keyDown: tableOnKeydown,
-        },
       }}
     />
   );

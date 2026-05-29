@@ -4,7 +4,7 @@ import { KeyboardEventHandler, useCallback } from "react";
 const useKeyboardReorderListener: (
   state: ActiveKeyboardReorderState | null,
   reorderCallback: ReorderCallback | undefined,
-) => KeyboardEventHandler<HTMLTableElement> = (state, reorderCallback) => {
+) => (event: KeyboardEvent) => void = (state, reorderCallback) => {
   return useCallback((event) => {
     if (state === null || reorderCallback === undefined) {
       return;
