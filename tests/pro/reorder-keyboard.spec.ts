@@ -105,20 +105,24 @@ test("Reorder from middle row works properly", async ({ page }) => {
 
   const headerRow = page.locator("thead > tr");
   await expect(headerRow).toHaveClass("rbdg-reorder-above-drag-target-row");
-  await expect(xRow).toHaveClass("table-active rbdg-reorder-dragged-row-pred");
+  await expect(xRow).toHaveClass("table-active rbdg-reorder-dragged-row-pred rbdg-reorder-below-drag-target-row");
 
   await page.keyboard.press("ArrowDown");
 
   await expect(zRow).toHaveClass("rbdg-reorder-above-drag-target-row");
-
-  await page.keyboard.press("ArrowUp");
-
-  await expect(headerRow).toHaveClass("rbdg-reorder-above-drag-target-row");
   await expect(xRow).toHaveClass("table-active rbdg-reorder-dragged-row-pred");
 
   await page.keyboard.press("ArrowUp");
 
+  await expect(headerRow).toHaveClass("rbdg-reorder-above-drag-target-row");
+  await expect(xRow).toHaveClass(
+    "table-active rbdg-reorder-dragged-row-pred rbdg-reorder-below-drag-target-row",
+  );
+
+  await page.keyboard.press("ArrowUp");
+
   await expect(zRow).toHaveClass("rbdg-reorder-above-drag-target-row");
+  await expect(xRow).toHaveClass("table-active rbdg-reorder-dragged-row-pred");
 
   await page.keyboard.press("Enter");
 

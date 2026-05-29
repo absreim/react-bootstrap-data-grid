@@ -86,16 +86,27 @@ const GridPro: FC<GridProProps> = (props) => {
           return reorderStyles.draggedRowClasses;
         }
 
-        if (drageeIndex > 0 && displayIndex === drageeIndex - 1) {
+        const isDraggedRowPred =
+          drageeIndex > 0 && displayIndex === drageeIndex - 1;
+        const isTargetUpperNeighbor = destIndex > 0 && displayIndex === destIndex - 1;
+        const isTargetLowerNeighbor = destIndex === displayIndex;
+
+        if (isDraggedRowPred && isTargetLowerNeighbor) {
+          return reorderStyles.draggedRowPredecessorClasses.concat(
+            reorderStyles.bottomBorderRowClasses,
+          );
+        }
+
+        if (isDraggedRowPred && !isTargetLowerNeighbor) {
           return reorderStyles.draggedRowPredecessorClasses;
         }
 
-        if (destIndex > 0 && displayIndex === destIndex - 1) {
-          return reorderStyles.topBorderRowClasses;
+        if (!isDraggedRowPred && isTargetLowerNeighbor) {
+          return reorderStyles.bottomBorderRowClasses;
         }
 
-        if (destIndex === displayIndex) {
-          return reorderStyles.bottomBorderRowClasses;
+        if (isTargetUpperNeighbor) {
+          return reorderStyles.topBorderRowClasses;
         }
 
         return [];
