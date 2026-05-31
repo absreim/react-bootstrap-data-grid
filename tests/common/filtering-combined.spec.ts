@@ -181,7 +181,6 @@ import { getTestIdVariants } from "../util";
           .uncheck();
 
         await container.getByRole("button", { name: "Submit" }).click();
-        await filterToggle.click();
 
         gridTable = container.locator('table[aria-rowcount="5"]');
         await expect(gridTable).toBeVisible();
