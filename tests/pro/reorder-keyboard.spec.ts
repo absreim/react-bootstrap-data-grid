@@ -159,7 +159,9 @@ test("Reorder from last row works properly", async ({ page }) => {
   await page.keyboard.press("Enter");
 
   const yRow = page.locator('tr[data-rowid="y"]');
-  await expect(yRow).toHaveClass("rbdg-reorder-dragged-row-pred");
+  await expect(yRow).toHaveClass(
+    "rbdg-reorder-dragged-row-pred rbdg-reorder-below-drag-target-row",
+  );
 
   const zRow = page.locator('tr[data-rowid="z"]');
   await expect(zRow).toHaveClass("rbdg-reorder-dragged-row");
