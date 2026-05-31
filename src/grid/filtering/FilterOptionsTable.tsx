@@ -16,6 +16,7 @@ import { FilterInputTableStyleModel } from "../styling/types";
 export interface FilterOptionsTableProps {
   filterState: TableFilterState;
   setFilterState: (filterState: EditableTableFilterState) => void;
+  closeFormCallback: () => void;
   caption?: string;
   styleModel?: FilterInputTableStyleModel;
 }
@@ -86,6 +87,7 @@ const FilterOptionsTable: FC<FilterOptionsTableProps> = ({
   setFilterState,
   caption,
   styleModel,
+  closeFormCallback,
 }) => {
   const formFilterState = useFilterFormState(filterState);
   const [formState, setFormState] = useState(formFilterState);
@@ -184,6 +186,7 @@ const FilterOptionsTable: FC<FilterOptionsTableProps> = ({
     const editableTableFilterState =
       convertFilterFormStateToEditableState(formState);
     setFilterState(editableTableFilterState);
+    closeFormCallback();
   };
 
   return (
@@ -212,16 +215,25 @@ const FilterOptionsTable: FC<FilterOptionsTableProps> = ({
           {getRows()}
         </tbody>
       </table>
-      <button
-        className={classNames(
-          "btn",
-          { "btn-secondary": unwrappedStyleModel.submitButton.length === 0 },
-          unwrappedStyleModel.submitButton,
-        )}
-        type="submit"
-      >
-        Submit
-      </button>
+      <div className="hstack justify-content-end gap-2">
+        <button
+          className="btn btn-secondary"
+          onClick={closeFormCallback}
+          type="button"
+        >
+          Cancel
+        </button>
+        <button
+          className={classNames(
+            "btn",
+            { "btn-primary": unwrappedStyleModel.submitButton.length === 0 },
+            unwrappedStyleModel.submitButton,
+          )}
+          type="submit"
+        >
+          Submit
+        </button>
+      </div>
     </form>
   );
 };

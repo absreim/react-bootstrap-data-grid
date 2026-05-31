@@ -5,6 +5,7 @@ import classNames from "classnames";
 
 export interface ExportFormProps {
   exportFnInfo: ExportFnInfo;
+  closeCallback: () => void;
   styleModel?: ExportFormStyleModel;
 }
 
@@ -22,6 +23,7 @@ const ExportForm: FC<ExportFormProps> = ({
     filteringEnabled,
     rowCounts,
   },
+  closeCallback,
   styleModel,
 }) => {
   const formId = useId();
@@ -117,7 +119,7 @@ const ExportForm: FC<ExportFormProps> = ({
     styleModel?.radioLabel || ["form-check-label"],
   );
   const submitButtonClasses = classNames(
-    styleModel?.submitButton || ["btn", "btn-secondary"],
+    styleModel?.submitButton || ["btn", "btn-primary"],
   );
 
   return (
@@ -186,9 +188,18 @@ const ExportForm: FC<ExportFormProps> = ({
           </div>
         ))}
       </fieldset>
-      <button type="submit" className={submitButtonClasses}>
-        Submit
-      </button>
+      <div className="hstack justify-content-end gap-2">
+        <button
+          className="btn btn-secondary"
+          onClick={closeCallback}
+          type="button"
+        >
+          Cancel
+        </button>
+        <button type="submit" className={submitButtonClasses}>
+          Submit
+        </button>
+      </div>
     </form>
   );
 };

@@ -1,26 +1,27 @@
-import FilterOptionsTable, {
-  FilterOptionsTableProps,
-} from "../filtering/FilterOptionsTable";
-import { ToolbarInterfaces } from "./types";
+import FilterOptionsTable from "../filtering/FilterOptionsTable";
+import {
+  InterfacePropGenerator,
+  ToolbarInterfaces,
+} from "./types";
 import { useMemo } from "react";
-import ExportForm, { ExportFormProps } from "../export/ExportForm";
-import { ExportFnInfo } from "../export/useExportFn";
+import ExportForm from "../export/ExportForm";
 
-export interface InterfaceParams {
-  filtering?: FilterOptionsTableProps;
-  exporting?: ExportFormProps;
-}
-
-const useInterfaces: (params: InterfaceParams) => ToolbarInterfaces = ({
-  filtering,
-  exporting,
-}: InterfaceParams) => {
+const useInterfaces: (
+  gen: InterfacePropGenerator,
+) => (closeCallback: () => void) => ToolbarInterfaces = (gen) => {
   return useMemo(
-    () => ({
-      filtering: filtering ? <FilterOptionsTable {...filtering} /> : undefined,
-      exporting: exporting ? <ExportForm {...exporting} /> : undefined,
-    }),
-    [exporting, filtering],
+    () => (closeCallback) => {
+      const props = gen(closeCallback);
+      const { exporting, filtering } = props;
+
+      return {
+        filtering: filtering ? (
+          <FilterOptionsTable {...filtering} />
+        ) : undefined,
+        exporting: exporting ? <ExportForm {...exporting} /> : undefined,
+      };
+    },
+    [gen],
   );
 };
 

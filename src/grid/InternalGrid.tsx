@@ -7,13 +7,14 @@ import FilterOptionsTable from "./filtering/FilterOptionsTable";
 import SelectAllHeaderCell from "./selection/SelectAllHeaderCell";
 import Pagination from "./pagination/Pagination";
 import classNames from "classnames";
-import useInterfaces, { InterfaceParams } from "./toolbar/useInterfaces";
+import useInterfaces from "./toolbar/useInterfaces";
 import ToolbarContainer from "./toolbar/ToolbarContainer";
 import useExportFn from "./export/useExportFn";
 import getWidthStyle from "./util/getWidthStyle";
 import { UseCombinedPipelineHook } from "./pipeline/useCombinedPipeline";
 import { UseGridSelectionFnsHook } from "./pipeline/useGridSelectionFns";
 import { UseUnwrappedGridStylesHook } from "./pipeline/useUnwrappedGridStyles";
+import { InterfacePropGenerator } from "./toolbar/types";
 
 export interface InternalGridProps {
   gridProps: BaseGridProps;
@@ -68,8 +69,8 @@ const InternalGrid: FC<InternalGridProps> = ({
     currentPageRows: pagination && paginatedRows,
   });
 
-  const toolbarInterfaceParams: InterfaceParams = useMemo(
-    () => ({
+  const toolbarPropGen: InterfacePropGenerator = useMemo(
+    () => (closeUiCallback) => ({
       filtering:
         useToolbar && filterState && filterModel && normalizedTableFilterModel
           ? {
@@ -77,10 +78,15 @@ const InternalGrid: FC<InternalGridProps> = ({
               setFilterState: normalizedTableFilterModel.setTableFilterState,
               caption: filterModel.filterTableCaption,
               styleModel: styleModel?.filterInputTableStyleModel,
+              closeFormCallback: closeUiCallback,
             }
           : undefined,
       exporting: useToolbar
-        ? { exportFnInfo, styleModel: styleModel?.exportFormStyleModel }
+        ? {
+            exportFnInfo,
+            styleModel: styleModel?.exportFormStyleModel,
+            closeCallback: closeUiCallback,
+          }
         : undefined,
     }),
     [
@@ -93,7 +99,7 @@ const InternalGrid: FC<InternalGridProps> = ({
       useToolbar,
     ],
   );
-  const toolbarInterfaces = useInterfaces(toolbarInterfaceParams);
+  const toolbarInterfaces = useInterfaces(toolbarPropGen);
 
   const handleToggleFilterOptions = () => {
     setFilterOptionsVisible(!filterOptionsVisible);
@@ -181,13 +187,14 @@ const InternalGrid: FC<InternalGridProps> = ({
               filterState={filterState!}
               setFilterState={normalizedTableFilterModel.setTableFilterState}
               styleModel={styleModel?.filterInputTableStyleModel}
+              closeFormCallback={() => setFilterOptionsVisible(false)}
             />
           )}
         </div>
       )}
       {useToolbar && (
         <ToolbarContainer
-          interfaces={toolbarInterfaces}
+          interfaceGen={toolbarInterfaces}
           styleModel={styleModel?.toolbarStyleModel}
         />
       )}
