@@ -12,9 +12,9 @@ export type NumberFilterRowProps = {
   columnLabel: string;
   filterState: NumberFormFilterState;
   setFilterState: (filterState: NumberFormFilterState) => void;
-  schemeSelectClasses: string[];
-  enableInputClasses: string[];
-  numberInputClasses: string[];
+  schemeSelectClasses: string[] | null | undefined;
+  enableInputClasses: string[] | null | undefined;
+  numberInputClasses: string[] | null | undefined;
 } & CommonFilterRowStyleProps;
 
 const NumberFilterRow: FC<NumberFilterRowProps> = ({
@@ -63,7 +63,7 @@ const NumberFilterRow: FC<NumberFilterRowProps> = ({
     <input
       name={valueInputLabel}
       aria-label={valueInputLabel}
-      className={classNames("form-control", numberInputClasses)}
+      className={classNames(numberInputClasses || "form-control")}
       type="number"
       required={enabled}
       disabled={!enabled}

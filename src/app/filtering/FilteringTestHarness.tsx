@@ -13,7 +13,6 @@ interface FilteringTestHarnessProps {
   initialFilterState: EditableTableFilterState;
   controlled: boolean;
   caption?: string;
-  useToolbar?: boolean;
   pro?: boolean;
 }
 
@@ -23,7 +22,6 @@ const FilteringTestHarness: FC<FilteringTestHarnessProps> = ({
   initialFilterState,
   controlled,
   caption,
-  useToolbar,
   pro,
 }) => {
   const [filterState, setFilterState] = useState(initialFilterState);
@@ -44,24 +42,10 @@ const FilteringTestHarness: FC<FilteringTestHarnessProps> = ({
   );
 
   if (pro) {
-    return (
-      <GridPro
-        rows={rows}
-        cols={cols}
-        filterModel={filterModel}
-        useToolbar={useToolbar}
-      />
-    );
+    return <GridPro rows={rows} cols={cols} filterModel={filterModel} />;
   }
 
-  return (
-    <Grid
-      rows={rows}
-      cols={cols}
-      filterModel={filterModel}
-      useToolbar={useToolbar}
-    />
-  );
+  return <Grid rows={rows} cols={cols} filterModel={filterModel} />;
 };
 
 export default FilteringTestHarness;

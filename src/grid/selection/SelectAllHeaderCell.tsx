@@ -8,7 +8,7 @@ interface SelectAllHeaderCellProps {
   onClick: () => void;
   selectionInfo: SelectionInfo;
   totalRows: number;
-  additionalClasses?: string[];
+  customClasses?: string[];
   style?: CSSProperties;
   colIndexOffset?: number;
 }
@@ -72,7 +72,7 @@ const SelectAllHeaderCell: FC<SelectAllHeaderCellProps> = ({
   onClick,
   selectionInfo,
   totalRows,
-  additionalClasses,
+  customClasses,
   style,
   colIndexOffset,
 }) => {
@@ -93,12 +93,7 @@ const SelectAllHeaderCell: FC<SelectAllHeaderCellProps> = ({
       aria-colindex={1 + (colIndexOffset || 0)}
       title={description}
       aria-description={description}
-      className={classNames(
-        {
-          "btn-primary": !additionalClasses || additionalClasses.length === 0,
-        },
-        additionalClasses || [],
-      )}
+      className={classNames(customClasses || "btn-primary")}
     >
       <input
         tabIndex={0}

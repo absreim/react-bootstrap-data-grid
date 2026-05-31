@@ -11,10 +11,10 @@ export interface FilterRowProps<FilterScheme extends string> {
   handleSchemeChange: ChangeEventHandler<HTMLSelectElement>;
   schemesToLabels: Record<FilterScheme, string>;
   searchStringInputCellContents: ReactNode;
-  trClasses: string[];
-  tdClasses: (colIndex: number) => string[];
-  inputClasses: string[];
-  selectClasses: string[];
+  trClasses: string[] | null | undefined;
+  tdClasses: (colIndex: number) => (string[] | null) | undefined;
+  inputClasses: string[] | null | undefined;
+  selectClasses: string[] | null | undefined;
 }
 
 export type CommonFilterRowStyleProps = Pick<
@@ -67,7 +67,7 @@ export function FilterRow<FilterScheme extends string = string>(
           name={opSelectLabel}
           aria-label={opSelectLabel}
           disabled={!enabled}
-          className={classNames("form-select", ...selectClasses)}
+          className={classNames(selectClasses || "form-select")}
           value={currentScheme}
           onChange={handleSchemeChange}
         >

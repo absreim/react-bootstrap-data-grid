@@ -6,5 +6,4 @@ export interface TestParams {
   rows: RowDef[];
   initialState: EditableTableFilterState;
   caption?: string;
-  useToolbar?: boolean;
 }

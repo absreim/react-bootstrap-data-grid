@@ -213,7 +213,6 @@ test("drag buttons are disabled if filtering is occurring", async ({
 
   const submitButton = page.getByRole("button", { name: "Submit" });
   await submitButton.click();
-  await filterToolbarButton.click();
 
   await checkDragBtnsEnablement(page, false);
 });

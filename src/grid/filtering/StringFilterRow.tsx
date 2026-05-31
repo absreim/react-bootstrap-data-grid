@@ -1,4 +1,4 @@
-import { ChangeEventHandler, FC, ReactNode } from "react";
+import { ChangeEventHandler, FC } from "react";
 import FilterRow, { CommonFilterRowStyleProps } from "./FilterRow";
 import classNames from "classnames";
 import {
@@ -12,9 +12,9 @@ type StringFilterRowProps = {
   columnLabel: string;
   filterState: StringFilterState;
   setFilterState: (filterState: StringFilterState) => void;
-  schemeSelectClasses: string[];
-  enableInputClasses: string[];
-  searchStringInputClasses: string[];
+  schemeSelectClasses: string[] | null | undefined;
+  enableInputClasses: string[] | null | undefined;
+  searchStringInputClasses: string[] | null | undefined;
 } & CommonFilterRowStyleProps;
 
 const StringFilterRow: FC<StringFilterRowProps> = ({
@@ -63,7 +63,7 @@ const StringFilterRow: FC<StringFilterRowProps> = ({
     <input
       name={valueInputLabel}
       aria-label={valueInputLabel}
-      className={classNames("form-control", searchStringInputClasses)}
+      className={classNames(searchStringInputClasses || "form-control")}
       required={enabled}
       disabled={!enabled}
       value={searchString}

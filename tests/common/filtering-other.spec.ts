@@ -1,5 +1,5 @@
 import { test } from "@playwright/test";
-import { getTestIdVariants, validateGridContents } from "../util";
+import { validateGridContents } from "../util";
 
 ["community", "pro"].forEach((edition) => {
   const url = edition === "pro" ? "filtering/other/pro" : "filtering/other";
@@ -9,9 +9,11 @@ import { getTestIdVariants, validateGridContents } from "../util";
       await page.goto(url);
     });
 
-    test("less than number filter works correctly", async ({ page }) => {
-      const testIdPrefix = "number less than grid container";
-      for (const testId of getTestIdVariants(testIdPrefix)) {
+    ["controlled", "uncontrolled"].forEach((controlScheme) => {
+      test(`${controlScheme} less than number filter works correctly`, async ({
+        page,
+      }) => {
+        const testId = `number less than grid container-${controlScheme}`;
         const container = page.getByTestId(testId);
 
         const gridTable = container.locator('table[aria-rowcount="4"]');
@@ -23,9 +25,12 @@ import { getTestIdVariants, validateGridContents } from "../util";
         ];
         await validateGridContents(tbody, expectedInitialContents);
 
-        await container
-          .getByRole("button", { name: "Show Filter Options" })
-          .click();
+        const toolbar = container.getByRole("toolbar");
+        const filterToggle = toolbar.getByRole("button", {
+          name: "Filtering",
+        });
+        await filterToggle.click();
+
         await container
           .getByRole("spinbutton", {
             name: "Number Column Column Filter Value",
@@ -37,12 +42,12 @@ import { getTestIdVariants, validateGridContents } from "../util";
         const expectedSubsequentContents: string[][] = [["-1"]];
         const newTbody = newGridTable.locator("tbody");
         await validateGridContents(newTbody, expectedSubsequentContents);
-      }
-    });
+      });
 
-    test("greater than number filter works correctly", async ({ page }) => {
-      const testIdPrefix = "number greater than grid container";
-      for (const testId of getTestIdVariants(testIdPrefix)) {
+      test(`${controlScheme} greater than number filter works correctly`, async ({
+        page,
+      }) => {
+        const testId = `number greater than grid container-${controlScheme}`;
         const container = page.getByTestId(testId);
 
         const gridTable = container.locator('table[aria-rowcount="2"]');
@@ -50,9 +55,12 @@ import { getTestIdVariants, validateGridContents } from "../util";
         const expectedInitialContents: string[][] = [["1.00001"]];
         await validateGridContents(tbody, expectedInitialContents);
 
-        await container
-          .getByRole("button", { name: "Show Filter Options" })
-          .click();
+        const toolbar = container.getByRole("toolbar");
+        const filterToggle = toolbar.getByRole("button", {
+          name: "Filtering",
+        });
+        await filterToggle.click();
+
         await container
           .getByRole("spinbutton", {
             name: "Number Column Column Filter Value",
@@ -68,12 +76,12 @@ import { getTestIdVariants, validateGridContents } from "../util";
         ];
         const newTbody = newGridTable.locator("tbody");
         await validateGridContents(newTbody, expectedSubsequentContents);
-      }
-    });
+      });
 
-    test("equals number filter works correctly", async ({ page }) => {
-      const testIdPrefix = "number equals grid container";
-      for (const testId of getTestIdVariants(testIdPrefix)) {
+      test(`${controlScheme} equals number filter works correctly`, async ({
+        page,
+      }) => {
+        const testId = `number equals grid container-${controlScheme}`;
         const container = page.getByTestId(testId);
 
         const gridTable = container.locator('table[aria-rowcount="2"]');
@@ -81,9 +89,12 @@ import { getTestIdVariants, validateGridContents } from "../util";
         const expectedInitialContents: string[][] = [["1"]];
         await validateGridContents(tbody, expectedInitialContents);
 
-        await container
-          .getByRole("button", { name: "Show Filter Options" })
-          .click();
+        const toolbar = container.getByRole("toolbar");
+        const filterToggle = toolbar.getByRole("button", {
+          name: "Filtering",
+        });
+        await filterToggle.click();
+
         await container
           .getByRole("spinbutton", {
             name: "Number Column Column Filter Value",
@@ -94,14 +105,12 @@ import { getTestIdVariants, validateGridContents } from "../util";
         const expectedSubsequentContents: string[][] = [["-1"]];
         const newTbody = gridTable.locator("tbody");
         await validateGridContents(newTbody, expectedSubsequentContents);
-      }
-    });
+      });
 
-    test("less than or equals number filter works correctly", async ({
-      page,
-    }) => {
-      const testIdPrefix = "number leq grid container";
-      for (const testId of getTestIdVariants(testIdPrefix)) {
+      test(`${controlScheme} less than or equals number filter works correctly`, async ({
+        page,
+      }) => {
+        const testId = `number leq grid container-${controlScheme}`;
         const container = page.getByTestId(testId);
 
         const gridTable = container.locator('table[aria-rowcount="5"]');
@@ -114,9 +123,12 @@ import { getTestIdVariants, validateGridContents } from "../util";
         ];
         await validateGridContents(tbody, expectedInitialContents);
 
-        await container
-          .getByRole("button", { name: "Show Filter Options" })
-          .click();
+        const toolbar = container.getByRole("toolbar");
+        const filterToggle = toolbar.getByRole("button", {
+          name: "Filtering",
+        });
+        await filterToggle.click();
+
         await container
           .getByRole("spinbutton", {
             name: "Number Column Column Filter Value",
@@ -128,14 +140,12 @@ import { getTestIdVariants, validateGridContents } from "../util";
         const expectedSubsequentContents: string[][] = [["-1"], ["0"]];
         const newTbody = newGridTable.locator("tbody");
         await validateGridContents(newTbody, expectedSubsequentContents);
-      }
-    });
+      });
 
-    test("greater than or equals number filter works correctly", async ({
-      page,
-    }) => {
-      const testIdPrefix = "number geq grid container";
-      for (const testId of getTestIdVariants(testIdPrefix)) {
+      test(`${controlScheme} greater than or equals number filter works correctly`, async ({
+        page,
+      }) => {
+        const testId = `number geq grid container-${controlScheme}`;
         const container = page.getByTestId(testId);
 
         const gridTable = container.locator('table[aria-rowcount="3"]');
@@ -143,9 +153,12 @@ import { getTestIdVariants, validateGridContents } from "../util";
         const expectedInitialContents: string[][] = [["1"], ["1.00001"]];
         await validateGridContents(tbody, expectedInitialContents);
 
-        await container
-          .getByRole("button", { name: "Show Filter Options" })
-          .click();
+        const toolbar = container.getByRole("toolbar");
+        const filterToggle = toolbar.getByRole("button", {
+          name: "Filtering",
+        });
+        await filterToggle.click();
+
         await container
           .getByRole("spinbutton", {
             name: "Number Column Column Filter Value",
@@ -162,12 +175,12 @@ import { getTestIdVariants, validateGridContents } from "../util";
         ];
         const newTbody = newGridTable.locator("tbody");
         await validateGridContents(newTbody, expectedSubsequentContents);
-      }
-    });
+      });
 
-    test("contains string filter works correctly", async ({ page }) => {
-      const testIdPrefix = "string contains grid container";
-      for (const testId of getTestIdVariants(testIdPrefix)) {
+      test(`${controlScheme} contains string filter works correctly`, async ({
+        page,
+      }) => {
+        const testId = `string contains grid container-${controlScheme}`;
         const container = page.getByTestId(testId);
 
         const gridTable = container.locator('table[aria-rowcount="3"]');
@@ -178,9 +191,12 @@ import { getTestIdVariants, validateGridContents } from "../util";
         ];
         await validateGridContents(tbody, expectedInitialContents);
 
-        await container
-          .getByRole("button", { name: "Show Filter Options" })
-          .click();
+        const toolbar = container.getByRole("toolbar");
+        const filterToggle = toolbar.getByRole("button", {
+          name: "Filtering",
+        });
+        await filterToggle.click();
+
         await container
           .getByRole("textbox", { name: "String Column Column Filter Value" })
           .fill("fizz");
@@ -192,12 +208,12 @@ import { getTestIdVariants, validateGridContents } from "../util";
         ];
         const newTbody = gridTable.locator("tbody");
         await validateGridContents(newTbody, expectedSubsequentContents);
-      }
-    });
+      });
 
-    test("starts with string filter works correctly", async ({ page }) => {
-      const testIdPrefix = "string starts with grid container";
-      for (const testId of getTestIdVariants(testIdPrefix)) {
+      test(`${controlScheme} starts with string filter works correctly`, async ({
+        page,
+      }) => {
+        const testId = `string starts with grid container-${controlScheme}`;
         const container = page.getByTestId(testId);
 
         const gridTable = container.locator('table[aria-rowcount="3"]');
@@ -208,9 +224,12 @@ import { getTestIdVariants, validateGridContents } from "../util";
         ];
         await validateGridContents(tbody, expectedInitialContents);
 
-        await container
-          .getByRole("button", { name: "Show Filter Options" })
-          .click();
+        const toolbar = container.getByRole("toolbar");
+        const filterToggle = toolbar.getByRole("button", {
+          name: "Filtering",
+        });
+        await filterToggle.click();
+
         await container
           .getByRole("textbox", { name: "String Column Column Filter Value" })
           .fill("fizz");
@@ -220,7 +239,7 @@ import { getTestIdVariants, validateGridContents } from "../util";
         const expectedSubsequentContents: string[][] = [["fizzbuzz"]];
         const newTbody = newGridTable.locator("tbody");
         await validateGridContents(newTbody, expectedSubsequentContents);
-      }
+      });
     });
   });
 });

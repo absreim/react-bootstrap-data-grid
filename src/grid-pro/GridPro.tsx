@@ -7,7 +7,6 @@ import InternalGrid from "../grid/InternalGrid";
 import { GridProProps } from "./types";
 import ColHeaderCellPro from "./ColHeaderCellPro";
 import useGridSelectionFns from "../grid/pipeline/useGridSelectionFns";
-import useUnwrappedGridStyles from "../grid/pipeline/useUnwrappedGridStyles";
 import useGetInputStrSubmitCallback from "../grid/pipeline/useGetInputStrSubmitCallback";
 import { ColNameToWidth } from "../grid/pipeline/types";
 import useAugFormattedRows from "../grid/pipeline/useAugFormattedRows";
@@ -48,7 +47,6 @@ const GridPro: FC<GridProProps> = (props) => {
     filterState,
   } = combinedPipelineOutput;
   const gridSelectionFns = useGridSelectionFns(selectModel, rows);
-  const unwrappedStyles = useUnwrappedGridStyles(styleModel);
   const getInputStrSubmitCallback = useGetInputStrSubmitCallback(
     editModel,
     cols,
@@ -234,13 +232,13 @@ const GridPro: FC<GridProProps> = (props) => {
       augFormattedRows={augFormattedRows}
       gridSelectionFns={gridSelectionFns}
       selectModel={selectModel}
-      unwrappedStyles={unwrappedStyles}
       combinedPipelineOutput={combinedPipelineOutput}
       editModel={editModel}
       getInputStrSubmitCallback={getInputStrSubmitCallback}
       renderPrefixCells={renderPrefixCells}
       additionalColIndexOffset={reorder ? 1 : 0}
       additionalRowStyles={additionalBodyRowStyles}
+      tableStyleModel={styleModel?.mainTableStyleModel}
     />
   );
 
@@ -252,7 +250,6 @@ const GridPro: FC<GridProProps> = (props) => {
       hooks={{
         pipelineOutput: combinedPipelineOutput,
         selectFns: gridSelectionFns,
-        unwrappedStyles,
       }}
       slots={{ colHeaderCells, bodyRows, prefixHeader }}
       classes={{

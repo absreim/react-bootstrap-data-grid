@@ -174,7 +174,6 @@ const ReorderTestHarness: FC<ReorderTestHarnessProps> = ({ styleModel }) => {
   return (
     <div ref={divRef}>
       <GridPro
-        useToolbar
         sortModel={{
           type: "uncontrolled",
           initialSortColDef: null,

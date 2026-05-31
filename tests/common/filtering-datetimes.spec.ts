@@ -1,5 +1,5 @@
 import { test } from "@playwright/test";
-import { getTestIdVariants, validateGridContents } from "../util";
+import { validateGridContents } from "../util";
 
 ["community", "pro"].forEach((edition) => {
   const url =
@@ -10,9 +10,11 @@ import { getTestIdVariants, validateGridContents } from "../util";
       await page.goto(url);
     });
 
-    test("start datetime filter works correctly", async ({ page }) => {
-      const testIdPrefix = "start datetime grid container";
-      for (const testId of getTestIdVariants(testIdPrefix)) {
+    ["controlled", "uncontrolled"].forEach((controlScheme) => {
+      test(`${controlScheme} start datetime filter works correctly`, async ({
+        page,
+      }) => {
+        const testId = `start datetime grid container-${controlScheme}`;
         const container = page.getByTestId(testId);
 
         const gridTable = container.locator('table[aria-rowcount="4"]');
@@ -24,9 +26,12 @@ import { getTestIdVariants, validateGridContents } from "../util";
         ];
         await validateGridContents(tbody, expectedInitialContents);
 
-        await container
-          .getByRole("button", { name: "Show Filter Options" })
-          .click();
+        const toolbar = container.getByRole("toolbar");
+        const filterToggle = toolbar.getByRole("button", {
+          name: "Filtering",
+        });
+        await filterToggle.click();
+
         await container
           .locator(
             'input[aria-label="Datetime Column Column Filter Start Date"]',
@@ -41,12 +46,12 @@ import { getTestIdVariants, validateGridContents } from "../util";
         ];
         const newTbody = newGridTable.locator("tbody");
         await validateGridContents(newTbody, expectedSubsequentContents);
-      }
-    });
+      });
 
-    test("end datetime filter works correctly", async ({ page }) => {
-      const testIdPrefix = "end datetime grid container";
-      for (const testId of getTestIdVariants(testIdPrefix)) {
+      test(`${controlScheme} end datetime filter works correctly`, async ({
+        page,
+      }) => {
+        const testId = `end datetime grid container-${controlScheme}`;
         const container = page.getByTestId(testId);
 
         const gridTable = container.locator('table[aria-rowcount="5"]');
@@ -59,9 +64,12 @@ import { getTestIdVariants, validateGridContents } from "../util";
         ];
         await validateGridContents(tbody, expectedInitialContents);
 
-        await container
-          .getByRole("button", { name: "Show Filter Options" })
-          .click();
+        const toolbar = container.getByRole("toolbar");
+        const filterToggle = toolbar.getByRole("button", {
+          name: "Filtering",
+        });
+        await filterToggle.click();
+
         await container
           .locator('input[aria-label="Datetime Column Column Filter End Date"]')
           .fill("2022-12-26T00:00");
@@ -71,12 +79,12 @@ import { getTestIdVariants, validateGridContents } from "../util";
         const expectedSubsequentContents: string[][] = [["2022-12-25T23:59"]];
         const newTbody = newGridTable.locator("tbody");
         await validateGridContents(newTbody, expectedSubsequentContents);
-      }
-    });
+      });
 
-    test("between datetimes filter works correctly", async ({ page }) => {
-      const testIdPrefix = "between datetimes grid container";
-      for (const testId of getTestIdVariants(testIdPrefix)) {
+      test(`between datetimes filter works correctly-${controlScheme}`, async ({
+        page,
+      }) => {
+        const testId = `between datetimes grid container-${controlScheme}`;
         const container = page.getByTestId(testId);
 
         const gridTable = container.locator('table[aria-rowcount="4"]');
@@ -88,9 +96,12 @@ import { getTestIdVariants, validateGridContents } from "../util";
         ];
         await validateGridContents(tbody, expectedInitialContents);
 
-        await container
-          .getByRole("button", { name: "Show Filter Options" })
-          .click();
+        const toolbar = container.getByRole("toolbar");
+        const filterToggle = toolbar.getByRole("button", {
+          name: "Filtering",
+        });
+        await filterToggle.click();
+
         await container
           .locator(
             'input[aria-label="Datetime Column Column Filter Start Date"]',
@@ -108,7 +119,7 @@ import { getTestIdVariants, validateGridContents } from "../util";
         ];
         const newTbody = newGridTable.locator("tbody");
         await validateGridContents(newTbody, expectedSubsequentContents);
-      }
+      });
     });
   });
 });

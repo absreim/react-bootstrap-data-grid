@@ -12,7 +12,7 @@ import GridPro from "@/grid-pro";
 
 export interface ExportTestHarnessProps {
   enableFiltering: boolean;
-  enablePaginaton: boolean;
+  enablePagination: boolean;
   enableFormatters: boolean;
   enableStyles: boolean;
   pro?: boolean;
@@ -128,7 +128,7 @@ const styleModel: ExportFormStyleModel = {
 
 const ExportTestHarness: FC<ExportTestHarnessProps> = ({
   enableFiltering,
-  enablePaginaton,
+  enablePagination,
   enableFormatters,
   enableStyles,
   pro,
@@ -154,7 +154,7 @@ const ExportTestHarness: FC<ExportTestHarnessProps> = ({
             tableFilterState: combinedFilterState,
           }
         : undefined,
-      pagination: enablePaginaton
+      pagination: enablePagination
         ? {
             type: "uncontrolled",
             pageSizeOptions: [2],
@@ -166,9 +166,9 @@ const ExportTestHarness: FC<ExportTestHarnessProps> = ({
             exportFormStyleModel: styleModel,
           }
         : undefined,
-      useToolbar: true,
+      allowExport: true,
     }),
-    [cols, enableFiltering, enablePaginaton, enableStyles],
+    [cols, enableFiltering, enablePagination, enableStyles],
   );
 
   if (pro) {

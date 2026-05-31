@@ -6,7 +6,7 @@ const TestDivs: FC<{ pro?: boolean }> = ({ pro }) => (
     <div data-testid="options disabled test container">
       <ExportTestHarness
         enableFiltering={false}
-        enablePaginaton={false}
+        enablePagination={false}
         enableFormatters={false}
         enableStyles={false}
         pro={pro}
@@ -15,7 +15,7 @@ const TestDivs: FC<{ pro?: boolean }> = ({ pro }) => (
     <div data-testid="options enabled test container">
       <ExportTestHarness
         enableFiltering={true}
-        enablePaginaton={true}
+        enablePagination={true}
         enableFormatters={true}
         enableStyles={false}
         pro={pro}
@@ -24,7 +24,7 @@ const TestDivs: FC<{ pro?: boolean }> = ({ pro }) => (
     <div data-testid="styles test container">
       <ExportTestHarness
         enableFiltering={true}
-        enablePaginaton={true}
+        enablePagination={true}
         enableFormatters={true}
         enableStyles={true}
         pro={pro}

@@ -5,16 +5,16 @@ import classNames from "classnames";
 import getWidthStyle from "../util/getWidthStyle";
 import SelectionInput from "../selection/SelectionInput";
 import { UseGridSelectionFnsHook } from "../pipeline/useGridSelectionFns";
-import { UseUnwrappedGridStylesHook } from "../pipeline/useUnwrappedGridStyles";
 import { UseCombinedPipelineHook } from "../pipeline/useCombinedPipeline";
 import { SelectModel } from "../selection/types";
 import { EditModel } from "../editing/types";
 import { UseGetInputStrSubmitCallbackHook } from "../pipeline/useGetInputStrSubmitCallback";
+import { TableStyleModel } from "../styling/types";
 
 interface BodyRowsProps {
   augFormattedRows: AugFormattedRow[];
   gridSelectionFns: UseGridSelectionFnsHook;
-  unwrappedStyles: UseUnwrappedGridStylesHook;
+  tableStyleModel: TableStyleModel | undefined;
   combinedPipelineOutput: UseCombinedPipelineHook;
   selectModel: SelectModel | undefined;
   editModel: EditModel | undefined;
@@ -33,7 +33,7 @@ const BodyRows: FC<BodyRowsProps> = ({
     getRowClickHandler,
     getAriaSelectedValue,
   },
-  unwrappedStyles: { unwrappedTableModel },
+  tableStyleModel,
   combinedPipelineOutput: { showSelectCol, ariaColIndexOffset },
   selectModel,
   editModel,
@@ -50,7 +50,7 @@ const BodyRows: FC<BodyRowsProps> = ({
           {
             "table-active": selectedSet.has(row.id),
           },
-          unwrappedTableModel.tbodyTr(row.id, index),
+          tableStyleModel?.tbodyTr && tableStyleModel?.tbodyTr(row.id, index),
           additionalRowStyles ? additionalRowStyles(row.id, index) : [],
         )}
         key={row.id}
@@ -68,28 +68,47 @@ const BodyRows: FC<BodyRowsProps> = ({
           editModel?.getDeleteCallback && editModel.getDeleteCallback(row.id)
         }
         dataCellClasses={(colIndex) =>
-          unwrappedTableModel.tbodyTd(row.id, index, colIndex)
+          tableStyleModel?.tbodyTd
+            ? tableStyleModel?.tbodyTd(row.id, index, colIndex)
+            : null
         }
         dataCellInputClasses={(colIndex) =>
-          unwrappedTableModel.tbodyTdInput(row.id, index, colIndex)
+          tableStyleModel?.tbodyTdInput
+            ? tableStyleModel?.tbodyTdInput(row.id, index, colIndex)
+            : null
         }
-        editCellClasses={unwrappedTableModel.editColTd(row.id, index)}
-        saveButtonClasses={unwrappedTableModel.editSaveButton(row.id, index)}
-        deleteButtonClasses={unwrappedTableModel.editDeleteButton(
-          row.id,
-          index,
-        )}
-        startButtonClasses={unwrappedTableModel.editStartButton(row.id, index)}
-        cancelButtonClasses={unwrappedTableModel.editCancelButton(
-          row.id,
-          index,
-        )}
+        editCellClasses={
+          tableStyleModel?.editColTd
+            ? tableStyleModel?.editColTd(row.id, index)
+            : null
+        }
+        saveButtonClasses={
+          tableStyleModel?.editSaveButton
+            ? tableStyleModel?.editSaveButton(row.id, index)
+            : null
+        }
+        deleteButtonClasses={
+          tableStyleModel?.editDeleteButton
+            ? tableStyleModel?.editDeleteButton(row.id, index)
+            : null
+        }
+        startButtonClasses={
+          tableStyleModel?.editStartButton
+            ? tableStyleModel?.editStartButton(row.id, index)
+            : null
+        }
+        cancelButtonClasses={
+          tableStyleModel?.editCancelButton
+            ? tableStyleModel?.editCancelButton(row.id, index)
+            : null
+        }
       >
         {renderPrefixCells && renderPrefixCells(row)}
         {showSelectCol && (
           <td
             className={classNames(
-              unwrappedTableModel.rowSelectColTd(row.id, index),
+              tableStyleModel?.rowSelectColTd &&
+                tableStyleModel?.rowSelectColTd(row.id, index),
             )}
             aria-colindex={1 + (additionalColIndexOffset || 0)}
             style={getWidthStyle(selectModel!.selectColWidth)}
@@ -99,10 +118,10 @@ const BodyRows: FC<BodyRowsProps> = ({
               selected={selectedSet.has(row.id)}
               selectionInputModel={getSelectInputModel(row.id, selectModel!)}
               selectCallback={getSelectHandler(row.id)}
-              additionalClasses={unwrappedTableModel.rowSelectInput(
-                row.id,
-                index,
-              )}
+              additionalClasses={
+                tableStyleModel?.rowSelectInput &&
+                tableStyleModel?.rowSelectInput(row.id, index)
+              }
             />
           </td>
         )}

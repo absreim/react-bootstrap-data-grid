@@ -1,27 +1,34 @@
-import { ToolbarInterfaces, ToolbarOption } from "./types";
-import { FC, useState } from "react";
+import { InterfaceNodeGenerator, ToolbarOption } from "./types";
+import { FC, useCallback, useMemo, useState } from "react";
 import Toolbar from "./Toolbar";
 import { ToolbarStyleModel } from "../styling/types";
 import classNames from "classnames";
 
 interface ToolbarContainerProps {
-  interfaces: ToolbarInterfaces;
+  interfaceGen: InterfaceNodeGenerator;
   styleModel?: ToolbarStyleModel;
 }
 
 const ToolbarContainer: FC<ToolbarContainerProps> = ({
-  interfaces,
+  interfaceGen,
   styleModel,
 }) => {
   const [option, setOption] = useState<ToolbarOption | null>(null);
-  const enabledFeatures = Object.keys(interfaces).reduce(
-    (prev, toolbarOption) => {
-      prev[toolbarOption as ToolbarOption] =
-        !!interfaces[toolbarOption as ToolbarOption];
-      return prev;
-    },
-    {} as Partial<Record<ToolbarOption, boolean>>,
+  const closeUiCallback = useCallback(() => setOption(null), []);
+  const interfaces = useMemo(
+    () => interfaceGen(closeUiCallback),
+    [closeUiCallback, interfaceGen],
   );
+  const enabledFeatures = useMemo(() => {
+    return Object.keys(interfaces).reduce(
+      (prev, toolbarOption) => {
+        prev[toolbarOption as ToolbarOption] =
+          !!interfaces[toolbarOption as ToolbarOption];
+        return prev;
+      },
+      {} as Partial<Record<ToolbarOption, boolean>>,
+    );
+  }, [interfaces]);
 
   return (
     <div className="vstack" data-testid="toolbar container">

@@ -1,5 +1,5 @@
 import { CellData, EditModel } from "./editing/types";
-import { GridPaginationState } from "./pagination/types";
+import { PaginationModel } from "./pagination/types";
 import { ColSortModel, TableSortModel } from "./sorting/types";
 import { FilterModel } from "./filtering/types";
 import { SelectModel } from "./selection/types";
@@ -37,7 +37,7 @@ export type AugRowDef<Data extends ValidRowData = ValidRowData> =
   };
 
 export type PostPaginationRowDef<Data extends ValidRowData = ValidRowData> =
-  AugRowDef & {
+  AugRowDef<Data> & {
     prePaginationIndex: number;
   };
 
@@ -68,16 +68,15 @@ export type DisplayMode = "table" | "block";
 export interface GridProps {
   rows: RowDef[];
   cols: ColDef[];
-  pagination?: GridPaginationState;
+  pagination?: PaginationModel;
   sortModel?: TableSortModel;
   filterModel?: FilterModel;
   selectModel?: SelectModel;
   editModel?: EditModel;
   caption?: string;
   styleModel?: StyleModel;
-  useToolbar?: boolean;
-  responsive?: boolean;
   displayMode?: DisplayMode;
+  allowExport?: boolean;
 }
 
 // All props that community and pro versions have in common
@@ -89,6 +88,6 @@ export interface ColHeaderCellProps {
   label: string;
   sortModel?: ColSortModel;
   ariaColIndex: number;
-  additionalClasses?: string[];
+  additionalClasses?: string[] | null;
   width?: number;
 }

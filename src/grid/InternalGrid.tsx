@@ -1,26 +1,23 @@
 "use client";
 
-import { FC, KeyboardEventHandler, ReactNode, useMemo, useState } from "react";
+import { FC, ReactNode, useMemo } from "react";
 import { BaseGridProps } from "./types";
-import ToggleButton from "./main/ToggleButton";
-import FilterOptionsTable from "./filtering/FilterOptionsTable";
 import SelectAllHeaderCell from "./selection/SelectAllHeaderCell";
 import Pagination from "./pagination/Pagination";
 import classNames from "classnames";
-import useInterfaces, { InterfaceParams } from "./toolbar/useInterfaces";
+import useInterfaces from "./toolbar/useInterfaces";
 import ToolbarContainer from "./toolbar/ToolbarContainer";
 import useExportFn from "./export/useExportFn";
 import getWidthStyle from "./util/getWidthStyle";
 import { UseCombinedPipelineHook } from "./pipeline/useCombinedPipeline";
 import { UseGridSelectionFnsHook } from "./pipeline/useGridSelectionFns";
-import { UseUnwrappedGridStylesHook } from "./pipeline/useUnwrappedGridStyles";
+import { InterfacePropGenerator } from "./toolbar/types";
 
 export interface InternalGridProps {
   gridProps: BaseGridProps;
   hooks: {
     selectFns: UseGridSelectionFnsHook;
     pipelineOutput: UseCombinedPipelineHook;
-    unwrappedStyles: UseUnwrappedGridStylesHook;
   };
   slots: {
     colHeaderCells: ReactNode;
@@ -42,11 +39,10 @@ const InternalGrid: FC<InternalGridProps> = ({
     editModel,
     caption,
     styleModel,
-    useToolbar,
-    responsive,
     displayMode,
+    allowExport,
   },
-  hooks: { pipelineOutput, selectFns, unwrappedStyles },
+  hooks: { pipelineOutput, selectFns },
   slots: { colHeaderCells, bodyRows, prefixHeader },
   classes,
 }) => {
@@ -59,8 +55,6 @@ const InternalGrid: FC<InternalGridProps> = ({
     showSelectCol,
   } = pipelineOutput;
 
-  const [filterOptionsVisible, setFilterOptionsVisible] =
-    useState<boolean>(false);
   const exportFnInfo = useExportFn({
     rows,
     cols,
@@ -68,63 +62,66 @@ const InternalGrid: FC<InternalGridProps> = ({
     currentPageRows: pagination && paginatedRows,
   });
 
-  const toolbarInterfaceParams: InterfaceParams = useMemo(
-    () => ({
-      filtering:
-        useToolbar && filterState && filterModel && normalizedTableFilterModel
+  const showToolbar = filterModel || allowExport;
+  const toolbarPropGen: InterfacePropGenerator = useMemo(
+    () => (closeUiCallback) => {
+      return {
+        filtering:
+          filterState && filterModel && normalizedTableFilterModel
+            ? {
+                filterState: filterState,
+                setFilterState: normalizedTableFilterModel.setTableFilterState,
+                caption: filterModel.filterTableCaption,
+                styleModel: styleModel?.filterInputTableStyleModel,
+                closeFormCallback: closeUiCallback,
+              }
+            : undefined,
+        exporting: allowExport
           ? {
-              filterState: filterState,
-              setFilterState: normalizedTableFilterModel.setTableFilterState,
-              caption: filterModel.filterTableCaption,
-              styleModel: styleModel?.filterInputTableStyleModel,
+              exportFnInfo,
+              styleModel: styleModel?.exportFormStyleModel,
+              closeCallback: closeUiCallback,
             }
           : undefined,
-      exporting: useToolbar
-        ? { exportFnInfo, styleModel: styleModel?.exportFormStyleModel }
-        : undefined,
-    }),
+      };
+    },
     [
+      allowExport,
       exportFnInfo,
       filterModel,
       filterState,
       normalizedTableFilterModel,
       styleModel?.exportFormStyleModel,
       styleModel?.filterInputTableStyleModel,
-      useToolbar,
     ],
   );
-  const toolbarInterfaces = useInterfaces(toolbarInterfaceParams);
-
-  const handleToggleFilterOptions = () => {
-    setFilterOptionsVisible(!filterOptionsVisible);
-  };
+  const toolbarInterfaces = useInterfaces(toolbarPropGen);
 
   const { rowsAreSelectable, selectionInfo, selectAllOnClick } = selectFns;
-  const { unwrappedTableModel, unwrappedAdditionalStyleModel } =
-    unwrappedStyles;
 
   const mainTable = (
     <table
       className={classNames(
-        "table",
         {
           "table-hover": rowsAreSelectable,
           "d-block": displayMode === "block",
         },
-        unwrappedTableModel.table,
+        styleModel?.mainTableStyleModel?.table || "table",
       )}
       aria-rowcount={filteredRows.length + 1}
     >
       {caption !== undefined && (
-        <caption className={classNames(unwrappedTableModel.caption)}>
+        <caption
+          className={classNames(styleModel?.mainTableStyleModel?.caption)}
+        >
           {caption}
         </caption>
       )}
-      <thead className={classNames(unwrappedTableModel.thead)}>
+      <thead className={classNames(styleModel?.mainTableStyleModel?.thead)}>
         <tr
           aria-rowindex={1}
           className={classNames(
-            unwrappedTableModel.theadTr,
+            styleModel?.mainTableStyleModel?.theadTr,
             classes?.headerRow || [],
           )}
         >
@@ -135,7 +132,7 @@ const InternalGrid: FC<InternalGridProps> = ({
               selectionInfo={selectionInfo!}
               onClick={selectAllOnClick}
               totalRows={rows.length}
-              additionalClasses={unwrappedTableModel.rowSelectColTh}
+              customClasses={styleModel?.mainTableStyleModel?.rowSelectColTh}
               colIndexOffset={prefixHeader ? 1 : 0}
             />
           )}
@@ -143,7 +140,7 @@ const InternalGrid: FC<InternalGridProps> = ({
           {editModel && (
             <th
               aria-colindex={cols.length + 1 + (showSelectCol ? 1 : 0)}
-              className={classNames(unwrappedTableModel.editColTh)}
+              className={classNames(styleModel?.mainTableStyleModel?.editColTh)}
               style={getWidthStyle(editModel?.editColWidth)}
             >
               Edit Controls
@@ -151,7 +148,11 @@ const InternalGrid: FC<InternalGridProps> = ({
           )}
         </tr>
       </thead>
-      <tbody className={classNames(unwrappedTableModel.tbody)}>
+      <tbody
+        className={classNames(
+          classNames(styleModel?.mainTableStyleModel?.tbody),
+        )}
+      >
         {bodyRows}
       </tbody>
     </table>
@@ -160,55 +161,38 @@ const InternalGrid: FC<InternalGridProps> = ({
   return (
     <div
       data-testid="rbdg-top-level-div"
-      className={classNames(unwrappedAdditionalStyleModel.topLevelDiv)}
-    >
-      {normalizedTableFilterModel && !useToolbar && (
-        <div
-          data-testid="rbdg-filter-inputs-div"
-          className={classNames(unwrappedAdditionalStyleModel.filterInputsDiv)}
-        >
-          <ToggleButton
-            isActive={filterOptionsVisible}
-            label={`${filterOptionsVisible ? "Hide" : "Show "} Filter Options`}
-            onClick={handleToggleFilterOptions}
-            classes={
-              styleModel?.additionalComponentsStyleModel?.filterUiToggleButton
-            }
-          />
-          {filterOptionsVisible && (
-            <FilterOptionsTable
-              caption={filterModel!.filterTableCaption}
-              filterState={filterState!}
-              setFilterState={normalizedTableFilterModel.setTableFilterState}
-              styleModel={styleModel?.filterInputTableStyleModel}
-            />
-          )}
-        </div>
+      className={classNames(
+        styleModel?.additionalComponentsStyleModel?.topLevelDiv,
       )}
-      {useToolbar && (
+    >
+      {showToolbar && (
         <ToolbarContainer
-          interfaces={toolbarInterfaces}
+          interfaceGen={toolbarInterfaces}
           styleModel={styleModel?.toolbarStyleModel}
         />
       )}
       <div
         data-testid="rbdg-table-and-pagination-div"
         className={classNames(
-          unwrappedAdditionalStyleModel.tableAndPaginationDiv,
+          styleModel?.additionalComponentsStyleModel?.tableAndPaginationDiv,
         )}
       >
-        {responsive ? (
-          <div data-testid="rbdg-table-div" className="table-responsive">
-            {mainTable}
-          </div>
-        ) : (
-          <>{mainTable}</>
-        )}
+        <div
+          data-testid="rbdg-table-div"
+          className={classNames(
+            styleModel?.additionalComponentsStyleModel?.tableDiv ||
+              "table-responsive",
+          )}
+        >
+          {mainTable}
+        </div>
         {normalizedModel && (
           <Pagination
             normalizedModel={normalizedModel}
             prePagingNumRows={sortedRows.length}
-            containerDivClasses={unwrappedAdditionalStyleModel.paginationUiDiv}
+            containerDivClasses={
+              styleModel?.additionalComponentsStyleModel?.paginationUiDiv
+            }
           />
         )}
       </div>

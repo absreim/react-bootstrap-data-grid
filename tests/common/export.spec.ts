@@ -248,7 +248,7 @@ const parsedUnformattedCsvOutput = [
       const container = await openExport(page, "styles test container");
       const form = container.locator("form");
 
-      const divs = await form.locator("div").all();
+      const divs = await form.locator("fieldset div").all();
       for (const div of divs) {
         await expect(div).toHaveClass("radio-container-test-class");
       }
@@ -268,7 +268,7 @@ const parsedUnformattedCsvOutput = [
         await expect(input).toHaveClass("radio-input-test-class");
       }
 
-      const submit = form.getByRole("button");
+      const submit = form.getByRole("button", { name: "Submit" });
       await expect(submit).toHaveClass("submit-button-test-class");
     });
   });
