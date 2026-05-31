@@ -20,12 +20,13 @@ import { getTestIdVariants } from "../util";
         let gridTable = container.locator('table[aria-rowcount="1"]');
         await expect(gridTable).toBeVisible();
 
-        await container
-          .getByRole("button", { name: "Show Filter Options" })
-          .click();
+        const filterToggleButton = container.getByRole("button", {
+          name: "Show Filter Options",
+        });
 
         // Uncheck string filter
 
+        await filterToggleButton.click();
         await container
           .locator('input[aria-label="String Column Column Filter Toggle"]')
           .uncheck();
@@ -36,6 +37,7 @@ import { getTestIdVariants } from "../util";
 
         // Uncheck number filter
 
+        await filterToggleButton.click();
         await container
           .locator('input[aria-label="Number Column Column Filter Toggle"]')
           .uncheck();
@@ -46,6 +48,7 @@ import { getTestIdVariants } from "../util";
 
         // Uncheck date filter
 
+        await filterToggleButton.click();
         await container
           .locator('input[aria-label="Date Column Column Filter Toggle"]')
           .uncheck();
@@ -56,6 +59,7 @@ import { getTestIdVariants } from "../util";
 
         // Uncheck datetime filter
 
+        await filterToggleButton.click();
         await container
           .locator('input[aria-label="Datetime Column Column Filter Toggle"]')
           .uncheck();
@@ -91,11 +95,12 @@ import { getTestIdVariants } from "../util";
       let gridTable = container.locator('table[aria-rowcount="5"]');
       await expect(gridTable).toBeVisible();
 
-      await container
-        .getByRole("button", { name: "Show Filter Options" })
-        .click();
+      const filterToggleButton = container.getByRole("button", {
+        name: "Show Filter Options",
+      });
 
       // Enable and input into string filter
+      await filterToggleButton.click();
       await container
         .locator('input[aria-label="String Column Column Filter Toggle"]')
         .check();
@@ -108,6 +113,7 @@ import { getTestIdVariants } from "../util";
       await expect(gridTable).toBeVisible();
 
       // Enable and input into number filter
+      await filterToggleButton.click();
       await container
         .locator('input[aria-label="Number Column Column Filter Toggle"]')
         .check();
@@ -120,6 +126,7 @@ import { getTestIdVariants } from "../util";
       await expect(gridTable).toBeVisible();
 
       // Enable and input into date filter
+      await filterToggleButton.click();
       await container
         .locator('input[aria-label="Date Column Column Filter Toggle"]')
         .check();
@@ -132,6 +139,7 @@ import { getTestIdVariants } from "../util";
       await expect(gridTable).toBeVisible();
 
       // Enable and input into datetime filter
+      await filterToggleButton.click();
       await container
         .locator('input[aria-label="Datetime Column Column Filter Toggle"]')
         .check();
