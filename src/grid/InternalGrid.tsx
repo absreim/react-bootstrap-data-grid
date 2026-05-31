@@ -1,6 +1,6 @@
 "use client";
 
-import { FC, KeyboardEventHandler, ReactNode, useMemo, useState } from "react";
+import { FC, ReactNode, useMemo, useState } from "react";
 import { BaseGridProps } from "./types";
 import ToggleButton from "./main/ToggleButton";
 import FilterOptionsTable from "./filtering/FilterOptionsTable";
@@ -70,25 +70,28 @@ const InternalGrid: FC<InternalGridProps> = ({
   });
 
   const toolbarPropGen: InterfacePropGenerator = useMemo(
-    () => (closeUiCallback) => ({
-      filtering:
-        useToolbar && filterState && filterModel && normalizedTableFilterModel
+    () => (closeUiCallback) => {
+      console.log("prop generator hook");
+      return {
+        filtering:
+          useToolbar && filterState && filterModel && normalizedTableFilterModel
+            ? {
+                filterState: filterState,
+                setFilterState: normalizedTableFilterModel.setTableFilterState,
+                caption: filterModel.filterTableCaption,
+                styleModel: styleModel?.filterInputTableStyleModel,
+                closeFormCallback: closeUiCallback,
+              }
+            : undefined,
+        exporting: useToolbar
           ? {
-              filterState: filterState,
-              setFilterState: normalizedTableFilterModel.setTableFilterState,
-              caption: filterModel.filterTableCaption,
-              styleModel: styleModel?.filterInputTableStyleModel,
-              closeFormCallback: closeUiCallback,
+              exportFnInfo,
+              styleModel: styleModel?.exportFormStyleModel,
+              closeCallback: closeUiCallback,
             }
           : undefined,
-      exporting: useToolbar
-        ? {
-            exportFnInfo,
-            styleModel: styleModel?.exportFormStyleModel,
-            closeCallback: closeUiCallback,
-          }
-        : undefined,
-    }),
+      };
+    },
     [
       exportFnInfo,
       filterModel,
