@@ -88,6 +88,7 @@ const ToolbarTestHarness: FC<ToolbarTestHarnessProps> = ({
         rows={rows}
         cols={cols}
         filterModel={enableFiltering ? { type: "uncontrolled" } : undefined}
+        allowExport
       />
     );
   }
@@ -97,6 +98,7 @@ const ToolbarTestHarness: FC<ToolbarTestHarnessProps> = ({
       rows={rows}
       cols={cols}
       filterModel={enableFiltering ? { type: "uncontrolled" } : undefined}
+      allowExport
     />
   );
 };

@@ -9,9 +9,9 @@ import { getTestIdVariants, validateGridContents } from "../util";
       await page.goto(url);
     });
 
-    test(`${edition} start date filter works correctly`, async ({ page }) => {
-      const testIdPrefix = "start date grid container";
-      for (const testId of getTestIdVariants(testIdPrefix)) {
+    ["controlled", "uncontrolled"].forEach((controlScheme) => {
+      test(`${edition} ${controlScheme} start date filter works correctly`, async ({ page }) => {
+        const testId = `start date grid container-${controlScheme}`;
         const container = page.getByTestId(testId);
 
         const gridTable = container.locator('table[aria-rowcount="4"]');
@@ -23,9 +23,10 @@ import { getTestIdVariants, validateGridContents } from "../util";
         ];
         await validateGridContents(tbody, expectedInitialContents);
 
-
         const toolbar = container.getByRole("toolbar");
-        const filterToggle = toolbar.getByRole("button", { name: "Filtering" });
+        const filterToggle = toolbar.getByRole("button", {
+          name: "Filtering",
+        });
         await filterToggle.click();
 
         await container
@@ -40,12 +41,12 @@ import { getTestIdVariants, validateGridContents } from "../util";
         ];
         const newTbody = newGridTable.locator("tbody");
         await validateGridContents(newTbody, expectedSubsequentContents);
-      }
-    });
+      });
 
-    test(`${edition} end date filter works correctly`, async ({ page }) => {
-      const testIdPrefix = "end date grid container";
-      for (const testId of getTestIdVariants(testIdPrefix)) {
+      test(`${edition} ${controlScheme} end date filter works correctly`, async ({
+        page,
+      }) => {
+        const testId = `end date grid container-${controlScheme}`;
         const container = page.getByTestId(testId);
 
         const gridTable = container.locator('table[aria-rowcount="4"]');
@@ -58,7 +59,9 @@ import { getTestIdVariants, validateGridContents } from "../util";
         await validateGridContents(tbody, expectedInitialContents);
 
         const toolbar = container.getByRole("toolbar");
-        const filterToggle = toolbar.getByRole("button", { name: "Filtering" });
+        const filterToggle = toolbar.getByRole("button", {
+          name: "Filtering",
+        });
         await filterToggle.click();
 
         await container
@@ -70,14 +73,12 @@ import { getTestIdVariants, validateGridContents } from "../util";
         const expectedSubsequentContents: string[][] = [["2022-12-25"]];
         const newTbody = newGridTable.locator("tbody");
         await validateGridContents(newTbody, expectedSubsequentContents);
-      }
-    });
+      });
 
-    test(`${edition} between dates filter works correctly`, async ({
-      page,
-    }) => {
-      const testIdPrefix = "between dates grid container";
-      for (const testId of getTestIdVariants(testIdPrefix)) {
+      test(`${edition} ${controlScheme} between dates filter works correctly`, async ({
+        page,
+      }) => {
+        const testId = `between dates grid container-${controlScheme}`;
         const container = page.getByTestId(testId);
 
         const gridTable = container.locator('table[aria-rowcount="5"]');
@@ -91,7 +92,9 @@ import { getTestIdVariants, validateGridContents } from "../util";
         await validateGridContents(tbody, expectedInitialContents);
 
         const toolbar = container.getByRole("toolbar");
-        const filterToggle = toolbar.getByRole("button", { name: "Filtering" });
+        const filterToggle = toolbar.getByRole("button", {
+          name: "Filtering",
+        });
         await filterToggle.click();
 
         await container
@@ -106,7 +109,7 @@ import { getTestIdVariants, validateGridContents } from "../util";
         const expectedSubsequentContents: string[][] = [["2023-01-15"]];
         const newTbody = newGridTable.locator("tbody");
         await validateGridContents(newTbody, expectedSubsequentContents);
-      }
+      });
     });
   });
 });

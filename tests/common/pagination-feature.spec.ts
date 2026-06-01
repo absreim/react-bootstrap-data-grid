@@ -10,9 +10,11 @@ import { getTestIdVariants, validateGridContents } from "../util";
       await page.goto(url);
     });
 
-    test(`${edition} numerical buttons work correctly`, async ({ page }) => {
-      const testIdPrefix = "15-row test container";
-      for (const testId of getTestIdVariants(testIdPrefix)) {
+    ["controlled", "uncontrolled"].forEach((controlScheme) => {
+      test(`${controlScheme} numerical buttons work correctly`, async ({
+        page,
+      }) => {
+        const testId = `15-row test container-${controlScheme}`;
         const container = page.getByTestId(testId);
         const gridTable = container.locator('table[aria-rowcount="16"]');
         const tbody = gridTable.locator("tbody");
@@ -47,14 +49,12 @@ import { getTestIdVariants, validateGridContents } from "../util";
           ["15"],
         ];
         await validateGridContents(tbody, expectedThirdPageContents, 10);
-      }
-    });
+      });
 
-    test(`${edition} next and previous buttons work correctly`, async ({
-      page,
-    }) => {
-      const testIdPrefix = "15-row test container";
-      for (const testId of getTestIdVariants(testIdPrefix)) {
+      test(`${controlScheme} next and previous buttons work correctly`, async ({
+        page,
+      }) => {
+        const testId = `15-row test container-${controlScheme}`;
         const container = page.getByTestId(testId);
         const gridTable = container.locator('table[aria-rowcount="16"]');
         const tbody = gridTable.locator("tbody");
@@ -93,14 +93,12 @@ import { getTestIdVariants, validateGridContents } from "../util";
         await container.getByRole("link", { name: "Previous" }).click();
         await expect(container.locator('tr[data-rowid="5"]')).toBeVisible();
         await validateGridContents(tbody, expectedSecondPageContents, 5);
-      }
-    });
+      });
 
-    test(`${edition} feature preserves page index when possible when selecting new page size`, async ({
-      page,
-    }) => {
-      const testIdPrefix = "15-row test container";
-      for (const testId of getTestIdVariants(testIdPrefix)) {
+      test(`${controlScheme} feature preserves page index when possible when selecting new page size`, async ({
+        page,
+      }) => {
+        const testId = `15-row test container-${controlScheme}`;
         const container = page.getByTestId(testId);
         const gridTable = container.locator('table[aria-rowcount="16"]');
         const tbody = gridTable.locator("tbody");
@@ -138,14 +136,12 @@ import { getTestIdVariants, validateGridContents } from "../util";
           .selectOption("0");
         await expect(container.locator('tr[data-rowid="9"]')).toBeVisible();
         await validateGridContents(tbody, expectedSecondPageContents, 5);
-      }
-    });
+      });
 
-    test(`${edition} feature snaps to largest possible index if new page size would cause index to be too large`, async ({
-      page,
-    }) => {
-      const testIdPrefix = "15-row test container";
-      for (const testId of getTestIdVariants(testIdPrefix)) {
+      test(`${controlScheme} feature snaps to largest possible index if new page size would cause index to be too large`, async ({
+        page,
+      }) => {
+        const testId = `15-row test container-${controlScheme}`;
         const container = page.getByTestId(testId);
         const gridTable = container.locator('table[aria-rowcount="16"]');
         const tbody = gridTable.locator("tbody");
@@ -186,14 +182,12 @@ import { getTestIdVariants, validateGridContents } from "../util";
         const activeLi = container.locator('li[aria-current="page"]');
         await expect(activeLi).toHaveClass("page-item active");
         await expect(activeLi.getByRole("link", { name: "1" })).toBeVisible();
-      }
-    });
+      });
 
-    test(`${edition} first and last buttons work correctly`, async ({
-      page,
-    }) => {
-      const testIdPrefix = "edge button test container";
-      for (const testId of getTestIdVariants(testIdPrefix)) {
+      test(`${controlScheme} first and last buttons work correctly`, async ({
+        page,
+      }) => {
+        const testId = `edge button test container-${controlScheme}`;
         const container = page.getByTestId(testId);
         const gridTable = container.locator('table[aria-rowcount="16"]');
 
@@ -210,7 +204,7 @@ import { getTestIdVariants, validateGridContents } from "../util";
         await container.getByRole("link", { name: "First" }).click();
         await expect(container.locator('tr[data-rowid="0"]')).toBeVisible();
         await validateGridContents(tbody, expectedInitialContents);
-      }
+      });
     });
   });
 });
