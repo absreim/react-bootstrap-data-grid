@@ -200,7 +200,7 @@ const testParamsList: TestParams[] = [
 const TestDivs: FC<{ pro?: boolean }> = ({ pro }) => (
   <>
     {testParamsList.map(
-      ({ testId, cols, rows, initialState, caption, useToolbar }) => (
+      ({ testId, cols, rows, initialState, caption }) => (
         <Fragment key={testId}>
           <div data-testid={`${testId}-controlled`}>
             <FilteringTestHarness
@@ -209,7 +209,6 @@ const TestDivs: FC<{ pro?: boolean }> = ({ pro }) => (
               initialFilterState={initialState}
               controlled
               caption={caption}
-              useToolbar={useToolbar}
               pro={pro}
             />
           </div>
@@ -220,7 +219,6 @@ const TestDivs: FC<{ pro?: boolean }> = ({ pro }) => (
               initialFilterState={initialState}
               controlled={false}
               caption={caption}
-              useToolbar={useToolbar}
               pro={pro}
             />
           </div>

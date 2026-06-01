@@ -84,8 +84,6 @@ export const unwrapAdditionalComponentsStyleModel: (
   styleModel: AdditionalComponentsStyleModel | undefined,
 ) => Required<AdditionalComponentsStyleModel> = (styleModel) => ({
   topLevelDiv: styleModel?.topLevelDiv || [],
-  filterInputsDiv: styleModel?.filterInputsDiv || [],
   tableAndPaginationDiv: styleModel?.tableAndPaginationDiv || [],
-  filterUiToggleButton: styleModel?.filterUiToggleButton || [],
   paginationUiDiv: styleModel?.paginationUiDiv || [],
 });

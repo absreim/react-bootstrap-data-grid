@@ -12,34 +12,20 @@ import { test, expect } from "@playwright/test";
       await filterToggle.click();
     });
 
-    test(`${edition} high level div custom style works`, async ({ page }) => {
-      const filterInputsDiv = page.getByTestId("rbdg-filter-inputs-div");
-
-      await expect(filterInputsDiv).toHaveClass("filter-inputs-div-test-class");
-    });
-
-    test(`${edition} toggle button custom style works`, async ({ page }) => {
-      const toggleButton = page.getByRole("button", {
-        name: "Hide Filter Options",
-      });
-
-      await expect(toggleButton).toContainClass(
-        "filter-ui-toggle-button-test-class btn",
-      );
-      await expect(toggleButton).not.toContainClass("btn-primary");
-    });
-
     test(`${edition} filter table single element styles work`, async ({
       page,
     }) => {
-      const filterInputsDiv = page.getByTestId("rbdg-filter-inputs-div");
-      const form = filterInputsDiv.locator("form");
-      const table = filterInputsDiv.getByRole("table");
+      const toolbarUiContainer = page.getByTestId(
+        "toolbar feature interface content container",
+      );
+
+      const form = toolbarUiContainer.locator("form");
+      const table = toolbarUiContainer.getByRole("table");
       const tbody = table.locator("tbody");
       const thead = table.locator("thead");
       const theadTr = thead.locator("tr");
       const caption = table.getByRole("caption");
-      const submitButton = filterInputsDiv.getByRole("button", {
+      const submitButton = toolbarUiContainer.getByRole("button", {
         name: "Submit",
       });
 
@@ -60,8 +46,11 @@ import { test, expect } from "@playwright/test";
     test(`${edition} row index-based universal styles work`, async ({
       page,
     }) => {
-      const filterInputsDiv = page.getByTestId("rbdg-filter-inputs-div");
-      const table = filterInputsDiv.getByRole("table");
+      const toolbarUiContainer = page.getByTestId(
+        "toolbar feature interface content container",
+      );
+
+      const table = toolbarUiContainer.getByRole("table");
       const tbody = table.locator("tbody");
 
       for (let rowIndex = 0; rowIndex < 4; rowIndex++) {
@@ -115,8 +104,11 @@ import { test, expect } from "@playwright/test";
     });
 
     test(`${edition} row and col index-based styles work`, async ({ page }) => {
-      const filterInputsDiv = page.getByTestId("rbdg-filter-inputs-div");
-      const table = filterInputsDiv.getByRole("table");
+      const toolbarUiContainer = page.getByTestId(
+        "toolbar feature interface content container",
+      );
+
+      const table = toolbarUiContainer.getByRole("table");
       const tbody = table.locator("tbody");
 
       for (let rowIndex = 0; rowIndex < 4; rowIndex++) {

@@ -10,10 +10,6 @@ import { cols, rows } from "@/app/styling/multitype-test-data";
 import GridPro from "@/grid-pro";
 
 const styleModel: StyleModel = {
-  additionalComponentsStyleModel: {
-    filterInputsDiv: ["filter-inputs-div-test-class"],
-    filterUiToggleButton: ["filter-ui-toggle-button-test-class"],
-  },
   filterInputTableStyleModel: {
     table: ["filter-input-table-test-class"],
     tbody: ["filter-input-table-body-test-class"],

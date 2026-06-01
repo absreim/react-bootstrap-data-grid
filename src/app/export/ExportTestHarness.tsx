@@ -166,7 +166,7 @@ const ExportTestHarness: FC<ExportTestHarnessProps> = ({
             exportFormStyleModel: styleModel,
           }
         : undefined,
-      useToolbar: true,
+      allowExport: true,
     }),
     [cols, enableFiltering, enablePagination, enableStyles],
   );

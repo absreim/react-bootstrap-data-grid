@@ -1,5 +1,4 @@
 import { expect, test } from "@playwright/test";
-import { getTestIdVariants } from "../util";
 
 ["community", "pro"].forEach((edition) => {
   const url =

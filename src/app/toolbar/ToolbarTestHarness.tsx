@@ -87,7 +87,6 @@ const ToolbarTestHarness: FC<ToolbarTestHarnessProps> = ({
       <GridPro
         rows={rows}
         cols={cols}
-        useToolbar={true}
         filterModel={enableFiltering ? { type: "uncontrolled" } : undefined}
       />
     );
@@ -97,7 +96,6 @@ const ToolbarTestHarness: FC<ToolbarTestHarnessProps> = ({
     <Grid
       rows={rows}
       cols={cols}
-      useToolbar={true}
       filterModel={enableFiltering ? { type: "uncontrolled" } : undefined}
     />
   );

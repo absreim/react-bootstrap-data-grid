@@ -13,7 +13,6 @@ interface FilteringTestHarnessProps {
   initialFilterState: EditableTableFilterState;
   controlled: boolean;
   caption?: string;
-  useToolbar?: boolean;
   pro?: boolean;
 }
 
@@ -23,7 +22,6 @@ const FilteringTestHarness: FC<FilteringTestHarnessProps> = ({
   initialFilterState,
   controlled,
   caption,
-  useToolbar,
   pro,
 }) => {
   const [filterState, setFilterState] = useState(initialFilterState);
@@ -49,7 +47,6 @@ const FilteringTestHarness: FC<FilteringTestHarnessProps> = ({
         rows={rows}
         cols={cols}
         filterModel={filterModel}
-        useToolbar={useToolbar}
       />
     );
   }
@@ -59,7 +56,6 @@ const FilteringTestHarness: FC<FilteringTestHarnessProps> = ({
       rows={rows}
       cols={cols}
       filterModel={filterModel}
-      useToolbar={useToolbar}
     />
   );
 };

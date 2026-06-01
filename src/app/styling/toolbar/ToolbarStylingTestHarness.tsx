@@ -22,7 +22,6 @@ const ToolbarStylingTestHarness: FC<{ pro?: boolean }> = ({ pro }) => {
         cols={cols}
         filterModel={{ type: "uncontrolled" }}
         styleModel={styleModel}
-        useToolbar={true}
       />
     );
   }
@@ -33,7 +32,6 @@ const ToolbarStylingTestHarness: FC<{ pro?: boolean }> = ({ pro }) => {
       cols={cols}
       filterModel={{ type: "uncontrolled" }}
       styleModel={styleModel}
-      useToolbar={true}
     />
   );
 };
