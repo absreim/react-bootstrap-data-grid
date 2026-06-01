@@ -2,7 +2,7 @@ import { useMemo, useState } from "react";
 import { AugRowDef, PostPaginationRowDef } from "../../types";
 import {
   NormalizedPaginationModel,
-  GridPaginationState,
+  PaginationModel,
 } from "../../pagination/types";
 
 export interface CurrentPageRowsOutput {
@@ -12,7 +12,7 @@ export interface CurrentPageRowsOutput {
 
 const useCurrentPageRows: (
   sortedRows: AugRowDef[],
-  paginationModel: GridPaginationState | undefined,
+  paginationModel: PaginationModel | undefined,
 ) => CurrentPageRowsOutput = (sortedRows, paginationModel) => {
   const componentSize = paginationModel?.componentSize || "medium";
   const isControlled = paginationModel?.type !== "uncontrolled";

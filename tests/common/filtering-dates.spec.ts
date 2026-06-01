@@ -47,6 +47,7 @@ import { getTestIdVariants, validateGridContents } from "../util";
         page,
       }) => {
         const testId = `end date grid container-${controlScheme}`;
+        // Known to be flaky but for unknown reasons. Timed out after 30 seconds at the below line.
         const container = page.getByTestId(testId);
 
         const gridTable = container.locator('table[aria-rowcount="4"]');

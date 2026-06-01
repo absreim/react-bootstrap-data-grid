@@ -1,5 +1,5 @@
 import { CellData, EditModel } from "./editing/types";
-import { GridPaginationState } from "./pagination/types";
+import { PaginationModel } from "./pagination/types";
 import { ColSortModel, TableSortModel } from "./sorting/types";
 import { FilterModel } from "./filtering/types";
 import { SelectModel } from "./selection/types";
@@ -68,7 +68,7 @@ export type DisplayMode = "table" | "block";
 export interface GridProps {
   rows: RowDef[];
   cols: ColDef[];
-  pagination?: GridPaginationState;
+  pagination?: PaginationModel;
   sortModel?: TableSortModel;
   filterModel?: FilterModel;
   selectModel?: SelectModel;

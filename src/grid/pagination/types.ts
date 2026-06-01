@@ -22,9 +22,7 @@ export type UncontrolledPaginationModel = PaginationOptions & {
   startingCurrentPage?: number;
 };
 
-// Preserved the older name GridPaginationState for backwards compatibility.
-// TODO: Rename to PaginationModel at the next breaking change.
-export type GridPaginationState =
+export type PaginationModel =
   | ControlledPaginationModel
   | UncontrolledPaginationModel;
 

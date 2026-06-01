@@ -1,9 +1,9 @@
 import { FC, useMemo, useState } from "react";
-import Grid, { ColDef, GridPaginationState, RowDef } from "@/grid";
+import Grid, { ColDef, PaginationModel, RowDef } from "@/grid";
 import GridPro from "@/grid-pro";
 
 export type PaginationFeatureTestHarnessProps = Omit<
-  GridPaginationState,
+  PaginationModel,
   "pageSizeIndex" | "setPageSizeIndex" | "currentPage" | "setCurrentPage"
 > & {
   rows: RowDef[];
@@ -27,7 +27,7 @@ const PaginationFeatureTestHarness: FC<PaginationFeatureTestHarnessProps> = ({
 }) => {
   const [pageSizeIndex, setPageSizeIndex] = useState(initialPageSizeIndex);
   const [currentPage, setCurrentPage] = useState(initialPage);
-  const paginationState: GridPaginationState = useMemo(() => {
+  const paginationState: PaginationModel = useMemo(() => {
     if (controlled) {
       return {
         pageSizeOptions,
