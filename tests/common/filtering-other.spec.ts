@@ -23,9 +23,10 @@ import { getTestIdVariants, validateGridContents } from "../util";
         ];
         await validateGridContents(tbody, expectedInitialContents);
 
-        await container
-          .getByRole("button", { name: "Show Filter Options" })
-          .click();
+        const toolbar = container.getByRole("toolbar");
+        const filterToggle = toolbar.getByRole("button", { name: "Filtering" });
+        await filterToggle.click();
+
         await container
           .getByRole("spinbutton", {
             name: "Number Column Column Filter Value",
@@ -50,9 +51,10 @@ import { getTestIdVariants, validateGridContents } from "../util";
         const expectedInitialContents: string[][] = [["1.00001"]];
         await validateGridContents(tbody, expectedInitialContents);
 
-        await container
-          .getByRole("button", { name: "Show Filter Options" })
-          .click();
+        const toolbar = container.getByRole("toolbar");
+        const filterToggle = toolbar.getByRole("button", { name: "Filtering" });
+        await filterToggle.click();
+
         await container
           .getByRole("spinbutton", {
             name: "Number Column Column Filter Value",
@@ -81,9 +83,10 @@ import { getTestIdVariants, validateGridContents } from "../util";
         const expectedInitialContents: string[][] = [["1"]];
         await validateGridContents(tbody, expectedInitialContents);
 
-        await container
-          .getByRole("button", { name: "Show Filter Options" })
-          .click();
+        const toolbar = container.getByRole("toolbar");
+        const filterToggle = toolbar.getByRole("button", { name: "Filtering" });
+        await filterToggle.click();
+
         await container
           .getByRole("spinbutton", {
             name: "Number Column Column Filter Value",
@@ -114,9 +117,10 @@ import { getTestIdVariants, validateGridContents } from "../util";
         ];
         await validateGridContents(tbody, expectedInitialContents);
 
-        await container
-          .getByRole("button", { name: "Show Filter Options" })
-          .click();
+        const toolbar = container.getByRole("toolbar");
+        const filterToggle = toolbar.getByRole("button", { name: "Filtering" });
+        await filterToggle.click();
+
         await container
           .getByRole("spinbutton", {
             name: "Number Column Column Filter Value",
@@ -143,9 +147,10 @@ import { getTestIdVariants, validateGridContents } from "../util";
         const expectedInitialContents: string[][] = [["1"], ["1.00001"]];
         await validateGridContents(tbody, expectedInitialContents);
 
-        await container
-          .getByRole("button", { name: "Show Filter Options" })
-          .click();
+        const toolbar = container.getByRole("toolbar");
+        const filterToggle = toolbar.getByRole("button", { name: "Filtering" });
+        await filterToggle.click();
+
         await container
           .getByRole("spinbutton", {
             name: "Number Column Column Filter Value",
@@ -178,9 +183,10 @@ import { getTestIdVariants, validateGridContents } from "../util";
         ];
         await validateGridContents(tbody, expectedInitialContents);
 
-        await container
-          .getByRole("button", { name: "Show Filter Options" })
-          .click();
+        const toolbar = container.getByRole("toolbar");
+        const filterToggle = toolbar.getByRole("button", { name: "Filtering" });
+        await filterToggle.click();
+
         await container
           .getByRole("textbox", { name: "String Column Column Filter Value" })
           .fill("fizz");
@@ -208,9 +214,10 @@ import { getTestIdVariants, validateGridContents } from "../util";
         ];
         await validateGridContents(tbody, expectedInitialContents);
 
-        await container
-          .getByRole("button", { name: "Show Filter Options" })
-          .click();
+        const toolbar = container.getByRole("toolbar");
+        const filterToggle = toolbar.getByRole("button", { name: "Filtering" });
+        await filterToggle.click();
+
         await container
           .getByRole("textbox", { name: "String Column Column Filter Value" })
           .fill("fizz");

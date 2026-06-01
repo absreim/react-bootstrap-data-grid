@@ -7,10 +7,9 @@ import { test, expect } from "@playwright/test";
     test.beforeEach(async ({ page }) => {
       await page.goto(url);
 
-      const toggleButton = page.getByRole("button", {
-        name: "Show Filter Options",
-      });
-      await toggleButton.click();
+      const toolbar = page.getByRole("toolbar");
+      const filterToggle = toolbar.getByRole("button", { name: "Filtering" });
+      await filterToggle.click();
     });
 
     test(`${edition} high level div custom style works`, async ({ page }) => {

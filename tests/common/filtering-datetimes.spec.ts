@@ -24,9 +24,10 @@ import { getTestIdVariants, validateGridContents } from "../util";
         ];
         await validateGridContents(tbody, expectedInitialContents);
 
-        await container
-          .getByRole("button", { name: "Show Filter Options" })
-          .click();
+        const toolbar = container.getByRole("toolbar");
+        const filterToggle = toolbar.getByRole("button", { name: "Filtering" });
+        await filterToggle.click();
+
         await container
           .locator(
             'input[aria-label="Datetime Column Column Filter Start Date"]',
@@ -59,9 +60,10 @@ import { getTestIdVariants, validateGridContents } from "../util";
         ];
         await validateGridContents(tbody, expectedInitialContents);
 
-        await container
-          .getByRole("button", { name: "Show Filter Options" })
-          .click();
+        const toolbar = container.getByRole("toolbar");
+        const filterToggle = toolbar.getByRole("button", { name: "Filtering" });
+        await filterToggle.click();
+
         await container
           .locator('input[aria-label="Datetime Column Column Filter End Date"]')
           .fill("2022-12-26T00:00");
@@ -88,9 +90,10 @@ import { getTestIdVariants, validateGridContents } from "../util";
         ];
         await validateGridContents(tbody, expectedInitialContents);
 
-        await container
-          .getByRole("button", { name: "Show Filter Options" })
-          .click();
+        const toolbar = container.getByRole("toolbar");
+        const filterToggle = toolbar.getByRole("button", { name: "Filtering" });
+        await filterToggle.click();
+
         await container
           .locator(
             'input[aria-label="Datetime Column Column Filter Start Date"]',

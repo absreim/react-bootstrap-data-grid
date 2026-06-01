@@ -75,9 +75,9 @@ export interface GridProps {
   editModel?: EditModel;
   caption?: string;
   styleModel?: StyleModel;
-  useToolbar?: boolean;
   responsive?: boolean;
   displayMode?: DisplayMode;
+  allowExport?: boolean;
 }
 
 // All props that community and pro versions have in common

@@ -2,8 +2,6 @@
 
 import { FC, ReactNode, useMemo, useState } from "react";
 import { BaseGridProps } from "./types";
-import ToggleButton from "./main/ToggleButton";
-import FilterOptionsTable from "./filtering/FilterOptionsTable";
 import SelectAllHeaderCell from "./selection/SelectAllHeaderCell";
 import Pagination from "./pagination/Pagination";
 import classNames from "classnames";
@@ -43,9 +41,9 @@ const InternalGrid: FC<InternalGridProps> = ({
     editModel,
     caption,
     styleModel,
-    useToolbar,
     responsive,
     displayMode,
+    allowExport,
   },
   hooks: { pipelineOutput, selectFns, unwrappedStyles },
   slots: { colHeaderCells, bodyRows, prefixHeader },
@@ -59,9 +57,7 @@ const InternalGrid: FC<InternalGridProps> = ({
     currentPageRowsOutput: { paginatedRows, normalizedModel },
     showSelectCol,
   } = pipelineOutput;
-
-  const [filterOptionsVisible, setFilterOptionsVisible] =
-    useState<boolean>(false);
+  
   const exportFnInfo = useExportFn({
     rows,
     cols,
@@ -69,12 +65,12 @@ const InternalGrid: FC<InternalGridProps> = ({
     currentPageRows: pagination && paginatedRows,
   });
 
+  const showToolbar = filterModel || allowExport;
   const toolbarPropGen: InterfacePropGenerator = useMemo(
     () => (closeUiCallback) => {
-      console.log("prop generator hook");
       return {
         filtering:
-          useToolbar && filterState && filterModel && normalizedTableFilterModel
+          filterState && filterModel && normalizedTableFilterModel
             ? {
                 filterState: filterState,
                 setFilterState: normalizedTableFilterModel.setTableFilterState,
@@ -83,7 +79,7 @@ const InternalGrid: FC<InternalGridProps> = ({
                 closeFormCallback: closeUiCallback,
               }
             : undefined,
-        exporting: useToolbar
+        exporting: allowExport
           ? {
               exportFnInfo,
               styleModel: styleModel?.exportFormStyleModel,
@@ -93,20 +89,16 @@ const InternalGrid: FC<InternalGridProps> = ({
       };
     },
     [
+      allowExport,
       exportFnInfo,
       filterModel,
       filterState,
       normalizedTableFilterModel,
       styleModel?.exportFormStyleModel,
       styleModel?.filterInputTableStyleModel,
-      useToolbar,
     ],
   );
   const toolbarInterfaces = useInterfaces(toolbarPropGen);
-
-  const handleToggleFilterOptions = () => {
-    setFilterOptionsVisible(!filterOptionsVisible);
-  };
 
   const { rowsAreSelectable, selectionInfo, selectAllOnClick } = selectFns;
   const { unwrappedTableModel, unwrappedAdditionalStyleModel } =
@@ -171,31 +163,7 @@ const InternalGrid: FC<InternalGridProps> = ({
       data-testid="rbdg-top-level-div"
       className={classNames(unwrappedAdditionalStyleModel.topLevelDiv)}
     >
-      {normalizedTableFilterModel && !useToolbar && (
-        <div
-          data-testid="rbdg-filter-inputs-div"
-          className={classNames(unwrappedAdditionalStyleModel.filterInputsDiv)}
-        >
-          <ToggleButton
-            isActive={filterOptionsVisible}
-            label={`${filterOptionsVisible ? "Hide" : "Show "} Filter Options`}
-            onClick={handleToggleFilterOptions}
-            classes={
-              styleModel?.additionalComponentsStyleModel?.filterUiToggleButton
-            }
-          />
-          {filterOptionsVisible && (
-            <FilterOptionsTable
-              caption={filterModel!.filterTableCaption}
-              filterState={filterState!}
-              setFilterState={normalizedTableFilterModel.setTableFilterState}
-              styleModel={styleModel?.filterInputTableStyleModel}
-              closeFormCallback={() => setFilterOptionsVisible(false)}
-            />
-          )}
-        </div>
-      )}
-      {useToolbar && (
+      {showToolbar && (
         <ToolbarContainer
           interfaceGen={toolbarInterfaces}
           styleModel={styleModel?.toolbarStyleModel}

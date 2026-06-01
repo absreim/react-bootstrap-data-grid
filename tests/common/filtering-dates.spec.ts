@@ -23,9 +23,11 @@ import { getTestIdVariants, validateGridContents } from "../util";
         ];
         await validateGridContents(tbody, expectedInitialContents);
 
-        await container
-          .getByRole("button", { name: "Show Filter Options" })
-          .click();
+
+        const toolbar = container.getByRole("toolbar");
+        const filterToggle = toolbar.getByRole("button", { name: "Filtering" });
+        await filterToggle.click();
+
         await container
           .locator('input[aria-label="Date Column Column Filter Start Date"]')
           .fill("2023-03-01");
@@ -55,9 +57,10 @@ import { getTestIdVariants, validateGridContents } from "../util";
         ];
         await validateGridContents(tbody, expectedInitialContents);
 
-        await container
-          .getByRole("button", { name: "Show Filter Options" })
-          .click();
+        const toolbar = container.getByRole("toolbar");
+        const filterToggle = toolbar.getByRole("button", { name: "Filtering" });
+        await filterToggle.click();
+
         await container
           .locator('input[aria-label="Date Column Column Filter End Date"]')
           .fill("2022-12-31");
@@ -87,9 +90,10 @@ import { getTestIdVariants, validateGridContents } from "../util";
         ];
         await validateGridContents(tbody, expectedInitialContents);
 
-        await container
-          .getByRole("button", { name: "Show Filter Options" })
-          .click();
+        const toolbar = container.getByRole("toolbar");
+        const filterToggle = toolbar.getByRole("button", { name: "Filtering" });
+        await filterToggle.click();
+
         await container
           .locator('input[aria-label="Date Column Column Filter Start Date"]')
           .fill("2023-01-01");
