@@ -30,7 +30,7 @@ import { test, expect } from "@playwright/test";
       });
 
       await expect(form).toHaveClass("table-responsive");
-      await expect(table).toHaveClass("table filter-input-table-test-class");
+      await expect(table).toHaveClass("filter-input-table-test-class");
       await expect(tbody).toHaveClass("filter-input-table-body-test-class");
       await expect(thead).toHaveClass("filter-input-table-thead-test-class");
       await expect(theadTr).toHaveClass(
@@ -39,8 +39,7 @@ import { test, expect } from "@playwright/test";
       await expect(caption).toHaveClass(
         "filter-input-table-caption-test-class",
       );
-      await expect(submitButton).toContainClass("submit-button-test-class btn");
-      await expect(submitButton).not.toContainClass("btn-secondary");
+      await expect(submitButton).toHaveClass("submit-button-test-class");
     });
 
     test(`${edition} row index-based universal styles work`, async ({
@@ -65,7 +64,7 @@ import { test, expect } from "@playwright/test";
         const schemeSelectionInput = tr.locator(
           'td[aria-colindex="4"] > select',
         );
-        await expect(schemeSelectionInput).toContainClass(
+        await expect(schemeSelectionInput).toHaveClass(
           `scheme-selection-input-test-class-row-${rowIndex}`,
         );
       }
@@ -88,17 +87,15 @@ import { test, expect } from "@playwright/test";
         name: "Datetime Column Column Filter End Date",
       });
 
-      await expect(strInput).toContainClass(
+      await expect(strInput).toHaveClass(
         "search-string-input-test-class-row-0",
       );
-      await expect(numInput).toContainClass("number-input-test-class-row-1");
-      await expect(startDateInput).toContainClass(
+      await expect(numInput).toHaveClass("number-input-test-class-row-1");
+      await expect(startDateInput).toHaveClass(
         "start-date-input-test-class-row-2",
       );
-      await expect(endDateInput).toContainClass(
-        "end-date-input-test-class-row-2",
-      );
-      await expect(endDatetimeInput).toContainClass(
+      await expect(endDateInput).toHaveClass("end-date-input-test-class-row-2");
+      await expect(endDatetimeInput).toHaveClass(
         "end-date-input-test-class-row-3",
       );
     });
@@ -115,7 +112,7 @@ import { test, expect } from "@playwright/test";
         const tr = tbody.locator(`tr[aria-rowindex="${rowIndex + 2}"]`);
         for (let colIndex = 0; colIndex < 5; colIndex++) {
           const td = tr.locator(`td[aria-colindex="${colIndex + 1}"]`);
-          await expect(td).toContainClass(
+          await expect(td).toHaveClass(
             `filter-input-table-tbody-td-test-class-row-${rowIndex}` +
               " " +
               `filter-input-table-tbody-td-test-class-col-${colIndex}`,

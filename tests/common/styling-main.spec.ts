@@ -36,14 +36,14 @@ const displayIndexToOrigIndex: Record<0 | 1, number> = {
         "table-and-pagination-div-test-class",
       );
       await expect(paginationUiDiv).toHaveClass("pagination-ui-div-test-class");
-      await expect(table).toContainClass("main-table-test-class table");
+      await expect(table).toHaveClass("table-hover main-table-test-class");
       await expect(tbody).toHaveClass("main-table-body-test-class");
       await expect(thead).toHaveClass("main-table-thead-test-class");
       await expect(theadTr).toHaveClass("main-table-thead-tr-test-class");
       await expect(caption).toHaveClass("main-table-caption-test-class");
       await expect(editColTh).toHaveClass("main-table-edit-col-th-test-class");
-      await expect(rowSelectColTh).toContainClass(
-        ["main-table-row-select-col-th-test-class"].join(" "),
+      await expect(rowSelectColTh).toHaveClass(
+        "main-table-row-select-col-th-test-class",
       );
     });
 
@@ -109,16 +109,14 @@ const displayIndexToOrigIndex: Record<0 | 1, number> = {
         const origIndex = displayIndexToOrigIndex[displayIndex as 0 | 1];
         const deleteButton = tr.getByRole("button", { name: "Delete" });
         const editButton = tr.getByRole("button", { name: "Edit" });
-        await expect(deleteButton).toContainClass(
+        await expect(deleteButton).toHaveClass(
           [
-            "btn",
             `main-table-edit-delete-button-test-class-row-id-${origIndex}`,
             `main-table-edit-delete-button-test-class-display-index-${displayIndex}`,
           ].join(" "),
         );
-        await expect(editButton).toContainClass(
+        await expect(editButton).toHaveClass(
           [
-            "btn",
             `main-table-edit-start-button-test-class-row-id-${origIndex}`,
             `main-table-edit-start-button-test-class-display-index-${displayIndex}`,
           ].join(" "),
@@ -128,16 +126,14 @@ const displayIndexToOrigIndex: Record<0 | 1, number> = {
 
         const saveButton = tr.getByRole("button", { name: "Save" });
         const cancelButton = tr.getByRole("button", { name: "Cancel" });
-        await expect(saveButton).toContainClass(
+        await expect(saveButton).toHaveClass(
           [
-            "btn",
             `main-table-edit-save-button-test-class-row-id-${origIndex}`,
             `main-table-edit-save-button-test-class-display-index-${displayIndex}`,
           ].join(" "),
         );
-        await expect(cancelButton).toContainClass(
+        await expect(cancelButton).toHaveClass(
           [
-            "btn",
             `main-table-edit-cancel-button-test-class-row-id-${origIndex}`,
             `main-table-edit-cancel-button-test-class-display-index-${displayIndex}`,
           ].join(" "),
@@ -146,9 +142,8 @@ const displayIndexToOrigIndex: Record<0 | 1, number> = {
           const td = tr.locator(`td[aria-colindex="${colIndex + 2}"]`);
           const input = td.locator("input");
 
-          await expect(input).toContainClass(
+          await expect(input).toHaveClass(
             [
-              "form-control",
               `main-table-tbody-td-input-test-class-row-id-${origIndex}-col-index-${colIndex}`,
               `main-table-tbody-td-input-test-class-display-index-${displayIndex}-col-index-${colIndex}`,
             ].join(" "),
@@ -156,7 +151,7 @@ const displayIndexToOrigIndex: Record<0 | 1, number> = {
         }
 
         const editColTd = tr.locator('td[aria-colindex="4"]');
-        await expect(editColTd).toContainClass(
+        await expect(editColTd).toHaveClass(
           [
             `main-table-edit-col-td-test-class-row-id-${origIndex}`,
             `main-table-edit-col-td-test-class-display-index-${displayIndex}`,

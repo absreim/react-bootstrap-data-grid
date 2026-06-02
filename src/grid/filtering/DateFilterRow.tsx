@@ -13,10 +13,10 @@ export type DateFilterRowProps = {
   columnLabel: string;
   filterState: DateFormFilterState;
   setFilterState: (filterState: DateFormFilterState) => void;
-  schemeSelectClasses: string[];
-  enableInputClasses: string[];
-  startDateInputClasses: string[];
-  endDateInputClasses: string[];
+  schemeSelectClasses: string[] | undefined;
+  enableInputClasses: string[] | undefined;
+  startDateInputClasses: string[] | undefined;
+  endDateInputClasses: string[] | undefined;
 } & CommonFilterRowStyleProps;
 
 const DateFilterRow: FC<DateFilterRowProps> = ({
@@ -87,7 +87,7 @@ const DateFilterRow: FC<DateFilterRowProps> = ({
           )}
           <input
             id={startDateInputId}
-            className={classNames("form-control", startDateInputClasses)}
+            className={classNames(startDateInputClasses || "form-control")}
             type={inputType}
             required={enabled}
             disabled={!enabled}
@@ -104,7 +104,7 @@ const DateFilterRow: FC<DateFilterRowProps> = ({
           )}
           <input
             id={endDateInputId}
-            className={classNames("form-control", endDateInputClasses)}
+            className={classNames(endDateInputClasses || "form-control")}
             type={inputType}
             required={enabled}
             disabled={!enabled}

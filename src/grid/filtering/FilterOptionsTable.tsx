@@ -10,7 +10,6 @@ import NumberFilterRow from "./NumberFilterRow";
 import useFilterFormState from "./useFilterFormState";
 import DateFilterRow from "./DateFilterRow";
 import classNames from "classnames";
-import { unwrapFilterInputTableStyleModel } from "../styling/styleModelUnwrappers";
 import { FilterInputTableStyleModel } from "../styling/types";
 
 export interface FilterOptionsTableProps {
@@ -92,11 +91,6 @@ const FilterOptionsTable: FC<FilterOptionsTableProps> = ({
   const formFilterState = useFilterFormState(filterState);
   const [formState, setFormState] = useState(formFilterState);
 
-  const unwrappedStyleModel = useMemo(
-    () => unwrapFilterInputTableStyleModel(styleModel),
-    [styleModel],
-  );
-
   const getRows: () => ReactNode[] = () =>
     Object.keys(formState).map((colName, index) => {
       function getColStateSetter(
@@ -120,16 +114,21 @@ const FilterOptionsTable: FC<FilterOptionsTableProps> = ({
               columnLabel={colLabel}
               filterState={colFilterState}
               setFilterState={getColStateSetter(colName)}
-              schemeSelectClasses={unwrappedStyleModel.schemeSelectionInput(
-                index,
-              )}
-              enableInputClasses={unwrappedStyleModel.enablementInput(index)}
-              searchStringInputClasses={unwrappedStyleModel.searchStringInput(
-                index,
-              )}
-              trClasses={unwrappedStyleModel.tbodyTr(index)}
+              schemeSelectClasses={
+                styleModel?.schemeSelectionInput &&
+                styleModel?.schemeSelectionInput(index)
+              }
+              enableInputClasses={
+                styleModel?.enablementInput &&
+                styleModel?.enablementInput(index)
+              }
+              searchStringInputClasses={
+                styleModel?.searchStringInput &&
+                styleModel?.searchStringInput(index)
+              }
+              trClasses={styleModel?.tbodyTr && styleModel?.tbodyTr(index)}
               tdClasses={(colIndex) =>
-                unwrappedStyleModel.tbodyTd(index, colIndex)
+                styleModel?.tbodyTd && styleModel?.tbodyTd(index, colIndex)
               }
             />
           );
@@ -142,14 +141,20 @@ const FilterOptionsTable: FC<FilterOptionsTableProps> = ({
               columnLabel={colLabel}
               filterState={colFilterState}
               setFilterState={getColStateSetter(colName)}
-              schemeSelectClasses={unwrappedStyleModel.schemeSelectionInput(
+              schemeSelectClasses={
+                styleModel?.schemeSelectionInput &&
+                styleModel?.schemeSelectionInput(index)
+              }
+              enableInputClasses={
+                styleModel?.enablementInput &&
+                styleModel?.enablementInput(index)
+              }
+              numberInputClasses={styleModel?.numberInput && styleModel?.numberInput(
                 index,
               )}
-              enableInputClasses={unwrappedStyleModel.enablementInput(index)}
-              numberInputClasses={unwrappedStyleModel.numberInput(index)}
-              trClasses={unwrappedStyleModel.tbodyTr(index)}
+              trClasses={styleModel?.tbodyTr && styleModel?.tbodyTr(index)}
               tdClasses={(colIndex) =>
-                unwrappedStyleModel.tbodyTd(index, colIndex)
+                styleModel?.tbodyTd && styleModel?.tbodyTd(index, colIndex)
               }
             />
           );
@@ -164,15 +169,19 @@ const FilterOptionsTable: FC<FilterOptionsTableProps> = ({
               columnLabel={colLabel}
               filterState={colFilterState}
               setFilterState={getColStateSetter(colName)}
-              schemeSelectClasses={unwrappedStyleModel.schemeSelectionInput(
-                index,
-              )}
-              enableInputClasses={unwrappedStyleModel.enablementInput(index)}
-              startDateInputClasses={unwrappedStyleModel.startDateInput(index)}
-              endDateInputClasses={unwrappedStyleModel.endDateInput(index)}
-              trClasses={unwrappedStyleModel.tbodyTr(index)}
+              schemeSelectClasses={
+                styleModel?.schemeSelectionInput &&
+                styleModel?.schemeSelectionInput(index)
+              }
+              enableInputClasses={
+                styleModel?.enablementInput &&
+                styleModel?.enablementInput(index)
+              }
+              startDateInputClasses={styleModel?.startDateInput && styleModel.startDateInput(index)}
+              endDateInputClasses={styleModel?.endDateInput && styleModel.endDateInput(index)}
+              trClasses={styleModel?.tbodyTr && styleModel?.tbodyTr(index)}
               tdClasses={(colIndex) =>
-                unwrappedStyleModel.tbodyTd(index, colIndex)
+                styleModel?.tbodyTd && styleModel?.tbodyTd(index, colIndex)
               }
             />
           );
@@ -191,19 +200,21 @@ const FilterOptionsTable: FC<FilterOptionsTableProps> = ({
 
   return (
     <form onSubmit={onSubmit} className={classNames(styleModel?.form)}>
-      <table className={classNames("table", ...unwrappedStyleModel.table)}>
+      <table className={classNames(styleModel?.table || "table")}>
         {caption && (
-          <caption className={classNames(unwrappedStyleModel.caption)}>
+          <caption className={classNames(styleModel?.caption)}>
             {caption}
           </caption>
         )}
-        <thead className={classNames(...unwrappedStyleModel.thead)}>
-          <tr className={classNames(...unwrappedStyleModel.theadTr)}>
+        <thead className={classNames(styleModel?.thead)}>
+          <tr className={classNames(styleModel?.theadTr)}>
             {["Enabled", "Column", "Type", "Operator", "Value"].map(
               (colName, index) => (
                 <th
                   key={index}
-                  className={classNames(...unwrappedStyleModel.theadTh(index))}
+                  className={classNames(
+                    styleModel?.theadTh && styleModel.theadTh(index),
+                  )}
                 >
                   {colName}
                 </th>
@@ -211,7 +222,7 @@ const FilterOptionsTable: FC<FilterOptionsTableProps> = ({
             )}
           </tr>
         </thead>
-        <tbody className={classNames(...unwrappedStyleModel.tbody)}>
+        <tbody className={classNames(styleModel?.tbody)}>
           {getRows()}
         </tbody>
       </table>
@@ -225,9 +236,7 @@ const FilterOptionsTable: FC<FilterOptionsTableProps> = ({
         </button>
         <button
           className={classNames(
-            "btn",
-            { "btn-primary": unwrappedStyleModel.submitButton.length === 0 },
-            unwrappedStyleModel.submitButton,
+            styleModel?.submitButton || ["btn", "btn-primary"]
           )}
           type="submit"
         >

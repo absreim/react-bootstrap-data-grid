@@ -8,7 +8,7 @@ import classNames from "classnames";
 export interface PaginationProps {
   normalizedModel: NormalizedPaginationModel;
   prePagingNumRows: number;
-  containerDivClasses: string[];
+  containerDivClasses: string[] | undefined;
 }
 
 const Pagination: FC<PaginationProps> = ({
@@ -49,9 +49,12 @@ const Pagination: FC<PaginationProps> = ({
     <div
       data-testid="pagination ui container div"
       className={classNames(
-        containerDivClasses.length > 0
-          ? containerDivClasses
-          : ["d-flex", "justify-content-end", "gap-2", "px-2"],
+        containerDivClasses || [
+          "d-flex",
+          "justify-content-end",
+          "gap-2",
+          "px-2",
+        ],
       )}
     >
       <PageSizeSelector

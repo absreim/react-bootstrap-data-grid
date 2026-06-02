@@ -19,13 +19,13 @@ export type EditableRowProps = Pick<
   cellData: CellData[]; // contains initial values and metadata
   updateCallback?: (values: string[]) => void; // undefined here means row is not editable at all
   deleteCallback?: () => void;
-  dataCellClasses: (colIndex: number) => string[];
-  dataCellInputClasses: (colIndex: number) => string[];
-  editCellClasses: string[];
-  deleteButtonClasses: string[];
-  cancelButtonClasses: string[];
-  startButtonClasses: string[];
-  saveButtonClasses: string[];
+  dataCellClasses: (colIndex: number) => string[] | null;
+  dataCellInputClasses: (colIndex: number) => string[] | null;
+  editCellClasses: string[] | null;
+  deleteButtonClasses: string[] | null;
+  cancelButtonClasses: string[] | null;
+  startButtonClasses: string[] | null;
+  saveButtonClasses: string[] | null;
   editControlCellStyles?: CSSProperties;
 };
 
@@ -137,8 +137,7 @@ const EditableRow: FC<EditableRowProps> = ({
               aria-label={label}
               name={`editable-cell-input-${dataRowId}-${index}`}
               className={classNames(
-                "form-control",
-                dataCellInputClasses(index),
+                dataCellInputClasses(index) || "form-control"
               )}
               type={colDataTypeToInputType(type)}
               defaultValue={initValueToFormValue(value, type)}

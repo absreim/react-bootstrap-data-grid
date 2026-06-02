@@ -8,11 +8,11 @@ export interface EditControlsCellProps {
   isEditing: boolean;
   saveCallback: () => void;
   deleteCallback?: () => void; // omit prop to disable deletion
-  editControlsCellClasses: string[];
-  saveButtonClasses: string[];
-  deleteButtonClasses: string[];
-  startButtonClasses: string[];
-  cancelButtonClasses: string[];
+  editControlsCellClasses: string[] | null;
+  saveButtonClasses: string[] | null;
+  deleteButtonClasses: string[] | null;
+  startButtonClasses: string[] | null;
+  cancelButtonClasses: string[] | null;
   style?: CSSProperties;
 }
 
@@ -47,10 +47,7 @@ const EditControlsCell: FC<EditControlsCellProps> = ({
             <button
               aria-label="Cancel"
               className={classNames(
-                "btn",
-                cancelButtonClasses.length === 0
-                  ? ["btn-secondary"]
-                  : cancelButtonClasses,
+                cancelButtonClasses || ["btn", "btn-secondary"],
               )}
               onClick={stopPropagationWrapper(cancelEditingCallback)}
               title="Cancel"
@@ -68,10 +65,7 @@ const EditControlsCell: FC<EditControlsCellProps> = ({
             <button
               aria-label="Save"
               className={classNames(
-                "btn",
-                saveButtonClasses.length === 0
-                  ? ["btn-primary"]
-                  : saveButtonClasses,
+                saveButtonClasses || ["btn", "btn-primary"],
               )}
               onClick={stopPropagationWrapper(saveCallback)}
               title="Save"
@@ -94,10 +88,7 @@ const EditControlsCell: FC<EditControlsCellProps> = ({
               <button
                 aria-label="Delete"
                 className={classNames(
-                  "btn",
-                  deleteButtonClasses.length === 0
-                    ? ["btn-secondary"]
-                    : deleteButtonClasses,
+                  deleteButtonClasses || ["btn", "btn-secondary"],
                 )}
                 onClick={stopPropagationWrapper(deleteCallback)}
                 title="Delete"
@@ -116,10 +107,7 @@ const EditControlsCell: FC<EditControlsCellProps> = ({
             <button
               aria-label="Edit"
               className={classNames(
-                "btn",
-                startButtonClasses.length === 0
-                  ? ["btn-primary"]
-                  : startButtonClasses,
+                startButtonClasses || ["btn", "btn-primary"],
               )}
               onClick={stopPropagationWrapper(beginEditingCallback)}
               title="Edit"

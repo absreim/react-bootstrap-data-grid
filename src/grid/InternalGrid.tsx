@@ -19,7 +19,6 @@ export interface InternalGridProps {
   hooks: {
     selectFns: UseGridSelectionFnsHook;
     pipelineOutput: UseCombinedPipelineHook;
-    unwrappedStyles: UseUnwrappedGridStylesHook;
   };
   slots: {
     colHeaderCells: ReactNode;
@@ -45,7 +44,7 @@ const InternalGrid: FC<InternalGridProps> = ({
     displayMode,
     allowExport,
   },
-  hooks: { pipelineOutput, selectFns, unwrappedStyles },
+  hooks: { pipelineOutput, selectFns },
   slots: { colHeaderCells, bodyRows, prefixHeader },
   classes,
 }) => {
@@ -57,7 +56,7 @@ const InternalGrid: FC<InternalGridProps> = ({
     currentPageRowsOutput: { paginatedRows, normalizedModel },
     showSelectCol,
   } = pipelineOutput;
-  
+
   const exportFnInfo = useExportFn({
     rows,
     cols,
@@ -101,31 +100,30 @@ const InternalGrid: FC<InternalGridProps> = ({
   const toolbarInterfaces = useInterfaces(toolbarPropGen);
 
   const { rowsAreSelectable, selectionInfo, selectAllOnClick } = selectFns;
-  const { unwrappedTableModel, unwrappedAdditionalStyleModel } =
-    unwrappedStyles;
 
   const mainTable = (
     <table
       className={classNames(
-        "table",
         {
           "table-hover": rowsAreSelectable,
           "d-block": displayMode === "block",
         },
-        unwrappedTableModel.table,
+        styleModel?.mainTableStyleModel?.table || "table",
       )}
       aria-rowcount={filteredRows.length + 1}
     >
       {caption !== undefined && (
-        <caption className={classNames(unwrappedTableModel.caption)}>
+        <caption
+          className={classNames(styleModel?.mainTableStyleModel?.caption)}
+        >
           {caption}
         </caption>
       )}
-      <thead className={classNames(unwrappedTableModel.thead)}>
+      <thead className={classNames(styleModel?.mainTableStyleModel?.thead)}>
         <tr
           aria-rowindex={1}
           className={classNames(
-            unwrappedTableModel.theadTr,
+            styleModel?.mainTableStyleModel?.theadTr,
             classes?.headerRow || [],
           )}
         >
@@ -136,7 +134,7 @@ const InternalGrid: FC<InternalGridProps> = ({
               selectionInfo={selectionInfo!}
               onClick={selectAllOnClick}
               totalRows={rows.length}
-              additionalClasses={unwrappedTableModel.rowSelectColTh}
+              customClasses={styleModel?.mainTableStyleModel?.rowSelectColTh}
               colIndexOffset={prefixHeader ? 1 : 0}
             />
           )}
@@ -144,7 +142,7 @@ const InternalGrid: FC<InternalGridProps> = ({
           {editModel && (
             <th
               aria-colindex={cols.length + 1 + (showSelectCol ? 1 : 0)}
-              className={classNames(unwrappedTableModel.editColTh)}
+              className={classNames(styleModel?.mainTableStyleModel?.editColTh)}
               style={getWidthStyle(editModel?.editColWidth)}
             >
               Edit Controls
@@ -152,7 +150,11 @@ const InternalGrid: FC<InternalGridProps> = ({
           )}
         </tr>
       </thead>
-      <tbody className={classNames(unwrappedTableModel.tbody)}>
+      <tbody
+        className={classNames(
+          classNames(styleModel?.mainTableStyleModel?.tbody),
+        )}
+      >
         {bodyRows}
       </tbody>
     </table>
@@ -161,7 +163,9 @@ const InternalGrid: FC<InternalGridProps> = ({
   return (
     <div
       data-testid="rbdg-top-level-div"
-      className={classNames(unwrappedAdditionalStyleModel.topLevelDiv)}
+      className={classNames(
+        styleModel?.additionalComponentsStyleModel?.topLevelDiv,
+      )}
     >
       {showToolbar && (
         <ToolbarContainer
@@ -172,21 +176,20 @@ const InternalGrid: FC<InternalGridProps> = ({
       <div
         data-testid="rbdg-table-and-pagination-div"
         className={classNames(
-          unwrappedAdditionalStyleModel.tableAndPaginationDiv,
+          styleModel?.additionalComponentsStyleModel?.tableAndPaginationDiv,
         )}
       >
-        {responsive ? (
-          <div data-testid="rbdg-table-div" className="table-responsive">
-            {mainTable}
-          </div>
-        ) : (
-          <>{mainTable}</>
-        )}
+        <div
+          data-testid="rbdg-table-div"
+          className={classNames(responsive ? "table-responsive" : null)}
+        >
+          {mainTable}
+        </div>
         {normalizedModel && (
           <Pagination
             normalizedModel={normalizedModel}
             prePagingNumRows={sortedRows.length}
-            containerDivClasses={unwrappedAdditionalStyleModel.paginationUiDiv}
+            containerDivClasses={styleModel?.additionalComponentsStyleModel?.paginationUiDiv}
           />
         )}
       </div>

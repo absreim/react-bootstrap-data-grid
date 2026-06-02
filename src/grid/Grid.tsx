@@ -7,7 +7,6 @@ import { ColSortModel } from "./sorting/types";
 import ColHeaderCell from "./main/ColHeaderCell";
 import useCombinedPipeline from "./pipeline/useCombinedPipeline";
 import useGridSelectionFns from "./pipeline/useGridSelectionFns";
-import useUnwrappedGridStyles from "./pipeline/useUnwrappedGridStyles";
 import useGetInputStrSubmitCallback from "./pipeline/useGetInputStrSubmitCallback";
 import { ColNameToWidth } from "./pipeline/types";
 import useAugFormattedRows from "./pipeline/useAugFormattedRows";
@@ -39,7 +38,6 @@ const Grid: FC<GridProps> = (props) => {
     displayRows,
   } = combinedPipelineOutput;
   const gridSelectionFns = useGridSelectionFns(selectModel, rows);
-  const unwrappedStyles = useUnwrappedGridStyles(styleModel);
   const getInputStrSubmitCallback = useGetInputStrSubmitCallback(
     editModel,
     cols,
@@ -85,10 +83,10 @@ const Grid: FC<GridProps> = (props) => {
       augFormattedRows={augFormattedRows}
       gridSelectionFns={gridSelectionFns}
       selectModel={selectModel}
-      unwrappedStyles={unwrappedStyles}
       combinedPipelineOutput={combinedPipelineOutput}
       editModel={editModel}
       getInputStrSubmitCallback={getInputStrSubmitCallback}
+      tableStyleModel={styleModel?.mainTableStyleModel}
     />
   );
 
@@ -98,7 +96,6 @@ const Grid: FC<GridProps> = (props) => {
       hooks={{
         pipelineOutput: combinedPipelineOutput,
         selectFns: gridSelectionFns,
-        unwrappedStyles,
       }}
       slots={{ colHeaderCells, bodyRows }}
     />
