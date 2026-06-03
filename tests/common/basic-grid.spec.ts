@@ -25,7 +25,7 @@ const confirmWidthStyle: (
       await page.goto(url);
     });
 
-    test(`${edition} grid displays correct column headings`, async ({
+    test(`grid displays correct column headings`, async ({
       page,
     }) => {
       const workingGridContainer = page.getByTestId(
@@ -51,7 +51,7 @@ const confirmWidthStyle: (
       );
     });
 
-    test(`${edition} displays values correctly with or without formatters`, async ({
+    test(`displays values correctly with or without formatters`, async ({
       page,
     }) => {
       const workingGridContainer = page.getByTestId(
@@ -79,7 +79,7 @@ const confirmWidthStyle: (
       );
     });
 
-    test(`${edition} displays rows in the correct order`, async ({ page }) => {
+    test(`displays rows in the correct order`, async ({ page }) => {
       const workingGridContainer = page.getByTestId(
         "functioning grid container",
       );
@@ -100,7 +100,7 @@ const confirmWidthStyle: (
       );
     });
 
-    test(`${edition} displays the specified caption`, async ({ page }) => {
+    test(`displays the specified caption`, async ({ page }) => {
       const workingGridContainer = page.getByTestId(
         "functioning grid container",
       );
@@ -109,11 +109,11 @@ const confirmWidthStyle: (
       await expect(captionElement).toHaveText("basic test grid");
     });
 
-    test(`${edition} renders a responsive table when the relevant prop is passed`, async ({
+    test(`renders a responsive table by default`, async ({
       page,
     }) => {
       const responsiveGridContainer = page.getByTestId(
-        "responsive grid container",
+        "functioning grid container",
       );
 
       const tableContainer =
@@ -121,7 +121,7 @@ const confirmWidthStyle: (
       await expect(tableContainer).toHaveClass("table-responsive");
     });
 
-    test(`${edition} setting a width applies the width to the style attribute`, async ({
+    test(`setting a width applies the width to the style attribute`, async ({
       page,
     }) => {
       const workingGridContainer = page.getByTestId(
@@ -130,7 +130,7 @@ const confirmWidthStyle: (
       await confirmWidthStyle(150, 2, workingGridContainer);
     });
 
-    test(`${edition} in block display mode, setting a width causes the column to be that width`, async ({
+    test(`in block display mode, setting a width causes the column to be that width`, async ({
       page,
     }) => {
       const blockGridContainer = page.getByTestId("block grid container");

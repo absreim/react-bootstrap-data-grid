@@ -39,7 +39,6 @@ const InternalGrid: FC<InternalGridProps> = ({
     editModel,
     caption,
     styleModel,
-    responsive,
     displayMode,
     allowExport,
   },
@@ -180,7 +179,10 @@ const InternalGrid: FC<InternalGridProps> = ({
       >
         <div
           data-testid="rbdg-table-div"
-          className={classNames(responsive ? "table-responsive" : null)}
+          className={classNames(
+            styleModel?.additionalComponentsStyleModel?.tableDiv ||
+              "table-responsive",
+          )}
         >
           {mainTable}
         </div>

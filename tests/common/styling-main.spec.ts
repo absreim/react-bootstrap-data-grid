@@ -13,11 +13,12 @@ const displayIndexToOrigIndex: Record<0 | 1, number> = {
       await page.goto(url);
     });
 
-    test(`${edition} single element styles work`, async ({ page }) => {
+    test(`single element styles work`, async ({ page }) => {
       const topLevelDiv = page.getByTestId("rbdg-top-level-div");
       const tableAndPaginationDiv = page.getByTestId(
         "rbdg-table-and-pagination-div",
       );
+      const tableDiv = page.getByTestId("rbdg-table-div");
       const paginationUiDiv = page.getByTestId("pagination ui container div");
       const table = page.getByRole("table");
       const tbody = page.locator("tbody");
@@ -35,6 +36,7 @@ const displayIndexToOrigIndex: Record<0 | 1, number> = {
       await expect(tableAndPaginationDiv).toHaveClass(
         "table-and-pagination-div-test-class",
       );
+      await expect(tableDiv).toHaveClass("table-div-test-class");
       await expect(paginationUiDiv).toHaveClass("pagination-ui-div-test-class");
       await expect(table).toHaveClass("table-hover main-table-test-class");
       await expect(tbody).toHaveClass("main-table-body-test-class");
@@ -47,7 +49,7 @@ const displayIndexToOrigIndex: Record<0 | 1, number> = {
       );
     });
 
-    test(`${edition} col index-based styles work`, async ({ page }) => {
+    test(`col index-based styles work`, async ({ page }) => {
       const thead = page.locator("thead");
       for (let colIndex = 0; colIndex < 2; colIndex++) {
         const th = thead.locator(`th[aria-colindex="${colIndex + 2}"]`);
@@ -57,7 +59,7 @@ const displayIndexToOrigIndex: Record<0 | 1, number> = {
       }
     });
 
-    test(`${edition} body rows and cells styling works`, async ({ page }) => {
+    test(`body rows and cells styling works`, async ({ page }) => {
       const tbody = page.locator("tbody");
       for (let displayIndex = 0; displayIndex < 2; displayIndex++) {
         const tr = tbody.locator(`tr[aria-rowindex="${displayIndex + 5}"]`);
@@ -80,7 +82,7 @@ const displayIndexToOrigIndex: Record<0 | 1, number> = {
       }
     });
 
-    test(`${edition} select column control styling works`, async ({ page }) => {
+    test(`select column control styling works`, async ({ page }) => {
       const tbody = page.locator("tbody");
       for (let displayIndex = 0; displayIndex < 2; displayIndex++) {
         const tr = tbody.locator(`tr[aria-rowindex="${displayIndex + 5}"]`);
@@ -102,7 +104,7 @@ const displayIndexToOrigIndex: Record<0 | 1, number> = {
       }
     });
 
-    test(`${edition} edit control styling works`, async ({ page }) => {
+    test(`edit control styling works`, async ({ page }) => {
       const tbody = page.locator("tbody");
       for (let displayIndex = 0; displayIndex < 2; displayIndex++) {
         const tr = tbody.locator(`tr[aria-rowindex="${displayIndex + 5}"]`);

@@ -5,7 +5,6 @@ import GridPro from "@/grid-pro";
 import {
   basicGridProps,
   blockGridProps,
-  responsiveGridProps,
 } from "@/app/test-info";
 
 const Test: FC = () => {
@@ -13,9 +12,6 @@ const Test: FC = () => {
     <>
       <div data-testid="functioning grid container">
         <GridPro {...basicGridProps} />
-      </div>
-      <div data-testid="responsive grid container">
-        <GridPro {...responsiveGridProps} />
       </div>
       <div data-testid="block grid container">
         <GridPro {...blockGridProps} />

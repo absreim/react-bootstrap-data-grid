@@ -87,12 +87,6 @@ export const basicGridProps: GridProps = {
   caption: "basic test grid",
 };
 
-export const responsiveGridProps: GridProps = {
-  rows,
-  cols,
-  responsive: true,
-};
-
 export const blockGridProps: GridProps = {
   rows,
   cols,

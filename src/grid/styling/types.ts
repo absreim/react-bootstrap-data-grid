@@ -48,6 +48,7 @@ export type FilterInputTableStyleModel = SharedTableStyleModel & {
 export interface AdditionalComponentsStyleModel {
   topLevelDiv?: string[];
   tableAndPaginationDiv?: string[];
+  tableDiv?: string[];
   paginationUiDiv?: string[];
 }
 

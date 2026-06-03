@@ -75,7 +75,6 @@ export interface GridProps {
   editModel?: EditModel;
   caption?: string;
   styleModel?: StyleModel;
-  responsive?: boolean;
   displayMode?: DisplayMode;
   allowExport?: boolean;
 }

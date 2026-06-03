@@ -113,6 +113,7 @@ import { expect, test } from "@playwright/test";
       await expect(gridTable).toBeVisible();
 
       // Enable and input into number filter
+      // Known to be flaky due to checkbox not changing within 20ms threshold
       await filterToggle.click();
       await container
         .locator('input[aria-label="Number Column Column Filter Toggle"]')
