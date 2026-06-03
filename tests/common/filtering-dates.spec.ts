@@ -1,5 +1,5 @@
 import { test } from "@playwright/test";
-import { getTestIdVariants, validateGridContents } from "../util";
+import { validateGridContents } from "../util";
 
 ["community", "pro"].forEach((edition) => {
   const url = edition === "pro" ? "filtering/dates/pro" : "filtering/dates";
@@ -10,7 +10,9 @@ import { getTestIdVariants, validateGridContents } from "../util";
     });
 
     ["controlled", "uncontrolled"].forEach((controlScheme) => {
-      test(`${edition} ${controlScheme} start date filter works correctly`, async ({ page }) => {
+      test(`${edition} ${controlScheme} start date filter works correctly`, async ({
+        page,
+      }) => {
         const testId = `start date grid container-${controlScheme}`;
         const container = page.getByTestId(testId);
 

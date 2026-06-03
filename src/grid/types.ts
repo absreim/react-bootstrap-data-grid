@@ -37,7 +37,7 @@ export type AugRowDef<Data extends ValidRowData = ValidRowData> =
   };
 
 export type PostPaginationRowDef<Data extends ValidRowData = ValidRowData> =
-  AugRowDef & {
+  AugRowDef<Data> & {
     prePaginationIndex: number;
   };
 

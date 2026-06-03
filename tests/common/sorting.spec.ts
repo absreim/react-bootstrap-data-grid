@@ -199,7 +199,7 @@ import { test, expect } from "@playwright/test";
           await expect(secondRowCell).toHaveText("2");
           await expect(thirdRowCell).toHaveText("10");
         });
-      })
-    })
+      });
+    });
   });
 });

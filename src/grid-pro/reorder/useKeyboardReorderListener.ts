@@ -1,5 +1,5 @@
 import { ActiveKeyboardReorderState, ReorderCallback } from "./types";
-import { KeyboardEventHandler, useCallback } from "react";
+import { useCallback } from "react";
 
 const useKeyboardReorderListener: (
   state: ActiveKeyboardReorderState | null,

@@ -4,7 +4,6 @@ import {
   MouseEventHandler,
   PointerEventHandler,
   useCallback,
-  useMemo,
 } from "react";
 import HorizontalGrip from "../assets/HorizontalGrip";
 import { ReorderStyles, RowId } from "../";

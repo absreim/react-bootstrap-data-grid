@@ -11,7 +11,9 @@ export interface InterfaceParams {
   exporting?: ExportFormProps;
 }
 
-export type InterfacePropGenerator = (closeUiCallback: () => void) => InterfaceParams;
+export type InterfacePropGenerator = (
+  closeUiCallback: () => void,
+) => InterfaceParams;
 
 export type InterfaceNodeGenerator = (
   closeUiCallback: () => void,

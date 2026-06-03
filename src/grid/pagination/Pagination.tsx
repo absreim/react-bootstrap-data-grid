@@ -1,7 +1,6 @@
 import { FC } from "react";
 import PageSizeSelector from "./PageSizeSelector";
 import PageSelector from "./PageSelector";
-import { JustifyContentSetting } from "../types";
 import { NormalizedPaginationModel } from "./types";
 import classNames from "classnames";
 

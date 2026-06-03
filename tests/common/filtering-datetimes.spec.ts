@@ -1,5 +1,5 @@
 import { test } from "@playwright/test";
-import { getTestIdVariants, validateGridContents } from "../util";
+import { validateGridContents } from "../util";
 
 ["community", "pro"].forEach((edition) => {
   const url =
@@ -11,7 +11,9 @@ import { getTestIdVariants, validateGridContents } from "../util";
     });
 
     ["controlled", "uncontrolled"].forEach((controlScheme) => {
-      test(`${controlScheme} start datetime filter works correctly`, async ({ page }) => {
+      test(`${controlScheme} start datetime filter works correctly`, async ({
+        page,
+      }) => {
         const testId = `start datetime grid container-${controlScheme}`;
         const container = page.getByTestId(testId);
 
@@ -46,7 +48,9 @@ import { getTestIdVariants, validateGridContents } from "../util";
         await validateGridContents(newTbody, expectedSubsequentContents);
       });
 
-      test(`${controlScheme} end datetime filter works correctly`, async ({ page }) => {
+      test(`${controlScheme} end datetime filter works correctly`, async ({
+        page,
+      }) => {
         const testId = `end datetime grid container-${controlScheme}`;
         const container = page.getByTestId(testId);
 
@@ -77,7 +81,9 @@ import { getTestIdVariants, validateGridContents } from "../util";
         await validateGridContents(newTbody, expectedSubsequentContents);
       });
 
-      test(`between datetimes filter works correctly-${controlScheme}`, async ({ page }) => {
+      test(`between datetimes filter works correctly-${controlScheme}`, async ({
+        page,
+      }) => {
         const testId = `between datetimes grid container-${controlScheme}`;
         const container = page.getByTestId(testId);
 

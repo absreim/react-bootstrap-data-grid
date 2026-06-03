@@ -137,7 +137,7 @@ const EditableRow: FC<EditableRowProps> = ({
               aria-label={label}
               name={`editable-cell-input-${dataRowId}-${index}`}
               className={classNames(
-                dataCellInputClasses(index) || "form-control"
+                dataCellInputClasses(index) || "form-control",
               )}
               type={colDataTypeToInputType(type)}
               defaultValue={initValueToFormValue(value, type)}

@@ -1,5 +1,5 @@
 import { test } from "@playwright/test";
-import { getTestIdVariants, validateGridContents } from "../util";
+import { validateGridContents } from "../util";
 
 ["community", "pro"].forEach((edition) => {
   const url = edition === "pro" ? "filtering/other/pro" : "filtering/other";
@@ -44,7 +44,9 @@ import { getTestIdVariants, validateGridContents } from "../util";
         await validateGridContents(newTbody, expectedSubsequentContents);
       });
 
-      test(`${controlScheme} greater than number filter works correctly`, async ({ page }) => {
+      test(`${controlScheme} greater than number filter works correctly`, async ({
+        page,
+      }) => {
         const testId = `number greater than grid container-${controlScheme}`;
         const container = page.getByTestId(testId);
 
@@ -76,7 +78,9 @@ import { getTestIdVariants, validateGridContents } from "../util";
         await validateGridContents(newTbody, expectedSubsequentContents);
       });
 
-      test(`${controlScheme} equals number filter works correctly`, async ({ page }) => {
+      test(`${controlScheme} equals number filter works correctly`, async ({
+        page,
+      }) => {
         const testId = `number equals grid container-${controlScheme}`;
         const container = page.getByTestId(testId);
 
@@ -173,7 +177,9 @@ import { getTestIdVariants, validateGridContents } from "../util";
         await validateGridContents(newTbody, expectedSubsequentContents);
       });
 
-      test(`${controlScheme} contains string filter works correctly`, async ({ page }) => {
+      test(`${controlScheme} contains string filter works correctly`, async ({
+        page,
+      }) => {
         const testId = `string contains grid container-${controlScheme}`;
         const container = page.getByTestId(testId);
 
@@ -204,7 +210,9 @@ import { getTestIdVariants, validateGridContents } from "../util";
         await validateGridContents(newTbody, expectedSubsequentContents);
       });
 
-      test(`${controlScheme} starts with string filter works correctly`, async ({ page }) => {
+      test(`${controlScheme} starts with string filter works correctly`, async ({
+        page,
+      }) => {
         const testId = `string starts with grid container-${controlScheme}`;
         const container = page.getByTestId(testId);
 

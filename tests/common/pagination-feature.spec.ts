@@ -1,5 +1,5 @@
 import { test, expect } from "@playwright/test";
-import { getTestIdVariants, validateGridContents } from "../util";
+import { validateGridContents } from "../util";
 
 ["community", "pro"].forEach((edition) => {
   const url =

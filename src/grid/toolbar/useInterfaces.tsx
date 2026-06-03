@@ -1,8 +1,5 @@
 import FilterOptionsTable from "../filtering/FilterOptionsTable";
-import {
-  InterfacePropGenerator,
-  ToolbarInterfaces,
-} from "./types";
+import { InterfacePropGenerator, ToolbarInterfaces } from "./types";
 import { useMemo } from "react";
 import ExportForm from "../export/ExportForm";
 

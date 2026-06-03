@@ -1,6 +1,6 @@
 "use client";
 
-import { FC, ReactNode, useMemo, useState } from "react";
+import { FC, ReactNode, useMemo } from "react";
 import { BaseGridProps } from "./types";
 import SelectAllHeaderCell from "./selection/SelectAllHeaderCell";
 import Pagination from "./pagination/Pagination";
@@ -11,7 +11,6 @@ import useExportFn from "./export/useExportFn";
 import getWidthStyle from "./util/getWidthStyle";
 import { UseCombinedPipelineHook } from "./pipeline/useCombinedPipeline";
 import { UseGridSelectionFnsHook } from "./pipeline/useGridSelectionFns";
-import { UseUnwrappedGridStylesHook } from "./pipeline/useUnwrappedGridStyles";
 import { InterfacePropGenerator } from "./toolbar/types";
 
 export interface InternalGridProps {
@@ -189,7 +188,9 @@ const InternalGrid: FC<InternalGridProps> = ({
           <Pagination
             normalizedModel={normalizedModel}
             prePagingNumRows={sortedRows.length}
-            containerDivClasses={styleModel?.additionalComponentsStyleModel?.paginationUiDiv}
+            containerDivClasses={
+              styleModel?.additionalComponentsStyleModel?.paginationUiDiv
+            }
           />
         )}
       </div>

@@ -1,4 +1,4 @@
-import { FC, ReactNode, SubmitEventHandler, useMemo, useState } from "react";
+import { FC, ReactNode, SubmitEventHandler, useState } from "react";
 import StringFilterRow from "./StringFilterRow";
 import {
   EditableTableFilterState,
@@ -149,9 +149,9 @@ const FilterOptionsTable: FC<FilterOptionsTableProps> = ({
                 styleModel?.enablementInput &&
                 styleModel?.enablementInput(index)
               }
-              numberInputClasses={styleModel?.numberInput && styleModel?.numberInput(
-                index,
-              )}
+              numberInputClasses={
+                styleModel?.numberInput && styleModel?.numberInput(index)
+              }
               trClasses={styleModel?.tbodyTr && styleModel?.tbodyTr(index)}
               tdClasses={(colIndex) =>
                 styleModel?.tbodyTd && styleModel?.tbodyTd(index, colIndex)
@@ -177,8 +177,12 @@ const FilterOptionsTable: FC<FilterOptionsTableProps> = ({
                 styleModel?.enablementInput &&
                 styleModel?.enablementInput(index)
               }
-              startDateInputClasses={styleModel?.startDateInput && styleModel.startDateInput(index)}
-              endDateInputClasses={styleModel?.endDateInput && styleModel.endDateInput(index)}
+              startDateInputClasses={
+                styleModel?.startDateInput && styleModel.startDateInput(index)
+              }
+              endDateInputClasses={
+                styleModel?.endDateInput && styleModel.endDateInput(index)
+              }
               trClasses={styleModel?.tbodyTr && styleModel?.tbodyTr(index)}
               tdClasses={(colIndex) =>
                 styleModel?.tbodyTd && styleModel?.tbodyTd(index, colIndex)
@@ -222,9 +226,7 @@ const FilterOptionsTable: FC<FilterOptionsTableProps> = ({
             )}
           </tr>
         </thead>
-        <tbody className={classNames(styleModel?.tbody)}>
-          {getRows()}
-        </tbody>
+        <tbody className={classNames(styleModel?.tbody)}>{getRows()}</tbody>
       </table>
       <div className="hstack justify-content-end gap-2">
         <button
@@ -236,7 +238,7 @@ const FilterOptionsTable: FC<FilterOptionsTableProps> = ({
         </button>
         <button
           className={classNames(
-            styleModel?.submitButton || ["btn", "btn-primary"]
+            styleModel?.submitButton || ["btn", "btn-primary"],
           )}
           type="submit"
         >

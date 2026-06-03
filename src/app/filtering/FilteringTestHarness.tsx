@@ -42,22 +42,10 @@ const FilteringTestHarness: FC<FilteringTestHarnessProps> = ({
   );
 
   if (pro) {
-    return (
-      <GridPro
-        rows={rows}
-        cols={cols}
-        filterModel={filterModel}
-      />
-    );
+    return <GridPro rows={rows} cols={cols} filterModel={filterModel} />;
   }
 
-  return (
-    <Grid
-      rows={rows}
-      cols={cols}
-      filterModel={filterModel}
-    />
-  );
+  return <Grid rows={rows} cols={cols} filterModel={filterModel} />;
 };
 
 export default FilteringTestHarness;
