@@ -6,16 +6,15 @@ import { test, expect } from "@playwright/test";
   test.describe(`${edition} filter style tests`, () => {
     test.beforeEach(async ({ page }) => {
       await page.goto(url);
-
-      const toolbar = page.getByRole("toolbar");
-      const filterToggle = toolbar.getByRole("button", { name: "Filtering" });
-      await filterToggle.click();
     });
 
-    test(`${edition} filter table single element styles work`, async ({
-      page,
-    }) => {
-      const toolbarUiContainer = page.getByTestId(
+    test(`filter table single element styles work`, async ({ page }) => {
+      const container = page.getByTestId("complete style model container");
+      const toolbar = container.getByRole("toolbar");
+      const filterToggle = toolbar.getByRole("button", { name: "Filtering" });
+      await filterToggle.click();
+
+      const toolbarUiContainer = container.getByTestId(
         "toolbar feature interface content container",
       );
 
@@ -42,10 +41,13 @@ import { test, expect } from "@playwright/test";
       await expect(submitButton).toHaveClass("submit-button-test-class");
     });
 
-    test(`${edition} row index-based universal styles work`, async ({
-      page,
-    }) => {
-      const toolbarUiContainer = page.getByTestId(
+    test(`row index-based universal styles work`, async ({ page }) => {
+      const container = page.getByTestId("complete style model container");
+      const toolbar = container.getByRole("toolbar");
+      const filterToggle = toolbar.getByRole("button", { name: "Filtering" });
+      await filterToggle.click();
+
+      const toolbarUiContainer = container.getByTestId(
         "toolbar feature interface content container",
       );
 
@@ -70,7 +72,37 @@ import { test, expect } from "@playwright/test";
       }
     });
 
-    test(`${edition} type-specific input styles work`, async ({ page }) => {
+    test(`null row index-based universal styles work`, async ({ page }) => {
+      const container = page.getByTestId("null style model container");
+      const toolbar = container.getByRole("toolbar");
+      const filterToggle = toolbar.getByRole("button", { name: "Filtering" });
+      await filterToggle.click();
+
+      const toolbarUiContainer = container.getByTestId(
+        "toolbar feature interface content container",
+      );
+
+      const table = toolbarUiContainer.getByRole("table");
+      const tbody = table.locator("tbody");
+
+      for (let rowIndex = 0; rowIndex < 4; rowIndex++) {
+        const tr = tbody.locator(`tr[aria-rowindex="${rowIndex + 2}"]`);
+        await expect(tr).toHaveClass("");
+        const enablementInput = tr.locator('td[aria-colindex="1"] > input');
+        await expect(enablementInput).toHaveClass("");
+        const schemeSelectionInput = tr.locator(
+          'td[aria-colindex="4"] > select',
+        );
+        await expect(schemeSelectionInput).toHaveClass("form-select");
+      }
+    });
+
+    test(`type-specific input styles work`, async ({ page }) => {
+      const container = page.getByTestId("complete style model container");
+      const toolbar = container.getByRole("toolbar");
+      const filterToggle = toolbar.getByRole("button", { name: "Filtering" });
+      await filterToggle.click();
+
       const strInput = page.getByRole("textbox", {
         name: "String Column Column Filter Value",
       });
@@ -100,8 +132,42 @@ import { test, expect } from "@playwright/test";
       );
     });
 
-    test(`${edition} row and col index-based styles work`, async ({ page }) => {
-      const toolbarUiContainer = page.getByTestId(
+    test(`null type-specific input styles work`, async ({ page }) => {
+      const container = page.getByTestId("null style model container");
+      const toolbar = container.getByRole("toolbar");
+      const filterToggle = toolbar.getByRole("button", { name: "Filtering" });
+      await filterToggle.click();
+
+      const strInput = page.getByRole("textbox", {
+        name: "String Column Column Filter Value",
+      });
+      const numInput = page.getByRole("spinbutton", {
+        name: "Number Column Column Filter Value",
+      });
+      const startDateInput = page.getByRole("textbox", {
+        name: "Date Column Column Filter Start Date",
+      });
+      const endDateInput = page.getByRole("textbox", {
+        name: "Date Column Column Filter End Date",
+      });
+      const endDatetimeInput = page.getByRole("textbox", {
+        name: "Datetime Column Column Filter End Date",
+      });
+
+      await expect(strInput).toHaveClass("form-control");
+      await expect(numInput).toHaveClass("form-control");
+      await expect(startDateInput).toHaveClass("form-control");
+      await expect(endDateInput).toHaveClass("form-control");
+      await expect(endDatetimeInput).toHaveClass("form-control");
+    });
+
+    test(`row and col index-based styles work`, async ({ page }) => {
+      const container = page.getByTestId("complete style model container");
+      const toolbar = container.getByRole("toolbar");
+      const filterToggle = toolbar.getByRole("button", { name: "Filtering" });
+      await filterToggle.click();
+
+      const toolbarUiContainer = container.getByTestId(
         "toolbar feature interface content container",
       );
 
@@ -117,6 +183,28 @@ import { test, expect } from "@playwright/test";
               " " +
               `filter-input-table-tbody-td-test-class-col-${colIndex}`,
           );
+        }
+      }
+    });
+
+    test("null row and col index-based styles work", async ({ page }) => {
+      const container = page.getByTestId("null style model container");
+      const toolbar = container.getByRole("toolbar");
+      const filterToggle = toolbar.getByRole("button", { name: "Filtering" });
+      await filterToggle.click();
+
+      const toolbarUiContainer = container.getByTestId(
+        "toolbar feature interface content container",
+      );
+
+      const table = toolbarUiContainer.getByRole("table");
+      const tbody = table.locator("tbody");
+
+      for (let rowIndex = 0; rowIndex < 4; rowIndex++) {
+        const tr = tbody.locator(`tr[aria-rowindex="${rowIndex + 2}"]`);
+        for (let colIndex = 0; colIndex < 5; colIndex++) {
+          const td = tr.locator(`td[aria-colindex="${colIndex + 1}"]`);
+          await expect(td).toHaveClass("");
         }
       }
     });
