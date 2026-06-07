@@ -14,21 +14,24 @@ const displayIndexToOrigIndex: Record<0 | 1, number> = {
     });
 
     test(`single element styles work`, async ({ page }) => {
-      const topLevelDiv = page.getByTestId("rbdg-top-level-div");
-      const tableAndPaginationDiv = page.getByTestId(
+      const container = page.getByTestId("complete style model container");
+      const topLevelDiv = container.getByTestId("rbdg-top-level-div");
+      const tableAndPaginationDiv = container.getByTestId(
         "rbdg-table-and-pagination-div",
       );
-      const tableDiv = page.getByTestId("rbdg-table-div");
-      const paginationUiDiv = page.getByTestId("pagination ui container div");
-      const table = page.getByRole("table");
-      const tbody = page.locator("tbody");
-      const thead = page.locator("thead");
+      const tableDiv = container.getByTestId("rbdg-table-div");
+      const paginationUiDiv = container.getByTestId(
+        "pagination ui container div",
+      );
+      const table = container.getByRole("table");
+      const tbody = container.locator("tbody");
+      const thead = container.locator("thead");
       const theadTr = thead.getByRole("row");
-      const caption = page.getByRole("caption");
-      const editColTh = page.getByRole("columnheader", {
+      const caption = container.getByRole("caption");
+      const editColTh = container.getByRole("columnheader", {
         name: "Edit Controls",
       });
-      const rowSelectColTh = page.getByRole("columnheader", {
+      const rowSelectColTh = container.getByRole("columnheader", {
         name: "Select all rows",
       });
 
@@ -50,17 +53,28 @@ const displayIndexToOrigIndex: Record<0 | 1, number> = {
     });
 
     test(`col index-based styles work`, async ({ page }) => {
-      const thead = page.locator("thead");
+      const container = page.getByTestId("complete style model container");
+      const thead = container.locator("thead");
       for (let colIndex = 0; colIndex < 2; colIndex++) {
         const th = thead.locator(`th[aria-colindex="${colIndex + 2}"]`);
         await expect(th).toContainClass(
-          `main-table-thead-th-test-class-col-${colIndex}}`,
+          `main-table-thead-th-test-class-col-${colIndex}`,
         );
       }
     });
 
+    test(`null col index-based styles work`, async ({ page }) => {
+      const container = page.getByTestId("null style model container");
+      const thead = container.locator("thead");
+      const strTh = thead.locator(`th[aria-colindex="2"]`);
+      await expect(strTh).toHaveClass("");
+      const numTh = thead.locator(`th[aria-colindex="3"]`);
+      await expect(numTh).toHaveClass("rbdg-sort-toggler table-active");
+    });
+
     test(`body rows and cells styling works`, async ({ page }) => {
-      const tbody = page.locator("tbody");
+      const container = page.getByTestId("complete style model container");
+      const tbody = container.locator("tbody");
       for (let displayIndex = 0; displayIndex < 2; displayIndex++) {
         const tr = tbody.locator(`tr[aria-rowindex="${displayIndex + 5}"]`);
         const origIndex = displayIndexToOrigIndex[displayIndex as 0 | 1];
@@ -82,8 +96,22 @@ const displayIndexToOrigIndex: Record<0 | 1, number> = {
       }
     });
 
+    test(`null body rows and cells styling works`, async ({ page }) => {
+      const container = page.getByTestId("null style model container");
+      const tbody = container.locator("tbody");
+      for (let displayIndex = 0; displayIndex < 2; displayIndex++) {
+        const tr = tbody.locator(`tr[aria-rowindex="${displayIndex + 5}"]`);
+        await expect(tr).toHaveClass("");
+        for (let colIndex = 0; colIndex < 2; colIndex++) {
+          const td = tr.locator(`td[aria-colindex="${colIndex + 2}"]`);
+          await expect(td).toHaveClass("");
+        }
+      }
+    });
+
     test(`select column control styling works`, async ({ page }) => {
-      const tbody = page.locator("tbody");
+      const container = page.getByTestId("complete style model container");
+      const tbody = container.locator("tbody");
       for (let displayIndex = 0; displayIndex < 2; displayIndex++) {
         const tr = tbody.locator(`tr[aria-rowindex="${displayIndex + 5}"]`);
         const origIndex = displayIndexToOrigIndex[displayIndex as 0 | 1];
@@ -104,8 +132,21 @@ const displayIndexToOrigIndex: Record<0 | 1, number> = {
       }
     });
 
+    test(`null select column control styling works`, async ({ page }) => {
+      const container = page.getByTestId("null style model container");
+      const tbody = container.locator("tbody");
+      for (let displayIndex = 0; displayIndex < 2; displayIndex++) {
+        const tr = tbody.locator(`tr[aria-rowindex="${displayIndex + 5}"]`);
+        const td = tr.locator('td[aria-colindex="1"]');
+        await expect(td).toHaveClass("");
+        const input = td.getByRole("checkbox");
+        await expect(input).toHaveClass("");
+      }
+    });
+
     test(`edit control styling works`, async ({ page }) => {
-      const tbody = page.locator("tbody");
+      const container = page.getByTestId("complete style model container");
+      const tbody = container.locator("tbody");
       for (let displayIndex = 0; displayIndex < 2; displayIndex++) {
         const tr = tbody.locator(`tr[aria-rowindex="${displayIndex + 5}"]`);
         const origIndex = displayIndexToOrigIndex[displayIndex as 0 | 1];
@@ -159,6 +200,34 @@ const displayIndexToOrigIndex: Record<0 | 1, number> = {
             `main-table-edit-col-td-test-class-display-index-${displayIndex}`,
           ].join(" "),
         );
+      }
+    });
+
+    test(`null edit control styling works`, async ({ page }) => {
+      const container = page.getByTestId("null style model container");
+      const tbody = container.locator("tbody");
+      for (let displayIndex = 0; displayIndex < 2; displayIndex++) {
+        const tr = tbody.locator(`tr[aria-rowindex="${displayIndex + 5}"]`);
+        const deleteButton = tr.getByRole("button", { name: "Delete" });
+        const editButton = tr.getByRole("button", { name: "Edit" });
+        await expect(deleteButton).toHaveClass("btn btn-secondary");
+        await expect(editButton).toHaveClass("btn btn-primary");
+
+        await editButton.click();
+
+        const saveButton = tr.getByRole("button", { name: "Save" });
+        const cancelButton = tr.getByRole("button", { name: "Cancel" });
+        await expect(saveButton).toHaveClass("btn btn-primary");
+        await expect(cancelButton).toHaveClass("btn btn-secondary");
+        for (let colIndex = 0; colIndex < 2; colIndex++) {
+          const td = tr.locator(`td[aria-colindex="${colIndex + 2}"]`);
+          const input = td.locator("input");
+
+          await expect(input).toHaveClass("form-control");
+        }
+
+        const editColTd = tr.locator('td[aria-colindex="4"]');
+        await expect(editColTd).toHaveClass("");
       }
     });
   });

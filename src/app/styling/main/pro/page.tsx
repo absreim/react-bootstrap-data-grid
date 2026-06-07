@@ -1,10 +1,10 @@
 import { FC } from "react";
-import MainStylingTestHarness from "@/app/styling/main/MainStylingTestHarness";
+import TestContents from "@/app/styling/main/TestContents";
 
 const Test: FC = () => {
   return (
     <>
-      <MainStylingTestHarness pro />
+      <TestContents pro />
     </>
   );
 };

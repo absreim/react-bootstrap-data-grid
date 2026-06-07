@@ -15,12 +15,12 @@ export type TableStyleModel = SharedTableStyleModel & {
     rowId: RowId,
     displayRowIndex: number,
     colIndex: number,
-  ) => string[];
+  ) => string[] | null;
   tbodyTdInput?: (
     rowId: RowId,
     displayRowIndex: number,
     colIndex: number,
-  ) => string[];
+  ) => string[] | null;
   editColTh?: string[];
   editColTd?: (rowId: RowId, displayIndex: number) => string[] | null;
   editStartButton?: (rowId: RowId, displayIndex: number) => string[] | null;
