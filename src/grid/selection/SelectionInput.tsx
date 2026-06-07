@@ -23,7 +23,7 @@ export interface SelectionInputProps {
   selected: boolean;
   selectionInputModel: SelectionInputModel;
   selectCallback: () => void;
-  additionalClasses?: string[];
+  additionalClasses?: string[] | null;
   index: number;
 }
 

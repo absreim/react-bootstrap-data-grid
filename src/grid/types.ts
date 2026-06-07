@@ -88,6 +88,6 @@ export interface ColHeaderCellProps {
   label: string;
   sortModel?: ColSortModel;
   ariaColIndex: number;
-  additionalClasses?: string[];
+  additionalClasses?: string[] | null;
   width?: number;
 }

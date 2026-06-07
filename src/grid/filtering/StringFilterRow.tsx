@@ -12,9 +12,9 @@ type StringFilterRowProps = {
   columnLabel: string;
   filterState: StringFilterState;
   setFilterState: (filterState: StringFilterState) => void;
-  schemeSelectClasses: string[] | undefined;
-  enableInputClasses: string[] | undefined;
-  searchStringInputClasses: string[] | undefined;
+  schemeSelectClasses: string[] | null | undefined;
+  enableInputClasses: string[] | null | undefined;
+  searchStringInputClasses: string[] | null | undefined;
 } & CommonFilterRowStyleProps;
 
 const StringFilterRow: FC<StringFilterRowProps> = ({

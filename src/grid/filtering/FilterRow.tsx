@@ -11,10 +11,10 @@ export interface FilterRowProps<FilterScheme extends string> {
   handleSchemeChange: ChangeEventHandler<HTMLSelectElement>;
   schemesToLabels: Record<FilterScheme, string>;
   searchStringInputCellContents: ReactNode;
-  trClasses: string[] | undefined;
-  tdClasses: (colIndex: number) => string[] | undefined;
-  inputClasses: string[] | undefined;
-  selectClasses: string[] | undefined;
+  trClasses: string[] | null | undefined;
+  tdClasses: (colIndex: number) => (string[] | null) | undefined;
+  inputClasses: string[] | null | undefined;
+  selectClasses: string[] | null | undefined;
 }
 
 export type CommonFilterRowStyleProps = Pick<

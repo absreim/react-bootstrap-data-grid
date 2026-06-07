@@ -12,9 +12,9 @@ export type NumberFilterRowProps = {
   columnLabel: string;
   filterState: NumberFormFilterState;
   setFilterState: (filterState: NumberFormFilterState) => void;
-  schemeSelectClasses: string[] | undefined;
-  enableInputClasses: string[] | undefined;
-  numberInputClasses: string[] | undefined;
+  schemeSelectClasses: string[] | null | undefined;
+  enableInputClasses: string[] | null | undefined;
+  numberInputClasses: string[] | null | undefined;
 } & CommonFilterRowStyleProps;
 
 const NumberFilterRow: FC<NumberFilterRowProps> = ({

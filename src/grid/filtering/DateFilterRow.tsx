@@ -13,10 +13,10 @@ export type DateFilterRowProps = {
   columnLabel: string;
   filterState: DateFormFilterState;
   setFilterState: (filterState: DateFormFilterState) => void;
-  schemeSelectClasses: string[] | undefined;
-  enableInputClasses: string[] | undefined;
-  startDateInputClasses: string[] | undefined;
-  endDateInputClasses: string[] | undefined;
+  schemeSelectClasses: string[] | null | undefined;
+  enableInputClasses: string[] | null | undefined;
+  startDateInputClasses: string[] | null | undefined;
+  endDateInputClasses: string[] | null | undefined;
 } & CommonFilterRowStyleProps;
 
 const DateFilterRow: FC<DateFilterRowProps> = ({
