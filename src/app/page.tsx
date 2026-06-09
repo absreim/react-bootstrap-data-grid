@@ -2,10 +2,7 @@
 
 import { FC } from "react";
 import Grid from "@/grid";
-import {
-  basicGridProps,
-  blockGridProps,
-} from "@/app/test-info";
+import { basicGridProps, blockGridProps } from "@/app/test-info";
 
 const Test: FC = () => {
   return (

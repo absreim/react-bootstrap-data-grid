@@ -15,7 +15,8 @@ export interface FilterStylingTestHarnessProps {
 }
 
 const FilterStylingTestHarness: FC<FilterStylingTestHarnessProps> = ({
-  pro, styleModel
+  pro,
+  styleModel,
 }) => {
   const [tableFilterState, setTableFilterState] =
     useState<EditableTableFilterState>({

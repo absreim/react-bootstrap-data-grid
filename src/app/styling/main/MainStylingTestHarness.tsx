@@ -81,7 +81,10 @@ export interface MainStylingTestHarnessProps {
   styleModel?: StyleModel;
 }
 
-const MainStylingTestHarness: FC<MainStylingTestHarnessProps> = ({ pro, styleModel }) => {
+const MainStylingTestHarness: FC<MainStylingTestHarnessProps> = ({
+  pro,
+  styleModel,
+}) => {
   const [currentPage, setCurrentPage] = useState<number>(2);
   const [pageSizeIndex, setPageSizeIndex] = useState<number>(0);
   const pagination: PaginationModel = useMemo(

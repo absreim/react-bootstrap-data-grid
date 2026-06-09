@@ -57,7 +57,7 @@ const nullStyleModel: StyleModel = {
     numberInput: () => null,
     startDateInput: () => null,
     endDateInput: () => null,
-  }
+  },
 };
 
 const TestContents: FC<{ pro?: boolean }> = ({ pro }) => (

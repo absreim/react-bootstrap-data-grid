@@ -25,9 +25,7 @@ const confirmWidthStyle: (
       await page.goto(url);
     });
 
-    test(`grid displays correct column headings`, async ({
-      page,
-    }) => {
+    test(`grid displays correct column headings`, async ({ page }) => {
       const workingGridContainer = page.getByTestId(
         "functioning grid container",
       );
@@ -109,9 +107,7 @@ const confirmWidthStyle: (
       await expect(captionElement).toHaveText("basic test grid");
     });
 
-    test(`renders a responsive table by default`, async ({
-      page,
-    }) => {
+    test(`renders a responsive table by default`, async ({ page }) => {
       const responsiveGridContainer = page.getByTestId(
         "functioning grid container",
       );

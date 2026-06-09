@@ -1,8 +1,6 @@
 "use client";
 
-import {
-  StyleModel,
-} from "@/grid";
+import { StyleModel } from "@/grid";
 import { FC } from "react";
 import MainStylingTestHarness from "@/app/styling/main/MainStylingTestHarness";
 
