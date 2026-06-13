@@ -1,5 +1,5 @@
-export * from "../grid";
-export { default } from "./GridPro";
+export * from "../table";
+export { default } from "./TablePro";
 export * from "./types";
 export * from "./util";
 

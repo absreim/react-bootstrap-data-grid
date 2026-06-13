@@ -1,4 +1,4 @@
-import { ColDef, EditableTableFilterState, RowDef } from "@/grid";
+import { ColDef, EditableTableFilterState, RowDef } from "@/table";
 import { TestParams } from "@/app/filtering/types";
 import { FC, Fragment } from "react";
 import FilteringTestHarness from "@/app/filtering/FilteringTestHarness";

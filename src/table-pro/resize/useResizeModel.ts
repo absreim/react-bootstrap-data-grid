@@ -1,5 +1,5 @@
 import { ProColDef } from "../types";
-import { DisplayMode } from "../../grid";
+import { DisplayMode } from "../../table";
 import { ColResizeModel, ResizeModel } from "./types";
 import { useMemo, useState } from "react";
 

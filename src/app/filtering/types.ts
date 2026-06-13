@@ -1,4 +1,4 @@
-import { ColDef, EditableTableFilterState, RowDef } from "@/grid";
+import { ColDef, EditableTableFilterState, RowDef } from "@/table";
 
 export interface TestParams {
   testId: string;

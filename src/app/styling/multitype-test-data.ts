@@ -1,4 +1,4 @@
-import { ColDef, dateToDatetimeInputStr, dateToInputStr, RowDef } from "@/grid";
+import { ColDef, dateToDatetimeInputStr, dateToInputStr, RowDef } from "@/table";
 
 export const cols: ColDef[] = [
   {

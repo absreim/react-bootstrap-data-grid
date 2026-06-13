@@ -1,7 +1,7 @@
 import { FC, useEffect, useState } from "react";
 import PageSelector, {
   PageSelectorProps,
-} from "@/grid/pagination/PageSelector";
+} from "@/table/pagination/PageSelector";
 
 type PageSelectorTestHarnessProps = Omit<PageSelectorProps, "setPageNum">;
 

@@ -1,13 +1,13 @@
 "use client";
 
-import Grid, {
+import Table, {
   EditableTableFilterState,
   FilterModel,
   StyleModel,
-} from "@/grid";
+} from "@/table";
 import { FC, useMemo, useState } from "react";
 import { cols, rows } from "@/app/styling/multitype-test-data";
-import GridPro from "@/grid-pro";
+import TablePro from "@/table-pro";
 
 export interface FilterStylingTestHarnessProps {
   styleModel: StyleModel;
@@ -57,7 +57,7 @@ const FilterStylingTestHarness: FC<FilterStylingTestHarnessProps> = ({
 
   if (pro) {
     return (
-      <GridPro
+      <TablePro
         rows={rows}
         cols={cols}
         filterModel={filterModel}
@@ -68,7 +68,7 @@ const FilterStylingTestHarness: FC<FilterStylingTestHarnessProps> = ({
   }
 
   return (
-    <Grid
+    <Table
       rows={rows}
       cols={cols}
       filterModel={filterModel}

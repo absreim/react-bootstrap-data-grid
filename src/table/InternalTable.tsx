@@ -29,7 +29,7 @@ export interface InternalGridProps {
   };
 }
 
-const InternalGrid: FC<InternalGridProps> = ({
+const InternalTable: FC<InternalGridProps> = ({
   gridProps: {
     rows,
     cols,
@@ -200,4 +200,4 @@ const InternalGrid: FC<InternalGridProps> = ({
   );
 };
 
-export default InternalGrid;
+export default InternalTable;

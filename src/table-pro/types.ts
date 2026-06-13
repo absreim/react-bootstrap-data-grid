@@ -4,7 +4,7 @@ import {
   ColHeaderCellProps,
   GridProps,
   StyleModel,
-} from "../grid";
+} from "../table";
 import { ReorderModel, ReorderStyleModel } from "./reorder/types";
 
 export type ProColDef<ValueType = any> = ColDefBase<ValueType> & {

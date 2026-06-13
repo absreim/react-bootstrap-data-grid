@@ -4,7 +4,7 @@ import {
   dateToInputStr,
   EditableTableFilterState,
   RowDef,
-} from "@/grid";
+} from "@/table";
 import { TestParams } from "@/app/filtering/types";
 import FilteringTestHarness from "@/app/filtering/FilteringTestHarness";
 

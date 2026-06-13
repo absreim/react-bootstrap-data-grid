@@ -2,23 +2,23 @@
 
 import { FC, useCallback, useEffect, useMemo } from "react";
 import { AugFormattedRow, ColSortModel, RowId } from "./";
-import useCombinedPipeline from "../grid/pipeline/useCombinedPipeline";
-import InternalGrid from "../grid/InternalGrid";
+import useCombinedPipeline from "../table/pipeline/useCombinedPipeline";
+import InternalTable from "../table/InternalTable";
 import { GridProProps } from "./types";
 import ColHeaderCellPro from "./ColHeaderCellPro";
-import useGridSelectionFns from "../grid/pipeline/useGridSelectionFns";
-import useGetInputStrSubmitCallback from "../grid/pipeline/useGetInputStrSubmitCallback";
-import { ColNameToWidth } from "../grid/pipeline/types";
-import useAugFormattedRows from "../grid/pipeline/useAugFormattedRows";
+import useGridSelectionFns from "../table/pipeline/useGridSelectionFns";
+import useGetInputStrSubmitCallback from "../table/pipeline/useGetInputStrSubmitCallback";
+import { ColNameToWidth } from "../table/pipeline/types";
+import useAugFormattedRows from "../table/pipeline/useAugFormattedRows";
 import useResizeModel from "./resize/useResizeModel";
-import BodyRows from "../grid/main/BodyRows";
+import BodyRows from "../table/main/BodyRows";
 import ReorderHeaderCell from "./reorder/ReorderHeaderCell";
 import ReorderHandleCell from "./reorder/ReorderHandleCell";
 import useKeyboardReorder from "./reorder/useKeyboardReorder";
 import useReorderStyles from "./reorder/useReorderStyles";
 import useKeyboardReorderListener from "./reorder/useKeyboardReorderListener";
 
-const GridPro: FC<GridProProps> = (props) => {
+const TablePro: FC<GridProProps> = (props) => {
   const {
     rows,
     cols,
@@ -245,7 +245,7 @@ const GridPro: FC<GridProProps> = (props) => {
   const prefixHeader = reorder ? <ReorderHeaderCell /> : null;
 
   return (
-    <InternalGrid
+    <InternalTable
       gridProps={props}
       hooks={{
         pipelineOutput: combinedPipelineOutput,
@@ -259,4 +259,4 @@ const GridPro: FC<GridProProps> = (props) => {
   );
 };
 
-export default GridPro;
+export default TablePro;

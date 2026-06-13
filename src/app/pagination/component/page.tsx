@@ -1,7 +1,7 @@
 "use client";
 
 import { FC } from "react";
-import PageSelector from "@/grid/pagination/PageSelector";
+import PageSelector from "@/table/pagination/PageSelector";
 import PageSelectorTestHarness from "@/app/pagination/component/PageSelectorTestHarness";
 
 const Test: FC = () => {

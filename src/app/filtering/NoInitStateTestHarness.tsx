@@ -1,6 +1,6 @@
-import Grid, { ColDef, FilterModel, RowDef } from "@/grid";
+import Table, { ColDef, FilterModel, RowDef } from "@/table";
 import { FC } from "react";
-import GridPro from "@/grid-pro";
+import TablePro from "@/table-pro";
 
 interface NoInitStateTestHarnessProps {
   cols: ColDef[];
@@ -21,10 +21,10 @@ const NoInitStateTestHarness: FC<NoInitStateTestHarnessProps> = ({
   };
 
   if (pro) {
-    return <GridPro rows={rows} cols={cols} filterModel={filterModel} />;
+    return <TablePro rows={rows} cols={cols} filterModel={filterModel} />;
   }
 
-  return <Grid rows={rows} cols={cols} filterModel={filterModel} />;
+  return <Table rows={rows} cols={cols} filterModel={filterModel} />;
 };
 
 export default NoInitStateTestHarness;

@@ -1,13 +1,13 @@
 import { FC, useState } from "react";
-import Grid, {
+import Table, {
   ColDef,
   FilterModel,
   MultiSelectModel,
   RowDef,
   RowId,
-} from "@/grid";
+} from "@/table";
 import { MultiSelectModelInitialState } from "@/app/selection/types";
-import GridPro from "@/grid-pro";
+import TablePro from "@/table-pro";
 
 export interface MultiSelectionTestHarnessProps {
   rows: RowDef[];
@@ -33,7 +33,7 @@ const MultiSelectionTestHarness: FC<MultiSelectionTestHarnessProps> = ({
 
   if (pro) {
     return (
-      <GridPro
+      <TablePro
         rows={rows}
         cols={cols}
         selectModel={model}
@@ -43,7 +43,7 @@ const MultiSelectionTestHarness: FC<MultiSelectionTestHarnessProps> = ({
   }
 
   return (
-    <Grid
+    <Table
       rows={rows}
       cols={cols}
       selectModel={model}

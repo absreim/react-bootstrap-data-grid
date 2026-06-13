@@ -1,9 +1,9 @@
 "use client";
 
-import Grid, { StyleModel } from "@/grid";
+import Table, { StyleModel } from "@/table";
 import { FC } from "react";
 import { cols, rows } from "@/app/styling/multitype-test-data";
-import GridPro from "@/grid-pro";
+import TablePro from "@/table-pro";
 
 const styleModel: StyleModel = {
   toolbarStyleModel: {
@@ -17,7 +17,7 @@ const styleModel: StyleModel = {
 const ToolbarStylingTestHarness: FC<{ pro?: boolean }> = ({ pro }) => {
   if (pro) {
     return (
-      <GridPro
+      <TablePro
         rows={rows}
         cols={cols}
         filterModel={{ type: "uncontrolled" }}
@@ -27,7 +27,7 @@ const ToolbarStylingTestHarness: FC<{ pro?: boolean }> = ({ pro }) => {
   }
 
   return (
-    <Grid
+    <Table
       rows={rows}
       cols={cols}
       filterModel={{ type: "uncontrolled" }}

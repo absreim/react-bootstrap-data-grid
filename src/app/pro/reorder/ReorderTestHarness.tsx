@@ -1,6 +1,6 @@
 "use client";
 
-import GridPro, {
+import TablePro, {
   ProColDef,
   reorderRows,
   dateToDatetimeInputStr,
@@ -8,9 +8,9 @@ import GridPro, {
   RowDef,
   RowId,
   SelectModel,
-} from "@/grid-pro";
+} from "@/table-pro";
 import { FC, useCallback, useEffect, useMemo, useRef, useState } from "react";
-import { ReorderCallback, ReorderStyleModel } from "@/grid-pro/reorder/types";
+import { ReorderCallback, ReorderStyleModel } from "@/table-pro/reorder/types";
 
 interface TestRow {
   strCol: string;
@@ -173,7 +173,7 @@ const ReorderTestHarness: FC<ReorderTestHarnessProps> = ({ styleModel }) => {
 
   return (
     <div ref={divRef}>
-      <GridPro
+      <TablePro
         sortModel={{
           type: "uncontrolled",
           initialSortColDef: null,

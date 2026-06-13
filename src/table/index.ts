@@ -6,7 +6,7 @@ export * from "./filtering/types";
 export * from "./sorting/types";
 export * from "./pagination/types";
 
-export * from "./Grid";
+export * from "./Table";
 export * from "./util/datetime";
 
-export { default } from "./Grid";
+export { default } from "./Table";

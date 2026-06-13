@@ -1,11 +1,11 @@
-import Grid, {
+import Table, {
   ColDef,
   EditableTableFilterState,
   FilterModel,
   RowDef,
-} from "@/grid";
+} from "@/table";
 import { FC, useMemo, useState } from "react";
-import GridPro from "@/grid-pro";
+import TablePro from "@/table-pro";
 
 interface FilteringTestHarnessProps {
   cols: ColDef[];
@@ -42,10 +42,10 @@ const FilteringTestHarness: FC<FilteringTestHarnessProps> = ({
   );
 
   if (pro) {
-    return <GridPro rows={rows} cols={cols} filterModel={filterModel} />;
+    return <TablePro rows={rows} cols={cols} filterModel={filterModel} />;
   }
 
-  return <Grid rows={rows} cols={cols} filterModel={filterModel} />;
+  return <Table rows={rows} cols={cols} filterModel={filterModel} />;
 };
 
 export default FilteringTestHarness;

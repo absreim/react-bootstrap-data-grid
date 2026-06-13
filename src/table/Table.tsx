@@ -2,7 +2,7 @@
 
 import { FC, useMemo } from "react";
 import { AugFormattedRow, GridProps } from "./types";
-import InternalGrid from "./InternalGrid";
+import InternalTable from "./InternalTable";
 import { ColSortModel } from "./sorting/types";
 import ColHeaderCell from "./main/ColHeaderCell";
 import useCombinedPipeline from "./pipeline/useCombinedPipeline";
@@ -12,7 +12,7 @@ import { ColNameToWidth } from "./pipeline/types";
 import useAugFormattedRows from "./pipeline/useAugFormattedRows";
 import BodyRows from "./main/BodyRows";
 
-const Grid: FC<GridProps> = (props) => {
+const Table: FC<GridProps> = (props) => {
   const {
     rows,
     cols,
@@ -91,7 +91,7 @@ const Grid: FC<GridProps> = (props) => {
   );
 
   return (
-    <InternalGrid
+    <InternalTable
       gridProps={props}
       hooks={{
         pipelineOutput: combinedPipelineOutput,
@@ -102,6 +102,6 @@ const Grid: FC<GridProps> = (props) => {
   );
 };
 
-export default Grid;
+export default Table;
 
 export type { GridProps } from "./types";

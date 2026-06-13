@@ -1,6 +1,6 @@
 import { FC, useMemo, useState } from "react";
-import Grid, { ColDef, PaginationModel, RowDef } from "@/grid";
-import GridPro from "@/grid-pro";
+import Table, { ColDef, PaginationModel, RowDef } from "@/table";
+import TablePro from "@/table-pro";
 
 export type PaginationFeatureTestHarnessProps = Omit<
   PaginationModel,
@@ -60,10 +60,10 @@ const PaginationFeatureTestHarness: FC<PaginationFeatureTestHarnessProps> = ({
   ]);
 
   if (pro) {
-    return <GridPro rows={rows} cols={cols} pagination={paginationState} />;
+    return <TablePro rows={rows} cols={cols} pagination={paginationState} />;
   }
 
-  return <Grid rows={rows} cols={cols} pagination={paginationState} />;
+  return <Table rows={rows} cols={cols} pagination={paginationState} />;
 };
 
 export default PaginationFeatureTestHarness;

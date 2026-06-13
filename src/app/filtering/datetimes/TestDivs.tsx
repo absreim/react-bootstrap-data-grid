@@ -3,7 +3,7 @@ import {
   dateToDatetimeInputStr,
   EditableTableFilterState,
   RowDef,
-} from "@/grid";
+} from "@/table";
 import { TestParams } from "@/app/filtering/types";
 import { FC, Fragment } from "react";
 import FilteringTestHarness from "@/app/filtering/FilteringTestHarness";

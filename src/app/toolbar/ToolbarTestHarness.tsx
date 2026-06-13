@@ -1,13 +1,13 @@
 "use client";
 
-import Grid, {
+import Table, {
   ColDef,
   dateToDatetimeInputStr,
   dateToInputStr,
   RowDef,
-} from "@/grid";
+} from "@/table";
 import { FC } from "react";
-import GridPro from "@/grid-pro";
+import TablePro from "@/table-pro";
 
 interface ToolbarTestHarnessProps {
   // As of this writing, if filtering is not enabled, there is only one button
@@ -84,7 +84,7 @@ const ToolbarTestHarness: FC<ToolbarTestHarnessProps> = ({
 }) => {
   if (pro) {
     return (
-      <GridPro
+      <TablePro
         rows={rows}
         cols={cols}
         filterModel={enableFiltering ? { type: "uncontrolled" } : undefined}
@@ -94,7 +94,7 @@ const ToolbarTestHarness: FC<ToolbarTestHarnessProps> = ({
   }
 
   return (
-    <Grid
+    <Table
       rows={rows}
       cols={cols}
       filterModel={enableFiltering ? { type: "uncontrolled" } : undefined}
