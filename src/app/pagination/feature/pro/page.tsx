@@ -1,7 +1,7 @@
 "use client";
 
 import { FC } from "react";
-import TestDivs from "@/app/pagination/feature/TestDivs";
+import TestDivs from "../TestDivs";
 
 const Test: FC = () => {
   return <TestDivs pro />;

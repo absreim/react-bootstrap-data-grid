@@ -1,7 +1,7 @@
-import { ColDef, EditableTableFilterState, RowDef } from "@/grid";
-import { TestParams } from "@/app/filtering/types";
+import { ColDef, EditableFilterState, RowDef } from "../../../table";
+import { TestParams } from "../types";
 import { FC, Fragment } from "react";
-import FilteringTestHarness from "@/app/filtering/FilteringTestHarness";
+import FilteringTestHarness from "../FilteringTestHarness";
 
 const numTestCols: ColDef[] = [
   {
@@ -74,7 +74,7 @@ const strTestRows: RowDef<{ strCol: string }>[] = [
   },
 ];
 
-const lessThanFilterState: EditableTableFilterState = {
+const lessThanFilterState: EditableFilterState = {
   numCol: {
     enabled: true,
     type: "number",
@@ -83,7 +83,7 @@ const lessThanFilterState: EditableTableFilterState = {
   },
 };
 
-const greaterThanFilterState: EditableTableFilterState = {
+const greaterThanFilterState: EditableFilterState = {
   numCol: {
     enabled: true,
     type: "number",
@@ -92,7 +92,7 @@ const greaterThanFilterState: EditableTableFilterState = {
   },
 };
 
-const equalToFilterState: EditableTableFilterState = {
+const equalToFilterState: EditableFilterState = {
   numCol: {
     enabled: true,
     type: "number",
@@ -101,7 +101,7 @@ const equalToFilterState: EditableTableFilterState = {
   },
 };
 
-const leqFilterState: EditableTableFilterState = {
+const leqFilterState: EditableFilterState = {
   numCol: {
     enabled: true,
     type: "number",
@@ -110,7 +110,7 @@ const leqFilterState: EditableTableFilterState = {
   },
 };
 
-const geqFilterState: EditableTableFilterState = {
+const geqFilterState: EditableFilterState = {
   numCol: {
     enabled: true,
     type: "number",
@@ -119,7 +119,7 @@ const geqFilterState: EditableTableFilterState = {
   },
 };
 
-const containsFilterState: EditableTableFilterState = {
+const containsFilterState: EditableFilterState = {
   strCol: {
     enabled: true,
     type: "string",
@@ -128,7 +128,7 @@ const containsFilterState: EditableTableFilterState = {
   },
 };
 
-const startsWithFilterState: EditableTableFilterState = {
+const startsWithFilterState: EditableFilterState = {
   strCol: {
     enabled: true,
     type: "string",
@@ -137,7 +137,7 @@ const startsWithFilterState: EditableTableFilterState = {
   },
 };
 
-const endsWithFilterState: EditableTableFilterState = {
+const endsWithFilterState: EditableFilterState = {
   strCol: {
     enabled: true,
     type: "string",

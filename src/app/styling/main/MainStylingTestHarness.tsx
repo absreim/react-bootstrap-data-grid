@@ -1,6 +1,6 @@
 "use client";
 
-import Grid, {
+import Table, {
   ColDef,
   EditModel,
   PaginationModel,
@@ -9,10 +9,10 @@ import Grid, {
   RowId,
   SortColDef,
   StyleModel,
-  TableSortModel,
-} from "@/grid";
+  SortModel,
+} from "../../../table";
 import { FC, useMemo, useState } from "react";
-import GridPro from "@/grid-pro";
+import TablePro from "../../../table-pro";
 
 const cols: ColDef[] = [
   {
@@ -103,7 +103,7 @@ const MainStylingTestHarness: FC<MainStylingTestHarnessProps> = ({
     name: "numCol",
     order: "desc",
   });
-  const sortModel: TableSortModel = useMemo(
+  const sortModel: SortModel = useMemo(
     () => ({
       sortColDef,
       setSortColDef,
@@ -124,7 +124,7 @@ const MainStylingTestHarness: FC<MainStylingTestHarnessProps> = ({
 
   if (pro) {
     return (
-      <GridPro
+      <TablePro
         rows={rows}
         cols={cols}
         pagination={pagination}
@@ -138,7 +138,7 @@ const MainStylingTestHarness: FC<MainStylingTestHarnessProps> = ({
   }
 
   return (
-    <Grid
+    <Table
       rows={rows}
       cols={cols}
       pagination={pagination}

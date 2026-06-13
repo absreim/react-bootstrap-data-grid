@@ -1,5 +1,5 @@
 import { FC } from "react";
-import ToolbarStylingTestHarness from "@/app/styling/toolbar/ToolbarStylingTestHarness";
+import ToolbarStylingTestHarness from "./ToolbarStylingTestHarness";
 
 const Test: FC = () => {
   return (

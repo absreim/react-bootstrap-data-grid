@@ -1,6 +1,6 @@
-import Grid, { ColDef, RowDef, SortColDef, TableSortModel } from "@/grid";
+import Table, { ColDef, RowDef, SortColDef, SortModel } from "../../table";
 import { FC, useState } from "react";
-import GridPro from "@/grid-pro";
+import TablePro from "../../table-pro";
 
 interface SortTestHarnessProps {
   cols: ColDef[];
@@ -21,7 +21,7 @@ const SortTestHarness: FC<SortTestHarnessProps> = ({
     initialSortDef,
   );
 
-  const tableSortModel: TableSortModel = controlled
+  const tableSortModel: SortModel = controlled
     ? {
         sortColDef,
         setSortColDef,
@@ -32,10 +32,10 @@ const SortTestHarness: FC<SortTestHarnessProps> = ({
       };
 
   if (pro) {
-    return <GridPro rows={rows} cols={cols} sortModel={tableSortModel} />;
+    return <TablePro rows={rows} cols={cols} sortModel={tableSortModel} />;
   }
 
-  return <Grid rows={rows} cols={cols} sortModel={tableSortModel} />;
+  return <Table rows={rows} cols={cols} sortModel={tableSortModel} />;
 };
 
 export default SortTestHarness;

@@ -1,8 +1,8 @@
 "use client";
 
-import { StyleModel } from "@/grid";
+import { StyleModel } from "../../../table";
 import { FC } from "react";
-import FilterStylingTestHarness from "@/app/styling/filtering/FilterStylingTestHarness";
+import FilterStylingTestHarness from "./FilterStylingTestHarness";
 
 const completeStyleModel: StyleModel = {
   filterInputTableStyleModel: {

@@ -1,5 +1,5 @@
 import { FC } from "react";
-import EditingTestHarness from "@/app/editing/EditingTestHarness";
+import EditingTestHarness from "../EditingTestHarness";
 
 const Test: FC = () => {
   return (

@@ -1,7 +1,12 @@
 import { FC, useState } from "react";
-import Grid, { ColDef, RowDef, RowId, SingleSelectModel } from "@/grid";
-import { SingleSelectModelInitialState } from "@/app/selection/types";
-import GridPro from "@/grid-pro";
+import Table, {
+  ColDef,
+  RowDef,
+  RowId,
+  SingleSelectModel,
+} from "../../../table";
+import { SingleSelectModelInitialState } from "../types";
+import TablePro from "../../../table-pro";
 
 export interface SingleSelectionTestHarnessProps {
   rows: RowDef[];
@@ -24,10 +29,10 @@ const SingleSelectionTestHarness: FC<SingleSelectionTestHarnessProps> = ({
   };
 
   if (pro) {
-    return <GridPro rows={rows} cols={cols} selectModel={model} />;
+    return <TablePro rows={rows} cols={cols} selectModel={model} />;
   }
 
-  return <Grid rows={rows} cols={cols} selectModel={model} />;
+  return <Table rows={rows} cols={cols} selectModel={model} />;
 };
 
 export default SingleSelectionTestHarness;

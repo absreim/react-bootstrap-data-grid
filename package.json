@@ -1,6 +1,6 @@
 {
   "name": "@absreim/react-bootstrap-data-grid",
-  "version": "3.0.0",
+  "version": "4.0.0",
   "private": true,
   "description": "Monorepo containing a documentation site as well as the component's code for a data grid UI component for use with web apps using React and Bootstrap.",
   "homepage": "https://react-bootstrap-data-grid.vercel.app/",
@@ -40,6 +40,7 @@
     "eslint-config-prettier": "^10.1.8",
     "eslint-plugin-unused-imports": "^4.4.1",
     "prettier": "^3.7.4",
+    "react-bootstrap": "^2.10.10",
     "sass": "^1.95.1",
     "typescript": "^5.9"
   }

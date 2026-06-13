@@ -1,10 +1,13 @@
 "use client";
 
-import { RowDef, StyleModel } from "@/grid-pro";
+import {
+  RowDef,
+  StyleModel,
+  dateToDatetimeInputStr,
+  dateToInputStr,
+} from "../../../common";
 import { FC, useMemo, useState } from "react";
-import { dateToDatetimeInputStr, dateToInputStr } from "@/grid-pro";
-import GridPro from "@/grid-pro/GridPro";
-import { ProColDef } from "@/grid-pro/types";
+import TablePro, { ProColDef } from "../../../table-pro";
 
 interface TestRow {
   strCol: string;
@@ -95,7 +98,7 @@ const ResizeTestHarness: FC = () => {
   );
 
   return (
-    <GridPro
+    <TablePro
       displayMode="block"
       rows={rows}
       cols={cols}

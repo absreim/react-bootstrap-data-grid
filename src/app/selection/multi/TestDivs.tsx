@@ -1,6 +1,6 @@
 import { FC } from "react";
-import MultiSelectionTestHarness from "@/app/selection/multi/MultiSelectionTestHarness";
-import { cols, rows } from "@/app/selection/test-info";
+import MultiSelectionTestHarness from "./MultiSelectionTestHarness";
+import { cols, rows } from "../test-info";
 
 const TestDivs: FC<{ pro?: boolean }> = ({ pro }) => (
   <>

@@ -9,18 +9,35 @@ const { execSync } = require("child_process");
 // --------------------
 const isPro = process.argv[2] === "pro";
 const srcDir = path.resolve(__dirname, "./src");
-const communityRoot = path.resolve(srcDir, "./grid");
-const proRoot = path.resolve(srcDir, "./grid-pro");
+const communityRoot = path.resolve(srcDir, "./community");
+const proRoot = path.resolve(srcDir, "./pro");
 const root = isPro ? proRoot : communityRoot;
 const distDir = `./dist/${isPro ? "pro" : "community"}`;
 const packDir = `./package/${isPro ? "pro" : "community"}`;
 
-const srcScss = path.join(communityRoot, "style.scss");
-const distScss = path.join(distDir, "style.scss");
-const distCss = path.join(distDir, "style.css");
+const tableRoot = path.resolve(srcDir, "./table");
+const proTableRoot = path.resolve(srcDir, "./table-pro");
+const gridRoot = path.resolve(srcDir, "./grid");
 
-const proSrcScss = path.join(proRoot, "style.scss");
-const proDistCss = path.join(distDir, "style.css");
+const srcTableScss = path.join(tableRoot, "style.scss");
+const distTableScss = path.join(distDir, "table.scss");
+const distTableCss = path.join(distDir, "table.css");
+
+// Due to the use of @use SCSS rules and directory paths, a separate file is
+// needed for the pro table SCSS file. Additionally, it is necessary to copy
+// the table and pro table source SCSS files in their original locations.
+const proTableDistableScss = path.join(srcDir, "table-pro-dist.scss");
+const proTableInnerDistScss = path.join(distDir, "./table-pro", "style.scss");
+const tableInnerDistScss = path.join(distDir, "./table", "style.scss");
+
+const proSrcTableScss = path.join(proTableRoot, "style.scss");
+const proDistTableScss = path.join(distDir, "table-pro.scss");
+const proDistTableCss = path.join(distDir, "table-pro.css");
+
+const srcGridScss = path.join(gridRoot, "style.scss");
+const compilableGridScss = path.join(gridRoot, "compilable.scss");
+const distGridScss = path.join(distDir, "grid.scss");
+const distGridCss = path.join(distDir, "grid.css");
 
 const templateDir = path.join(
   __dirname,
@@ -53,9 +70,12 @@ function copyWithDirs(src, dest) {
 }
 
 function compileScss(src, dest) {
-  execSync(`npx sass "${src}" "${dest}" --no-source-map --style=compressed`, {
-    stdio: "inherit",
-  });
+  execSync(
+    `npx sass "${src}" "${dest}" --no-source-map --style=compressed --load-path=node_modules --silence-deprecation=import,if-function,global-builtin,color-functions`,
+    {
+      stdio: "inherit",
+    },
+  );
 }
 
 function compileTs(configDir) {
@@ -71,17 +91,22 @@ function copyDirContents(src, dest) {
 // --------------------
 // RUN
 // --------------------
-if (!fs.existsSync(srcScss)) {
-  throw new Error(`Missing SCSS file: ${srcScss}`);
-}
-
 createDirs(distDir, packDir);
 cleanDist(distDir);
-if (isPro) {
-  compileScss(proSrcScss, proDistCss);
-} else {
-  copyWithDirs(srcScss, distScss);
-  compileScss(distScss, distCss);
-}
+
 compileTs(root);
 copyDirContents(templateDir, distDir);
+
+if (isPro) {
+  // Imported by table pro inner SCSS file
+  copyWithDirs(srcTableScss, tableInnerDistScss);
+
+  copyWithDirs(proSrcTableScss, proTableInnerDistScss);
+  copyWithDirs(proTableDistableScss, proDistTableScss);
+  compileScss(proSrcTableScss, proDistTableCss);
+} else {
+  copyWithDirs(srcTableScss, distTableScss);
+  compileScss(srcTableScss, distTableCss);
+}
+copyWithDirs(srcGridScss, distGridScss);
+compileScss(compilableGridScss, distGridCss);

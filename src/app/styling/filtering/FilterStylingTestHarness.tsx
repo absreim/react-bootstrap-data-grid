@@ -1,13 +1,13 @@
 "use client";
 
-import Grid, {
-  EditableTableFilterState,
+import Table, {
+  EditableFilterState,
   FilterModel,
   StyleModel,
-} from "@/grid";
+} from "../../../table";
 import { FC, useMemo, useState } from "react";
-import { cols, rows } from "@/app/styling/multitype-test-data";
-import GridPro from "@/grid-pro";
+import { cols, rows } from "../multitype-test-data";
+import TablePro from "../../../table-pro";
 
 export interface FilterStylingTestHarnessProps {
   styleModel: StyleModel;
@@ -18,8 +18,8 @@ const FilterStylingTestHarness: FC<FilterStylingTestHarnessProps> = ({
   pro,
   styleModel,
 }) => {
-  const [tableFilterState, setTableFilterState] =
-    useState<EditableTableFilterState>({
+  const [tableFilterState, setTableFilterState] = useState<EditableFilterState>(
+    {
       strCol: {
         type: "string",
         scheme: "startsWith",
@@ -45,7 +45,8 @@ const FilterStylingTestHarness: FC<FilterStylingTestHarnessProps> = ({
         endDate: null,
         enabled: false,
       },
-    });
+    },
+  );
   const filterModel: FilterModel = useMemo(
     () => ({
       tableFilterState,
@@ -57,7 +58,7 @@ const FilterStylingTestHarness: FC<FilterStylingTestHarnessProps> = ({
 
   if (pro) {
     return (
-      <GridPro
+      <TablePro
         rows={rows}
         cols={cols}
         filterModel={filterModel}
@@ -68,7 +69,7 @@ const FilterStylingTestHarness: FC<FilterStylingTestHarnessProps> = ({
   }
 
   return (
-    <Grid
+    <Table
       rows={rows}
       cols={cols}
       filterModel={filterModel}

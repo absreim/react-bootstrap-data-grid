@@ -1,4 +1,4 @@
-# Introduction
+# Readme
 
 This is the repository for react-bootstrap-data-grid.
 
@@ -7,14 +7,14 @@ and [MUI X Data Grid](https://mui.com/x/react-data-grid/),
 react-bootstrap-data-grid aims to fill the specific niche of a data grid
 UI component for the combination of Bootstrap and React.
 
-# Getting started
+## Getting started
 
-## Using the data grid component
+### Using the data grid component
 
 Please refer to the documentation site at https://react-bootstrap-data-grid.vercel.app/ for instructions on how to use
 the data grid component.
 
-## Contributing to or understanding the code base
+### Contributing to or understanding the code base
 
 Please refer to the `CONTRIBUTING.md` file in this repo for more detailed information on how to set up and contribute to
 this repository.

@@ -1,5 +1,5 @@
 import { FC } from "react";
-import ReorderTestHarness from "@/app/pro/reorder/ReorderTestHarness";
+import ReorderTestHarness from "./ReorderTestHarness";
 
 const Page: FC = () => <ReorderTestHarness />;
 

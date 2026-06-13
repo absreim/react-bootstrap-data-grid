@@ -1,12 +1,12 @@
 import {
   ColDef,
   dateToDatetimeInputStr,
-  EditableTableFilterState,
+  EditableFilterState,
   RowDef,
-} from "@/grid";
-import { TestParams } from "@/app/filtering/types";
+} from "../../../table";
+import { TestParams } from "../types";
 import { FC, Fragment } from "react";
-import FilteringTestHarness from "@/app/filtering/FilteringTestHarness";
+import FilteringTestHarness from "../FilteringTestHarness";
 
 const datetimeTestCols: ColDef[] = [
   {
@@ -44,7 +44,7 @@ const datetimeTestRows: RowDef<{ datetimeCol: Date }>[] = [
   },
 ];
 
-const startFromDatetimeFilterState: EditableTableFilterState = {
+const startFromDatetimeFilterState: EditableFilterState = {
   datetimeCol: {
     enabled: true,
     type: "datetime",
@@ -53,7 +53,7 @@ const startFromDatetimeFilterState: EditableTableFilterState = {
   },
 };
 
-const endAtDatetimeFilterState: EditableTableFilterState = {
+const endAtDatetimeFilterState: EditableFilterState = {
   datetimeCol: {
     enabled: true,
     type: "datetime",
@@ -62,7 +62,7 @@ const endAtDatetimeFilterState: EditableTableFilterState = {
   },
 };
 
-const betweenDatetimesFilterState: EditableTableFilterState = {
+const betweenDatetimesFilterState: EditableFilterState = {
   datetimeCol: {
     enabled: true,
     type: "datetime",

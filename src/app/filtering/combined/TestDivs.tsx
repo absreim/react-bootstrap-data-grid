@@ -3,12 +3,12 @@ import {
   ColDef,
   dateToDatetimeInputStr,
   dateToInputStr,
-  EditableTableFilterState,
+  EditableFilterState,
   RowDef,
-} from "@/grid";
-import { TestParams } from "@/app/filtering/types";
-import FilteringTestHarness from "@/app/filtering/FilteringTestHarness";
-import NoInitStateTestHarness from "@/app/filtering/NoInitStateTestHarness";
+} from "../../../table";
+import { TestParams } from "../types";
+import FilteringTestHarness from "../FilteringTestHarness";
+import NoInitStateTestHarness from "../NoInitStateTestHarness";
 
 const combinedTestCols: ColDef[] = [
   {
@@ -81,7 +81,7 @@ const combinedTestRows: RowDef<CombinedTestRow>[] = [
   },
 ];
 
-const combinedFilterState: EditableTableFilterState = {
+const combinedFilterState: EditableFilterState = {
   strCol: {
     enabled: true,
     type: "string",

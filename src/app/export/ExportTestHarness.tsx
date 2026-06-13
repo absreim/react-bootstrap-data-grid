@@ -1,14 +1,14 @@
 "use client";
 
 import { FC, useMemo } from "react";
-import Grid, {
+import Table, {
   ColDef,
-  EditableTableFilterState,
+  EditableFilterState,
   ExportFormStyleModel,
-  GridProps,
+  TableProps,
   RowDef,
-} from "@/grid";
-import GridPro from "@/grid-pro";
+} from "../../table";
+import TablePro from "../../table-pro";
 
 export interface ExportTestHarnessProps {
   enableFiltering: boolean;
@@ -91,7 +91,7 @@ const combinedTestRows: RowDef<CombinedTestRow>[] = [
   },
 ];
 
-const combinedFilterState: EditableTableFilterState = {
+const combinedFilterState: EditableFilterState = {
   strCol: {
     enabled: false,
     type: "string",
@@ -144,7 +144,7 @@ const ExportTestHarness: FC<ExportTestHarnessProps> = ({
     [enableFormatters],
   );
 
-  const gridProps: GridProps = useMemo(
+  const gridProps: TableProps = useMemo(
     () => ({
       rows: combinedTestRows,
       cols,
@@ -172,10 +172,10 @@ const ExportTestHarness: FC<ExportTestHarnessProps> = ({
   );
 
   if (pro) {
-    return <GridPro {...gridProps} />;
+    return <TablePro {...gridProps} />;
   }
 
-  return <Grid {...gridProps} />;
+  return <Table {...gridProps} />;
 };
 
 export default ExportTestHarness;

@@ -1,5 +1,5 @@
 import { FC } from "react";
-import ExportTestHarness from "@/app/export/ExportTestHarness";
+import ExportTestHarness from "./ExportTestHarness";
 
 const TestDivs: FC<{ pro?: boolean }> = ({ pro }) => (
   <>

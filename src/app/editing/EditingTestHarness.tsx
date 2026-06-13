@@ -1,9 +1,14 @@
 "use client";
 
-import Grid, { ColDef, RowDef, RowId, UpdateCallbackGenerator } from "@/grid";
+import Table, {
+  ColDef,
+  RowDef,
+  RowId,
+  UpdateCallbackGenerator,
+} from "../../table";
 import { FC, useState } from "react";
-import { dateToDatetimeInputStr, dateToInputStr } from "@/grid/util/datetime";
-import GridPro from "@/grid-pro";
+import { dateToDatetimeInputStr, dateToInputStr } from "../../common";
+import TablePro from "../../table-pro";
 
 const cols: ColDef[] = [
   {
@@ -93,7 +98,7 @@ const EditingTestHarness: FC<{ pro?: boolean }> = ({ pro }) => {
 
   if (pro) {
     return (
-      <GridPro
+      <TablePro
         rows={rows}
         cols={cols}
         editModel={{ getUpdateCallback, getDeleteCallback }}
@@ -102,7 +107,7 @@ const EditingTestHarness: FC<{ pro?: boolean }> = ({ pro }) => {
   }
 
   return (
-    <Grid
+    <Table
       rows={rows}
       cols={cols}
       editModel={{ getUpdateCallback, getDeleteCallback }}

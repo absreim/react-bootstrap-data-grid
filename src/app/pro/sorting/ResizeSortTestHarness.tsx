@@ -1,8 +1,7 @@
 "use client";
 
-import { ProColDef, RowDef } from "@/grid-pro";
+import TablePro, { ProColDef, RowDef } from "../../../table-pro";
 import { FC } from "react";
-import GridPro from "@/grid-pro/GridPro";
 
 const cols: ProColDef[] = [
   {
@@ -43,7 +42,7 @@ const rows: RowDef<TestRow>[] = [
 
 const ResizeSortTestHarness: FC = () => (
   <>
-    <GridPro
+    <TablePro
       displayMode="block"
       rows={rows}
       cols={cols}

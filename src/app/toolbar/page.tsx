@@ -1,5 +1,5 @@
 import { FC } from "react";
-import ToolbarTestHarness from "@/app/toolbar/ToolbarTestHarness";
+import ToolbarTestHarness from "./ToolbarTestHarness";
 
 const Page: FC = () => (
   <>

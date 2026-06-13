@@ -1,0 +1,275 @@
+"use client";
+
+import {
+  FC,
+  PointerEventHandler,
+  KeyboardEventHandler,
+  useCallback,
+  useMemo,
+  useRef,
+} from "react";
+import classNames from "classnames";
+import getWidthStyle from "../common/util/getWidthStyle";
+import { ColHeaderCellProProps } from "./types";
+import useSortHeaderStates from "../common/sorting/useSortHeaderStates";
+import VerticalGrip from "./assets/VerticalGrip";
+import regDragCleanup from "./lib/regDragCleanup";
+import sortOrderToAriaSort from "../common/sorting/sortOrderToAriaSort";
+import { KeyboardCleanupFnParam, PointerCleanupFnParam } from "./lib/types";
+
+const setWidthStyle: (cells: HTMLTableCellElement[], width: number) => void = (
+  cells,
+  width,
+) => {
+  cells.forEach((cell) => {
+    cell.style.minWidth = `${width}px`;
+    cell.style.maxWidth = `${width}px`;
+  });
+};
+
+const ColHeaderCellPro: FC<ColHeaderCellProProps> = ({
+  label,
+  sortModel,
+  ariaColIndex,
+  additionalClasses,
+  width,
+  displayMode,
+  setWidth,
+  minResizeWidth,
+  maxResizeWidth,
+  keyboardResizeStep,
+}) => {
+  const resizeable = setWidth !== undefined;
+  const cellIsClickable = !!(!resizeable && sortModel);
+  const sortDivClickable = resizeable && sortModel;
+  const { handleClick, handleMouseOver, handleMouseOut, sortSymbol } =
+    useSortHeaderStates(sortModel);
+  const defaultMinResizeWidth = sortModel ? 64 : 32;
+  const effectiveMinResizeWidth = minResizeWidth || defaultMinResizeWidth;
+  const effectiveKbdResizeStep = keyboardResizeStep || 10;
+
+  const clickToSortCellContents = useMemo(() => {
+    if (!sortModel) {
+      return <>{label}</>;
+    }
+
+    if (!width || displayMode === "table") {
+      // Testing has shown that content gets cut off in a table cell only if
+      // the table "display" property is "block" and both "min-width" and
+      // "max-width" are specified on all cells in the column.
+      return (
+        <div>
+          {label}
+          {sortSymbol}
+        </div>
+      );
+    }
+
+    return (
+      <div
+        className={classNames("flex-shrink-1", "overflow-x-hidden", {
+          "rbdg-sort-toggler": sortDivClickable,
+          "text-truncate": displayMode === "block",
+          "d-flex": !!sortModel,
+          "justify-content-between": !!sortModel,
+        })}
+        onClick={sortDivClickable ? handleClick : undefined}
+        onMouseOver={sortDivClickable ? handleMouseOver : undefined}
+        onMouseOut={sortDivClickable ? handleMouseOut : undefined}
+      >
+        {sortModel ? (
+          <>
+            <div className="text-truncate">{label}</div>
+            <div>{sortSymbol}</div>
+          </>
+        ) : (
+          label
+        )}
+      </div>
+    );
+  }, [
+    displayMode,
+    handleClick,
+    handleMouseOut,
+    handleMouseOver,
+    label,
+    sortDivClickable,
+    sortModel,
+    sortSymbol,
+    width,
+  ]);
+
+  const onKeyDown: KeyboardEventHandler<HTMLDivElement> = useCallback(
+    (e) => {
+      if (setWidth === undefined || width === undefined) {
+        return;
+      }
+
+      if (e.code === "ArrowLeft") {
+        setWidth(
+          Math.max(effectiveMinResizeWidth, width - effectiveKbdResizeStep),
+        );
+        return;
+      }
+
+      if (e.code === "ArrowRight") {
+        setWidth(
+          Math.min(
+            maxResizeWidth || Number.MAX_VALUE,
+            width + effectiveKbdResizeStep,
+          ),
+        );
+        return;
+      }
+    },
+    [
+      effectiveKbdResizeStep,
+      effectiveMinResizeWidth,
+      maxResizeWidth,
+      setWidth,
+      width,
+    ],
+  );
+
+  const thRef = useRef<HTMLTableCellElement>(null);
+  const onPointerDown: PointerEventHandler<HTMLDivElement> = useCallback(
+    (event) => {
+      if (event.button !== 0) {
+        return;
+      }
+
+      if (
+        thRef.current === null ||
+        setWidth === undefined ||
+        width === undefined
+      ) {
+        return;
+      }
+
+      // Note: as it stands, if a rerender happens while the user is resizing a
+      // cell, it may override the width of the cell until the user moves the
+      // mouse again.
+      // This behavior can be prevented by storing the current width of the cell
+      // in a ref and having this component conditionally render based on the
+      // value of the ref. I.e., if the ref has a value, use that value for the
+      // width instead of the "width" prop.
+
+      const target = event.target as HTMLDivElement;
+
+      target.setPointerCapture(event.pointerId);
+      const table = thRef.current.parentElement!.parentElement!
+        .parentElement! as HTMLTableElement;
+      const tds = table.querySelectorAll(
+        `:scope > tbody > tr > td:nth-child(${ariaColIndex})`,
+      ) as NodeListOf<HTMLTableCellElement>;
+      const cellsToUpdate = Array.from(tds).concat(thRef.current);
+      const origX = event.clientX;
+
+      const onPointerMove: (event: PointerEvent) => void = (event) => {
+        const diff = event.clientX - origX;
+        let newWidth = Math.max(effectiveMinResizeWidth, width + diff);
+        if (maxResizeWidth) {
+          newWidth = Math.min(maxResizeWidth, newWidth);
+        }
+        setWidthStyle(cellsToUpdate, newWidth);
+      };
+
+      const onKeyDown: KeyboardCleanupFnParam =
+        (removeListeners) => (event) => {
+          if (event.code === "Escape") {
+            setWidthStyle(cellsToUpdate, width);
+            removeListeners();
+          }
+        };
+
+      const onPointerUp: PointerCleanupFnParam = (removeListeners) => () => {
+        if (thRef.current !== null) {
+          const newWidth = Number(
+            thRef.current.style.minWidth.replace("px", ""),
+          );
+          setWidth(newWidth);
+        }
+        removeListeners();
+      };
+
+      const onContextMenu: (event: PointerEvent) => void = (event) => {
+        event.preventDefault();
+      };
+
+      regDragCleanup({
+        element: target,
+        onPointerMove,
+        onPointerUp,
+        onPointerCancel: onPointerUp,
+        onKeyDown,
+        onContextMenu,
+      });
+    },
+    [ariaColIndex, effectiveMinResizeWidth, maxResizeWidth, setWidth, width],
+  );
+
+  const cellContents = useMemo(() => {
+    if (!resizeable) {
+      return clickToSortCellContents;
+    }
+
+    return (
+      <div className="d-flex justify-content-between">
+        {clickToSortCellContents}
+        <div
+          className="rbdg-draggable-container rbdg-resize-container"
+          onPointerDown={onPointerDown}
+          role="separator"
+          tabIndex={0}
+          title="Resize column"
+          aria-label="Resize column"
+          aria-valuenow={width}
+          aria-valuemin={minResizeWidth}
+          aria-valuemax={maxResizeWidth}
+          onKeyDown={onKeyDown}
+          onClick={(e) => e.stopPropagation()}
+        >
+          <VerticalGrip className="rbdg-draggable-icon" />
+        </div>
+      </div>
+    );
+  }, [
+    clickToSortCellContents,
+    maxResizeWidth,
+    minResizeWidth,
+    onKeyDown,
+    onPointerDown,
+    resizeable,
+    width,
+  ]);
+
+  return (
+    <th
+      ref={thRef}
+      className={classNames(
+        {
+          "rbdg-sort-toggler": cellIsClickable,
+          "table-active": sortModel?.sortOrder,
+        },
+        additionalClasses || [],
+      )}
+      onClick={cellIsClickable ? handleClick : undefined}
+      onMouseOver={cellIsClickable ? handleMouseOver : undefined}
+      onMouseOut={cellIsClickable ? handleMouseOut : undefined}
+      aria-description={
+        sortModel
+          ? "Column header that can be clicked to change the sorting mode"
+          : "Column header"
+      }
+      aria-colindex={ariaColIndex}
+      aria-sort={
+        sortModel ? sortOrderToAriaSort(sortModel.sortOrder) : undefined
+      }
+      style={getWidthStyle(width)}
+    >
+      {cellContents}
+    </th>
+  );
+};
+
+export default ColHeaderCellPro;
