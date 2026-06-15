@@ -1,7 +1,7 @@
 "use client";
 
 import { FC, useMemo } from "react";
-import { AugFormattedRow, TableProps } from "./types";
+import { TableProps } from "./types";
 import InternalTable from "./InternalTable";
 import { ColSortModel } from "../common/sorting/types";
 import ColHeaderCell from "./main/ColHeaderCell";
@@ -11,6 +11,7 @@ import useGetInputStrSubmitCallback from "../common/pipeline/useGetInputStrSubmi
 import { ColNameToWidth } from "../common/pipeline/types";
 import useAugFormattedRows from "../common/pipeline/useAugFormattedRows";
 import BodyRows from "./main/BodyRows";
+import { AugFormattedRow } from "../common";
 
 const Table: FC<TableProps> = (props) => {
   const {

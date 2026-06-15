@@ -1,4 +1,3 @@
-import { AugFormattedRow } from "../types";
 import { FC, ReactNode } from "react";
 import EditableRow from "../editing/EditableRow";
 import classNames from "classnames";
@@ -6,10 +5,10 @@ import getWidthStyle from "../../common/util/getWidthStyle";
 import SelectionInput from "../selection/SelectionInput";
 import { UseGridSelectionFnsHook } from "../../common/pipeline/useGridSelectionFns";
 import { UseCombinedPipelineHook } from "../../common/pipeline/useCombinedPipeline";
-import { SelectModel } from "../selection/types";
+import { SelectModel } from "../../common/selection/types";
 import { UseGetInputStrSubmitCallbackHook } from "../../common/pipeline/useGetInputStrSubmitCallback";
 import { TableStyleModel } from "../styling/types";
-import { RowId } from "../../common/types";
+import { AugFormattedRow, RowId } from "../../common/types";
 import { EditModel } from "../../common/editing/types";
 
 interface BodyRowsProps {

@@ -8,7 +8,7 @@ import { GridProProps } from "./types";
 import ColHeaderCellPro from "./ColHeaderCellPro";
 import useGridSelectionFns from "../common/pipeline/useGridSelectionFns";
 import useGetInputStrSubmitCallback from "../common/pipeline/useGetInputStrSubmitCallback";
-import { ColNameToWidth } from "../common/pipeline/types";
+import { ColNameToWidth } from "../common";
 import useAugFormattedRows from "../common/pipeline/useAugFormattedRows";
 import useResizeModel from "./resize/useResizeModel";
 import BodyRows from "../table/main/BodyRows";
@@ -17,6 +17,7 @@ import ReorderHandleCell from "./reorder/ReorderHandleCell";
 import useKeyboardReorder from "./reorder/useKeyboardReorder";
 import useReorderStyles from "./reorder/useReorderStyles";
 import useKeyboardReorderListener from "./reorder/useKeyboardReorderListener";
+import { UseCombinedPipelineHook } from "../common/pipeline/useCombinedPipeline";
 
 const TablePro: FC<GridProProps> = (props) => {
   const {
@@ -32,7 +33,7 @@ const TablePro: FC<GridProProps> = (props) => {
     reorder,
   } = props;
 
-  const combinedPipelineOutput = useCombinedPipeline({
+  const combinedPipelineOutput: UseCombinedPipelineHook = useCombinedPipeline({
     rows,
     cols,
     filterModel,

@@ -1,9 +1,9 @@
 import { useMemo, useState } from "react";
-import { AugRowDef, PostPaginationRowDef } from "../../../table/types";
 import {
   NormalizedPaginationModel,
   PaginationModel,
 } from "../../pagination/types";
+import { AugRowDef, PostPaginationRowDef } from "@/common";
 
 export interface CurrentPageRowsOutput {
   paginatedRows: PostPaginationRowDef[];

@@ -2,7 +2,7 @@
 
 import { CSSProperties, FC, useEffect, useRef } from "react";
 import classNames from "classnames";
-import { SelectionInfo } from "./types";
+import { SelectionInfo } from "../../common/selection/types";
 
 interface SelectAllHeaderCellProps {
   onClick: () => void;

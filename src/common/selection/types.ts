@@ -9,7 +9,7 @@
 // row = selection column is hidden and selection can be done by clicking anywhere in a row
 // both = selection can be done by either clicking on the input or row
 
-import { RowId } from "../../common/types";
+import { RowId } from "../types";
 
 export type SelectMode = "column" | "row" | "both";
 // Equivalent to the options for the "type" field in SelectModel

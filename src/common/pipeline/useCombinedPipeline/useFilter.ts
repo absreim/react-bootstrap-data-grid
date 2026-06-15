@@ -1,4 +1,4 @@
-import { AugRowDef } from "../../../table/types";
+
 import { useMemo } from "react";
 import {
   DateFilterState,
@@ -6,7 +6,7 @@ import {
   NumberFilterState,
   StringFilterState,
 } from "@/common/filtering/types";
-import { RowDef } from "../../types";
+import { AugRowDef, RowDef } from "../../types";
 
 const useFilter: (
   rows: RowDef[],

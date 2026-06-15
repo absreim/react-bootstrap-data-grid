@@ -1,6 +1,6 @@
 import { ChangeEventHandler, FC } from "react";
-import { Size } from "../../table/types";
 import classNames from "classnames";
+import { Size } from "@/common";
 
 export interface PageSizeSelectorProps {
   componentSize: Size;

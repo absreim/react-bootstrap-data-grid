@@ -4,7 +4,7 @@ import {
   MultiSelectModel,
   SelectionInfo,
   SelectModel,
-} from "../../table/selection/types";
+} from "../selection/types";
 import { SelectionInputModel } from "../../table/selection/SelectionInput";
 import isSubset from "@/common/util/isSubset";
 import { RowDef, RowId } from "../types";

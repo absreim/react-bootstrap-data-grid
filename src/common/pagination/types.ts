@@ -1,4 +1,12 @@
-import { JustifyContentSetting, Size } from "../../table/types";
+export type JustifyContentSetting =
+  | "start"
+  | "end"
+  | "center"
+  | "between"
+  | "around"
+  | "evenly";
+
+export type Size = "small" | "medium" | "large";
 
 export interface PaginationOptions {
   pageSizeOptions?: number[];

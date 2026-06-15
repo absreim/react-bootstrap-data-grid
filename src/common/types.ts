@@ -1,3 +1,10 @@
+import { CellData, EditModel } from "@/common/editing/types";
+import { PaginationModel } from "@/common/pagination/types";
+import { TableSortModel } from "@/common/sorting/types";
+import { FilterModel } from "@/common/filtering/types";
+import { SelectModel } from "@/common/selection/types";
+import { StyleModel } from "@/common/styling/types";
+
 export type ColDataType = string | number | Date;
 export type ColDataTypeStrings = "string" | "number" | "date" | "datetime";
 
@@ -24,4 +31,33 @@ export interface RowDef<Data extends ValidRowData = ValidRowData> {
 export interface MainComponentSharedProps {
   rows: RowDef[];
   cols: ColDef[];
+  pagination?: PaginationModel;
+  sortModel?: TableSortModel;
+  filterModel?: FilterModel;
+  selectModel?: SelectModel;
+  editModel?: EditModel;
+  styleModel?: StyleModel;
+  allowExport?: boolean;
 }
+
+export type AugRowDef<Data extends ValidRowData = ValidRowData> =
+  RowDef<Data> & {
+    origIndex: number;
+  };
+
+export type PostPaginationRowDef<Data extends ValidRowData = ValidRowData> =
+  AugRowDef<Data> & {
+    prePaginationIndex: number;
+  };
+
+export type FormattedRow = {
+  contents: CellData[];
+} & Omit<PostPaginationRowDef, "data">;
+
+export type AugCellData = CellData & {
+  width?: number;
+};
+
+export type AugFormattedRow = Omit<FormattedRow, "contents"> & {
+  contents: AugCellData[];
+};

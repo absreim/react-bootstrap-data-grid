@@ -5,13 +5,13 @@ import useSortedRows, { SortedRowsOutput } from "./useSortedRows";
 import useCurrentPageRows, {
   CurrentPageRowsOutput,
 } from "./useCurrentPageRows";
-import { FormattedRow, TableProps } from "../../../table/types";
+import { TableProps } from "../../../table/types";
 import useDisplayRows from "./useDisplayRows";
 import {
   NormalizedTableFilterModel,
   TableFilterState,
 } from "@/common/filtering/types";
-import { ColDefBase, RowDef } from "../../types";
+import { ColDefBase, FormattedRow, RowDef } from "../../types";
 
 export type CombinedPipelineParams = Pick<
   TableProps,

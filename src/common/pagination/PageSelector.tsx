@@ -1,8 +1,8 @@
 "use client";
 
-import { JustifyContentSetting, Size } from "../../table/types";
 import { FC, ReactNode, useMemo } from "react";
 import classNames from "classnames";
+import { JustifyContentSetting, Size } from "@/common";
 
 export interface PageSelectorProps {
   numPages: number;
