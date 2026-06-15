@@ -1,7 +1,12 @@
 "use client";
 
 import { FC, useCallback, useEffect, useMemo } from "react";
-import { AugFormattedRow, ColSortModel, RowId } from "./";
+import {
+  AugFormattedRow,
+  ColSortModel,
+  RowId,
+  TableFilterState,
+} from "./";
 import useCombinedPipeline from "../common/pipeline/useCombinedPipeline";
 import InternalTable from "../table/InternalTable";
 import { GridProProps } from "./types";
@@ -187,8 +192,8 @@ const TablePro: FC<GridProProps> = (props) => {
   );
 
   const filteringOccurring = !!(
-    filterState &&
-    Object.values(filterState).find(
+    (filterState as TableFilterState) &&
+    Object.values(filterState as TableFilterState).find(
       ({ editableState }) => editableState.enabled,
     )
   );
