@@ -1,15 +1,16 @@
-import { AugFormattedRow, RowId } from "../types";
+import { AugFormattedRow } from "../types";
 import { FC, ReactNode } from "react";
 import EditableRow from "../editing/EditableRow";
 import classNames from "classnames";
-import getWidthStyle from "../util/getWidthStyle";
+import getWidthStyle from "../../common/util/getWidthStyle";
 import SelectionInput from "../selection/SelectionInput";
-import { UseGridSelectionFnsHook } from "../pipeline/useGridSelectionFns";
-import { UseCombinedPipelineHook } from "../pipeline/useCombinedPipeline";
+import { UseGridSelectionFnsHook } from "../../common/pipeline/useGridSelectionFns";
+import { UseCombinedPipelineHook } from "../../common/pipeline/useCombinedPipeline";
 import { SelectModel } from "../selection/types";
-import { EditModel } from "../editing/types";
-import { UseGetInputStrSubmitCallbackHook } from "../pipeline/useGetInputStrSubmitCallback";
+import { UseGetInputStrSubmitCallbackHook } from "../../common/pipeline/useGetInputStrSubmitCallback";
 import { TableStyleModel } from "../styling/types";
+import { RowId } from "../../common/types";
+import { EditModel } from "../../common/editing/types";
 
 interface BodyRowsProps {
   augFormattedRows: AugFormattedRow[];

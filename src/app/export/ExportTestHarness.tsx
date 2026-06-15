@@ -5,7 +5,7 @@ import Table, {
   ColDef,
   EditableTableFilterState,
   ExportFormStyleModel,
-  GridProps,
+  TableProps,
   RowDef,
 } from "@/table";
 import TablePro from "@/table-pro";
@@ -144,7 +144,7 @@ const ExportTestHarness: FC<ExportTestHarnessProps> = ({
     [enableFormatters],
   );
 
-  const gridProps: GridProps = useMemo(
+  const gridProps: TableProps = useMemo(
     () => ({
       rows: combinedTestRows,
       cols,

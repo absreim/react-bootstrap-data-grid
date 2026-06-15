@@ -8,7 +8,8 @@
 // column = can only select by clicking on radio or checkbox input in special column
 // row = selection column is hidden and selection can be done by clicking anywhere in a row
 // both = selection can be done by either clicking on the input or row
-import { RowId } from "../types";
+
+import { RowId } from "../../common/types";
 
 export type SelectMode = "column" | "row" | "both";
 // Equivalent to the options for the "type" field in SelectModel

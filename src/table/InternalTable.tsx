@@ -3,15 +3,15 @@
 import { FC, ReactNode, useMemo } from "react";
 import { BaseGridProps } from "./types";
 import SelectAllHeaderCell from "./selection/SelectAllHeaderCell";
-import Pagination from "./pagination/Pagination";
+import Pagination from "../common/pagination/Pagination";
 import classNames from "classnames";
-import useInterfaces from "./toolbar/useInterfaces";
-import ToolbarContainer from "./toolbar/ToolbarContainer";
-import useExportFn from "./export/useExportFn";
-import getWidthStyle from "./util/getWidthStyle";
-import { UseCombinedPipelineHook } from "./pipeline/useCombinedPipeline";
-import { UseGridSelectionFnsHook } from "./pipeline/useGridSelectionFns";
-import { InterfacePropGenerator } from "./toolbar/types";
+import useInterfaces from "../common/toolbar/useInterfaces";
+import ToolbarContainer from "../common/toolbar/ToolbarContainer";
+import useExportFn from "../common/export/useExportFn";
+import getWidthStyle from "../common/util/getWidthStyle";
+import { UseCombinedPipelineHook } from "../common/pipeline/useCombinedPipeline";
+import { UseGridSelectionFnsHook } from "../common/pipeline/useGridSelectionFns";
+import { InterfacePropGenerator } from "../common/toolbar/types";
 
 export interface InternalGridProps {
   gridProps: BaseGridProps;

@@ -1,18 +1,18 @@
 "use client";
 
 import { FC, useMemo } from "react";
-import { AugFormattedRow, GridProps } from "./types";
+import { AugFormattedRow, TableProps } from "./types";
 import InternalTable from "./InternalTable";
-import { ColSortModel } from "./sorting/types";
+import { ColSortModel } from "../common/sorting/types";
 import ColHeaderCell from "./main/ColHeaderCell";
-import useCombinedPipeline from "./pipeline/useCombinedPipeline";
-import useGridSelectionFns from "./pipeline/useGridSelectionFns";
-import useGetInputStrSubmitCallback from "./pipeline/useGetInputStrSubmitCallback";
-import { ColNameToWidth } from "./pipeline/types";
-import useAugFormattedRows from "./pipeline/useAugFormattedRows";
+import useCombinedPipeline from "../common/pipeline/useCombinedPipeline";
+import useGridSelectionFns from "../common/pipeline/useGridSelectionFns";
+import useGetInputStrSubmitCallback from "../common/pipeline/useGetInputStrSubmitCallback";
+import { ColNameToWidth } from "../common/pipeline/types";
+import useAugFormattedRows from "../common/pipeline/useAugFormattedRows";
 import BodyRows from "./main/BodyRows";
 
-const Table: FC<GridProps> = (props) => {
+const Table: FC<TableProps> = (props) => {
   const {
     rows,
     cols,
@@ -104,4 +104,4 @@ const Table: FC<GridProps> = (props) => {
 
 export default Table;
 
-export type { GridProps } from "./types";
+export type { TableProps } from "./types";

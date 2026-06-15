@@ -1,35 +1,15 @@
-import { CellData, EditModel } from "./editing/types";
-import { PaginationModel } from "./pagination/types";
-import { ColSortModel, TableSortModel } from "./sorting/types";
-import { FilterModel } from "./filtering/types";
+import { PaginationModel } from "../common/pagination/types";
+import { ColSortModel, TableSortModel } from "../common/sorting/types";
+import { FilterModel } from "../common/filtering/types";
 import { SelectModel } from "./selection/types";
-import { StyleModel } from "./styling/types";
-
-export type ColDataType = string | number | Date;
-export type ColDataTypeStrings = "string" | "number" | "date" | "datetime";
-
-export interface ColDefBase<ValueType = any> {
-  type: ColDataTypeStrings;
-  name: string;
-  label: string;
-  formatter?: (value: ValueType) => string;
-  sortable?: boolean; // default false
-}
-
-export type ColDef<ValueType = any> = ColDefBase<ValueType> & {
-  width?: number;
-};
-
-export type ValidRowData = Record<string, any>;
-
-export type RowData<Data extends ValidRowData = ValidRowData> = Data;
-
-export type RowId = string | number;
-
-export interface RowDef<Data extends ValidRowData = ValidRowData> {
-  id: RowId;
-  data: RowData<Data>;
-}
+import {
+  ColDefBase,
+  MainComponentSharedProps,
+  RowDef,
+  ValidRowData,
+} from "../common/types";
+import { CellData, EditModel } from "../common/editing/types";
+import { StyleModel } from "../common/styling/types";
 
 export type AugRowDef<Data extends ValidRowData = ValidRowData> =
   RowDef<Data> & {
@@ -65,9 +45,7 @@ export type Size = "small" | "medium" | "large";
 
 export type DisplayMode = "table" | "block";
 
-export interface GridProps {
-  rows: RowDef[];
-  cols: ColDef[];
+export type TableProps = MainComponentSharedProps & {
   pagination?: PaginationModel;
   sortModel?: TableSortModel;
   filterModel?: FilterModel;
@@ -80,7 +58,7 @@ export interface GridProps {
 }
 
 // All props that community and pro versions have in common
-export type BaseGridProps = Omit<GridProps, "cols"> & {
+export type BaseGridProps = Omit<TableProps, "cols"> & {
   cols: ColDefBase[];
 };
 

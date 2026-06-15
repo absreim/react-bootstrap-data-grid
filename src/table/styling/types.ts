@@ -1,4 +1,4 @@
-import { RowId } from "../types";
+import { RowId } from "../../common/types";
 
 export interface SharedTableStyleModel {
   table?: string[];
@@ -50,27 +50,4 @@ export interface AdditionalComponentsStyleModel {
   tableAndPaginationDiv?: string[];
   tableDiv?: string[];
   paginationUiDiv?: string[];
-}
-
-export interface ToolbarStyleModel {
-  activeButton?: string[];
-  inactiveButton?: string[];
-  toolbar?: string[];
-  interfaceContainer?: string[];
-}
-
-export interface ExportFormStyleModel {
-  legend?: string[];
-  radioContainer?: string[];
-  radioInput?: string[];
-  radioLabel?: string[];
-  submitButton?: string[];
-}
-
-export interface StyleModel {
-  mainTableStyleModel?: TableStyleModel;
-  filterInputTableStyleModel?: FilterInputTableStyleModel;
-  additionalComponentsStyleModel?: AdditionalComponentsStyleModel;
-  toolbarStyleModel?: ToolbarStyleModel;
-  exportFormStyleModel?: ExportFormStyleModel;
 }

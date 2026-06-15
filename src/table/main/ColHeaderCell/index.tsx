@@ -3,9 +3,9 @@
 import { FC } from "react";
 import classNames from "classnames";
 import { ColHeaderCellProps } from "../../types";
-import getWidthStyle from "../../util/getWidthStyle";
-import useSortHeaderStates from "./useSortHeaderStates";
-import sortOrderToAriaSort from "../../sorting/sortOrderToAriaSort";
+import getWidthStyle from "../../../common/util/getWidthStyle";
+import useSortHeaderStates from "../../../common/sorting/useSortHeaderStates";
+import sortOrderToAriaSort from "../../../common/sorting/sortOrderToAriaSort";
 
 const ColHeaderCell: FC<ColHeaderCellProps> = ({
   label,

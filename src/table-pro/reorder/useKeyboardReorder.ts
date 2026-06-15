@@ -5,7 +5,7 @@ import {
   UseKeyboardReorderOutput,
 } from "./types";
 import { useCallback, useMemo, useState } from "react";
-import trueModulo from "../../table/util/trueModulo";
+import trueModulo from "../../common/util/trueModulo";
 
 const useKeyboardReorder: (
   displayRowIds: RowId[],

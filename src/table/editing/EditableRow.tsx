@@ -1,13 +1,13 @@
 "use client";
 
 import { CSSProperties, FC, ReactNode, useRef, useState } from "react";
-import { dateToDatetimeInputStr, dateToInputStr } from "../util/datetime";
-import { ColDataType, ColDataTypeStrings, RowId } from "../types";
+import { dateToDatetimeInputStr, dateToInputStr } from "../../common/util/datetime";
 import EditControlsCell from "./EditControlsCell";
 import React from "react";
 import classNames from "classnames";
-import { CellData } from "./types";
-import getWidthStyle from "../util/getWidthStyle";
+import getWidthStyle from "../../common/util/getWidthStyle";
+import { ColDataType, ColDataTypeStrings, RowId } from "../../common/types";
+import { CellData } from "../../common/editing/types";
 
 export type EditableRowProps = Pick<
   React.ComponentProps<"tr">,

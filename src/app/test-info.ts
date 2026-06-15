@@ -1,4 +1,4 @@
-import { ColDef, GridProps, RowDef } from "@/table";
+import { ColDef, TableProps, RowDef } from "@/table";
 
 export const cols: ColDef[] = [
   {
@@ -81,13 +81,13 @@ export const rows: RowDef<TestRow>[] = [
   },
 ];
 
-export const basicGridProps: GridProps = {
+export const basicGridProps: TableProps = {
   rows,
   cols,
   caption: "basic test grid",
 };
 
-export const blockGridProps: GridProps = {
+export const blockGridProps: TableProps = {
   rows,
   cols,
   displayMode: "block",

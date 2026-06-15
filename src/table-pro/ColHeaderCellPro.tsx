@@ -9,13 +9,13 @@ import {
   useRef,
 } from "react";
 import classNames from "classnames";
-import getWidthStyle from "../table/util/getWidthStyle";
+import getWidthStyle from "../common/util/getWidthStyle";
 import { ColHeaderCellProProps } from "./types";
-import useSortHeaderStates from "../table/main/ColHeaderCell/useSortHeaderStates";
+import useSortHeaderStates from "../common/sorting/useSortHeaderStates";
 import VerticalGrip from "./assets/VerticalGrip";
 import { KeyboardCleanupFnParam, PointerCleanupFnParam } from "./util/types";
 import regDragCleanup from "./util/regDragCleanup";
-import sortOrderToAriaSort from "../table/sorting/sortOrderToAriaSort";
+import sortOrderToAriaSort from "../common/sorting/sortOrderToAriaSort";
 
 const setWidthStyle: (cells: HTMLTableCellElement[], width: number) => void = (
   cells,

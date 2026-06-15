@@ -2,14 +2,14 @@
 
 import { FC, useCallback, useEffect, useMemo } from "react";
 import { AugFormattedRow, ColSortModel, RowId } from "./";
-import useCombinedPipeline from "../table/pipeline/useCombinedPipeline";
+import useCombinedPipeline from "../common/pipeline/useCombinedPipeline";
 import InternalTable from "../table/InternalTable";
 import { GridProProps } from "./types";
 import ColHeaderCellPro from "./ColHeaderCellPro";
-import useGridSelectionFns from "../table/pipeline/useGridSelectionFns";
-import useGetInputStrSubmitCallback from "../table/pipeline/useGetInputStrSubmitCallback";
-import { ColNameToWidth } from "../table/pipeline/types";
-import useAugFormattedRows from "../table/pipeline/useAugFormattedRows";
+import useGridSelectionFns from "../common/pipeline/useGridSelectionFns";
+import useGetInputStrSubmitCallback from "../common/pipeline/useGetInputStrSubmitCallback";
+import { ColNameToWidth } from "../common/pipeline/types";
+import useAugFormattedRows from "../common/pipeline/useAugFormattedRows";
 import useResizeModel from "./resize/useResizeModel";
 import BodyRows from "../table/main/BodyRows";
 import ReorderHeaderCell from "./reorder/ReorderHeaderCell";

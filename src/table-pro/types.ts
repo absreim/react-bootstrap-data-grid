@@ -2,7 +2,7 @@ import {
   ColDef,
   ColDefBase,
   ColHeaderCellProps,
-  GridProps,
+  TableProps,
   StyleModel,
 } from "../table";
 import { ReorderModel, ReorderStyleModel } from "./reorder/types";
@@ -15,14 +15,14 @@ export type ProColDef<ValueType = any> = ColDefBase<ValueType> & {
   keyboardResizeStep?: number;
 };
 
-export type GridProProps = Omit<GridProps, "cols" | "styleModel"> & {
+export type GridProProps = Omit<TableProps, "cols" | "styleModel"> & {
   cols: ProColDef[];
   reorder?: ReorderModel;
   styleModel?: ProStyleModel;
 };
 
 export type ColHeaderCellProProps = ColHeaderCellProps &
-  Pick<GridProps, "displayMode"> & {
+  Pick<TableProps, "displayMode"> & {
     setWidth?: (width: number) => void;
   } & Pick<
     ProColDef,

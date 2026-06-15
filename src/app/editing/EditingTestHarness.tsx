@@ -2,7 +2,7 @@
 
 import Table, { ColDef, RowDef, RowId, UpdateCallbackGenerator } from "@/table";
 import { FC, useState } from "react";
-import { dateToDatetimeInputStr, dateToInputStr } from "@/table/util/datetime";
+import { dateToDatetimeInputStr, dateToInputStr } from "@/common/util/datetime";
 import TablePro from "@/table-pro";
 
 const cols: ColDef[] = [
