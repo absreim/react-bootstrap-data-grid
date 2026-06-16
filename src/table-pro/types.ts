@@ -15,7 +15,7 @@ export type ProColDef<ValueType = any> = ColDefBase<ValueType> & {
   keyboardResizeStep?: number;
 };
 
-export type GridProProps = Omit<TableProps, "cols" | "styleModel"> & {
+export type TableProProps = Omit<TableProps, "cols" | "styleModel"> & {
   cols: ProColDef[];
   reorder?: ReorderModel;
   styleModel?: ProStyleModel;

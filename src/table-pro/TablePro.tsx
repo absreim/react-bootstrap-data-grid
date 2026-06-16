@@ -9,7 +9,7 @@ import {
 } from "./";
 import useCombinedPipeline from "../common/pipeline/useCombinedPipeline";
 import InternalTable from "../table/InternalTable";
-import { GridProProps } from "./types";
+import { TableProProps } from "./types";
 import ColHeaderCellPro from "./ColHeaderCellPro";
 import useGridSelectionFns from "../common/pipeline/useGridSelectionFns";
 import useGetInputStrSubmitCallback from "../common/pipeline/useGetInputStrSubmitCallback";
@@ -24,7 +24,7 @@ import useReorderStyles from "./reorder/useReorderStyles";
 import useKeyboardReorderListener from "./reorder/useKeyboardReorderListener";
 import { UseCombinedPipelineHook } from "../common/pipeline/useCombinedPipeline";
 
-const TablePro: FC<GridProProps> = (props) => {
+const TablePro: FC<TableProProps> = (props) => {
   const {
     rows,
     cols,
