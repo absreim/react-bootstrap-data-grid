@@ -5,7 +5,7 @@ import { GridHeaderProps } from "@/grid/main/types";
 const GridHeader: FC<GridHeaderProps> = ({ colInfos }) => {
   return (
     <div role="rowgroup">
-      <div role="row" aria-rowindex={1}>
+      <div role="row" className="d-flex flex-row" aria-rowindex={1}>
         {colInfos.map(({ label, name, width }, index) => (
           <div
             role="columnheader"

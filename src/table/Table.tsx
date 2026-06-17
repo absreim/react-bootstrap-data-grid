@@ -1,6 +1,6 @@
 "use client";
 
-import { FC, useMemo } from "react";
+import { FC } from "react";
 import { TableProps } from "./types";
 import InternalTable from "./InternalTable";
 import { ColSortModel } from "../common/sorting/types";
@@ -8,10 +8,10 @@ import ColHeaderCell from "./main/ColHeaderCell";
 import useCombinedPipeline from "../common/pipeline/useCombinedPipeline";
 import useGridSelectionFns from "../common/pipeline/useGridSelectionFns";
 import useGetInputStrSubmitCallback from "../common/pipeline/useGetInputStrSubmitCallback";
-import { ColNameToWidth } from "../common/pipeline/types";
 import useAugFormattedRows from "../common/pipeline/useAugFormattedRows";
 import BodyRows from "./main/BodyRows";
 import { AugFormattedRow } from "../common";
+import useColNameToWidth from "../common/pipeline/useColNameToWidth";
 
 const Table: FC<TableProps> = (props) => {
   const {
@@ -43,11 +43,7 @@ const Table: FC<TableProps> = (props) => {
     editModel,
     cols,
   );
-  const colNameToWidth: ColNameToWidth = useMemo(() => {
-    const map: Record<string, number | undefined> = {};
-    cols.forEach(({ name, width }) => (map[name] = width));
-    return map;
-  }, [cols]);
+  const colNameToWidth = useColNameToWidth(cols);
   const augFormattedRows: AugFormattedRow[] = useAugFormattedRows(
     colNameToWidth,
     displayRows,
