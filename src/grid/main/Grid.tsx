@@ -8,6 +8,7 @@ import useColNameToWidth from "@/common/pipeline/useColNameToWidth";
 import useGridInfos from "@/grid/main/useGridInfos";
 import GridHeader from "@/grid/main/GridHeader";
 import GridBody from "@/grid/main/GridBody";
+import classNames from "classnames";
 
 const Grid: FC<GridProps> = ({
   rows,
@@ -49,20 +50,30 @@ const Grid: FC<GridProps> = ({
 
     return {
       width: widthProperty,
-      height: heightProperty
+      height: heightProperty,
     }
   }, [width, height]);
 
   return (
     <div
       style={gridStyle}
-      className="overflow-x-scroll overflow-y-scroll"
+      className="overflow-x-auto d-flex flex-column align-items-start"
       role="grid"
       aria-colcount={cols.length}
       aria-rowcount={filteredRows.length + 1}
     >
       <GridHeader colInfos={colInfos} />
-      <GridBody rowInfos={rowInfos} />
+      <GridBody
+        rowInfos={rowInfos}
+        className={classNames(
+          {
+            "overflow-y-auto": height !== undefined,
+            "flex-grow-1": height !== undefined,
+            "flex-shrink-1": height !== undefined,
+          },
+          "border",
+        )}
+      />
     </div>
   );
 };

@@ -2,9 +2,12 @@ import { FC } from 'react';
 import { GridBodyProps } from "@/grid/main/types";
 import getWidthStyles from "@/grid/main/getWidthStyles";
 
-const GridBody: FC<GridBodyProps> = ({ rowInfos }) => {
+const GridBody: FC<GridBodyProps> = ({ rowInfos, className }) => {
   return (
-    <div role="rowgroup">
+    <div
+      role="rowgroup"
+      className={className}
+    >
       {rowInfos.map(({ id, prePaginationIndex, cellInfos }) => (
         <div
           role="row"

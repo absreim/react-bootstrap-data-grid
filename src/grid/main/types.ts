@@ -3,6 +3,7 @@ import {
   ColDef,
   MainComponentSharedProps,
 } from "@/common";
+import { HTMLAttributes } from "react";
 
 export type GridProps = MainComponentSharedProps & {
   height?: GridHeightSetting;
@@ -30,7 +31,7 @@ export type GridBodyRowInfo = Pick<
   cellInfos: GridBodyCellInfo[];
 };
 
-export interface GridBodyProps {
+export type GridBodyProps = Pick<HTMLAttributes<HTMLDivElement>, "className"> & {
   rowInfos: GridBodyRowInfo[];
 }
 
