@@ -18,7 +18,7 @@ const Grid: FC<GridProps> = ({
   pagination,
   selectModel,
   width,
-  height
+  height,
 }) => {
   const { displayRows, filteredRows } = useCombinedPipeline({
     rows,
@@ -51,13 +51,16 @@ const Grid: FC<GridProps> = ({
     return {
       width: widthProperty,
       height: heightProperty,
-    }
+    };
   }, [width, height]);
 
   return (
     <div
       style={gridStyle}
-      className="overflow-x-auto d-flex flex-column align-items-start"
+      className={classNames(
+        { "overflow-x-auto": width !== undefined && width !== "auto" },
+        ["d-flex", "flex-column", "align-items-start"],
+      )}
       role="grid"
       aria-colcount={cols.length}
       aria-rowcount={filteredRows.length + 1}
@@ -66,12 +69,9 @@ const Grid: FC<GridProps> = ({
       <GridBody
         rowInfos={rowInfos}
         className={classNames(
-          {
-            "overflow-y-auto": height !== undefined,
-            "flex-grow-1": height !== undefined,
-            "flex-shrink-1": height !== undefined,
-          },
-          "border",
+          height !== undefined && height !== "auto"
+            ? ["overflow-y-auto", "flex-grow-1", "flex-shrink-1"]
+            : [],
         )}
       />
     </div>
