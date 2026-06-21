@@ -1,8 +1,4 @@
-import {
-  AugFormattedRow,
-  ColDef,
-  MainComponentSharedProps,
-} from "@/common";
+import { AugFormattedRow, ColDef, MainComponentSharedProps } from "@/common";
 import { HTMLAttributes } from "react";
 
 export type GridProps = MainComponentSharedProps & {
@@ -16,6 +12,7 @@ export type GridHeaderColInfo = Pick<ColDef, "label" | "name"> & {
 
 export interface GridHeaderProps {
   colInfos: GridHeaderColInfo[];
+  vertScrollable: boolean;
 }
 
 export interface GridBodyCellInfo {
@@ -31,11 +28,15 @@ export type GridBodyRowInfo = Pick<
   cellInfos: GridBodyCellInfo[];
 };
 
-export type GridBodyProps = Pick<HTMLAttributes<HTMLDivElement>, "className"> & {
+export type GridBodyProps = Pick<
+  HTMLAttributes<HTMLDivElement>,
+  "className"
+> & {
   rowInfos: GridBodyRowInfo[];
-}
+};
 
-export type UseGridInfos = GridHeaderProps & GridBodyProps;
+export type UseGridInfos = Omit<GridHeaderProps, "vertScrollable"> &
+  GridBodyProps;
 
 export type GridHeightSetting = number | "auto" | "parent";
 export type GridWidthSetting = number | "auto" | "parent";

@@ -4,10 +4,7 @@ import getWidthStyles from "@/grid/main/getWidthStyles";
 
 const GridBody: FC<GridBodyProps> = ({ rowInfos, className }) => {
   return (
-    <div
-      role="rowgroup"
-      className={className}
-    >
+    <div role="rowgroup" className={className}>
       {rowInfos.map(({ id, prePaginationIndex, cellInfos }) => (
         <div
           role="row"
@@ -16,7 +13,12 @@ const GridBody: FC<GridBodyProps> = ({ rowInfos, className }) => {
           className="d-flex flex-row"
         >
           {cellInfos.map(({ formattedValue, width, columnName }) => (
-            <div key={columnName} style={getWidthStyles(width)}>
+            <div
+              key={columnName}
+              style={getWidthStyles(width)}
+              role="gridcell"
+              className="rbdg-grid-cell"
+            >
               {formattedValue}
             </div>
           ))}

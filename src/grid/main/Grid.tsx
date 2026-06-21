@@ -54,26 +54,21 @@ const Grid: FC<GridProps> = ({
     };
   }, [width, height]);
 
+  const vertScrollable = height !== undefined && height !== "auto";
+
   return (
     <div
       style={gridStyle}
       className={classNames(
         { "overflow-x-auto": width !== undefined && width !== "auto" },
-        ["d-flex", "flex-column", "align-items-start"],
+        { "overflow-y-auto": vertScrollable },
       )}
       role="grid"
       aria-colcount={cols.length}
       aria-rowcount={filteredRows.length + 1}
     >
-      <GridHeader colInfos={colInfos} />
-      <GridBody
-        rowInfos={rowInfos}
-        className={classNames(
-          height !== undefined && height !== "auto"
-            ? ["overflow-y-auto", "flex-grow-1", "flex-shrink-1"]
-            : [],
-        )}
-      />
+      <GridHeader colInfos={colInfos} vertScrollable={vertScrollable} />
+      <GridBody rowInfos={rowInfos} />
     </div>
   );
 };
