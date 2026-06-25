@@ -32,25 +32,32 @@ const Grid: FC<GridProps> = ({
   const augFormattedRows = useAugFormattedRows(colNameToWidth, displayRows);
   const { colInfos, rowInfos } = useGridInfos(cols, augFormattedRows);
   const gridStyle: CSSProperties = useMemo(() => {
-    let widthProperty: CSSProperties["width"] = undefined;
-    if (width === "parent") {
-      widthProperty = "100%";
-    }
-    if (typeof width === "number") {
-      widthProperty = width;
+    function getWidthProperty(width: GridProps["width"]): CSSProperties["width"] {
+      if (width === "parent") {
+        return  "100%";
+      }
+
+      if (typeof width === "number") {
+        return width;
+      }
+
+      return undefined;
     }
 
-    let heightProperty: CSSProperties["height"] = undefined;
-    if (height === "parent") {
-      heightProperty = "100%";
-    }
-    if (typeof height === "number") {
-      heightProperty = height;
+    function getHeightProperty(height: GridProps["height"]): CSSProperties["height"] {
+      if (height === "parent") {
+        return "100%";
+      }
+      if (typeof height === "number") {
+        return height;
+      }
+
+      return undefined;
     }
 
     return {
-      width: widthProperty,
-      height: heightProperty,
+      width: getWidthProperty(width),
+      height: getHeightProperty(height),
     };
   }, [width, height]);
 
