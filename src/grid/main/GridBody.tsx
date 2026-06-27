@@ -1,10 +1,13 @@
 import { FC } from 'react';
 import { GridBodyProps } from "@/grid/main/types";
 import getWidthStyles from "@/grid/main/getWidthStyles";
+import classNames from "classnames";
 
-const GridBody: FC<GridBodyProps> = ({ rowInfos, className }) => {
+const GridBody: FC<GridBodyProps> = ({ rowInfos, divider }) => {
   return (
-    <div role="rowgroup" className={className}>
+    <div role="rowgroup" className={classNames({
+      "rbdg-grid-group-divider": !!divider
+    })}>
       {rowInfos.map(({ id, prePaginationIndex, cellInfos }) => (
         <div
           role="row"

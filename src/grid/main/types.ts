@@ -1,9 +1,14 @@
 import { AugFormattedRow, ColDef, MainComponentSharedProps } from "@/common";
-import { HTMLAttributes } from "react";
 
 export type GridProps = MainComponentSharedProps & {
   height?: GridHeightSetting;
   width?: GridWidthSetting;
+  variant?: string;
+  stripes?: GridStripeSetting;
+  hover?: boolean;
+  borders?: GridBorderSetting;
+  small?: boolean;
+  divider?: boolean;
 };
 
 export type GridHeaderColInfo = Pick<ColDef, "label" | "name"> & {
@@ -28,10 +33,7 @@ export type GridBodyRowInfo = Pick<
   cellInfos: GridBodyCellInfo[];
 };
 
-export type GridBodyProps = Pick<
-  HTMLAttributes<HTMLDivElement>,
-  "className"
-> & {
+export type GridBodyProps = Pick<GridProps, "divider"> & {
   rowInfos: GridBodyRowInfo[];
 };
 
@@ -40,3 +42,5 @@ export type UseGridInfos = Omit<GridHeaderProps, "vertScrollable"> &
 
 export type GridHeightSetting = number | "auto" | "parent";
 export type GridWidthSetting = number | "auto" | "parent";
+export type GridStripeSetting = "rows" | "columns" | "none";
+export type GridBorderSetting = "horizontal" | "full" | "none";

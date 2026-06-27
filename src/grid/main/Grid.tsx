@@ -19,6 +19,12 @@ const Grid: FC<GridProps> = ({
   selectModel,
   width,
   height,
+  variant,
+  stripes,
+  hover,
+  borders,
+  small,
+  divider,
 }) => {
   const { displayRows, filteredRows } = useCombinedPipeline({
     rows,
@@ -32,9 +38,11 @@ const Grid: FC<GridProps> = ({
   const augFormattedRows = useAugFormattedRows(colNameToWidth, displayRows);
   const { colInfos, rowInfos } = useGridInfos(cols, augFormattedRows);
   const gridStyle: CSSProperties = useMemo(() => {
-    function getWidthProperty(width: GridProps["width"]): CSSProperties["width"] {
+    function getWidthProperty(
+      width: GridProps["width"],
+    ): CSSProperties["width"] {
       if (width === "parent") {
-        return  "100%";
+        return "100%";
       }
 
       if (typeof width === "number") {
@@ -44,7 +52,9 @@ const Grid: FC<GridProps> = ({
       return undefined;
     }
 
-    function getHeightProperty(height: GridProps["height"]): CSSProperties["height"] {
+    function getHeightProperty(
+      height: GridProps["height"],
+    ): CSSProperties["height"] {
       if (height === "parent") {
         return "100%";
       }
@@ -67,15 +77,25 @@ const Grid: FC<GridProps> = ({
     <div
       style={gridStyle}
       className={classNames(
-        { "overflow-x-auto": width !== undefined && width !== "auto" },
-        { "overflow-y-auto": vertScrollable },
+        {
+          "overflow-x-auto": width !== undefined && width !== "auto",
+          "overflow-y-auto": vertScrollable,
+          "rbdg-grid-striped": stripes === "rows",
+          "rbdg-grid-striped-columns": stripes === "columns",
+          "rbdg-grid-hover": !!hover,
+          "rbdg-grid-bordered": borders === "full",
+          "rbdg-grid-borderless": borders === "none",
+          "rbdg-grid-sm": !!small,
+        },
+        "rbdg-grid",
+        variant && `rbdg-grid-${variant}`,
       )}
       role="grid"
       aria-colcount={cols.length}
       aria-rowcount={filteredRows.length + 1}
     >
       <GridHeader colInfos={colInfos} vertScrollable={vertScrollable} />
-      <GridBody rowInfos={rowInfos} />
+      <GridBody rowInfos={rowInfos} divider={divider} />
     </div>
   );
 };
