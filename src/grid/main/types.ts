@@ -1,4 +1,4 @@
-import { AugFormattedRow, ColDef, MainComponentSharedProps } from "@/common";
+import { ColDef, FormattedRow, MainComponentSharedProps } from "@/common";
 
 export type GridProps = MainComponentSharedProps & {
   height?: GridHeightSetting;
@@ -27,7 +27,7 @@ export interface GridBodyCellInfo {
 }
 
 export type GridBodyRowInfo = Pick<
-  AugFormattedRow,
+  FormattedRow,
   "id" | "prePaginationIndex"
 > & {
   cellInfos: GridBodyCellInfo[];

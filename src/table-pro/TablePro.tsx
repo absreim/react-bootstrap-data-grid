@@ -2,7 +2,7 @@
 
 import { FC, useCallback, useEffect, useMemo } from "react";
 import {
-  AugFormattedRow,
+  FormattedRow,
   ColSortModel,
   RowId,
   TableFilterState,
@@ -66,7 +66,7 @@ const TablePro: FC<TableProProps> = (props) => {
       }, {} as ColNameToWidth),
     [resizeModel],
   );
-  const augFormattedRows: AugFormattedRow[] = useAugFormattedRows(
+  const augFormattedRows: FormattedRow[] = useAugFormattedRows(
     colNameToWidth,
     displayRows,
   );
@@ -200,7 +200,7 @@ const TablePro: FC<TableProProps> = (props) => {
   const sortingOccurring = !!sortColDef;
 
   const renderPrefixCells = useCallback(
-    (augRow: AugFormattedRow) => {
+    (augRow: FormattedRow) => {
       if (!reorder) {
         return null;
       }

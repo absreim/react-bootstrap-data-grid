@@ -53,11 +53,3 @@ export type PostPaginationRowDef<Data extends ValidRowData = ValidRowData> =
 export type FormattedRow = {
   contents: CellData[];
 } & Omit<PostPaginationRowDef, "data">;
-
-export type AugCellData = CellData & {
-  width?: number;
-};
-
-export type AugFormattedRow = Omit<FormattedRow, "contents"> & {
-  contents: AugCellData[];
-};

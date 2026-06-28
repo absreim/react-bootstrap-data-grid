@@ -3,13 +3,13 @@ import {
   GridHeaderColInfo,
   UseGridInfos,
 } from "@/grid/main/types";
-import { AugFormattedRow, ColDef } from "@/common";
+import { FormattedRow, ColDef } from "@/common";
 import { useMemo } from "react";
 import { DEFAULT_COL_WIDTH } from "@/common/constants";
 
 const useGridInfos: (
   cols: ColDef[],
-  rows: AugFormattedRow[],
+  rows: FormattedRow[],
 ) => UseGridInfos = (cols, rows) => {
   const colInfos: GridHeaderColInfo[] = useMemo(
     () =>
