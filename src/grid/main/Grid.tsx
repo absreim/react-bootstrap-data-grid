@@ -5,7 +5,6 @@ import useCombinedPipeline from "@/common/pipeline/useCombinedPipeline";
 import { GridProps } from "@/grid/main/types";
 import useAugFormattedRows from "@/common/pipeline/useAugFormattedRows";
 import useColNameToWidth from "@/common/pipeline/useColNameToWidth";
-import useGridInfos from "@/grid/main/useGridInfos";
 import GridHeader from "@/grid/main/GridHeader";
 import GridBody from "@/grid/main/GridBody";
 import classNames from "classnames";
@@ -25,6 +24,10 @@ const Grid: FC<GridProps> = ({
   borders,
   small,
   divider,
+  headerCellVariant,
+  headerRowVariant,
+  bodyCellVariant,
+  bodyRowVariant,
 }) => {
   const { displayRows, filteredRows } = useCombinedPipeline({
     rows,
@@ -36,7 +39,6 @@ const Grid: FC<GridProps> = ({
   });
   const colNameToWidth = useColNameToWidth(cols);
   const augFormattedRows = useAugFormattedRows(colNameToWidth, displayRows);
-  const { colInfos, rowInfos } = useGridInfos(cols, augFormattedRows);
   const gridStyle: CSSProperties = useMemo(() => {
     function getWidthProperty(
       width: GridProps["width"],
@@ -94,8 +96,19 @@ const Grid: FC<GridProps> = ({
       aria-colcount={cols.length}
       aria-rowcount={filteredRows.length + 1}
     >
-      <GridHeader colInfos={colInfos} vertScrollable={vertScrollable} />
-      <GridBody rowInfos={rowInfos} divider={divider} />
+      <GridHeader
+        cols={cols}
+        rowVariant={headerRowVariant}
+        cellVariant={headerCellVariant}
+        vertScrollable={vertScrollable}
+      />
+      <GridBody
+        augFormattedRows={augFormattedRows}
+        cols={cols}
+        divider={divider}
+        rowVariant={bodyRowVariant}
+        cellVariant={bodyCellVariant}
+      />
     </div>
   );
 };

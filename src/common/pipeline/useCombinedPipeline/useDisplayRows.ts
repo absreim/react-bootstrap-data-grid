@@ -2,13 +2,13 @@
 import { useMemo } from "react";
 import { dateToDatetimeInputStr, dateToInputStr } from "@/common/util/datetime";
 import {
+  CellData,
   ColDataType,
   ColDataTypeStrings,
   ColDef,
   FormattedRow,
   PostPaginationRowDef,
 } from "../../types";
-import { CellData } from "@/common/editing/types";
 
 const getFormattedValue: (
   value: ColDataType,

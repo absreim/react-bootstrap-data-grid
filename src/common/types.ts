@@ -1,4 +1,4 @@
-import { CellData, EditModel } from "@/common/editing/types";
+import { EditModel } from "@/common/editing/types";
 import { PaginationModel } from "@/common/pagination/types";
 import { TableSortModel } from "@/common/sorting/types";
 import { FilterModel } from "@/common/filtering/types";
@@ -50,6 +50,21 @@ export type PostPaginationRowDef<Data extends ValidRowData = ValidRowData> =
     prePaginationIndex: number;
   };
 
+export interface CellData {
+  fieldName: string;
+  value: ColDataType;
+  type: ColDataTypeStrings;
+  ariaColIndex: number;
+  formattedValue: string;
+  label: string;
+  width?: number;
+}
+
 export type FormattedRow = {
+  contents: Omit<CellData, "width">[];
+} & Omit<PostPaginationRowDef, "data">;
+
+export type AugFormattedRow = {
   contents: CellData[];
 } & Omit<PostPaginationRowDef, "data">;
+

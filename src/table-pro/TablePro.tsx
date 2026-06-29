@@ -6,6 +6,7 @@ import {
   ColSortModel,
   RowId,
   TableFilterState,
+  AugFormattedRow,
 } from "./";
 import useCombinedPipeline from "../common/pipeline/useCombinedPipeline";
 import InternalTable from "../table/InternalTable";
@@ -66,7 +67,7 @@ const TablePro: FC<TableProProps> = (props) => {
       }, {} as ColNameToWidth),
     [resizeModel],
   );
-  const augFormattedRows: FormattedRow[] = useAugFormattedRows(
+  const augFormattedRows: AugFormattedRow[] = useAugFormattedRows(
     colNameToWidth,
     displayRows,
   );

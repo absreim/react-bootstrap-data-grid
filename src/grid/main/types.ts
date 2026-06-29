@@ -1,4 +1,10 @@
-import { ColDef, FormattedRow, MainComponentSharedProps } from "@/common";
+import {
+  AugFormattedRow,
+  CellData,
+  ColDef,
+  FormattedRow,
+  MainComponentSharedProps,
+} from "@/common";
 
 export type GridProps = MainComponentSharedProps & {
   height?: GridHeightSetting;
@@ -9,36 +15,25 @@ export type GridProps = MainComponentSharedProps & {
   borders?: GridBorderSetting;
   small?: boolean;
   divider?: boolean;
-};
-
-export type GridHeaderColInfo = Pick<ColDef, "label" | "name"> & {
-  width: number;
+  headerRowVariant?: string;
+  headerCellVariant?: (col: ColDef) => string | null;
+  bodyRowVariant?: (row: FormattedRow) => string | null;
+  bodyCellVariant?: (cell: CellData, row: FormattedRow) => string | null;
 };
 
 export interface GridHeaderProps {
-  colInfos: GridHeaderColInfo[];
+  cols: GridProps["cols"];
   vertScrollable: boolean;
+  rowVariant?: GridProps["headerRowVariant"];
+  cellVariant?: GridProps["headerCellVariant"];
 }
-
-export interface GridBodyCellInfo {
-  formattedValue: string;
-  width: number;
-  columnName: string; // to serve as the key since these are unique per row
-}
-
-export type GridBodyRowInfo = Pick<
-  FormattedRow,
-  "id" | "prePaginationIndex"
-> & {
-  cellInfos: GridBodyCellInfo[];
-};
 
 export type GridBodyProps = Pick<GridProps, "divider"> & {
-  rowInfos: GridBodyRowInfo[];
+  augFormattedRows: AugFormattedRow[];
+  cols: GridProps["cols"];
+  rowVariant?: GridProps["bodyRowVariant"];
+  cellVariant?: GridProps["bodyCellVariant"];
 };
-
-export type UseGridInfos = Omit<GridHeaderProps, "vertScrollable"> &
-  GridBodyProps;
 
 export type GridHeightSetting = number | "auto" | "parent";
 export type GridWidthSetting = number | "auto" | "parent";

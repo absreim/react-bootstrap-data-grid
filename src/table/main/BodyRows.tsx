@@ -8,11 +8,11 @@ import { UseCombinedPipelineHook } from "../../common/pipeline/useCombinedPipeli
 import { SelectModel } from "../../common/selection/types";
 import { UseGetInputStrSubmitCallbackHook } from "../../common/pipeline/useGetInputStrSubmitCallback";
 import { TableStyleModel } from "../styling/types";
-import { FormattedRow, RowId } from "../../common/types";
+import { AugFormattedRow, FormattedRow, RowId } from "../../common/types";
 import { EditModel } from "../../common/editing/types";
 
 interface BodyRowsProps {
-  augFormattedRows: FormattedRow[];
+  augFormattedRows: AugFormattedRow[];
   gridSelectionFns: UseGridSelectionFnsHook;
   tableStyleModel: TableStyleModel | undefined;
   combinedPipelineOutput: UseCombinedPipelineHook;

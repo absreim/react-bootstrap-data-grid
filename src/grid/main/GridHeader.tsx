@@ -2,8 +2,14 @@ import { FC } from "react";
 import getWidthStyles from "@/grid/main/getWidthStyles";
 import { GridHeaderProps } from "@/grid/main/types";
 import classNames from "classnames";
+import { DEFAULT_COL_WIDTH } from "@/common/constants";
 
-const GridHeader: FC<GridHeaderProps> = ({ colInfos, vertScrollable }) => {
+const GridHeader: FC<GridHeaderProps> = ({
+  cols,
+  vertScrollable,
+  rowVariant,
+  cellVariant,
+}) => {
   return (
     <div
       role="rowgroup"
@@ -11,16 +17,25 @@ const GridHeader: FC<GridHeaderProps> = ({ colInfos, vertScrollable }) => {
         vertScrollable ? ["position-sticky", "z-1", "top-0"] : [],
       )}
     >
-      <div role="row" className="d-flex flex-row" aria-rowindex={1}>
-        {colInfos.map(({ label, name, width }, index) => (
+      <div
+        role="row"
+        className={classNames("d-flex", "flex-row", rowVariant)}
+        aria-rowindex={1}
+      >
+        {cols.map((col, index) => (
           <div
-            className="bg-body rbdg-grid-cell fw-bold"
+            className={classNames(
+              "bg-body",
+              "rbdg-grid-cell",
+              "fw-bold",
+              cellVariant && cellVariant(col),
+            )}
             role="columnheader"
-            key={name}
+            key={col.name}
             aria-colindex={index + 1}
-            style={getWidthStyles(width)}
+            style={getWidthStyles(col.width || DEFAULT_COL_WIDTH)}
           >
-            {label}
+            {col.label}
           </div>
         ))}
       </div>

@@ -1,12 +1,12 @@
 
 import { useMemo } from "react";
 import { ColNameToWidth } from "./types";
-import { FormattedRow } from "@/common";
+import { AugFormattedRow, FormattedRow } from "@/common";
 
 const useAugFormattedRows: (
   colNameToWidth: ColNameToWidth,
   rows: FormattedRow[],
-) => FormattedRow[] = (colNameToWidth, rows) =>
+) => AugFormattedRow[] = (colNameToWidth, rows) =>
   useMemo(
     () =>
       rows.map((row) => {

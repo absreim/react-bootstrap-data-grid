@@ -1,26 +1,43 @@
-import { FC } from 'react';
+import { FC } from "react";
 import { GridBodyProps } from "@/grid/main/types";
 import getWidthStyles from "@/grid/main/getWidthStyles";
 import classNames from "classnames";
+import { DEFAULT_COL_WIDTH } from "@/common/constants";
 
-const GridBody: FC<GridBodyProps> = ({ rowInfos, divider }) => {
+const GridBody: FC<GridBodyProps> = ({
+  augFormattedRows,
+  cols,
+  divider,
+  rowVariant,
+  cellVariant,
+}) => {
   return (
-    <div role="rowgroup" className={classNames({
-      "rbdg-grid-group-divider": !!divider
-    })}>
-      {rowInfos.map(({ id, prePaginationIndex, cellInfos }) => (
+    <div
+      role="rowgroup"
+      className={classNames({
+        "rbdg-grid-group-divider": !!divider,
+      })}
+    >
+      {augFormattedRows.map((row) => (
         <div
           role="row"
-          key={id}
-          aria-rowindex={prePaginationIndex + 2}
-          className="d-flex flex-row"
+          key={row.id}
+          aria-rowindex={row.prePaginationIndex + 2}
+          className={classNames(
+            "d-flex",
+            "flex-row",
+            rowVariant && rowVariant(row),
+          )}
         >
-          {cellInfos.map(({ formattedValue, width, columnName }) => (
+          {row.contents.map(({ formattedValue, width }, index) => (
             <div
-              key={columnName}
-              style={getWidthStyles(width)}
+              key={cols[index].name}
+              style={getWidthStyles(width || DEFAULT_COL_WIDTH)}
               role="gridcell"
-              className="rbdg-grid-cell"
+              className={classNames(
+                "rbdg-grid-cell",
+                cellVariant && cellVariant(row.contents[index], row),
+              )}
             >
               {formattedValue}
             </div>
@@ -29,6 +46,6 @@ const GridBody: FC<GridBodyProps> = ({ rowInfos, divider }) => {
       ))}
     </div>
   );
-}
+};
 
 export default GridBody;

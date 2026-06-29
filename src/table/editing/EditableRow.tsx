@@ -6,8 +6,12 @@ import EditControlsCell from "./EditControlsCell";
 import React from "react";
 import classNames from "classnames";
 import getWidthStyle from "../../common/util/getWidthStyle";
-import { ColDataType, ColDataTypeStrings, RowId } from "../../common/types";
-import { CellData } from "../../common/editing/types";
+import {
+  CellData,
+  ColDataType,
+  ColDataTypeStrings,
+  RowId,
+} from "../../common/types";
 
 export type EditableRowProps = Pick<
   React.ComponentProps<"tr">,
