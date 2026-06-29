@@ -3,6 +3,12 @@
 
 $rbdg-prefix: "rbdg-";
 
+.rbdg-grid > div, .rbdg-grid > div > div, .rbdg-grid > div > div > div {
+  border-color: inherit;
+  border-style: solid;
+  border-width: 0;
+}
+
 .rbdg-grid {
   // In Bootstrap's _tables.scss file, there are variable declarations here to reset some variables to the initial
   // value to facilitate nesting of tables styled with Bootstrap's "table" CSS class. Unlike _tables.scss, there is no
@@ -19,17 +25,21 @@ $rbdg-prefix: "rbdg-";
   --#{$rbdg-prefix}grid-hover-color: #{$table-hover-color};
   --#{$rbdg-prefix}grid-hover-bg: #{$table-hover-bg};
 
-  border-color: $table-border-color;
+  border-color: var(--#{$rbdg-prefix}grid-border-color);
 
-  > div > div > div {
-    text-overflow: ellipsis;
-    white-space: nowrap;
-    overflow: hidden;
-    padding: $table-cell-padding-y $table-cell-padding-x;
-    color: var(--#{$rbdg-prefix}grid-color-state, var(--#{$rbdg-prefix}grid-color-type, var(--#{$rbdg-prefix}grid-color)));
-    background-color: var(--#{$rbdg-prefix}grid-bg);
-    border-bottom-width: $table-border-width;
-    box-shadow: inset 0 0 0 9999px var(--#{$rbdg-prefix}grid-bg-state, var(--#{$rbdg-prefix}grid-bg-type, var(--#{$rbdg-prefix}grid-accent-bg)));
+  > div {
+    width: min-content;
+
+    > div > div {
+      text-overflow: ellipsis;
+      white-space: nowrap;
+      overflow: hidden;
+      padding: $table-cell-padding-y $table-cell-padding-x;
+      color: var(--#{$rbdg-prefix}grid-color-state, var(--#{$rbdg-prefix}grid-color-type, var(--#{$rbdg-prefix}grid-color)));
+      background-color: var(--#{$rbdg-prefix}grid-bg);
+      border-bottom-width: $table-border-width;
+      box-shadow: inset 0 0 0 9999px var(--#{$rbdg-prefix}grid-bg-state, var(--#{$rbdg-prefix}grid-bg-type, var(--#{$rbdg-prefix}grid-accent-bg)));
+    }
   }
 }
 
@@ -42,6 +52,8 @@ $rbdg-prefix: "rbdg-";
     padding: $table-cell-padding-y-sm $table-cell-padding-x-sm;
   }
 }
+
+// TODO: make outermost borders appear around the enclosing div rather than the cells
 
 .rbdg-grid-bordered {
   > div > div {
@@ -65,27 +77,27 @@ $rbdg-prefix: "rbdg-";
 
 .rbdg-grid-striped {
   > div > div:nth-of-type(#{$table-striped-order}) > div {
-    --#{$prefix}grid-color-type: var(--#{$prefix}grid-striped-color);
-    --#{$prefix}grid-bg-type: var(--#{$prefix}grid-striped-bg);
+    --#{$rbdg-prefix}grid-color-type: var(--#{$rbdg-prefix}grid-striped-color);
+    --#{$rbdg-prefix}grid-bg-type: var(--#{$rbdg-prefix}grid-striped-bg);
   }
 }
 
 .rbdg-grid-striped-columns {
   > div > div > :nth-child(#{$table-striped-columns-order}) {
-    --#{$prefix}grid-color-type: var(--#{$prefix}grid-striped-color);
-    --#{$prefix}grid-bg-type: var(--#{$prefix}grid-striped-bg);
+    --#{$rbdg-prefix}grid-color-type: var(--#{$rbdg-prefix}grid-striped-color);
+    --#{$rbdg-prefix}grid-bg-type: var(--#{$rbdg-prefix}grid-striped-bg);
   }
 }
 
 .rbdg-grid-active {
-  --#{$prefix}grid-color-state: var(--#{$prefix}grid-active-color);
-  --#{$prefix}grid-bg-state: var(--#{$prefix}grid-active-bg);
+  --#{$rbdg-prefix}grid-color-state: var(--#{$prefix}grid-active-color);
+  --#{$rbdg-prefix}grid-bg-state: var(--#{$rbdg-prefix}grid-active-bg);
 }
 
 .rbdg-grid-hover {
   > div > div:hover > div {
-    --#{$prefix}grid-color-state: var(--#{$prefix}grid-hover-color);
-    --#{$prefix}grid-bg-state: var(--#{$prefix}grid-hover-bg);
+    --#{$rbdg-prefix}grid-color-state: var(--#{$rbdg-prefix}grid-hover-color);
+    --#{$rbdg-prefix}grid-bg-state: var(--#{$rbdg-prefix}grid-hover-bg);
   }
 }
 
