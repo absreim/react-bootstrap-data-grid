@@ -53,14 +53,24 @@ $rbdg-prefix: "rbdg-";
   }
 }
 
-// TODO: make outermost borders appear around the enclosing div rather than the cells
-
 .rbdg-grid-bordered {
   > div > div {
-    border-width: $table-border-width 0;
+    > div:not(:last-child) {
+      border-width: 0 $table-border-width 0 0;
+    }
 
-    > div {
-      border-width: 0 $table-border-width;
+    > div:last-child {
+      border-width: 0;
+    }
+  }
+
+  > div:first-child > div {
+    border-width: 0 0 $table-border-width 0;
+  }
+
+  > div:last-child {
+    > div:not(:last-child) {
+      border-width: 0 0 $table-border-width 0;
     }
   }
 }

@@ -87,6 +87,7 @@ const Grid: FC<GridProps> = ({
           "rbdg-grid-striped-columns": stripes === "columns",
           "rbdg-grid-hover": !!hover,
           "rbdg-grid-bordered": borders === "full",
+          "border": borders === "full",
           "rbdg-grid-borderless": borders === "none",
           "rbdg-grid-sm": !!small,
         },
