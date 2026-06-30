@@ -9,6 +9,13 @@ $rbdg-prefix: "rbdg-";
   border-width: 0;
 }
 
+// While these rules seem to work, the way that the three border modes, default; bordered; and borderless override each
+// other is quite hard to understand.
+// Consider refactoring so that each type mode, including default, has a separate class that contains rules for just
+// that mode.
+// The way that each border mode that interacts with dividers with quite complicated. Each combination should be tested
+// separately.
+
 .rbdg-grid {
   // In Bootstrap's _tables.scss file, there are variable declarations here to reset some variables to the initial
   // value to facilitate nesting of tables styled with Bootstrap's "table" CSS class. Unlike _tables.scss, there is no
@@ -41,10 +48,20 @@ $rbdg-prefix: "rbdg-";
       box-shadow: inset 0 0 0 9999px var(--#{$rbdg-prefix}grid-bg-state, var(--#{$rbdg-prefix}grid-bg-type, var(--#{$rbdg-prefix}grid-accent-bg)));
     }
   }
+
+  // These properties are overridden by the "> div > div > div:not(:last-child)" properties when rbdg-grid-bordered is
+  // applied.
+  > div:first-child > div > div {
+    border-bottom-width: var(--#{$rbdg-prefix}grid-divider-border-width, var(--#{$rbdg-prefix}grid-divider-borderless-width, $table-border-width));
+    border-bottom-style: var(--#{$rbdg-prefix}grid-divider-border-style, inherit);
+    border-bottom-color: var(--#{$rbdg-prefix}grid-divider-border-color, inherit);
+  }
 }
 
 .rbdg-grid-group-divider {
-  border-top: calc($table-border-width * 2) solid $table-group-separator-color;
+  --#{$rbdg-prefix}grid-divider-border-width: calc(#{$table-border-width} * 2);
+  --#{$rbdg-prefix}grid-divider-border-style: solid;
+  --#{$rbdg-prefix}grid-divider-border-color: #{$table-group-separator-color};
 }
 
 .rbdg-grid-sm {
@@ -65,7 +82,12 @@ $rbdg-prefix: "rbdg-";
   }
 
   > div:first-child > div {
-    border-width: 0 0 $table-border-width 0;
+    border-top-width: 0;
+    border-right-width: 0;
+    border-left-width: 0;
+    border-bottom-width: var(--#{$rbdg-prefix}grid-divider-border-width, var(--#{$rbdg-prefix}grid-divider-borderless-width, $table-border-width));
+    border-bottom-style: var(--#{$rbdg-prefix}grid-divider-border-style, inherit);
+    border-bottom-color: var(--#{$rbdg-prefix}grid-divider-border-color, inherit);
   }
 
   > div:last-child {
@@ -76,6 +98,8 @@ $rbdg-prefix: "rbdg-";
 }
 
 .rbdg-grid-borderless {
+  --#{$rbdg-prefix}grid-divider-borderless-width: 0;
+
   > div > div > div {
     border-bottom-width: 0;
   }

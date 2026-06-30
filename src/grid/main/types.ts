@@ -29,7 +29,7 @@ export interface GridHeaderProps {
   cellVariant?: GridProps["headerCellVariant"];
 }
 
-export type GridBodyProps = Pick<GridProps, "divider"> & {
+export type GridBodyProps = {
   augFormattedRows: AugFormattedRow[];
   cols: GridProps["cols"];
   rowVariant?: GridProps["bodyRowVariant"];

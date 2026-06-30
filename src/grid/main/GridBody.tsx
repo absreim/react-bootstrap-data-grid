@@ -7,16 +7,12 @@ import { DEFAULT_COL_WIDTH } from "@/common/constants";
 const GridBody: FC<GridBodyProps> = ({
   augFormattedRows,
   cols,
-  divider,
   rowVariant,
   cellVariant,
 }) => {
   return (
     <div
       role="rowgroup"
-      className={classNames({
-        "rbdg-grid-group-divider": !!divider,
-      })}
     >
       {augFormattedRows.map((row) => (
         <div
