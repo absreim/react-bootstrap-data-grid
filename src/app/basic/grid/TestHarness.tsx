@@ -1,7 +1,11 @@
 "use client";
 
 import { FC, useState } from "react";
-import Grid, { GridBorderSetting, GridStripeSetting } from "@/grid";
+import Grid, {
+  GridBorderSetting,
+  GridStripeSetting,
+  GridWidthSetting,
+} from "@/grid";
 import Form from "react-bootstrap/Form";
 import { cols, generateBasicTestRows } from "@/test-tools/basic-test-data";
 
@@ -20,7 +24,12 @@ const variants = [
   "light",
 ];
 
+type GridDimSetting = "unset" | "number" | "auto" | "parent";
+const gridDimSettings: GridDimSetting[] = ["unset", "number", "auto", "parent"];
+
 const TestHarness: FC = () => {
+  const [heightSetting, setHeightSetting] = useState<GridDimSetting>("unset");
+  const [widthSetting, setWidthSetting] = useState<GridDimSetting>("unset");
   const [stripes, setStripes] = useState<GridStripeSetting>("rows");
   const [hover, setHover] = useState<boolean>(true);
   const [divider, setDivider] = useState<boolean>(true);
@@ -29,9 +38,63 @@ const TestHarness: FC = () => {
   const [variant, setVariant] = useState<string>("");
   const [borderVariant, setBorderVariant] = useState<string>("");
 
+  const getEffectiveWidth: () => GridWidthSetting | undefined = () => {
+    switch (widthSetting) {
+      case "unset":
+        return undefined;
+      case "number":
+        return 400;
+      default:
+        return widthSetting;
+    }
+  }
+
+  const getEffectiveHeight: () => GridWidthSetting | undefined = () => {
+    switch (heightSetting) {
+      case "unset":
+        return undefined;
+      case "number":
+        return 300;
+      default:
+        return heightSetting;
+    }
+  };
+
   return (
     <>
       <Form>
+        <fieldset>
+          <legend>Height Setting</legend>
+          {gridDimSettings.map((setting) => (
+            <Form.Check
+              key={setting}
+              type="radio"
+              id={`heightSetting-${setting}`}
+              label={setting}
+              checked={heightSetting === setting}
+              value={setting}
+              onChange={({ target }) =>
+                setHeightSetting(target.value as GridDimSetting)
+              }
+            />
+          ))}
+        </fieldset>
+        <fieldset>
+          <legend>Width Setting</legend>
+          {gridDimSettings.map((setting) => (
+            <Form.Check
+              key={setting}
+              type="radio"
+              id={`widthSetting-${setting}`}
+              label={setting}
+              checked={widthSetting === setting}
+              value={setting}
+              onChange={({ target }) =>
+                setWidthSetting(target.value as GridDimSetting)
+              }
+            />
+          ))}
+        </fieldset>
         <fieldset>
           <legend>Stripe Setting</legend>
           {stripeSettings.map((setting) => (
@@ -114,8 +177,8 @@ const TestHarness: FC = () => {
       <Grid
         rows={testRows}
         cols={cols}
-        width={400}
-        height={300}
+        width={getEffectiveWidth()}
+        height={getEffectiveHeight()}
         stripes={stripes}
         hover={hover}
         divider={divider}
