@@ -1,6 +1,6 @@
 import { FC } from "react";
-import TestGrid from "@/app/basic/grid/style-options/TestGrid";
+import TestHarness from "@/app/basic/grid/style-options/TestHarness";
 
-const Page: FC = () => <TestGrid />;
+const Page: FC = () => <TestHarness />;
 
 export default Page;

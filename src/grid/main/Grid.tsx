@@ -24,7 +24,7 @@ const Grid: FC<GridProps> = ({
   borders,
   small,
   divider,
-  borderColorVariant,
+  borderVariant,
   headerCellVariant,
   headerRowVariant,
   bodyCellVariant,
@@ -94,7 +94,7 @@ const Grid: FC<GridProps> = ({
         },
         "rbdg-grid",
         variant && `rbdg-grid-${variant}`,
-        borderColorVariant && `border-${borderColorVariant}`,
+        borderVariant && `border-${borderVariant}`,
       )}
       role="grid"
       aria-colcount={cols.length}

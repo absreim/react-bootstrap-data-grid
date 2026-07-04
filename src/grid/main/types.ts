@@ -13,7 +13,7 @@ export type GridProps = MainComponentSharedProps & {
   stripes?: GridStripeSetting;
   hover?: boolean;
   borders?: GridBorderSetting;
-  borderColorVariant?: string;
+  borderVariant?: string;
   small?: boolean;
   divider?: boolean;
   headerRowVariant?: string;
