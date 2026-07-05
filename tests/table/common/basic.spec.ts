@@ -1,5 +1,5 @@
 import { test, expect, Locator } from "@playwright/test";
-import { confirmColWidth } from "../util";
+import { confirmColWidth } from "../../util";
 
 const confirmWidthStyle: (
   targetWidth: number,

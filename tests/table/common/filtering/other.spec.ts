@@ -1,5 +1,5 @@
 import { test } from "@playwright/test";
-import { validateGridContents } from "../util";
+import { validateGridContents } from "../../../util";
 
 ["community", "pro"].forEach((edition) => {
   const url = edition === "pro" ? "filtering/other/pro" : "filtering/other";

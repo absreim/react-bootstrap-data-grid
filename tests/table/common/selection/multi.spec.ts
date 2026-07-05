@@ -1,5 +1,5 @@
 import { test, expect } from "@playwright/test";
-import { clickSelectAllAndVerify } from "../util";
+import { clickSelectAllAndVerify } from "../../../util";
 
 ["community", "pro"].forEach((edition) => {
   const url = edition === "pro" ? "selection/multi/pro" : "selection/multi";

@@ -1,5 +1,5 @@
 import { test } from "@playwright/test";
-import { confirmColWidth } from "../util";
+import { confirmColWidth } from "../../util";
 
 test.beforeEach(async ({ page }) => {
   await page.goto("/pro/resize");

@@ -1,5 +1,5 @@
 import { FC } from "react";
-import TestHarness from "@/app/basic/grid/TestHarness";
+import TestHarness from "@/app/grid/TestHarness";
 
 const Page: FC = () => <TestHarness />;
 

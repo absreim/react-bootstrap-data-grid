@@ -1,5 +1,5 @@
 import { expect, test } from "@playwright/test";
-import { confirmColWidth, validateGridContents } from "../util";
+import { confirmColWidth, validateGridContents } from "../../util";
 
 test.beforeEach(async ({ page }) => {
   await page.goto("/pro/sorting");
