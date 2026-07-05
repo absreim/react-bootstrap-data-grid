@@ -169,7 +169,7 @@ $rbdg-prefix: "rbdg-";
 //
 // The RBDG flex grid is a div of type "block," so the concept of "responsive" scrollable breakpoints doesn't apply.
 // It appears that for a table, even if the width is to 100%, the browser sometimes disobeys this setting causing
-// the width to be more than the parent, hence the need for responsive tables. Divs not appear to have this problem.
+// the width to be more than the parent, hence the need for responsive tables. Divs do not appear to have this problem.
 //
 // The RBDG flex grid provides other options to achieving a horizontally scrollable grid. They are as follows.
 //

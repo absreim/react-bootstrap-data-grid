@@ -40,7 +40,6 @@ const Grid: FC<GridProps> = ({
   });
   const colNameToWidth = useColNameToWidth(cols);
   const augFormattedRows = useAugFormattedRows(colNameToWidth, displayRows);
-  // TODO: make the "auto" setting display intrinsic width and height
   const gridStyle: CSSProperties = useMemo(() => {
     function getWidthProperty(
       width: GridProps["width"],
@@ -53,7 +52,7 @@ const Grid: FC<GridProps> = ({
         return width;
       }
 
-      return undefined;
+      return "min-content";
     }
 
     function getHeightProperty(

@@ -47,7 +47,7 @@ const TestHarness: FC = () => {
       default:
         return widthSetting;
     }
-  }
+  };
 
   const getEffectiveHeight: () => GridWidthSetting | undefined = () => {
     switch (heightSetting) {
@@ -174,19 +174,21 @@ const TestHarness: FC = () => {
           );
         })}
       </Form>
-      <Grid
-        rows={testRows}
-        cols={cols}
-        width={getEffectiveWidth()}
-        height={getEffectiveHeight()}
-        stripes={stripes}
-        hover={hover}
-        divider={divider}
-        borders={borders}
-        small={small}
-        variant={variant || undefined}
-        borderVariant={borderVariant || undefined}
-      />
+      <div style={{ height: 500, width: 700 }}>
+        <Grid
+          rows={testRows}
+          cols={cols}
+          width={getEffectiveWidth()}
+          height={getEffectiveHeight()}
+          stripes={stripes}
+          hover={hover}
+          divider={divider}
+          borders={borders}
+          small={small}
+          variant={variant || undefined}
+          borderVariant={borderVariant || undefined}
+        />
+      </div>
     </>
   );
 };
