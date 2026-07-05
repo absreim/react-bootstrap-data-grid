@@ -110,7 +110,7 @@ $rbdg-prefix: "rbdg-";
 }
 
 .rbdg-grid-striped {
-  > div > div:nth-of-type(#{$table-striped-order}) > div {
+  > div:nth-of-type(2) > div:nth-of-type(#{$table-striped-order}) > div {
     --#{$rbdg-prefix}grid-color-type: var(--#{$rbdg-prefix}grid-striped-color);
     --#{$rbdg-prefix}grid-bg-type: var(--#{$rbdg-prefix}grid-striped-bg);
   }
@@ -129,7 +129,7 @@ $rbdg-prefix: "rbdg-";
 }
 
 .rbdg-grid-hover {
-  > div > div:hover > div {
+  > div:nth-of-type(2) > div:hover > div {
     --#{$rbdg-prefix}grid-color-state: var(--#{$rbdg-prefix}grid-hover-color);
     --#{$rbdg-prefix}grid-bg-state: var(--#{$rbdg-prefix}grid-hover-bg);
   }
