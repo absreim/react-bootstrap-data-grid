@@ -2,7 +2,11 @@ import { FC } from "react";
 import getWidthStyles from "@/grid/main/getWidthStyles";
 import { GridHeaderProps } from "@/grid/main/types";
 import classNames from "classnames";
-import { DEFAULT_COL_WIDTH } from "@/common/constants";
+import {
+  DEFAULT_COL_WIDTH,
+
+} from "@/common/constants";
+import { GRID_HEADER_DATA_TEST_ID } from "@/grid/constants";
 
 const GridHeader: FC<GridHeaderProps> = ({
   cols,
@@ -12,6 +16,7 @@ const GridHeader: FC<GridHeaderProps> = ({
 }) => {
   return (
     <div
+      data-testid={GRID_HEADER_DATA_TEST_ID}
       role="rowgroup"
       className={classNames(
         vertScrollable ? ["position-sticky", "z-1", "top-0"] : [],

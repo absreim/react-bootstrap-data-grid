@@ -9,9 +9,17 @@ import Grid, {
 import Form from "react-bootstrap/Form";
 import { cols, generateBasicTestRows } from "@/test-tools/basic-test-data";
 
+type GridDimSetting = "unset" | "number" | "auto" | "parent";
+type TestGridStripeSetting = GridStripeSetting | "unset";
+
 const testRows = generateBasicTestRows(10);
 
-const stripeSettings: GridStripeSetting[] = ["rows", "columns", "none"];
+const stripeSettings: TestGridStripeSetting[] = [
+  "unset",
+  "rows",
+  "columns",
+  "none",
+];
 const borderSettings: GridBorderSetting[] = ["full", "horizontal", "none"];
 const variants = [
   "primary",
@@ -24,13 +32,12 @@ const variants = [
   "light",
 ];
 
-type GridDimSetting = "unset" | "number" | "auto" | "parent";
 const gridDimSettings: GridDimSetting[] = ["unset", "number", "auto", "parent"];
 
 const TestHarness: FC = () => {
   const [heightSetting, setHeightSetting] = useState<GridDimSetting>("unset");
   const [widthSetting, setWidthSetting] = useState<GridDimSetting>("unset");
-  const [stripes, setStripes] = useState<GridStripeSetting>("rows");
+  const [stripes, setStripes] = useState<TestGridStripeSetting>("unset");
   const [hover, setHover] = useState<boolean>(true);
   const [divider, setDivider] = useState<boolean>(true);
   const [borders, setBorders] = useState<GridBorderSetting>("full");
@@ -106,7 +113,7 @@ const TestHarness: FC = () => {
               checked={stripes === setting}
               value={setting}
               onChange={({ target }) =>
-                setStripes(target.value as GridStripeSetting)
+                setStripes(target.value as TestGridStripeSetting)
               }
             />
           ))}
@@ -180,7 +187,7 @@ const TestHarness: FC = () => {
           cols={cols}
           width={getEffectiveWidth()}
           height={getEffectiveHeight()}
-          stripes={stripes}
+          stripes={stripes === "unset" ? undefined : stripes}
           hover={hover}
           divider={divider}
           borders={borders}
