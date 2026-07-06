@@ -30,7 +30,6 @@ const GridHeader: FC<GridHeaderProps> = ({
         {cols.map((col, index) => (
           <div
             className={classNames(
-              "bg-body",
               "rbdg-grid-cell",
               "fw-bold",
               cellVariant && cellVariant(col),

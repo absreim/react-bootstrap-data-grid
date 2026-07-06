@@ -54,7 +54,7 @@ $rbdg-prefix: "rbdg-";
   > div:first-child > div > div {
     border-bottom-width: var(--#{$rbdg-prefix}grid-divider-border-width, var(--#{$rbdg-prefix}grid-divider-borderless-width, $table-border-width));
     border-bottom-style: var(--#{$rbdg-prefix}grid-divider-border-style, inherit);
-    border-bottom-color: var(--#{$rbdg-prefix}grid-divider-border-color, inherit);
+    border-bottom-color: var(--#{$rbdg-prefix}grid-divider-border-color, var(--#{$rbdg-prefix}grid-border-color));
   }
 }
 
@@ -71,6 +71,9 @@ $rbdg-prefix: "rbdg-";
 }
 
 .rbdg-grid-bordered {
+  border-width: $table-border-width;
+  border-style: solid;
+
   > div > div {
     > div:not(:last-child) {
       border-width: 0 $table-border-width 0 0;
@@ -87,7 +90,7 @@ $rbdg-prefix: "rbdg-";
     border-left-width: 0;
     border-bottom-width: var(--#{$rbdg-prefix}grid-divider-border-width, var(--#{$rbdg-prefix}grid-divider-borderless-width, $table-border-width));
     border-bottom-style: var(--#{$rbdg-prefix}grid-divider-border-style, inherit);
-    border-bottom-color: var(--#{$rbdg-prefix}grid-divider-border-color, inherit);
+    border-bottom-color: var(--#{$rbdg-prefix}grid-divider-border-color, var(--#{$rbdg-prefix}grid-border-color));
   }
 
   > div:last-child {
