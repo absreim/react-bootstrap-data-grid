@@ -12,10 +12,9 @@ const GridBody: FC<GridBodyProps> = ({
   cellVariant,
 }) => {
   return (
-    <div role="rowgroup">
+    <div role="rowgroup" data-testid={GRID_BODY_DATA_TEST_ID}>
       {augFormattedRows.map((row) => (
         <div
-          data-testid={GRID_BODY_DATA_TEST_ID}
           role="row"
           key={row.id}
           aria-rowindex={row.prePaginationIndex + 2}

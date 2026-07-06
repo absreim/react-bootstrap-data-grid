@@ -11,6 +11,7 @@ import { cols, generateBasicTestRows } from "@/test-tools/basic-test-data";
 
 type GridDimSetting = "unset" | "number" | "auto" | "parent";
 type TestGridStripeSetting = GridStripeSetting | "unset";
+type TestGridBorderSetting = GridBorderSetting | "unset";
 
 const testRows = generateBasicTestRows(10);
 
@@ -20,7 +21,7 @@ const stripeSettings: TestGridStripeSetting[] = [
   "columns",
   "none",
 ];
-const borderSettings: GridBorderSetting[] = ["full", "horizontal", "none"];
+const borderSettings: TestGridBorderSetting[] = ["unset", "full", "horizontal", "none"];
 const variants = [
   "primary",
   "secondary",
@@ -38,10 +39,10 @@ const TestHarness: FC = () => {
   const [heightSetting, setHeightSetting] = useState<GridDimSetting>("unset");
   const [widthSetting, setWidthSetting] = useState<GridDimSetting>("unset");
   const [stripes, setStripes] = useState<TestGridStripeSetting>("unset");
-  const [hover, setHover] = useState<boolean>(true);
-  const [divider, setDivider] = useState<boolean>(true);
-  const [borders, setBorders] = useState<GridBorderSetting>("full");
-  const [small, setSmall] = useState<boolean>(true);
+  const [hover, setHover] = useState<boolean>(false);
+  const [divider, setDivider] = useState<boolean>(false);
+  const [borders, setBorders] = useState<TestGridBorderSetting>("unset");
+  const [small, setSmall] = useState<boolean>(false);
   const [variant, setVariant] = useState<string>("");
   const [borderVariant, setBorderVariant] = useState<string>("");
 
@@ -190,7 +191,7 @@ const TestHarness: FC = () => {
           stripes={stripes === "unset" ? undefined : stripes}
           hover={hover}
           divider={divider}
-          borders={borders}
+          borders={borders === "unset" ? undefined : borders}
           small={small}
           variant={variant || undefined}
           borderVariant={borderVariant || undefined}

@@ -9,7 +9,7 @@ test("grid has width of intrinsic content when width prop unset", async ({
 }) => {
   const grid = page.getByRole("grid");
 
-  await expect(grid).toHaveCSS("width", "652px");
+  await expect(grid).toHaveCSS("width", "650px");
 });
 
 async function setWidthAndAssert(page: Page, optionName: string, widthPx: number) {
@@ -25,7 +25,7 @@ async function setWidthAndAssert(page: Page, optionName: string, widthPx: number
 test("grid has width of intrinsic content when width prop set to auto", async ({
   page,
 }) => {
-  await setWidthAndAssert(page, "auto", 652);
+  await setWidthAndAssert(page, "auto", 650);
 });
 
 test("grid has width of parent when width prop set to parent", async ({

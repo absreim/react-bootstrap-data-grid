@@ -9,7 +9,7 @@ test("grid has height of intrinsic content when height prop unset", async ({
 }) => {
   const grid = page.getByRole("grid");
 
-  await expect(grid).toHaveCSS("height", "365px");
+  await expect(grid).toHaveCSS("height", "451px");
 });
 
 async function setHeightAndAssert(
@@ -29,7 +29,7 @@ async function setHeightAndAssert(
 test("grid has height of intrinsic content when height prop set to auto", async ({
   page,
 }) => {
-  await setHeightAndAssert(page, "auto", 365);
+  await setHeightAndAssert(page, "auto", 451);
 });
 
 test("grid has height of parent when height prop set to parent", async ({
