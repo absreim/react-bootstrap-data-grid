@@ -33,6 +33,7 @@ const GridBody: FC<GridBodyProps> = ({
                 "rbdg-grid-cell",
                 cellVariant && cellVariant(row.contents[index], row),
               )}
+              aria-colindex={index + 1}
             >
               {formattedValue}
             </div>

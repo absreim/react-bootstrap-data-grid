@@ -54,7 +54,7 @@ $rbdg-prefix: "rbdg-";
   > div:first-child > div > div {
     border-bottom-width: var(--#{$rbdg-prefix}grid-divider-border-width, var(--#{$rbdg-prefix}grid-divider-borderless-width, $table-border-width));
     border-bottom-style: var(--#{$rbdg-prefix}grid-divider-border-style, inherit);
-    border-bottom-color: var(--#{$rbdg-prefix}grid-divider-border-color, var(--#{$rbdg-prefix}grid-border-color));
+    border-bottom-color: var(--#{$rbdg-prefix}grid-divider-border-color, inherit);
   }
 }
 
@@ -90,7 +90,7 @@ $rbdg-prefix: "rbdg-";
     border-left-width: 0;
     border-bottom-width: var(--#{$rbdg-prefix}grid-divider-border-width, var(--#{$rbdg-prefix}grid-divider-borderless-width, $table-border-width));
     border-bottom-style: var(--#{$rbdg-prefix}grid-divider-border-style, inherit);
-    border-bottom-color: var(--#{$rbdg-prefix}grid-divider-border-color, var(--#{$rbdg-prefix}grid-border-color));
+    border-bottom-color: var(--#{$rbdg-prefix}grid-divider-border-color, inherit);
   }
 
   > div:last-child {

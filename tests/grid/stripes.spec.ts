@@ -48,6 +48,9 @@ test('"rows" setting applies stripes properly', async ({ page }) => {
     .locator("div:nth-child(even) > div")
     .all();
 
+  await expect(oddBodyRowCells).toHaveLength(20);
+  await expect(evenBodyRowCells).toHaveLength(20);
+
   for (const cell of headerRowCells) {
     await expect(cell).toHaveCSS("box-shadow", unstripedBoxShadowValue);
   }
@@ -71,6 +74,9 @@ test('"columns" setting applies stripes properly', async ({ page }) => {
     .getByRole("grid")
     .locator("div > div > div:nth-child(odd)")
     .all();
+
+  await expect(evenColCells).toHaveLength(22);
+  await expect(oddColCells).toHaveLength(22);
 
   for (const cell of evenColCells) {
     await expect(cell).toHaveCSS("box-shadow", stripedBoxShadowValue);
