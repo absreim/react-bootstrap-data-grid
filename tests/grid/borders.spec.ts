@@ -9,15 +9,17 @@ test.beforeEach(async ({ page }) => {
 });
 
 async function assertHorizontalBorders(page: Page): Promise<void> {
+  const headerCells = await page.getByRole("columnheader").all();
   const gridcells = await page.getByRole("gridcell").all();
+  const cells = headerCells.concat(gridcells);
 
-  for (const gridcell of gridcells) {
-    await expect(gridcell).toHaveCSS(
-      "border-bottom-color",
-      "rgb(222, 226, 230)",
-    );
-    await expect(gridcell).toHaveCSS("border-bottom-style", "solid");
-    await expect(gridcell).toHaveCSS("border-bottom-width", "1px");
+  await expect(headerCells).toHaveLength(4);
+  await expect(gridcells).toHaveLength(40);
+
+  for (const cell of cells) {
+    await expect(cell).toHaveCSS("border-bottom-color", "rgb(222, 226, 230)");
+    await expect(cell).toHaveCSS("border-bottom-style", "solid");
+    await expect(cell).toHaveCSS("border-bottom-width", "1px");
   }
 }
 

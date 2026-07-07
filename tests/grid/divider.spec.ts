@@ -7,7 +7,9 @@ test.beforeEach(async ({ page }) => {
 
 async function checkHeaderRowBottomBorderWidth(page: Page, borderWidthPx: number): Promise<void> {
   const gridHeader = page.getByTestId(GRID_HEADER_DATA_TEST_ID);
-  const headerCells = await gridHeader.getByRole("gridcell").all();
+  const headerCells = await gridHeader.getByRole("columnheader").all();
+
+  await expect(headerCells).toHaveLength(4);
 
   for (const cell of headerCells) {
     await expect(cell).toHaveCSS(
@@ -40,7 +42,11 @@ test.describe("divider displays correctly when enabled", () => {
     const fullRadio = borderOptions.getByRole("radio", { name: "full" });
     await fullRadio.check();
 
-    await checkHeaderRowBottomBorderWidth(page, 2);
+    const gridHeader = page.getByTestId(GRID_HEADER_DATA_TEST_ID);
+    const headerRow = gridHeader.getByRole("row");
+    await expect(headerRow).toHaveCSS("border-bottom-width", "2px");
+
+    await checkHeaderRowBottomBorderWidth(page, 0);
   });
 
   test(`divider displays correctly with "none" "border" setting`, async ({
