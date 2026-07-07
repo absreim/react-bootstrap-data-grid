@@ -50,7 +50,7 @@ test('"borders" prop being set to "none" results in no borders', async ({ page }
   }
 })
 
-test('"borders" prop being set to "full" horizontal and vertical borders', async ({ page }) => {
+test('"borders" prop being set to "full" makes horizontal and vertical borders', async ({ page }) => {
   const borderSettingGroup = page.getByRole("group", {
     name: "Border Setting",
   });

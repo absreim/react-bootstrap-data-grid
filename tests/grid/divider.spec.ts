@@ -9,7 +9,7 @@ async function checkHeaderRowBottomBorderWidth(page: Page, borderWidthPx: number
   const gridHeader = page.getByTestId(GRID_HEADER_DATA_TEST_ID);
   const headerCells = await gridHeader.getByRole("columnheader").all();
 
-  await expect(headerCells).toHaveLength(4);
+  expect(headerCells).toHaveLength(4);
 
   for (const cell of headerCells) {
     await expect(cell).toHaveCSS(

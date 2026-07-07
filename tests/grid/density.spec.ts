@@ -9,8 +9,8 @@ test("non-small grid has 8px cell padding", async ({ page }) => {
   const gridcells = await page.getByRole("gridcell").all();
   const cells = headerCells.concat(gridcells);
 
-  await expect(headerCells).toHaveLength(4);
-  await expect(gridcells).toHaveLength(40);
+  expect(headerCells).toHaveLength(4);
+  expect(gridcells).toHaveLength(40);
 
   for (const cell of cells) {
     await expect(cell).toHaveCSS("padding-left", "8px");
@@ -28,8 +28,8 @@ test("small grid has 4px cell padding", async ({ page }) => {
   const gridcells = await page.getByRole("gridcell").all();
   const cells = headerCells.concat(gridcells);
 
-  await expect(headerCells).toHaveLength(4);
-  await expect(gridcells).toHaveLength(40);
+  expect(headerCells).toHaveLength(4);
+  expect(gridcells).toHaveLength(40);
 
   for (const cell of cells) {
     await expect(cell).toHaveCSS("padding-left", "4px");

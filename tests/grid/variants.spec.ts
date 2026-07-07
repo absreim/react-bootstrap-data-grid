@@ -20,7 +20,7 @@ test.beforeEach(async ({ page }) => {
 test("border and bg colors work correctly under default settings", async ({ page }) => {
   const gridcells = await page.getByRole("gridcell").all();
 
-  await expect(gridcells).toHaveLength(40);
+  expect(gridcells).toHaveLength(40);
 
   for (const cell of gridcells) {
     await expect(cell).toHaveCSS("background-color", expectedSuccessBgColor);
@@ -44,8 +44,8 @@ test("row stripe box shadows work correctly", async ({ page }) => {
     .locator("div:nth-child(even) > div")
     .all();
 
-  await expect(oddBodyRowCells).toHaveLength(20);
-  await expect(evenBodyRowCells).toHaveLength(20);
+  expect(oddBodyRowCells).toHaveLength(20);
+  expect(evenBodyRowCells).toHaveLength(20);
 
   for (const cell of oddBodyRowCells) {
     await expect(cell).toHaveCSS("box-shadow", expectedSuccessStripeShadow);
@@ -70,8 +70,8 @@ test("column stripe box shadows work correctly", async ({ page }) => {
     .locator("div > div > div:nth-child(odd)")
     .all();
 
-  await expect(oddColCells).toHaveLength(22);
-  await expect(evenColCells).toHaveLength(22);
+  expect(oddColCells).toHaveLength(22);
+  expect(evenColCells).toHaveLength(22);
 
   for (const cell of oddColCells) {
     await expect(cell).toHaveCSS("box-shadow", expectedDefaultBoxShadow);
@@ -111,7 +111,7 @@ test("divider color overrides variant border color for horizontal borders", asyn
   const gridHeader = page.getByTestId(GRID_HEADER_DATA_TEST_ID);
   const headerCells = await gridHeader.getByRole("columnheader").all();
 
-  await expect(headerCells).toHaveLength(4);
+  expect(headerCells).toHaveLength(4);
 
   for (const cell of headerCells) {
     await expect(cell).toHaveCSS("border-bottom-color", expectedDividerColor);
