@@ -31,6 +31,7 @@ const variants = [
   "info",
   "dark",
   "light",
+  "bsbrand",
 ];
 
 const gridDimSettings: GridDimSetting[] = ["unset", "number", "auto", "parent"];

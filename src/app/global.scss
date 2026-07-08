@@ -1,9 +1,26 @@
+@use "sass:map";
+
 // --- Bootstrap imports ---
 
 // Configuration
 @import "~bootstrap/scss/functions";
 @import "~bootstrap/scss/variables";
 @import "~bootstrap/scss/variables-dark";
+
+$bsbrand: #712cf9;
+
+$custom-variants: (
+  "bsbrand": $bsbrand,
+);
+
+$theme-colors: map.merge($theme-colors, $custom-variants);
+
+$custom-table-variants: (
+  "bsbrand": shift-color($bsbrand, $table-bg-scale),
+);
+
+$table-variants: map.merge($table-variants, $custom-table-variants);
+
 @import "~bootstrap/scss/maps";
 @import "~bootstrap/scss/mixins";
 @import "~bootstrap/scss/utilities";
