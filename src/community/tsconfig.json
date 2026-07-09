@@ -4,12 +4,14 @@
     "allowJs": true,
     "module": "esnext",
     "moduleResolution": "bundler",
-    "outDir": "../../dist/pro",
+    "outDir": "../../dist/community",
     "strict": true,
     "skipLibCheck": true,
     "isolatedModules": true,
     "jsx": "react-jsx",
     "declaration": true,
-    "target": "es2015"
+    "paths": {
+      "@/*": ["../*"]
+    },
   }
 }
