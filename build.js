@@ -23,6 +23,13 @@ const srcTableScss = path.join(tableRoot, "style.scss");
 const distTableScss = path.join(distDir, "table.scss");
 const distTableCss = path.join(distDir, "table.css");
 
+// Due to the use of @use SCSS rules and directory paths, a separate file is
+// needed for the pro table SCSS file. Additionally, it is necessary to copy
+// the table and pro table source SCSS files in their original locations.
+const proTableDistableScss = path.join(srcDir, "table-pro-dist.scss");
+const proTableInnerDistScss = path.join(distDir, "./table-pro", "style.scss");
+const tableInnerDistScss = path.join(distDir, "./table", "style.scss");
+
 const proSrcTableScss = path.join(proTableRoot, "style.scss");
 const proDistTableScss = path.join(distDir, "table-pro.scss");
 const proDistTableCss = path.join(distDir, "table-pro.css");
@@ -87,8 +94,15 @@ function copyDirContents(src, dest) {
 createDirs(distDir, packDir);
 cleanDist(distDir);
 
+compileTs(root);
+copyDirContents(templateDir, distDir);
+
 if (isPro) {
-  copyWithDirs(proSrcTableScss, proDistTableScss);
+  // Imported by table pro inner SCSS file
+  copyWithDirs(srcTableScss, tableInnerDistScss);
+
+  copyWithDirs(proSrcTableScss, proTableInnerDistScss);
+  copyWithDirs(proTableDistableScss, proDistTableScss);
   compileScss(proSrcTableScss, proDistTableCss);
 } else {
   copyWithDirs(srcTableScss, distTableScss);
@@ -96,6 +110,3 @@ if (isPro) {
 }
 copyWithDirs(srcGridScss, distGridScss);
 compileScss(compilableGridScss, distGridCss);
-
-compileTs(root);
-copyDirContents(templateDir, distDir);
