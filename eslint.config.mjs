@@ -33,7 +33,7 @@ export default defineConfig([
         {
           vars: "all",
           varsIgnorePattern: "^_",
-          args: "after-used",
+          args: "none",
           argsIgnorePattern: "^_",
         },
       ],

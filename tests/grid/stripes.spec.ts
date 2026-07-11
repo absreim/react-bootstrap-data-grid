@@ -11,7 +11,9 @@ test.beforeEach(async ({ page }) => {
   await page.goto("grid");
 });
 
-test("no cells are striped if no stripes prop is specified", async ({ page }) => {
+test("no cells are striped if no stripes prop is specified", async ({
+  page,
+}) => {
   const gridcells = await page.getByRole("gridcell").all();
 
   for (const cell of gridcells) {
@@ -38,7 +40,10 @@ test('"rows" setting applies stripes properly', async ({ page }) => {
   const option = stripesFieldset.getByRole("radio", { name: "rows" });
   await option.check();
 
-  const headerRowCells = await page.getByTestId(GRID_HEADER_DATA_TEST_ID).getByRole("gridcell").all();
+  const headerRowCells = await page
+    .getByTestId(GRID_HEADER_DATA_TEST_ID)
+    .getByRole("gridcell")
+    .all();
 
   const gridBody = page.getByTestId(GRID_BODY_DATA_TEST_ID);
   const oddBodyRowCells = await gridBody
@@ -62,14 +67,17 @@ test('"rows" setting applies stripes properly', async ({ page }) => {
   for (const cell of evenBodyRowCells) {
     await expect(cell).toHaveCSS("box-shadow", unstripedBoxShadowValue);
   }
-})
+});
 
 test('"columns" setting applies stripes properly', async ({ page }) => {
   const stripesFieldset = page.getByRole("group", { name: "Stripe Setting" });
   const option = stripesFieldset.getByRole("radio", { name: "columns" });
   await option.check();
 
-  const evenColCells = await page.getByRole("grid").locator("div > div > div:nth-child(even)").all();
+  const evenColCells = await page
+    .getByRole("grid")
+    .locator("div > div > div:nth-child(even)")
+    .all();
   const oddColCells = await page
     .getByRole("grid")
     .locator("div > div > div:nth-child(odd)")

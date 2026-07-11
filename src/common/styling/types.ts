@@ -2,7 +2,7 @@ import {
   AdditionalComponentsStyleModel,
   FilterInputTableStyleModel,
   TableStyleModel,
-} from "@/table";
+} from "../../table";
 
 export interface ToolbarStyleModel {
   activeButton?: string[];

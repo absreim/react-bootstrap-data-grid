@@ -1,4 +1,4 @@
-import { RowData, RowId } from "@/common/types";
+import { RowData, RowId } from "../types";
 
 export type UpdateCallbackGenerator = (id: RowId) => (rowData: RowData) => void;
 

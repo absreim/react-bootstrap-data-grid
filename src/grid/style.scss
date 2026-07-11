@@ -3,7 +3,9 @@
 
 $rbdg-prefix: "rbdg-";
 
-.rbdg-grid > div, .rbdg-grid > div > div, .rbdg-grid > div > div > div {
+.rbdg-grid > div,
+.rbdg-grid > div > div,
+.rbdg-grid > div > div > div {
   border-color: inherit;
   border-style: solid;
   border-width: 0;
@@ -42,19 +44,38 @@ $rbdg-prefix: "rbdg-";
       white-space: nowrap;
       overflow: hidden;
       padding: $table-cell-padding-y $table-cell-padding-x;
-      color: var(--#{$rbdg-prefix}grid-color-state, var(--#{$rbdg-prefix}grid-color-type, var(--#{$rbdg-prefix}grid-color)));
+      color: var(
+        --#{$rbdg-prefix}grid-color-state,
+        var(--#{$rbdg-prefix}grid-color-type, var(--#{$rbdg-prefix}grid-color))
+      );
       background-color: var(--#{$rbdg-prefix}grid-bg);
       border-bottom-width: $table-border-width;
-      box-shadow: inset 0 0 0 9999px var(--#{$rbdg-prefix}grid-bg-state, var(--#{$rbdg-prefix}grid-bg-type, var(--#{$rbdg-prefix}grid-accent-bg)));
+      box-shadow: inset 0 0 0 9999px
+        var(
+          --#{$rbdg-prefix}grid-bg-state,
+          var(
+            --#{$rbdg-prefix}grid-bg-type,
+            var(--#{$rbdg-prefix}grid-accent-bg)
+          )
+        );
     }
   }
 
   // These properties are overridden by the "> div > div > div:not(:last-child)" properties when rbdg-grid-bordered is
   // applied.
   > div:first-child > div > div {
-    border-bottom-width: var(--#{$rbdg-prefix}grid-divider-border-width, var(--#{$rbdg-prefix}grid-divider-borderless-width, $table-border-width));
-    border-bottom-style: var(--#{$rbdg-prefix}grid-divider-border-style, inherit);
-    border-bottom-color: var(--#{$rbdg-prefix}grid-divider-border-color, inherit);
+    border-bottom-width: var(
+      --#{$rbdg-prefix}grid-divider-border-width,
+      var(--#{$rbdg-prefix}grid-divider-borderless-width, $table-border-width)
+    );
+    border-bottom-style: var(
+      --#{$rbdg-prefix}grid-divider-border-style,
+      inherit
+    );
+    border-bottom-color: var(
+      --#{$rbdg-prefix}grid-divider-border-color,
+      inherit
+    );
   }
 }
 
@@ -88,9 +109,18 @@ $rbdg-prefix: "rbdg-";
     border-top-width: 0;
     border-right-width: 0;
     border-left-width: 0;
-    border-bottom-width: var(--#{$rbdg-prefix}grid-divider-border-width, var(--#{$rbdg-prefix}grid-divider-borderless-width, $table-border-width));
-    border-bottom-style: var(--#{$rbdg-prefix}grid-divider-border-style, inherit);
-    border-bottom-color: var(--#{$rbdg-prefix}grid-divider-border-color, inherit);
+    border-bottom-width: var(
+      --#{$rbdg-prefix}grid-divider-border-width,
+      var(--#{$rbdg-prefix}grid-divider-borderless-width, $table-border-width)
+    );
+    border-bottom-style: var(
+      --#{$rbdg-prefix}grid-divider-border-style,
+      inherit
+    );
+    border-bottom-color: var(
+      --#{$rbdg-prefix}grid-divider-border-color,
+      inherit
+    );
   }
 
   > div:last-child {
@@ -141,10 +171,26 @@ $rbdg-prefix: "rbdg-";
 @mixin rbdg-grid-variant($state, $background) {
   .rbdg-grid-#{$state} {
     $color: color-contrast(opaque($body-bg, $background));
-    $hover-bg: color.mix($color, $background, math.percentage($table-hover-bg-factor));
-    $striped-bg: color.mix($color, $background, math.percentage($table-striped-bg-factor));
-    $active-bg: color.mix($color, $background, math.percentage($table-active-bg-factor));
-    $table-border-color: color.mix($color, $background, math.percentage($table-border-factor));
+    $hover-bg: color.mix(
+      $color,
+      $background,
+      math.percentage($table-hover-bg-factor)
+    );
+    $striped-bg: color.mix(
+      $color,
+      $background,
+      math.percentage($table-striped-bg-factor)
+    );
+    $active-bg: color.mix(
+      $color,
+      $background,
+      math.percentage($table-active-bg-factor)
+    );
+    $table-border-color: color.mix(
+      $color,
+      $background,
+      math.percentage($table-border-factor)
+    );
 
     --#{$rbdg-prefix}grid-color: #{$color};
     --#{$rbdg-prefix}grid-bg: #{$background};

@@ -1,6 +1,6 @@
 import inputStrsToRowData from "../editing/inputStrsToRowData";
 import { ColDefBase, RowData, RowId } from "../types";
-import { EditModel } from "@/common/editing/types";
+import { EditModel } from "../editing/types";
 
 export type UseGetInputStrSubmitCallbackHook =
   | ((id: RowId) => (inputStrs: string[]) => void)

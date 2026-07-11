@@ -1,7 +1,7 @@
 import { ExportFnInfo, FileType, Stage } from "./useExportFn";
 import { FC, SubmitEventHandler, useId, useState } from "react";
 import classNames from "classnames";
-import { ExportFormStyleModel } from "@/common/styling/types";
+import { ExportFormStyleModel } from "../styling/types";
 
 export interface ExportFormProps {
   exportFnInfo: ExportFnInfo;

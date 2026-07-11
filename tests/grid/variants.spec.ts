@@ -1,5 +1,8 @@
 import { expect, test } from "@playwright/test";
-import { GRID_BODY_DATA_TEST_ID, GRID_HEADER_DATA_TEST_ID } from "@/grid/constants";
+import {
+  GRID_BODY_DATA_TEST_ID,
+  GRID_HEADER_DATA_TEST_ID,
+} from "@/grid/constants";
 
 interface VariantSpec {
   bgColor: string;
@@ -39,7 +42,8 @@ Object.keys(variantSpecs).forEach((variant) => {
       await variantDropdown.selectOption(variant);
     });
 
-    const { bgColor, borderColor, stripeShadow, hoverShadow } = variantSpecs[variant];
+    const { bgColor, borderColor, stripeShadow, hoverShadow } =
+      variantSpecs[variant];
 
     test("border and bg colors work correctly under default settings", async ({
       page,
@@ -134,10 +138,7 @@ Object.keys(variantSpecs).forEach((variant) => {
         const rowCells = await row.getByRole("gridcell").all();
         await expect(rowCells).toHaveLength(4);
         for (const cell of rowCells) {
-          await expect(cell).toHaveCSS(
-            "box-shadow",
-            hoverShadow,
-          );
+          await expect(cell).toHaveCSS("box-shadow", hoverShadow);
         }
       }
     });

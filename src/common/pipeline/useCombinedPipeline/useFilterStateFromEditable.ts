@@ -2,7 +2,7 @@ import { useMemo } from "react";
 import {
   EditableTableFilterState,
   TableFilterState,
-} from "@/common/filtering/types";
+} from "../../filtering/types";
 import { ColDef } from "../../types";
 
 const useFilterStateFromEditable: (

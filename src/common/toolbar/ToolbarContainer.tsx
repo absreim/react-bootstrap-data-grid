@@ -2,7 +2,7 @@ import { InterfaceNodeGenerator, ToolbarOption } from "./types";
 import { FC, useCallback, useMemo, useState } from "react";
 import Toolbar from "./Toolbar";
 import classNames from "classnames";
-import { ToolbarStyleModel } from "@/common/styling/types";
+import { ToolbarStyleModel } from "../styling/types";
 
 interface ToolbarContainerProps {
   interfaceGen: InterfaceNodeGenerator;

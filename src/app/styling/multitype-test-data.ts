@@ -1,4 +1,9 @@
-import { ColDef, dateToDatetimeInputStr, dateToInputStr, RowDef } from "@/table";
+import {
+  ColDef,
+  dateToDatetimeInputStr,
+  dateToInputStr,
+  RowDef,
+} from "@/table";
 
 export const cols: ColDef[] = [
   {

@@ -1,6 +1,6 @@
 import { useMemo } from "react";
 import { ColNameToWidth } from "./types";
-import { AugFormattedRow, FormattedRow } from "@/common";
+import { AugFormattedRow, FormattedRow } from "../";
 
 const useAugFormattedRows: (
   colNameToWidth: ColNameToWidth,

@@ -1,9 +1,9 @@
-import { EditModel } from "@/common/editing/types";
-import { PaginationModel } from "@/common/pagination/types";
-import { TableSortModel } from "@/common/sorting/types";
-import { FilterModel } from "@/common/filtering/types";
-import { SelectModel } from "@/common/selection/types";
-import { StyleModel } from "@/common/styling/types";
+import { EditModel } from "./editing/types";
+import { PaginationModel } from "./pagination/types";
+import { TableSortModel } from "./sorting/types";
+import { FilterModel } from "./filtering/types";
+import { SelectModel } from "./selection/types";
+import { StyleModel } from "./styling/types";
 
 export type ColDataType = string | number | Date;
 export type ColDataTypeStrings = "string" | "number" | "date" | "datetime";
@@ -67,4 +67,3 @@ export type FormattedRow = {
 export type AugFormattedRow = {
   contents: CellData[];
 } & Omit<PostPaginationRowDef, "data">;
-

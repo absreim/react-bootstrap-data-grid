@@ -6,7 +6,7 @@ import {
   SelectModel,
 } from "../selection/types";
 import { SelectionInputModel } from "../../table/selection/SelectionInput";
-import isSubset from "@/common/util/isSubset";
+import isSubset from "../util/isSubset";
 import { RowDef, RowId } from "../types";
 
 export interface UseGridSelectionFnsHook {

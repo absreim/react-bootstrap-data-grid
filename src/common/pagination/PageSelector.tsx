@@ -2,7 +2,7 @@
 
 import { FC, ReactNode, useMemo } from "react";
 import classNames from "classnames";
-import { JustifyContentSetting, Size } from "@/common";
+import { JustifyContentSetting, Size } from "../";
 
 export interface PageSelectorProps {
   numPages: number;

@@ -13,7 +13,11 @@ test("grid has width of intrinsic content when width prop unset", async ({
   await expect(grid).toHaveCSS("width", "650px");
 });
 
-async function setWidthAndAssert(page: Page, optionName: string, widthPx: number) {
+async function setWidthAndAssert(
+  page: Page,
+  optionName: string,
+  widthPx: number,
+) {
   const widthFieldset = page.getByRole("group", { name: "Width Setting" });
   const option = widthFieldset.getByRole("radio", { name: optionName });
   await option.check();
@@ -45,8 +49,13 @@ test("cell widths work correctly", async ({ page }) => {
   const strHeader = page.getByRole("columnheader", { name: "String Column" });
   const numHeader = page.getByRole("columnheader", { name: "Number Column" });
   const dateHeader = page.getByRole("columnheader", { name: "Date Column" });
-  const datetimeHeader = page.getByRole("columnheader", { name: "Datetime Column" });
-  const bodyRows = await page.getByTestId(GRID_BODY_DATA_TEST_ID).getByRole("row").all();
+  const datetimeHeader = page.getByRole("columnheader", {
+    name: "Datetime Column",
+  });
+  const bodyRows = await page
+    .getByTestId(GRID_BODY_DATA_TEST_ID)
+    .getByRole("row")
+    .all();
 
   await expect(strHeader).toHaveCSS("width", "150px");
   await expect(numHeader).toHaveCSS("width", "100px");

@@ -9,9 +9,12 @@ test.beforeEach(async ({ page }) => {
 });
 
 const baseBoxShadowValue = "rgba(0, 0, 0, 0) 0px 0px 0px 9999px inset";
-const hoverStyleBoxShadowValue = "rgba(0, 0, 0, 0.075) 0px 0px 0px 9999px inset";
+const hoverStyleBoxShadowValue =
+  "rgba(0, 0, 0, 0.075) 0px 0px 0px 9999px inset";
 
-test(`box shadow for any cell doesn't change when "hover" prop is set to "false"`, async ({ page }) => {
+test(`box shadow for any cell doesn't change when "hover" prop is set to "false"`, async ({
+  page,
+}) => {
   const gridcells = await page.getByRole("gridcell").all();
 
   for (const cell of gridcells) {
@@ -20,7 +23,9 @@ test(`box shadow for any cell doesn't change when "hover" prop is set to "false"
   }
 });
 
-test(`hover styles should apply for body cells only when "hover" prop is set to "true"`, async ({ page }) => {
+test(`hover styles should apply for body cells only when "hover" prop is set to "true"`, async ({
+  page,
+}) => {
   const hoverStyleToggle = page.getByRole("checkbox", { name: "Hover Styles" });
   await hoverStyleToggle.check();
 
@@ -44,4 +49,4 @@ test(`hover styles should apply for body cells only when "hover" prop is set to 
       await expect(cell).toHaveCSS("box-shadow", hoverStyleBoxShadowValue);
     }
   }
-})
+});

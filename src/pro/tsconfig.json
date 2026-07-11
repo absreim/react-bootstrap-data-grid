@@ -10,9 +10,6 @@
     "isolatedModules": true,
     "jsx": "react-jsx",
     "declaration": true,
-    "target": "es2015",
-    "paths": {
-      "@/*": ["../*"]
-    }
+    "target": "es2015"
   }
 }

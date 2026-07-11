@@ -1,6 +1,6 @@
 import { DateFilterState, FilterFormState, TableFilterState } from "./types";
 import { useMemo } from "react";
-import { dateToDatetimeInputStr, dateToInputStr } from "@/common/util/datetime";
+import { dateToDatetimeInputStr, dateToInputStr } from "../util/datetime";
 
 const useFilterFormState: (
   tableFilterState: TableFilterState,

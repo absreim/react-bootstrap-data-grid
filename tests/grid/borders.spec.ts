@@ -36,8 +36,12 @@ test('"borders" prop being set to "horizontal" results in horizontal borders', a
   await assertHorizontalBorders(page);
 });
 
-test('"borders" prop being set to "none" results in no borders', async ({ page }) => {
-  const borderSettingGroup = page.getByRole("group", { name: "Border Setting" });
+test('"borders" prop being set to "none" results in no borders', async ({
+  page,
+}) => {
+  const borderSettingGroup = page.getByRole("group", {
+    name: "Border Setting",
+  });
   const noneBorderRadio = borderSettingGroup.getByRole("radio", {
     name: "none",
   });
@@ -48,9 +52,11 @@ test('"borders" prop being set to "none" results in no borders', async ({ page }
   for (const gridcell of gridcells) {
     await expect(gridcell).toHaveCSS("border-bottom-width", "0px");
   }
-})
+});
 
-test('"borders" prop being set to "full" makes horizontal and vertical borders', async ({ page }) => {
+test('"borders" prop being set to "full" makes horizontal and vertical borders', async ({
+  page,
+}) => {
   const borderSettingGroup = page.getByRole("group", {
     name: "Border Setting",
   });

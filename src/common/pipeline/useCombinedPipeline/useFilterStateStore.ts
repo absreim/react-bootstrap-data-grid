@@ -2,7 +2,7 @@ import {
   EditableTableFilterState,
   FilterModel,
   NormalizedTableFilterModel,
-} from "@/common/filtering/types";
+} from "../../filtering/types";
 import { useState } from "react";
 import { ColDef, ColDefBase } from "../../types";
 

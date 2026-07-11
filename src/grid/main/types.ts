@@ -4,7 +4,7 @@ import {
   ColDef,
   FormattedRow,
   MainComponentSharedProps,
-} from "@/common";
+} from "../../common";
 
 export type GridProps = MainComponentSharedProps & {
   height?: GridHeightSetting;

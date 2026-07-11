@@ -1,12 +1,12 @@
 "use client";
 
 import { CSSProperties, FC, useMemo } from "react";
-import useCombinedPipeline from "@/common/pipeline/useCombinedPipeline";
-import { GridProps } from "@/grid/main/types";
-import useAugFormattedRows from "@/common/pipeline/useAugFormattedRows";
-import useColNameToWidth from "@/common/pipeline/useColNameToWidth";
-import GridHeader from "@/grid/main/GridHeader";
-import GridBody from "@/grid/main/GridBody";
+import useCombinedPipeline from "../../common/pipeline/useCombinedPipeline";
+import { GridProps } from "./types";
+import useAugFormattedRows from "../../common/pipeline/useAugFormattedRows";
+import useColNameToWidth from "../../common/pipeline/useColNameToWidth";
+import GridHeader from "./GridHeader";
+import GridBody from "./GridBody";
 import classNames from "classnames";
 
 const Grid: FC<GridProps> = ({

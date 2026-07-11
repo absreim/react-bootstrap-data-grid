@@ -1,12 +1,9 @@
 import { FC } from "react";
-import getWidthStyles from "@/grid/main/getWidthStyles";
-import { GridHeaderProps } from "@/grid/main/types";
+import getWidthStyles from "./getWidthStyles";
+import { GridHeaderProps } from "./types";
 import classNames from "classnames";
-import {
-  DEFAULT_COL_WIDTH,
-
-} from "@/common/constants";
-import { GRID_HEADER_DATA_TEST_ID } from "@/grid/constants";
+import { DEFAULT_COL_WIDTH } from "../../common/constants";
+import { GRID_HEADER_DATA_TEST_ID } from "../constants";
 
 const GridHeader: FC<GridHeaderProps> = ({
   cols,

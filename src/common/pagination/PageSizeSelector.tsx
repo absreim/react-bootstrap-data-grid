@@ -1,6 +1,6 @@
 import { ChangeEventHandler, FC } from "react";
 import classNames from "classnames";
-import { Size } from "@/common";
+import { Size } from "../";
 
 export interface PageSizeSelectorProps {
   componentSize: Size;

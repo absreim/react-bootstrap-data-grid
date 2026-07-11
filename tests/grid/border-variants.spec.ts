@@ -15,7 +15,10 @@ test.beforeEach(async ({ page }) => {
   await page.goto("grid");
 });
 
-async function checkHorizontalBorders(page: Page, expectedColor: string): Promise<void> {
+async function checkHorizontalBorders(
+  page: Page,
+  expectedColor: string,
+): Promise<void> {
   const headerCells = await page.getByRole("columnheader").all();
   const gridcells = await page.getByRole("gridcell").all();
   const cells = headerCells.concat(gridcells);
@@ -30,7 +33,7 @@ async function checkHorizontalBorders(page: Page, expectedColor: string): Promis
   }
 }
 
-Object.keys(borderColorVariants).forEach(variant => {
+Object.keys(borderColorVariants).forEach((variant) => {
   test.describe(`${variant} border color variant`, () => {
     test.beforeEach(async ({ page }) => {
       const borderVariantDropdown = page.getByRole("combobox", {
@@ -118,4 +121,3 @@ Object.keys(borderColorVariants).forEach(variant => {
     });
   });
 });
-

@@ -3,7 +3,7 @@ import {
   NormalizedPaginationModel,
   PaginationModel,
 } from "../../pagination/types";
-import { AugRowDef, PostPaginationRowDef } from "@/common";
+import { AugRowDef, PostPaginationRowDef } from "../../";
 
 export interface CurrentPageRowsOutput {
   paginatedRows: PostPaginationRowDef[];

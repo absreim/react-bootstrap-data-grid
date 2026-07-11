@@ -10,7 +10,7 @@ import useGridSelectionFns from "../common/pipeline/useGridSelectionFns";
 import useGetInputStrSubmitCallback from "../common/pipeline/useGetInputStrSubmitCallback";
 import useAugFormattedRows from "../common/pipeline/useAugFormattedRows";
 import BodyRows from "./main/BodyRows";
-import { AugFormattedRow, FormattedRow } from "../common";
+import { AugFormattedRow } from "../common";
 import useColNameToWidth from "../common/pipeline/useColNameToWidth";
 
 const Table: FC<TableProps> = (props) => {
