@@ -1,7 +1,7 @@
-import { ColDef, EditableTableFilterState, RowDef } from "@/table";
-import { TestParams } from "@/app/filtering/types";
+import { ColDef, EditableTableFilterState, RowDef } from "../../../table";
+import { TestParams } from "../types";
 import { FC, Fragment } from "react";
-import FilteringTestHarness from "@/app/filtering/FilteringTestHarness";
+import FilteringTestHarness from "../FilteringTestHarness";
 
 const numTestCols: ColDef[] = [
   {

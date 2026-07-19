@@ -5,9 +5,9 @@ import Table, {
   MultiSelectModel,
   RowDef,
   RowId,
-} from "@/table";
-import { MultiSelectModelInitialState } from "@/app/selection/types";
-import TablePro from "@/table-pro";
+} from "../../../table";
+import { MultiSelectModelInitialState } from "../types";
+import TablePro from "../../../table-pro";
 
 export interface MultiSelectionTestHarnessProps {
   rows: RowDef[];

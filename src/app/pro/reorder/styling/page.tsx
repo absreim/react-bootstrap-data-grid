@@ -1,6 +1,6 @@
 import { FC } from "react";
-import ReorderTestHarness from "@/app/pro/reorder/ReorderTestHarness";
-import { ReorderStyleModel } from "@/table-pro/reorder/types";
+import ReorderTestHarness from "../ReorderTestHarness";
+import { ReorderStyleModel } from "../../../../table-pro";
 
 const styleModel: ReorderStyleModel = {
   draggedRowClasses: ["custom-reorder-dragged-row"],

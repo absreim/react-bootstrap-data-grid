@@ -5,9 +5,9 @@ import Grid, {
   GridBorderSetting,
   GridStripeSetting,
   GridWidthSetting,
-} from "@/grid";
+} from "../../grid";
 import Form from "react-bootstrap/Form";
-import { cols, generateBasicTestRows } from "@/test-tools/basic-test-data";
+import { cols, generateBasicTestRows } from "../../test-tools/basic-test-data";
 
 type GridDimSetting = "unset" | "number" | "auto" | "parent";
 type TestGridStripeSetting = GridStripeSetting | "unset";

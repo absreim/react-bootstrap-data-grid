@@ -1,4 +1,4 @@
-import { ColDef, TableProps, RowDef } from "@/table";
+import { ColDef, TableProps, RowDef } from "../table";
 
 export const cols: ColDef[] = [
   {

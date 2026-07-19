@@ -1,5 +1,5 @@
-import { ColDef, dateToDatetimeInputStr, RowDef } from "@/common";
-import { BasicTestRow } from "@/test-tools/types";
+import { ColDef, dateToDatetimeInputStr, RowDef } from "../common";
+import { BasicTestRow } from "./types";
 
 export const cols: ColDef[] = [
   {

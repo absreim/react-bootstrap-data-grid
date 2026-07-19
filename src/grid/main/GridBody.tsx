@@ -2,7 +2,7 @@ import { FC } from "react";
 import { GridBodyProps } from "./types";
 import getWidthStyles from "./getWidthStyles";
 import classNames from "classnames";
-import { DEFAULT_COL_WIDTH } from "../../common/constants";
+import { CSS_PREFIX, DEFAULT_COL_WIDTH } from "../../common/constants";
 import { GRID_BODY_DATA_TEST_ID } from "../constants";
 
 const GridBody: FC<GridBodyProps> = ({
@@ -21,7 +21,7 @@ const GridBody: FC<GridBodyProps> = ({
           className={classNames(
             "d-flex",
             "flex-row",
-            rowVariant && rowVariant(row),
+            rowVariant && `${CSS_PREFIX}-${rowVariant(row)}`,
           )}
         >
           {row.contents.map(({ formattedValue, width }, index) => (
@@ -31,7 +31,8 @@ const GridBody: FC<GridBodyProps> = ({
               role="gridcell"
               className={classNames(
                 "rbdg-grid-cell",
-                cellVariant && cellVariant(row.contents[index], row),
+                cellVariant &&
+                  `${CSS_PREFIX}-${cellVariant(row.contents[index], row)}`,
               )}
               aria-colindex={index + 1}
             >

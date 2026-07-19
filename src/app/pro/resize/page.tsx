@@ -1,7 +1,7 @@
 "use client";
 
 import { FC } from "react";
-import ResizeTestHarness from "@/app/pro/resize/ResizeTestHarness";
+import ResizeTestHarness from "./ResizeTestHarness";
 
 const Page: FC = () => {
   return (

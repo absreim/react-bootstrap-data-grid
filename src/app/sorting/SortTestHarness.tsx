@@ -1,6 +1,6 @@
-import Table, { ColDef, RowDef, SortColDef, TableSortModel } from "@/table";
+import Table, { ColDef, RowDef, SortColDef, TableSortModel } from "../../table";
 import { FC, useState } from "react";
-import TablePro from "@/table-pro";
+import TablePro from "../../table-pro";
 
 interface SortTestHarnessProps {
   cols: ColDef[];

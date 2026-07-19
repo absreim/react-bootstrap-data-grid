@@ -1,9 +1,9 @@
 "use client";
 
-import Table, { StyleModel } from "@/table";
+import Table, { StyleModel } from "../../../table";
 import { FC } from "react";
-import { cols, rows } from "@/app/styling/multitype-test-data";
-import TablePro from "@/table-pro";
+import { cols, rows } from "../multitype-test-data";
+import TablePro from "../../../table-pro";
 
 const styleModel: StyleModel = {
   toolbarStyleModel: {

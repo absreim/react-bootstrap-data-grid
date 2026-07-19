@@ -1,8 +1,7 @@
 "use client";
 
-import { ProColDef, RowDef } from "@/table-pro";
+import TablePro, { ProColDef, RowDef } from "../../../table-pro";
 import { FC } from "react";
-import TablePro from "@/table-pro/TablePro";
 
 const cols: ProColDef[] = [
   {

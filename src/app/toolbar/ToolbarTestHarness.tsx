@@ -5,9 +5,9 @@ import Table, {
   dateToDatetimeInputStr,
   dateToInputStr,
   RowDef,
-} from "@/table";
+} from "../../table";
 import { FC } from "react";
-import TablePro from "@/table-pro";
+import TablePro from "../../table-pro";
 
 interface ToolbarTestHarnessProps {
   // As of this writing, if filtering is not enabled, there is only one button

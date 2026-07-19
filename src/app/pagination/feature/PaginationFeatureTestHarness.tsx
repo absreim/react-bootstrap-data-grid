@@ -1,6 +1,6 @@
 import { FC, useMemo, useState } from "react";
-import Table, { ColDef, PaginationModel, RowDef } from "@/table";
-import TablePro from "@/table-pro";
+import Table, { ColDef, PaginationModel, RowDef } from "../../../table";
+import TablePro from "../../../table-pro";
 
 export type PaginationFeatureTestHarnessProps = Omit<
   PaginationModel,

@@ -8,9 +8,9 @@ import TablePro, {
   RowDef,
   RowId,
   SelectModel,
-} from "@/table-pro";
+} from "../../../table-pro";
 import { FC, useCallback, useEffect, useMemo, useRef, useState } from "react";
-import { ReorderCallback, ReorderStyleModel } from "@/table-pro/reorder/types";
+import { ReorderCallback, ReorderStyleModel } from "../../../table-pro";
 
 interface TestRow {
   strCol: string;

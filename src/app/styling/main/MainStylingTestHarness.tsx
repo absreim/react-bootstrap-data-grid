@@ -10,9 +10,9 @@ import Table, {
   SortColDef,
   StyleModel,
   TableSortModel,
-} from "@/table";
+} from "../../../table";
 import { FC, useMemo, useState } from "react";
-import TablePro from "@/table-pro";
+import TablePro from "../../../table-pro";
 
 const cols: ColDef[] = [
   {

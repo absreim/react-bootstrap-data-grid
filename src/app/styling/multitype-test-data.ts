@@ -3,7 +3,7 @@ import {
   dateToDatetimeInputStr,
   dateToInputStr,
   RowDef,
-} from "@/table";
+} from "../../table";
 
 export const cols: ColDef[] = [
   {

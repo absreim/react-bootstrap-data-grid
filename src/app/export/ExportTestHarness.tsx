@@ -7,8 +7,8 @@ import Table, {
   ExportFormStyleModel,
   TableProps,
   RowDef,
-} from "@/table";
-import TablePro from "@/table-pro";
+} from "../../table";
+import TablePro from "../../table-pro";
 
 export interface ExportTestHarnessProps {
   enableFiltering: boolean;

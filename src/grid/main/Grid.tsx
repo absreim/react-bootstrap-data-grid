@@ -8,6 +8,7 @@ import useColNameToWidth from "../../common/pipeline/useColNameToWidth";
 import GridHeader from "./GridHeader";
 import GridBody from "./GridBody";
 import classNames from "classnames";
+import { CSS_PREFIX } from "../../common/constants";
 
 const Grid: FC<GridProps> = ({
   rows,
@@ -92,7 +93,7 @@ const Grid: FC<GridProps> = ({
           "rbdg-grid-group-divider": !!divider,
         },
         "rbdg-grid",
-        variant && `rbdg-grid-${variant}`,
+        variant && `${CSS_PREFIX}-${variant}`,
         borderVariant && `border-${borderVariant}`,
       )}
       role="grid"

@@ -1,8 +1,8 @@
 "use client";
 
-import { StyleModel } from "@/table";
+import { StyleModel } from "../../../table";
 import { FC } from "react";
-import MainStylingTestHarness from "@/app/styling/main/MainStylingTestHarness";
+import MainStylingTestHarness from "./MainStylingTestHarness";
 
 const completeStyleModel: StyleModel = {
   additionalComponentsStyleModel: {

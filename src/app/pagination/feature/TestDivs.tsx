@@ -1,8 +1,8 @@
 import { FC, Fragment } from "react";
 import PaginationFeatureTestHarness, {
   PaginationFeatureTestHarnessProps,
-} from "@/app/pagination/feature/PaginationFeatureTestHarness";
-import { ColDef, RowDef } from "@/table";
+} from "./PaginationFeatureTestHarness";
+import { ColDef, RowDef } from "../../../table";
 
 const cols: ColDef[] = [
   {

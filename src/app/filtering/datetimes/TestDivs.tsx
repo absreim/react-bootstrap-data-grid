@@ -3,10 +3,10 @@ import {
   dateToDatetimeInputStr,
   EditableTableFilterState,
   RowDef,
-} from "@/table";
-import { TestParams } from "@/app/filtering/types";
+} from "../../../table";
+import { TestParams } from "../types";
 import { FC, Fragment } from "react";
-import FilteringTestHarness from "@/app/filtering/FilteringTestHarness";
+import FilteringTestHarness from "../FilteringTestHarness";
 
 const datetimeTestCols: ColDef[] = [
   {

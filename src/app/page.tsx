@@ -1,8 +1,8 @@
 "use client";
 
 import { FC } from "react";
-import Table from "@/table";
-import { basicGridProps, blockGridProps } from "@/app/test-info";
+import Table from "../table";
+import { basicGridProps, blockGridProps } from "./test-info";
 
 const Test: FC = () => {
   return (

@@ -5,10 +5,10 @@ import {
   dateToInputStr,
   EditableTableFilterState,
   RowDef,
-} from "@/table";
-import { TestParams } from "@/app/filtering/types";
-import FilteringTestHarness from "@/app/filtering/FilteringTestHarness";
-import NoInitStateTestHarness from "@/app/filtering/NoInitStateTestHarness";
+} from "../../../table";
+import { TestParams } from "../types";
+import FilteringTestHarness from "../FilteringTestHarness";
+import NoInitStateTestHarness from "../NoInitStateTestHarness";
 
 const combinedTestCols: ColDef[] = [
   {

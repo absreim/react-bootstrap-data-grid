@@ -1,5 +1,5 @@
 import { FC } from "react";
-import TestContents from "@/app/styling/filtering/TestContents";
+import TestContents from "./TestContents";
 
 const Test: FC = () => {
   return (

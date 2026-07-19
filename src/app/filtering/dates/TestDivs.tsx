@@ -4,9 +4,9 @@ import {
   dateToInputStr,
   EditableTableFilterState,
   RowDef,
-} from "@/table";
-import { TestParams } from "@/app/filtering/types";
-import FilteringTestHarness from "@/app/filtering/FilteringTestHarness";
+} from "../../../table";
+import { TestParams } from "../types";
+import FilteringTestHarness from "../FilteringTestHarness";
 
 const dateTestCols: ColDef[] = [
   {

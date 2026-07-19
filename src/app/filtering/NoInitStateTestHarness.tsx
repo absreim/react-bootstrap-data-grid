@@ -1,6 +1,6 @@
-import Table, { ColDef, FilterModel, RowDef } from "@/table";
+import Table, { ColDef, FilterModel, RowDef } from "../../table";
 import { FC } from "react";
-import TablePro from "@/table-pro";
+import TablePro from "../../table-pro";
 
 interface NoInitStateTestHarnessProps {
   cols: ColDef[];

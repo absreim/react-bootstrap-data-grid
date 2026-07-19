@@ -1,7 +1,7 @@
 import { FC } from "react";
 
-import SingleSelectionTestHarness from "@/app/selection/single/SingleSelectionTestHarness";
-import { cols, rows } from "@/app/selection/test-info";
+import SingleSelectionTestHarness from "./SingleSelectionTestHarness";
+import { cols, rows } from "../test-info";
 
 const TestDivs: FC<{ pro?: boolean }> = ({ pro }) => (
   <>

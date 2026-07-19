@@ -1,10 +1,13 @@
 "use client";
 
-import { RowDef, StyleModel } from "@/table-pro";
+import {
+  RowDef,
+  StyleModel,
+  dateToDatetimeInputStr,
+  dateToInputStr,
+} from "../../../common";
 import { FC, useMemo, useState } from "react";
-import { dateToDatetimeInputStr, dateToInputStr } from "@/table-pro";
-import TablePro from "@/table-pro/TablePro";
-import { ProColDef } from "@/table-pro/types";
+import TablePro, { ProColDef } from "../../../table-pro";
 
 interface TestRow {
   strCol: string;

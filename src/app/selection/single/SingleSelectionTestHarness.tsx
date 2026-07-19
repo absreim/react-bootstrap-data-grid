@@ -1,7 +1,7 @@
 import { FC, useState } from "react";
-import Table, { ColDef, RowDef, RowId, SingleSelectModel } from "@/table";
-import { SingleSelectModelInitialState } from "@/app/selection/types";
-import TablePro from "@/table-pro";
+import Table, { ColDef, RowDef, RowId, SingleSelectModel } from "../../../table";
+import { SingleSelectModelInitialState } from "../types";
+import TablePro from "../../../table-pro";
 
 export interface SingleSelectionTestHarnessProps {
   rows: RowDef[];

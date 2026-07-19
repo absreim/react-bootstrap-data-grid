@@ -4,10 +4,10 @@ import Table, {
   EditableTableFilterState,
   FilterModel,
   StyleModel,
-} from "@/table";
+} from "../../../table";
 import { FC, useMemo, useState } from "react";
-import { cols, rows } from "@/app/styling/multitype-test-data";
-import TablePro from "@/table-pro";
+import { cols, rows } from "../multitype-test-data";
+import TablePro from "../../../table-pro";
 
 export interface FilterStylingTestHarnessProps {
   styleModel: StyleModel;
