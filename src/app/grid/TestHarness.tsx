@@ -3,6 +3,7 @@
 import { FC, useState } from "react";
 import Grid, {
   GridBorderSetting,
+  GridProps,
   GridStripeSetting,
   GridWidthSetting,
 } from "../../grid";
@@ -41,6 +42,38 @@ const variants = [
 
 const gridDimSettings: GridDimSetting[] = ["unset", "number", "auto", "parent"];
 
+const headerCellVariantFn: GridProps["headerCellVariant"] = (col, colIndex) => {
+  if (col.name.startsWith("date")) {
+    return "success";
+  }
+
+  return variants[colIndex % variants.length];
+}
+
+const bodyRowVariantFn: GridProps["bodyRowVariant"] = (row, displayIndex, ) => {
+  if (row.contents[0].formattedValue.startsWith("1st")) {
+    return "bsbrand";
+  }
+
+  return variants[displayIndex % variants.length];
+}
+
+const bodyCellVariantsFn: GridProps["bodyCellVariant"] = (cell, row, colIndex, displayIndex) => {
+  if (cell.formattedValue === "2") {
+    return "danger";
+  }
+
+  if (cell.formattedValue === "3") {
+    return "warning";
+  }
+
+  if (row.contents[3].formattedValue.startsWith("2026-03")) {
+    return "info";
+  }
+
+  return variants[(colIndex + displayIndex) % variants.length];
+}
+
 // This test harness does not test active rows or cells. Such testing should be
 // done as part of testing of a feature that uses active rows and/or cells.
 
@@ -54,6 +87,11 @@ const TestHarness: FC = () => {
   const [small, setSmall] = useState<boolean>(false);
   const [variant, setVariant] = useState<string>("");
   const [borderVariant, setBorderVariant] = useState<string>("");
+  const [headerRowVariant, setHeaderRowVariant] = useState<string>("");
+  const [enableHeaderCellVariants, setEnableHeaderCellVariants] =
+    useState(false);
+  const [enableBodyRowVariants, setEnableBodyRowVariants] = useState(false);
+  const [enableBodyCellVariants, setEnableBodyCellVariants] = useState(false);
 
   const getEffectiveWidth: () => GridWidthSetting | undefined = () => {
     switch (widthSetting) {
@@ -76,6 +114,32 @@ const TestHarness: FC = () => {
         return heightSetting;
     }
   };
+
+  const variantSelectSetInfos: {
+    name: string;
+    label: string;
+    value: string;
+    setter: (value: string) => void;
+  }[] = [
+    {
+      name: "gridWide",
+      label: "grid",
+      value: variant,
+      setter: setVariant,
+    },
+    {
+      name: "border",
+      label: "border",
+      value: borderVariant,
+      setter: setBorderVariant,
+    },
+    {
+      name: "headerRow",
+      label: "header row",
+      value: headerRowVariant,
+      setter: setHeaderRowVariant,
+    },
+  ];
 
   return (
     <>
@@ -165,20 +229,37 @@ const TestHarness: FC = () => {
           checked={small}
           onChange={({ target }) => setSmall(target.checked)}
         />
-        {["", "border"].map((optionType) => {
-          const id = `${optionType}-variantSelect`;
-          const stateVar = optionType === "" ? variant : borderVariant;
-          const setStateFn = optionType === "" ? setVariant : setBorderVariant;
+        <Form.Check
+          type="switch"
+          id="headerCellVariantsToggle"
+          label="Header Cell Variants"
+          checked={enableHeaderCellVariants}
+          onChange={({ target }) => setEnableHeaderCellVariants(target.checked)}
+        />
+        <Form.Check
+          type="switch"
+          id="bodyRowVariantsToggle"
+          label="Body Row Variants"
+          checked={enableBodyRowVariants}
+          onChange={({ target }) => setEnableBodyRowVariants(target.checked)}
+        />
+        <Form.Check
+          type="switch"
+          id="bodyCellVariantsToggle"
+          label="Body Cell Variants"
+          checked={enableBodyCellVariants}
+          onChange={({ target }) => setEnableBodyCellVariants(target.checked)}
+        />
+        {variantSelectSetInfos.map(({ name, label, value, setter }) => {
+          const id = `${name}-variantSelect`;
 
           return (
-            <div key={optionType}>
-              <label htmlFor={id}>
-                Select {optionType && optionType + " "}variant
-              </label>
+            <div key={name}>
+              <label htmlFor={id}>Select {label} variant</label>
               <Form.Select
                 id={id}
-                value={stateVar}
-                onChange={({ target }) => setStateFn(target.value)}
+                value={value}
+                onChange={({ target }) => setter(target.value)}
               >
                 <option value="">(None)</option>
                 {variants.map((variant) => (
@@ -204,6 +285,10 @@ const TestHarness: FC = () => {
           small={small}
           variant={variant || undefined}
           borderVariant={borderVariant || undefined}
+          headerRowVariant={headerRowVariant || undefined}
+          headerCellVariant={enableHeaderCellVariants ? headerCellVariantFn : undefined}
+          bodyRowVariant={enableBodyRowVariants ? bodyRowVariantFn : undefined}
+          bodyCellVariant={enableBodyCellVariants ? bodyCellVariantsFn : undefined}
         />
       </div>
     </>

@@ -13,7 +13,7 @@ const GridBody: FC<GridBodyProps> = ({
 }) => {
   return (
     <div role="rowgroup" data-testid={GRID_BODY_DATA_TEST_ID}>
-      {augFormattedRows.map((row) => (
+      {augFormattedRows.map((row, rowDisplayIndex) => (
         <div
           role="row"
           key={row.id}
@@ -21,7 +21,7 @@ const GridBody: FC<GridBodyProps> = ({
           className={classNames(
             "d-flex",
             "flex-row",
-            rowVariant && `${CSS_PREFIX}-${rowVariant(row)}`,
+            rowVariant && `${CSS_PREFIX}-${rowVariant(row, rowDisplayIndex)}`,
           )}
         >
           {row.contents.map(({ formattedValue, width }, index) => (
@@ -32,7 +32,7 @@ const GridBody: FC<GridBodyProps> = ({
               className={classNames(
                 "rbdg-grid-cell",
                 cellVariant &&
-                  `${CSS_PREFIX}-${cellVariant(row.contents[index], row)}`,
+                  `${CSS_PREFIX}-${cellVariant(row.contents[index], row, index, rowDisplayIndex)}`,
               )}
               aria-colindex={index + 1}
             >

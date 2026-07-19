@@ -1,3 +1,5 @@
+# Contribution Guide
+
 The project currently consists of a site built with the [Next.js](https://nextjs.org) framework that is meant to be the
 target of Playwright tests.
 
@@ -6,7 +8,7 @@ The code for the test site is located at `src/app` while the data grid component
 The documentation site for this project is in
 a [separate repo](https://github.com/absreim/react-bootstrap-data-grid-docs).
 
-# Building the files for distribution as an NPM package
+## Building the files for distribution as an NPM package
 
 Run the `build:package` npm script to build the source files for the data grid component and output the build products
 to the `/dist` directory. All files in the `/dist` directory are not meant to be checked into version
@@ -15,7 +17,7 @@ control.
 Files in the `/dist-templates` directory are copied over to the `/dist` directory by the build script. These files
 must be maintained by hand.
 
-## Testing the built package
+### Testing the built package
 
 Note that it is very possible for the built package to not be usable even if the automated tests all pass. There are
 some significant differences between the code in the package and that used by the test site.
@@ -40,7 +42,7 @@ the contents of that version should bugs arise. Therefore, if significant change
 such that integrity of the built package is in question, it makes sense to test the build package locally before
 publishing to NPM.
 
-### Local testing of built NPM package
+#### Local testing of built NPM package
 
 One way to test out an NPM package locally is to create a tarball file and then install it in another project.
 
@@ -80,7 +82,7 @@ Also be sure to:
 - delete the `package-lock.json` file in project and run `npm install` again regenerate the lock file. Otherwise, the
   lock file may still point to the local tarball.
 
-## Publishing
+### Publishing
 
 To publish a package after successfully building it for distribution, change to the `dist` subdirectory and
 use the NPM CLI:
@@ -103,14 +105,14 @@ npm publish --access public
 
 Note that for the above steps to work, one needs to have permission to publish to the specified scope.
 
-# Automated tests
+## Automated tests
 
 One can run the automated tests in the `tests` subdirectory by invoking the `test` NPM script. The
 tests are currently being run against pages specifically built as targets for Playwright tests.
 
 Additionally, one can run the `test:ui` npm script to bring up the Playwright UI to run the tests.
 
-# Development workflow
+## Development workflow
 
 One way to preview the changes one makes to the data grid component's code is to add, edit and/or view code examples in
 the test site. For example, if one were to add a new feature to the data grid component, one can create a new test page
@@ -128,3 +130,29 @@ Then, open [http://localhost:3000](http://localhost:3000) with your browser to s
 
 After modifying the files for test site and/or the data grid component, you should be able to see the results
 in your browser as the Next.js development server automatically refreshes the page your browser in response to changes.
+
+## A Note About Imports
+
+In Next.js, it is common to use the
+[tsconfig.json paths property](https://www.typescriptlang.org/tsconfig/paths.html)
+to re-map imports with the attribute symbol (@) as an alternative to using relative imports.
+
+For example, suppose one wants to import the `Grid` component located in _/src/grid_ from a file in _/src/app/grid_.
+With the default `paths` setting in `tsconfig.json` created by
+[create-next-app](https://nextjs.org/docs/app/api-reference/cli/create-next-app),
+one can import it as follows:
+
+```tsx
+import Grid from "@/grid";
+```
+
+Unfortunately, testing has found that when code with this kind of import is published as an NPM package and installed
+in a separate project, TypeScript fails to resolve these kinds of paths properly. __It is necessary to use relative
+imports throughout the code for this project.__ To avoid the presence of code containing re-mapped imports, the
+default paths setting has been removed from the `tsconfig.json` file in this project.
+
+To clarify, the import in the above example would be done as follows when using a relative import:
+
+```tsx
+import Grid from "../../grid";
+```

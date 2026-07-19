@@ -1,5 +1,5 @@
 import { useMemo } from "react";
-import { dateToDatetimeInputStr, dateToInputStr } from "../../util/datetime";
+import { dateToDatetimeInputStr, dateToInputStr } from "../../util";
 import {
   CellData,
   ColDataType,
@@ -53,13 +53,6 @@ const useDisplayRows: (
 
       const displayRow: CellData[] = [];
       Object.keys(row.data).forEach((name) => {
-        if (!nameToIndex.has(name)) {
-          console.error(
-            `Warning: row data contains a property named "${name}", but it was not found among the column definitions.`,
-          );
-          return;
-        }
-
         const index = nameToIndex.get(name)!;
         const col = cols[index];
         const formatter = col.formatter;

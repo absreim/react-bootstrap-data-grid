@@ -17,9 +17,14 @@ export type GridProps = MainComponentSharedProps & {
   small?: boolean;
   divider?: boolean;
   headerRowVariant?: string;
-  headerCellVariant?: (col: ColDef) => string | null;
-  bodyRowVariant?: (row: FormattedRow) => string | null;
-  bodyCellVariant?: (cell: CellData, row: FormattedRow) => string | null;
+  headerCellVariant?: (col: ColDef, colIndex: number) => string | null;
+  bodyRowVariant?: (row: FormattedRow, displayIndex: number) => string | null;
+  bodyCellVariant?: (
+    cell: CellData,
+    row: FormattedRow,
+    colIndex: number,
+    displayIndex: number,
+  ) => string | null;
 };
 
 export interface GridHeaderProps {
