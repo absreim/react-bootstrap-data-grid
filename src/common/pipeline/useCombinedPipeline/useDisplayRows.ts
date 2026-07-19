@@ -53,6 +53,10 @@ const useDisplayRows: (
 
       const displayRow: CellData[] = [];
       Object.keys(row.data).forEach((name) => {
+        if (!nameToIndex.has(name)) {
+          return;
+        }
+
         const index = nameToIndex.get(name)!;
         const col = cols[index];
         const formatter = col.formatter;
