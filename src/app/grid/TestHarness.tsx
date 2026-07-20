@@ -55,27 +55,40 @@ const headerCellVariantFn: GridProps["headerCellVariant"] = (col, colIndex) => {
 }
 
 const bodyRowVariantFn: GridProps["bodyRowVariant"] = (row, displayIndex, ) => {
-  if (row.contents[0].formattedValue.startsWith("1st")) {
+  const strColVal = row.contents[0].formattedValue;
+  if (strColVal.startsWith("1st")) {
     return "bsbrand";
   }
 
-  return variants[displayIndex % variants.length];
-}
+  if (strColVal.startsWith("2nd")) {
+    return "primary";
+  }
 
-const bodyCellVariantsFn: GridProps["bodyCellVariant"] = (cell, row, colIndex, displayIndex) => {
-  if (cell.formattedValue === "2") {
+  if (displayIndex === 2) {
     return "danger";
   }
 
-  if (cell.formattedValue === "3") {
-    return "warning";
+  return null;
+}
+
+const bodyCellVariantsFn: GridProps["bodyCellVariant"] = (cell, row, colIndex, displayIndex) => {
+  if (colIndex === 0) {
+    return "secondary";
+  }
+
+  if (displayIndex === 3) {
+    return "success";
+  }
+
+  if (cell.formattedValue === "1") {
+    return "danger";
   }
 
   if (row.contents[3].formattedValue.startsWith("2026-03")) {
     return "info";
   }
 
-  return variants[(colIndex + displayIndex) % variants.length];
+  return null;
 }
 
 // This test harness does not test active rows or cells. Such testing should be
