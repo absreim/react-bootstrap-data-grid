@@ -42,14 +42,16 @@ const variants = [
 
 const gridDimSettings: GridDimSetting[] = ["unset", "number", "auto", "parent"];
 
-// TODO: write tests for row and cell variants
-
 const headerCellVariantFn: GridProps["headerCellVariant"] = (col, colIndex) => {
   if (col.name.startsWith("date")) {
     return "success";
   }
 
-  return variants[colIndex % variants.length];
+  if (colIndex === 0) {
+    return "warning";
+  }
+
+  return null;
 }
 
 const bodyRowVariantFn: GridProps["bodyRowVariant"] = (row, displayIndex, ) => {

@@ -33,7 +33,9 @@ const GridHeader: FC<GridHeaderProps> = ({
             className={classNames(
               "rbdg-grid-cell",
               "fw-bold",
-              cellVariant && `${CSS_PREFIX}-${cellVariant(col, index)}`,
+              cellVariant &&
+                cellVariant(col, index) &&
+                `${CSS_PREFIX}-${cellVariant(col, index)}`,
             )}
             role="columnheader"
             key={col.name}

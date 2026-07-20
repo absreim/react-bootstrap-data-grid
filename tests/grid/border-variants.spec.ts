@@ -2,7 +2,7 @@ import { expect, Page, test } from "@playwright/test";
 import {
   GRID_BODY_DATA_TEST_ID,
   GRID_HEADER_DATA_TEST_ID,
-} from "@/grid/constants";
+} from "../../src/grid/constants";
 
 const expectedDividerColor = "rgb(0, 0, 0)";
 

@@ -21,7 +21,9 @@ const GridBody: FC<GridBodyProps> = ({
           className={classNames(
             "d-flex",
             "flex-row",
-            rowVariant && `${CSS_PREFIX}-${rowVariant(row, rowDisplayIndex)}`,
+            rowVariant &&
+              rowVariant(row, rowDisplayIndex) &&
+              `${CSS_PREFIX}-${rowVariant(row, rowDisplayIndex)}`,
           )}
         >
           {row.contents.map(({ formattedValue, width }, index) => (
@@ -32,6 +34,12 @@ const GridBody: FC<GridBodyProps> = ({
               className={classNames(
                 "rbdg-grid-cell",
                 cellVariant &&
+                  cellVariant(
+                    row.contents[index],
+                    row,
+                    index,
+                    rowDisplayIndex,
+                  ) &&
                   `${CSS_PREFIX}-${cellVariant(row.contents[index], row, index, rowDisplayIndex)}`,
               )}
               aria-colindex={index + 1}

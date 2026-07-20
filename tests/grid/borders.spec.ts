@@ -2,7 +2,7 @@ import { expect, Page, test } from "@playwright/test";
 import {
   GRID_BODY_DATA_TEST_ID,
   GRID_HEADER_DATA_TEST_ID,
-} from "@/grid/constants";
+} from "../../src/grid/constants";
 
 test.beforeEach(async ({ page }) => {
   await page.goto("grid");

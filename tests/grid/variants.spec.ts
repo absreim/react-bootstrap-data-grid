@@ -2,7 +2,7 @@ import { expect, test } from "@playwright/test";
 import {
   GRID_BODY_DATA_TEST_ID,
   GRID_HEADER_DATA_TEST_ID,
-} from "@/grid/constants";
+} from "../../src/grid/constants";
 
 interface VariantSpec {
   bgColor: string;

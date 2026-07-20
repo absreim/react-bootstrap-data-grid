@@ -2,7 +2,7 @@ import { test, expect } from "@playwright/test";
 import {
   GRID_BODY_DATA_TEST_ID,
   GRID_HEADER_DATA_TEST_ID,
-} from "@/grid/constants";
+} from "../../src/grid/constants";
 
 const stripedBoxShadowValue = "rgba(0, 0, 0, 0.05) 0px 0px 0px 9999px inset";
 const unstripedBoxShadowValue = "rgba(0, 0, 0, 0) 0px 0px 0px 9999px inset";

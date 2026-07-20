@@ -1,5 +1,5 @@
 import { test, expect, Page } from "@playwright/test";
-import { GRID_BODY_DATA_TEST_ID } from "@/grid/constants";
+import { GRID_BODY_DATA_TEST_ID } from "../../src/grid/constants";
 
 test.beforeEach(async ({ page }) => {
   await page.goto("grid");
