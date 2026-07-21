@@ -2,7 +2,7 @@ import { expect, test } from "@playwright/test";
 import {
   GRID_BODY_DATA_TEST_ID,
   GRID_HEADER_DATA_TEST_ID,
-} from "../../src/grid/constants";
+} from "../../../src/grid/constants";
 
 interface VariantSpec {
   bgColor: string;
@@ -37,7 +37,7 @@ Object.keys(variantSpecs).forEach((variant) => {
   test.describe(`table color variant ${variant}`, () => {
     test.beforeEach(async ({ page }) => {
       const variantDropdown = page.getByRole("combobox", {
-        name: "Select variant",
+        name: "Select grid variant",
       });
       await variantDropdown.selectOption(variant);
     });

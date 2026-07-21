@@ -43,5 +43,9 @@
     "react-bootstrap": "^2.10.10",
     "sass": "^1.95.1",
     "typescript": "^5.9"
+  },
+  "exports": {
+    "./src/pro": "./src/pro",
+    "./src/community": "./src/community"
   }
 }

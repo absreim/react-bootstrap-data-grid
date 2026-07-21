@@ -2,7 +2,7 @@ import { expect, Page, test } from "@playwright/test";
 import {
   GRID_BODY_DATA_TEST_ID,
   GRID_HEADER_DATA_TEST_ID,
-} from "../../src/grid/constants";
+} from "../../../src/grid/constants";
 
 const expectedDividerColor = "rgb(0, 0, 0)";
 
@@ -94,7 +94,7 @@ Object.keys(borderColorVariants).forEach((variant) => {
       page,
     }) => {
       const variantDropdown = page.getByRole("combobox", {
-        name: "Select variant",
+        name: "Select grid variant",
       });
       await variantDropdown.selectOption(variant);
 
