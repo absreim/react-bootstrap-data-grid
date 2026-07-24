@@ -13,9 +13,9 @@ import getWidthStyle from "../common/util/getWidthStyle";
 import { ColHeaderCellProProps } from "./types";
 import useSortHeaderStates from "../common/sorting/useSortHeaderStates";
 import VerticalGrip from "./assets/VerticalGrip";
-import { KeyboardCleanupFnParam, PointerCleanupFnParam } from "./util/types";
-import regDragCleanup from "./util/regDragCleanup";
+import regDragCleanup from "./lib/regDragCleanup";
 import sortOrderToAriaSort from "../common/sorting/sortOrderToAriaSort";
+import { KeyboardCleanupFnParam, PointerCleanupFnParam } from "./lib/types";
 
 const setWidthStyle: (cells: HTMLTableCellElement[], width: number) => void = (
   cells,

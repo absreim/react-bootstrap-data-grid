@@ -22,12 +22,14 @@ const stripeSettings: TestGridStripeSetting[] = [
   "columns",
   "none",
 ];
+
 const borderSettings: TestGridBorderSetting[] = [
   "unset",
   "full",
   "horizontal",
   "none",
 ];
+
 const variants = [
   "primary",
   "secondary",

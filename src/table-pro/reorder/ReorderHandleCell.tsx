@@ -7,9 +7,9 @@ import {
 } from "react";
 import HorizontalGrip from "../assets/HorizontalGrip";
 import { ReorderStyles, RowId } from "../";
-import { KeyboardCleanupFnParam, PointerCleanupFnParam } from "../util/types";
-import regDragCleanup from "../util/regDragCleanup";
+import regDragCleanup from "../lib/regDragCleanup";
 import classNames from "classnames";
+import { KeyboardCleanupFnParam, PointerCleanupFnParam } from "../lib/types";
 
 export type ReorderHandleCellProps = {
   rowId: RowId;
