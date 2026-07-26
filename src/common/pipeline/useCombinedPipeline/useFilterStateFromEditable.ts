@@ -1,20 +1,20 @@
 import { useMemo } from "react";
 import {
-  EditableTableFilterState,
-  TableFilterState,
+  EditableFilterState,
+  FilterState,
 } from "../../filtering/types";
 import { ColDef } from "../../types";
 
 const useFilterStateFromEditable: (
   colDefs: ColDef[],
-  editableFilterState: EditableTableFilterState | null,
-) => TableFilterState | null = (colDefs, editableFilterState) => {
+  editableFilterState: EditableFilterState | null,
+) => FilterState | null = (colDefs, editableFilterState) => {
   return useMemo(() => {
     if (editableFilterState === null) {
       return null;
     }
 
-    const filterState: TableFilterState = {};
+    const filterState: FilterState = {};
 
     colDefs.forEach(({ name, label }) => {
       filterState[name] = {

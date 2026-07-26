@@ -10,17 +10,17 @@ export interface ColSortModel {
   setSortOrder: (order: SortOrder | null) => void;
 }
 
-export interface ControlledTableSortModel {
+export interface ControlledSortModel {
   type?: "controlled";
   sortColDef: SortColDef | null;
   setSortColDef: (sortColDef: SortColDef | null) => void;
 }
 
-export interface UncontrolledTableSortModel {
+export interface UncontrolledSortModel {
   type: "uncontrolled";
   initialSortColDef: SortColDef | null;
 }
 
-export type TableSortModel =
-  | ControlledTableSortModel
-  | UncontrolledTableSortModel;
+export type SortModel =
+  | ControlledSortModel
+  | UncontrolledSortModel;

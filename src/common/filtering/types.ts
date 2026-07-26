@@ -1,8 +1,8 @@
-export type TableFilterState = Record<string, ColFilterState>;
-export type EditableTableFilterState = Record<string, FilterState>;
+export type FilterState = Record<string, ColFilterState>;
+export type EditableFilterState = Record<string, EditableColFilterState>;
 
 export interface ColFilterState {
-  editableState: FilterState;
+  editableState: EditableColFilterState;
   label: string;
 }
 
@@ -85,15 +85,15 @@ export type DateFilterState =
   | StartDateFilterState
   | EndDateFilterState
   | BetweenDatesFilterState;
-export type FilterState =
+export type EditableColFilterState =
   | StringFilterState
   | NumberFilterState
   | DateFilterState;
 
 export interface ControlledFilterModel {
   type?: "controlled";
-  tableFilterState: EditableTableFilterState;
-  setTableFilterState: (state: EditableTableFilterState) => void;
+  tableFilterState: EditableFilterState;
+  setTableFilterState: (state: EditableFilterState) => void;
   filterTableCaption?: string;
 }
 

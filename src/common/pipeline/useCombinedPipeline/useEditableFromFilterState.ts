@@ -1,18 +1,18 @@
 import { useMemo } from "react";
 import {
-  EditableTableFilterState,
-  TableFilterState,
+  EditableFilterState,
+  FilterState,
 } from "../../filtering/types";
 
 const useEditableFromFilterState: (
-  filterState: TableFilterState | null,
-) => EditableTableFilterState | null = (filterState) => {
+  filterState: FilterState | null,
+) => EditableFilterState | null = (filterState) => {
   return useMemo(() => {
     if (filterState === null) {
       return null;
     }
 
-    const editableState: EditableTableFilterState = {};
+    const editableState: EditableFilterState = {};
     Object.keys(filterState).forEach((columnName) => {
       editableState[columnName] = filterState[columnName].editableState;
     });

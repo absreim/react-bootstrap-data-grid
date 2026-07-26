@@ -1,7 +1,7 @@
 import { useMemo } from "react";
 import {
   DateFilterState,
-  EditableTableFilterState,
+  EditableFilterState,
   NumberFilterState,
   StringFilterState,
 } from "../../filtering/types";
@@ -9,7 +9,7 @@ import { AugRowDef, RowDef } from "../../types";
 
 const useFilter: (
   rows: RowDef[],
-  filterState: EditableTableFilterState | null,
+  filterState: EditableFilterState | null,
 ) => AugRowDef[] = (rows, filterState) => {
   return useMemo(() => {
     const augRows = rows.map((row, index) => ({

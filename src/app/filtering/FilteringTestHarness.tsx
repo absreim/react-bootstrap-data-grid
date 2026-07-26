@@ -1,6 +1,6 @@
 import Table, {
   ColDef,
-  EditableTableFilterState,
+  EditableFilterState,
   FilterModel,
   RowDef,
 } from "../../table";
@@ -10,7 +10,7 @@ import TablePro from "../../table-pro";
 interface FilteringTestHarnessProps {
   cols: ColDef[];
   rows: RowDef[];
-  initialFilterState: EditableTableFilterState;
+  initialFilterState: EditableFilterState;
   controlled: boolean;
   caption?: string;
   pro?: boolean;

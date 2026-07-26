@@ -1,10 +1,10 @@
 import { FC, ReactNode, SubmitEventHandler, useState } from "react";
 import StringFilterRow from "./StringFilterRow";
 import {
-  EditableTableFilterState,
+  EditableFilterState,
   FilterFormRowState,
   FilterFormState,
-  TableFilterState,
+  FilterState,
 } from "./types";
 import NumberFilterRow from "./NumberFilterRow";
 import useFilterFormState from "./useFilterFormState";
@@ -13,8 +13,8 @@ import classNames from "classnames";
 import { FilterInputTableStyleModel } from "../../table/styling/types";
 
 export interface FilterOptionsTableProps {
-  filterState: TableFilterState;
-  setFilterState: (filterState: EditableTableFilterState) => void;
+  filterState: FilterState;
+  setFilterState: (filterState: EditableFilterState) => void;
   closeFormCallback: () => void;
   caption?: string;
   styleModel?: FilterInputTableStyleModel;
@@ -22,7 +22,7 @@ export interface FilterOptionsTableProps {
 
 const convertFilterFormStateToEditableState: (
   filterFormState: FilterFormState,
-) => EditableTableFilterState = (filterFormState) =>
+) => EditableFilterState = (filterFormState) =>
   Object.keys(filterFormState).reduce((editableState, colName) => {
     const rowFilterFormState = filterFormState[colName];
     switch (rowFilterFormState.type) {
@@ -79,7 +79,7 @@ const convertFilterFormStateToEditableState: (
       }
     }
     return editableState;
-  }, {} as EditableTableFilterState);
+  }, {} as EditableFilterState);
 
 const FilterOptionsTable: FC<FilterOptionsTableProps> = ({
   filterState,

@@ -3,7 +3,7 @@ import {
   ColDef,
   dateToDatetimeInputStr,
   dateToInputStr,
-  EditableTableFilterState,
+  EditableFilterState,
   RowDef,
 } from "../../../table";
 import { TestParams } from "../types";
@@ -81,7 +81,7 @@ const combinedTestRows: RowDef<CombinedTestRow>[] = [
   },
 ];
 
-const combinedFilterState: EditableTableFilterState = {
+const combinedFilterState: EditableFilterState = {
   strCol: {
     enabled: true,
     type: "string",

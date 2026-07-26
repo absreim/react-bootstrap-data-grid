@@ -1,7 +1,7 @@
 "use client";
 
 import Table, {
-  EditableTableFilterState,
+  EditableFilterState,
   FilterModel,
   StyleModel,
 } from "../../../table";
@@ -19,7 +19,7 @@ const FilterStylingTestHarness: FC<FilterStylingTestHarnessProps> = ({
   styleModel,
 }) => {
   const [tableFilterState, setTableFilterState] =
-    useState<EditableTableFilterState>({
+    useState<EditableFilterState>({
       strCol: {
         type: "string",
         scheme: "startsWith",

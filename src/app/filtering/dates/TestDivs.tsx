@@ -2,7 +2,7 @@ import { FC, Fragment } from "react";
 import {
   ColDef,
   dateToInputStr,
-  EditableTableFilterState,
+  EditableFilterState,
   RowDef,
 } from "../../../table";
 import { TestParams } from "../types";
@@ -44,7 +44,7 @@ const dateTestRows: RowDef<{ dateCol: Date }>[] = [
   },
 ];
 
-const startFromDateFilterState: EditableTableFilterState = {
+const startFromDateFilterState: EditableFilterState = {
   dateCol: {
     enabled: true,
     type: "date",
@@ -53,7 +53,7 @@ const startFromDateFilterState: EditableTableFilterState = {
   },
 };
 
-const endAtDateFilterState: EditableTableFilterState = {
+const endAtDateFilterState: EditableFilterState = {
   dateCol: {
     enabled: true,
     type: "date",
@@ -62,7 +62,7 @@ const endAtDateFilterState: EditableTableFilterState = {
   },
 };
 
-const betweenDatesFilterState: EditableTableFilterState = {
+const betweenDatesFilterState: EditableFilterState = {
   dateCol: {
     enabled: true,
     type: "date",

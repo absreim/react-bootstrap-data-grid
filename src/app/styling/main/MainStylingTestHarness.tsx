@@ -9,7 +9,7 @@ import Table, {
   RowId,
   SortColDef,
   StyleModel,
-  TableSortModel,
+  SortModel,
 } from "../../../table";
 import { FC, useMemo, useState } from "react";
 import TablePro from "../../../table-pro";
@@ -103,7 +103,7 @@ const MainStylingTestHarness: FC<MainStylingTestHarnessProps> = ({
     name: "numCol",
     order: "desc",
   });
-  const sortModel: TableSortModel = useMemo(
+  const sortModel: SortModel = useMemo(
     () => ({
       sortColDef,
       setSortColDef,

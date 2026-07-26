@@ -3,7 +3,7 @@
 import { FC, useMemo } from "react";
 import Table, {
   ColDef,
-  EditableTableFilterState,
+  EditableFilterState,
   ExportFormStyleModel,
   TableProps,
   RowDef,
@@ -91,7 +91,7 @@ const combinedTestRows: RowDef<CombinedTestRow>[] = [
   },
 ];
 
-const combinedFilterState: EditableTableFilterState = {
+const combinedFilterState: EditableFilterState = {
   strCol: {
     enabled: false,
     type: "string",

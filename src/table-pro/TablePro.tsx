@@ -5,7 +5,7 @@ import {
   FormattedRow,
   ColSortModel,
   RowId,
-  TableFilterState,
+  FilterState,
   AugFormattedRow,
 } from "./";
 import useCombinedPipeline from "../common/pipeline/useCombinedPipeline";
@@ -193,8 +193,8 @@ const TablePro: FC<TableProProps> = (props) => {
   );
 
   const filteringOccurring = !!(
-    (filterState as TableFilterState) &&
-    Object.values(filterState as TableFilterState).find(
+    (filterState as FilterState) &&
+    Object.values(filterState as FilterState).find(
       ({ editableState }) => editableState.enabled,
     )
   );

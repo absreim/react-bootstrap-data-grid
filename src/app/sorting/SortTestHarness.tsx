@@ -1,4 +1,4 @@
-import Table, { ColDef, RowDef, SortColDef, TableSortModel } from "../../table";
+import Table, { ColDef, RowDef, SortColDef, SortModel } from "../../table";
 import { FC, useState } from "react";
 import TablePro from "../../table-pro";
 
@@ -21,7 +21,7 @@ const SortTestHarness: FC<SortTestHarnessProps> = ({
     initialSortDef,
   );
 
-  const tableSortModel: TableSortModel = controlled
+  const tableSortModel: SortModel = controlled
     ? {
         sortColDef,
         setSortColDef,

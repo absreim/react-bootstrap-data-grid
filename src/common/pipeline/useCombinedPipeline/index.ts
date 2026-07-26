@@ -6,7 +6,7 @@ import useCurrentPageRows, {
   CurrentPageRowsOutput,
 } from "./useCurrentPageRows";
 import useDisplayRows from "./useDisplayRows";
-import { NormalizedTableFilterModel, TableFilterState } from "../../";
+import { NormalizedTableFilterModel, FilterState } from "../../";
 import {
   ColDefBase,
   FormattedRow,
@@ -24,7 +24,7 @@ export type CombinedPipelineParams = Pick<
 export interface UseCombinedPipelineHook {
   normalizedTableFilterModel: NormalizedTableFilterModel | null;
   filteredRows: RowDef[];
-  filterState: TableFilterState | null;
+  filterState: FilterState | null;
   sortedRowsOutput: SortedRowsOutput;
   currentPageRowsOutput: CurrentPageRowsOutput;
   showSelectCol: boolean;

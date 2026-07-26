@@ -1,15 +1,15 @@
 import {
-  EditableTableFilterState,
+  EditableFilterState,
   FilterModel,
   NormalizedTableFilterModel,
 } from "../../filtering/types";
 import { useState } from "react";
 import { ColDef, ColDefBase } from "../../types";
 
-const generateEmptyFilterState: (cols: ColDef[]) => EditableTableFilterState = (
+const generateEmptyFilterState: (cols: ColDef[]) => EditableFilterState = (
   cols,
 ) => {
-  const filterState: EditableTableFilterState = {};
+  const filterState: EditableFilterState = {};
   cols.forEach(({ type, name }) => {
     switch (type) {
       case "string": {
@@ -54,7 +54,7 @@ const useFilterStateStore: (
   // uncontrolled features should indicate this fact and recommend using
   // controlled modes if this behavior is unacceptable.
   const [internalFilterState, setInternalFilterState] =
-    useState<EditableTableFilterState>(
+    useState<EditableFilterState>(
       filterModel?.tableFilterState || generateEmptyFilterState(cols),
     );
 

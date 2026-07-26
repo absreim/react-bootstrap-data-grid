@@ -1,6 +1,6 @@
 import { EditModel } from "./editing/types";
 import { PaginationModel } from "./pagination/types";
-import { TableSortModel } from "./sorting/types";
+import { SortModel } from "./sorting/types";
 import { FilterModel } from "./filtering/types";
 import { SelectModel } from "./selection/types";
 import { StyleModel } from "./styling/types";
@@ -32,7 +32,7 @@ export interface MainComponentSharedProps {
   rows: RowDef[];
   cols: ColDef[];
   pagination?: PaginationModel;
-  sortModel?: TableSortModel;
+  sortModel?: SortModel;
   filterModel?: FilterModel;
   selectModel?: SelectModel;
   editModel?: EditModel;
