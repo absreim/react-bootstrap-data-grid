@@ -26,7 +26,10 @@ const enableBodyCellVariants = async (page: Page) => {
   await bodyCellVariantsSwitch.click();
 };
 
-const assertBodyCellVariants = async (page: Page, expectedColors: Record<"firstRow" | "secondRow", string>) => {
+const assertBodyCellVariants = async (
+  page: Page,
+  expectedColors: Record<"firstRow" | "secondRow", string>,
+) => {
   const firstColCells = await page
     .locator('div[aria-colindex="1"][role="gridcell"]')
     .all();
@@ -59,12 +62,18 @@ const assertBodyCellVariants = async (page: Page, expectedColors: Record<"firstR
 
   expect(otherFirstRowCells).toHaveLength(2);
   for (const cell of otherFirstRowCells) {
-    await expect(cell).toHaveCSS("background-color", expectedColors["firstRow"]);
+    await expect(cell).toHaveCSS(
+      "background-color",
+      expectedColors["firstRow"],
+    );
   }
 
   expect(otherSecondRowCells).toHaveLength(3);
   for (const cell of otherSecondRowCells) {
-    await expect(cell).toHaveCSS("background-color", expectedColors["secondRow"]);
+    await expect(cell).toHaveCSS(
+      "background-color",
+      expectedColors["secondRow"],
+    );
   }
 
   expect(otherThirdRowCells).toHaveLength(3);
@@ -76,14 +85,20 @@ const assertBodyCellVariants = async (page: Page, expectedColors: Record<"firstR
   for (const cell of otherFourthRowCells) {
     await expect(cell).toHaveCSS("background-color", successBgColor);
   }
-}
+};
 
 test("Body row variants work correctly", async ({ page }) => {
   await enableBodyRowVariants(page);
 
-  const firstBodyRowCells = await page.locator('div[aria-rowindex="2"] > div').all();
-  const secondBodyRowCells = await page.locator('div[aria-rowindex="3"] > div').all();
-  const thirdBodyRowCells = await page.locator('div[aria-rowindex="4"] > div').all();
+  const firstBodyRowCells = await page
+    .locator('div[aria-rowindex="2"] > div')
+    .all();
+  const secondBodyRowCells = await page
+    .locator('div[aria-rowindex="3"] > div')
+    .all();
+  const thirdBodyRowCells = await page
+    .locator('div[aria-rowindex="4"] > div')
+    .all();
 
   expect(firstBodyRowCells).toHaveLength(4);
   for (const cell of firstBodyRowCells) {
@@ -107,7 +122,7 @@ test("Body cell variants work correctly", async ({ page }) => {
   await assertBodyCellVariants(page, {
     firstRow: defaultBgColor,
     secondRow: defaultBgColor,
-  })
+  });
 });
 
 test("Body cell variants override row variants correctly", async ({ page }) => {

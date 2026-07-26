@@ -147,8 +147,8 @@ import Grid from "@/grid";
 ```
 
 Unfortunately, testing has found that when code with this kind of import is published as an NPM package and installed
-in a separate project, TypeScript fails to resolve these kinds of paths properly. __It is necessary to use relative
-imports throughout the code for this project.__ To avoid the presence of code containing re-mapped imports, the
+in a separate project, TypeScript fails to resolve these kinds of paths properly. **It is necessary to use relative
+imports throughout the code for this project.** To avoid the presence of code containing re-mapped imports, the
 default paths setting has been removed from the `tsconfig.json` file in this project.
 
 To clarify, the import in the above example would be done as follows when using a relative import:

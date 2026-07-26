@@ -21,6 +21,4 @@ export interface UncontrolledSortModel {
   initialSortColDef: SortColDef | null;
 }
 
-export type SortModel =
-  | ControlledSortModel
-  | UncontrolledSortModel;
+export type SortModel = ControlledSortModel | UncontrolledSortModel;

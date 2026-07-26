@@ -1,5 +1,10 @@
 import { FC, useState } from "react";
-import Table, { ColDef, RowDef, RowId, SingleSelectModel } from "../../../table";
+import Table, {
+  ColDef,
+  RowDef,
+  RowId,
+  SingleSelectModel,
+} from "../../../table";
 import { SingleSelectModelInitialState } from "../types";
 import TablePro from "../../../table-pro";
 

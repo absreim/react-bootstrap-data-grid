@@ -18,8 +18,8 @@ const FilterStylingTestHarness: FC<FilterStylingTestHarnessProps> = ({
   pro,
   styleModel,
 }) => {
-  const [tableFilterState, setTableFilterState] =
-    useState<EditableFilterState>({
+  const [tableFilterState, setTableFilterState] = useState<EditableFilterState>(
+    {
       strCol: {
         type: "string",
         scheme: "startsWith",
@@ -45,7 +45,8 @@ const FilterStylingTestHarness: FC<FilterStylingTestHarnessProps> = ({
         endDate: null,
         enabled: false,
       },
-    });
+    },
+  );
   const filterModel: FilterModel = useMemo(
     () => ({
       tableFilterState,

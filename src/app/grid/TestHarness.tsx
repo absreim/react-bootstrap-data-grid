@@ -54,9 +54,9 @@ const headerCellVariantFn: GridProps["headerCellVariant"] = (col, colIndex) => {
   }
 
   return null;
-}
+};
 
-const bodyRowVariantFn: GridProps["bodyRowVariant"] = (row, displayIndex, ) => {
+const bodyRowVariantFn: GridProps["bodyRowVariant"] = (row, displayIndex) => {
   const strColVal = row.contents[0].formattedValue;
   if (strColVal.startsWith("1st")) {
     return "bsbrand";
@@ -71,9 +71,14 @@ const bodyRowVariantFn: GridProps["bodyRowVariant"] = (row, displayIndex, ) => {
   }
 
   return null;
-}
+};
 
-const bodyCellVariantsFn: GridProps["bodyCellVariant"] = (cell, row, colIndex, displayIndex) => {
+const bodyCellVariantsFn: GridProps["bodyCellVariant"] = (
+  cell,
+  row,
+  colIndex,
+  displayIndex,
+) => {
   if (colIndex === 0) {
     return "secondary";
   }
@@ -91,7 +96,7 @@ const bodyCellVariantsFn: GridProps["bodyCellVariant"] = (cell, row, colIndex, d
   }
 
   return null;
-}
+};
 
 // This test harness does not test active rows or cells. Such testing should be
 // done as part of testing of a feature that uses active rows and/or cells.
@@ -305,9 +310,13 @@ const TestHarness: FC = () => {
           variant={variant || undefined}
           borderVariant={borderVariant || undefined}
           headerRowVariant={headerRowVariant || undefined}
-          headerCellVariant={enableHeaderCellVariants ? headerCellVariantFn : undefined}
+          headerCellVariant={
+            enableHeaderCellVariants ? headerCellVariantFn : undefined
+          }
           bodyRowVariant={enableBodyRowVariants ? bodyRowVariantFn : undefined}
-          bodyCellVariant={enableBodyCellVariants ? bodyCellVariantsFn : undefined}
+          bodyCellVariant={
+            enableBodyCellVariants ? bodyCellVariantsFn : undefined
+          }
         />
       </div>
     </>

@@ -1,6 +1,11 @@
 "use client";
 
-import Table, { ColDef, RowDef, RowId, UpdateCallbackGenerator } from "../../table";
+import Table, {
+  ColDef,
+  RowDef,
+  RowId,
+  UpdateCallbackGenerator,
+} from "../../table";
 import { FC, useState } from "react";
 import { dateToDatetimeInputStr, dateToInputStr } from "../../common";
 import TablePro from "../../table-pro";
