@@ -94,7 +94,7 @@ Object.keys(borderColorVariants).forEach((variant) => {
       page,
     }) => {
       const variantDropdown = page.getByRole("combobox", {
-        name: "Select variant",
+        name: "Select grid variant",
       });
       await variantDropdown.selectOption(variant);
 

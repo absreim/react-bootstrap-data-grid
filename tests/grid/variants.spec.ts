@@ -37,7 +37,7 @@ Object.keys(variantSpecs).forEach((variant) => {
   test.describe(`table color variant ${variant}`, () => {
     test.beforeEach(async ({ page }) => {
       const variantDropdown = page.getByRole("combobox", {
-        name: "Select variant",
+        name: "Select grid variant",
       });
       await variantDropdown.selectOption(variant);
     });
