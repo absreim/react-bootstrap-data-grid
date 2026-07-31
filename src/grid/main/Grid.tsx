@@ -1,6 +1,13 @@
 "use client";
 
-import { CSSProperties, FC, useMemo } from "react";
+import {
+  ClipboardEventHandler,
+  CSSProperties,
+  FC,
+  useCallback,
+  useMemo,
+  useRef,
+} from "react";
 import useCombinedPipeline from "../../common/pipeline/useCombinedPipeline";
 import { GridProps } from "./types";
 import useAugFormattedRows from "../../common/pipeline/useAugFormattedRows";
@@ -9,6 +16,7 @@ import GridHeader from "./GridHeader";
 import GridBody from "./GridBody";
 import classNames from "classnames";
 import { CSS_PREFIX } from "../../common/constants";
+import useGridFocus from "../focus/useGridFocus";
 
 const Grid: FC<GridProps> = ({
   rows,
@@ -30,6 +38,8 @@ const Grid: FC<GridProps> = ({
   headerRowVariant,
   bodyCellVariant,
   bodyRowVariant,
+  headerCellFocusVariant,
+  bodyCellFocusVariant
 }) => {
   const { displayRows, filteredRows } = useCombinedPipeline({
     rows,
@@ -76,9 +86,30 @@ const Grid: FC<GridProps> = ({
   }, [width, height]);
 
   const vertScrollable = height !== undefined && height !== "auto";
+  const gridRef = useRef<HTMLDivElement>(null);
+  const { effectiveCoords, gridClickHandler, gridKeydownHandler } =
+    useGridFocus(gridRef, rows.length + 1, cols.length);
+
+  const onCopy: ClipboardEventHandler<HTMLDivElement> = useCallback((event) => {
+    if (!gridRef.current?.contains(document.activeElement)) {
+      return;
+    }
+
+    const selection = document.getSelection();
+    if (!selection || !selection.isCollapsed) {
+      return;
+    }
+
+    event.preventDefault();
+    event.clipboardData.setData("text/plain", selection.focusNode!.textContent!);
+  }, []);
 
   return (
     <div
+      onCopy={onCopy}
+      onClick={gridClickHandler}
+      onKeyDown={gridKeydownHandler}
+      ref={gridRef}
       style={gridStyle}
       className={classNames(
         {
@@ -105,12 +136,20 @@ const Grid: FC<GridProps> = ({
         rowVariant={headerRowVariant}
         cellVariant={headerCellVariant}
         vertScrollable={vertScrollable}
+        focusColIndex={
+          effectiveCoords.ariaRowIndex === 1
+            ? effectiveCoords.ariaColIndex
+            : null
+        }
+        cellFocusVariant={headerCellFocusVariant}
       />
       <GridBody
+        focusCoords={effectiveCoords}
         augFormattedRows={augFormattedRows}
         cols={cols}
         rowVariant={bodyRowVariant}
         cellVariant={bodyCellVariant}
+        cellFocusVariant={bodyCellFocusVariant}
       />
     </div>
   );

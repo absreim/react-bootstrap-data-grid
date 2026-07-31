@@ -39,25 +39,37 @@ $rbdg-prefix: "rbdg-";
   > div {
     width: min-content;
 
-    > div > div {
-      text-overflow: ellipsis;
-      white-space: nowrap;
-      overflow: hidden;
-      padding: $table-cell-padding-y $table-cell-padding-x;
-      color: var(
-        --#{$rbdg-prefix}grid-color-state,
-        var(--#{$rbdg-prefix}grid-color-type, var(--#{$rbdg-prefix}grid-color))
-      );
-      background-color: var(--#{$rbdg-prefix}grid-bg);
-      border-bottom-width: $table-border-width;
-      box-shadow: inset 0 0 0 9999px
-        var(
+    > div {
+      > div {
+        text-overflow: ellipsis;
+        white-space: nowrap;
+        overflow: hidden;
+        padding: $table-cell-padding-y $table-cell-padding-x;
+        color: var(
+          --#{$rbdg-prefix}grid-color-state,
+          var(--#{$rbdg-prefix}grid-color-type, var(--#{$rbdg-prefix}grid-color))
+        );
+        background-color: var(--#{$rbdg-prefix}grid-bg);
+        border-bottom-width: $table-border-width;
+        box-shadow: inset 0 0 0 9999px var(
           --#{$rbdg-prefix}grid-bg-state,
           var(
             --#{$rbdg-prefix}grid-bg-type,
             var(--#{$rbdg-prefix}grid-accent-bg)
           )
         );
+      }
+
+      > div.rbdg-focusable-cell:focus {
+        outline: 0;
+        box-shadow: inset 0 0 0 9999px var(
+          --#{$rbdg-prefix}grid-bg-state,
+          var(
+            --#{$rbdg-prefix}grid-bg-type,
+            var(--#{$rbdg-prefix}grid-accent-bg)
+          )
+        ), var(--#{$prefix}focus-ring-x, 0) var(--#{$prefix}focus-ring-y, 0) var(--#{$prefix}focus-ring-blur, 0) var(--#{$prefix}focus-ring-width) var(--#{$prefix}focus-ring-color);
+      }
     }
   }
 
@@ -211,7 +223,7 @@ $rbdg-prefix: "rbdg-";
   @include rbdg-grid-variant($color, $value);
 }
 
-// Note about Responsive Tables
+// A note about Responsive Tables
 //
 // The Bootstrap _tables.scss file contains a series of classes to apply responsive tables at various breakpoints.
 // There is no such equivalent for RBDG flex grid for the following reason.

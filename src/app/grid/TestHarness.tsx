@@ -101,6 +101,9 @@ const bodyCellVariantsFn: GridProps["bodyCellVariant"] = (
 // This test harness does not test active rows or cells. Such testing should be
 // done as part of testing of a feature that uses active rows and/or cells.
 
+// TODO: write tests for focus and focus variants
+// TODO: make focus ring box shadow occur at the same time as table styles
+
 const TestHarness: FC = () => {
   const [heightSetting, setHeightSetting] = useState<GridDimSetting>("unset");
   const [widthSetting, setWidthSetting] = useState<GridDimSetting>("unset");
@@ -116,6 +119,7 @@ const TestHarness: FC = () => {
     useState(false);
   const [enableBodyRowVariants, setEnableBodyRowVariants] = useState(false);
   const [enableBodyCellVariants, setEnableBodyCellVariants] = useState(false);
+  const [enableFocusVariants, setEnableFocusVariants] = useState(false);
 
   const getEffectiveWidth: () => GridWidthSetting | undefined = () => {
     switch (widthSetting) {
@@ -274,6 +278,13 @@ const TestHarness: FC = () => {
           checked={enableBodyCellVariants}
           onChange={({ target }) => setEnableBodyCellVariants(target.checked)}
         />
+        <Form.Check
+          type="switch"
+          id="focusVariantsToggle"
+          label="Focus Variants"
+          checked={enableFocusVariants}
+          onChange={({ target }) => setEnableFocusVariants(target.checked)}
+        />
         {variantSelectSetInfos.map(({ name, label, value, setter }) => {
           const id = `${name}-variantSelect`;
 
@@ -316,6 +327,12 @@ const TestHarness: FC = () => {
           bodyRowVariant={enableBodyRowVariants ? bodyRowVariantFn : undefined}
           bodyCellVariant={
             enableBodyCellVariants ? bodyCellVariantsFn : undefined
+          }
+          headerCellFocusVariant={
+            enableFocusVariants ? headerCellVariantFn : undefined
+          }
+          bodyCellFocusVariant={
+            enableFocusVariants ? bodyCellVariantsFn : undefined
           }
         />
       </div>

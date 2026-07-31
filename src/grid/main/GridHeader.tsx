@@ -10,6 +10,8 @@ const GridHeader: FC<GridHeaderProps> = ({
   vertScrollable,
   rowVariant,
   cellVariant,
+  focusColIndex,
+  cellFocusVariant
 }) => {
   return (
     <div
@@ -28,23 +30,31 @@ const GridHeader: FC<GridHeaderProps> = ({
         )}
         aria-rowindex={1}
       >
-        {cols.map((col, index) => (
-          <div
-            className={classNames(
-              "rbdg-grid-cell",
-              "fw-bold",
-              cellVariant &&
-                cellVariant(col, index) &&
-                `${CSS_PREFIX}-${cellVariant(col, index)}`,
-            )}
-            role="columnheader"
-            key={col.name}
-            aria-colindex={index + 1}
-            style={getWidthStyles(col.width || DEFAULT_COL_WIDTH)}
-          >
-            {col.label}
-          </div>
-        ))}
+        {cols.map((col, index) => {
+          const ariaColIndex = index + 1;
+          const isFocused = focusColIndex === ariaColIndex;
+          const cellVariantVal = cellVariant && cellVariant(col, index);
+          const cellFocusVariantVal = cellFocusVariant && cellFocusVariant(col, index);
+
+          return (
+            <div
+              tabIndex={isFocused ? 0 : -1}
+              className={classNames(
+                "rbdg-grid-cell",
+                "fw-bold",
+                cellVariantVal && `${CSS_PREFIX}-${cellVariantVal}`,
+                cellFocusVariantVal && `focus-ring-${cellFocusVariantVal}`,
+                { "z-2": isFocused, "rbdg-focusable-cell": isFocused },
+              )}
+              role="columnheader"
+              key={col.name}
+              aria-colindex={ariaColIndex}
+              style={getWidthStyles(col.width || DEFAULT_COL_WIDTH)}
+            >
+              {col.label}
+            </div>
+          );
+        })}
       </div>
     </div>
   );
