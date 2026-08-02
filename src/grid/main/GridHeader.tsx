@@ -10,6 +10,7 @@ const GridHeader: FC<GridHeaderProps> = ({
   vertScrollable,
   rowVariant,
   cellVariant,
+  focusColIndex,
 }) => {
   return (
     <div
@@ -28,23 +29,29 @@ const GridHeader: FC<GridHeaderProps> = ({
         )}
         aria-rowindex={1}
       >
-        {cols.map((col, index) => (
-          <div
-            className={classNames(
-              "rbdg-grid-cell",
-              "fw-bold",
-              cellVariant &&
-                cellVariant(col, index) &&
-                `${CSS_PREFIX}-${cellVariant(col, index)}`,
-            )}
-            role="columnheader"
-            key={col.name}
-            aria-colindex={index + 1}
-            style={getWidthStyles(col.width || DEFAULT_COL_WIDTH)}
-          >
-            {col.label}
-          </div>
-        ))}
+        {cols.map((col, index) => {
+          const ariaColIndex = index + 1;
+
+          return (
+            <div
+              tabIndex={focusColIndex === ariaColIndex ? 0 : -1}
+              className={classNames(
+                "focus-ring",
+                "rbdg-grid-cell",
+                "fw-bold",
+                cellVariant &&
+                  cellVariant(col, index) &&
+                  `${CSS_PREFIX}-${cellVariant(col, index)}`,
+              )}
+              role="columnheader"
+              key={col.name}
+              aria-colindex={ariaColIndex}
+              style={getWidthStyles(col.width || DEFAULT_COL_WIDTH)}
+            >
+              {col.label}
+            </div>
+          );
+        })}
       </div>
     </div>
   );

@@ -5,6 +5,7 @@ import {
   FormattedRow,
   MainComponentSharedProps,
 } from "../../common";
+import { FocusCoordinates } from "../focus/types";
 
 export type GridProps = MainComponentSharedProps & {
   height?: GridHeightSetting;
@@ -32,6 +33,7 @@ export interface GridHeaderProps {
   vertScrollable: boolean;
   rowVariant?: GridProps["headerRowVariant"];
   cellVariant?: GridProps["headerCellVariant"];
+  focusColIndex: number | null;
 }
 
 export type GridBodyProps = {
@@ -39,6 +41,7 @@ export type GridBodyProps = {
   cols: GridProps["cols"];
   rowVariant?: GridProps["bodyRowVariant"];
   cellVariant?: GridProps["bodyCellVariant"];
+  focusCoords: FocusCoordinates;
 };
 
 export type GridHeightSetting = number | "auto" | "parent";

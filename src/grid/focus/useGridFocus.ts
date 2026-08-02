@@ -39,8 +39,8 @@ const useGridFocus: (
 
   const gridClickHandler: PointerEventHandler<HTMLDivElement> = useCallback(
     (event) => {
-      let cursor = event.currentTarget as HTMLElement;
-      while (cursor !== event.target && !cursor.hasAttribute("aria-colindex")) {
+      let cursor = event.target as HTMLElement;
+      while (cursor !== event.currentTarget && !cursor.hasAttribute("aria-colindex")) {
         cursor = cursor.parentElement!;
       }
 
@@ -72,7 +72,7 @@ const useGridFocus: (
               ariaRowIndex: effectiveCoords.ariaRowIndex + 1,
             });
           }
-          return;
+          break;
         }
         case "ArrowUp": {
           if (effectiveCoords.ariaRowIndex !== 1) {
@@ -81,7 +81,7 @@ const useGridFocus: (
               ariaRowIndex: effectiveCoords.ariaRowIndex - 1,
             });
           }
-          return;
+          break;
         }
         case "ArrowLeft": {
           if (effectiveCoords.ariaColIndex !== 1) {
@@ -90,7 +90,7 @@ const useGridFocus: (
               ariaRowIndex: effectiveCoords.ariaRowIndex,
             });
           }
-          return;
+          break;
         }
         case "ArrowRight": {
           if (effectiveCoords.ariaColIndex !== numCols) {
@@ -99,9 +99,14 @@ const useGridFocus: (
               ariaRowIndex: effectiveCoords.ariaRowIndex,
             });
           }
+          break;
+        }
+        default: {
           return;
         }
       }
+
+      event.preventDefault();
 
       // Optionally set the element focus here. Not sure how much differences it
       // makes in terms of performance vs relying on the useEffect hook.
@@ -127,10 +132,12 @@ const useGridFocus: (
     }
 
     const elToFocus = gridRef.current.querySelector(
-      `:scope > div[aria-rowindex=${effectiveCoords.ariaRowIndex}] > div[aria-colindex=${effectiveCoords.ariaColIndex}]`,
+      `:scope > div > div[aria-rowindex="${effectiveCoords.ariaRowIndex}"] > div[aria-colindex="${effectiveCoords.ariaColIndex}"]`,
     );
 
-    (elToFocus as HTMLElement).focus();
+    if (elToFocus !== document.activeElement) {
+      (elToFocus as HTMLElement).focus({ preventScroll: true });
+    }
   }, [effectiveCoords.ariaColIndex, effectiveCoords.ariaRowIndex, gridRef]);
 
   return {
