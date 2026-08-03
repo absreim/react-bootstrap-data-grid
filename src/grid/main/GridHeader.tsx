@@ -31,17 +31,18 @@ const GridHeader: FC<GridHeaderProps> = ({
       >
         {cols.map((col, index) => {
           const ariaColIndex = index + 1;
+          const isFocused = focusColIndex === ariaColIndex;
 
           return (
             <div
-              tabIndex={focusColIndex === ariaColIndex ? 0 : -1}
+              tabIndex={isFocused ? 0 : -1}
               className={classNames(
-                "focus-ring",
                 "rbdg-grid-cell",
                 "fw-bold",
                 cellVariant &&
                   cellVariant(col, index) &&
                   `${CSS_PREFIX}-${cellVariant(col, index)}`,
+                { "z-2": isFocused, "focus-ring": isFocused },
               )}
               role="columnheader"
               key={col.name}

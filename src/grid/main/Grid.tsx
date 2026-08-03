@@ -83,6 +83,8 @@ const Grid: FC<GridProps> = ({
 
   // TODO: Adjust focus ring styles based on Bootstrap design tokens. The
   // focus-ring utility does not look suitable.
+  // Additionally, implement basic functionality involving focus like copying
+  // text contents onto the clipboard.
 
   return (
     <div
@@ -116,7 +118,7 @@ const Grid: FC<GridProps> = ({
         cellVariant={headerCellVariant}
         vertScrollable={vertScrollable}
         focusColIndex={
-          effectiveCoords.ariaRowIndex === 0
+          effectiveCoords.ariaRowIndex === 1
             ? effectiveCoords.ariaColIndex
             : null
         }

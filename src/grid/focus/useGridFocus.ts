@@ -56,8 +56,6 @@ const useGridFocus: (
         ariaColIndex: Number(cursor.getAttribute("aria-colIndex")),
         ariaRowIndex: Number(row.getAttribute("aria-rowIndex")),
       });
-
-      cursor.focus();
     },
     [],
   );

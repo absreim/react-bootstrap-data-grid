@@ -32,19 +32,17 @@ const GridBody: FC<GridBodyProps> = ({
           >
             {row.contents.map(({ formattedValue, width }, index) => {
               const ariaColIndex = index + 1;
+              const isFocused =
+                focusCoords.ariaColIndex === ariaColIndex &&
+                focusCoords.ariaRowIndex === ariaRowIndex;
+
               return (
                 <div
-                  tabIndex={
-                    focusCoords.ariaColIndex === ariaColIndex &&
-                    focusCoords.ariaRowIndex === ariaRowIndex
-                      ? 0
-                      : -1
-                  }
+                  tabIndex={isFocused ? 0 : -1}
                   key={cols[index].name}
                   style={getWidthStyles(width || DEFAULT_COL_WIDTH)}
                   role="gridcell"
                   className={classNames(
-                    "focus-ring",
                     "rbdg-grid-cell",
                     cellVariant &&
                       cellVariant(
@@ -54,6 +52,10 @@ const GridBody: FC<GridBodyProps> = ({
                         rowDisplayIndex,
                       ) &&
                       `${CSS_PREFIX}-${cellVariant(row.contents[index], row, index, rowDisplayIndex)}`,
+                    {
+                      "z-2": isFocused,
+                      "focus-ring": isFocused,
+                    },
                   )}
                   aria-colindex={ariaColIndex}
                 >
