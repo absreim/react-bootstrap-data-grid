@@ -1,6 +1,13 @@
 "use client";
 
-import { CSSProperties, FC, useMemo, useRef } from "react";
+import {
+  ClipboardEventHandler,
+  CSSProperties,
+  FC,
+  useCallback,
+  useMemo,
+  useRef,
+} from "react";
 import useCombinedPipeline from "../../common/pipeline/useCombinedPipeline";
 import { GridProps } from "./types";
 import useAugFormattedRows from "../../common/pipeline/useAugFormattedRows";
@@ -83,11 +90,24 @@ const Grid: FC<GridProps> = ({
 
   // TODO: Adjust focus ring styles based on Bootstrap design tokens. The
   // focus-ring utility does not look suitable.
-  // Additionally, implement basic functionality involving focus like copying
-  // text contents onto the clipboard.
+
+  const onCopy: ClipboardEventHandler<HTMLDivElement> = useCallback((event) => {
+    if (!gridRef.current?.contains(document.activeElement)) {
+      return;
+    }
+
+    const selection = document.getSelection();
+    if (!selection || !selection.isCollapsed) {
+      return;
+    }
+
+    event.preventDefault();
+    event.clipboardData.setData("text/plain", selection.focusNode!.textContent!);
+  }, []);
 
   return (
     <div
+      onCopy={onCopy}
       onClick={gridClickHandler}
       onKeyDown={gridKeydownHandler}
       ref={gridRef}
