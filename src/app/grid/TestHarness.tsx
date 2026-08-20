@@ -101,6 +101,8 @@ const bodyCellVariantsFn: GridProps["bodyCellVariant"] = (
 // This test harness does not test active rows or cells. Such testing should be
 // done as part of testing of a feature that uses active rows and/or cells.
 
+// TODO: write tests for focus and focus variants
+
 const TestHarness: FC = () => {
   const [heightSetting, setHeightSetting] = useState<GridDimSetting>("unset");
   const [widthSetting, setWidthSetting] = useState<GridDimSetting>("unset");

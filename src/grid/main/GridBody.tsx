@@ -11,6 +11,7 @@ const GridBody: FC<GridBodyProps> = ({
   rowVariant,
   cellVariant,
   focusCoords,
+  cellFocusVariant,
 }) => {
   return (
     <div role="rowgroup" data-testid={GRID_BODY_DATA_TEST_ID}>
@@ -35,6 +36,17 @@ const GridBody: FC<GridBodyProps> = ({
               const isFocused =
                 focusCoords.ariaColIndex === ariaColIndex &&
                 focusCoords.ariaRowIndex === ariaRowIndex;
+              const cellVariantVal =
+                cellVariant &&
+                cellVariant(row.contents[index], row, index, rowDisplayIndex);
+              const cellFocusVariantVal =
+                cellFocusVariant &&
+                cellFocusVariant(
+                  row.contents[index],
+                  row,
+                  index,
+                  rowDisplayIndex,
+                );
 
               return (
                 <div
@@ -44,14 +56,8 @@ const GridBody: FC<GridBodyProps> = ({
                   role="gridcell"
                   className={classNames(
                     "rbdg-grid-cell",
-                    cellVariant &&
-                      cellVariant(
-                        row.contents[index],
-                        row,
-                        index,
-                        rowDisplayIndex,
-                      ) &&
-                      `${CSS_PREFIX}-${cellVariant(row.contents[index], row, index, rowDisplayIndex)}`,
+                    cellVariantVal && `${CSS_PREFIX}-${cellVariantVal}`,
+                    cellFocusVariantVal && `focus-ring-${cellFocusVariantVal}`,
                     {
                       "z-2": isFocused,
                       "focus-ring": isFocused,

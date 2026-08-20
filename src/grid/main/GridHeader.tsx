@@ -11,6 +11,7 @@ const GridHeader: FC<GridHeaderProps> = ({
   rowVariant,
   cellVariant,
   focusColIndex,
+  cellFocusVariant
 }) => {
   return (
     <div
@@ -32,6 +33,8 @@ const GridHeader: FC<GridHeaderProps> = ({
         {cols.map((col, index) => {
           const ariaColIndex = index + 1;
           const isFocused = focusColIndex === ariaColIndex;
+          const cellVariantVal = cellVariant && cellVariant(col, index);
+          const cellFocusVariantVal = cellFocusVariant && cellFocusVariant(col, index);
 
           return (
             <div
@@ -39,9 +42,8 @@ const GridHeader: FC<GridHeaderProps> = ({
               className={classNames(
                 "rbdg-grid-cell",
                 "fw-bold",
-                cellVariant &&
-                  cellVariant(col, index) &&
-                  `${CSS_PREFIX}-${cellVariant(col, index)}`,
+                cellVariantVal && `${CSS_PREFIX}-${cellVariantVal}`,
+                cellFocusVariantVal && `focus-ring-${cellFocusVariantVal}`,
                 { "z-2": isFocused, "focus-ring": isFocused },
               )}
               role="columnheader"

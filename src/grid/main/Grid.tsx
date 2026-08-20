@@ -38,6 +38,8 @@ const Grid: FC<GridProps> = ({
   headerRowVariant,
   bodyCellVariant,
   bodyRowVariant,
+  headerCellFocusVariant,
+  bodyCellFocusVariant
 }) => {
   const { displayRows, filteredRows } = useCombinedPipeline({
     rows,
@@ -87,9 +89,6 @@ const Grid: FC<GridProps> = ({
   const gridRef = useRef<HTMLDivElement>(null);
   const { effectiveCoords, gridClickHandler, gridKeydownHandler } =
     useGridFocus(gridRef, rows.length + 1, cols.length);
-
-  // TODO: Adjust focus ring styles based on Bootstrap design tokens. The
-  // focus-ring utility does not look suitable.
 
   const onCopy: ClipboardEventHandler<HTMLDivElement> = useCallback((event) => {
     if (!gridRef.current?.contains(document.activeElement)) {
@@ -142,6 +141,7 @@ const Grid: FC<GridProps> = ({
             ? effectiveCoords.ariaColIndex
             : null
         }
+        cellFocusVariant={headerCellFocusVariant}
       />
       <GridBody
         focusCoords={effectiveCoords}
@@ -149,6 +149,7 @@ const Grid: FC<GridProps> = ({
         cols={cols}
         rowVariant={bodyRowVariant}
         cellVariant={bodyCellVariant}
+        cellFocusVariant={bodyCellFocusVariant}
       />
     </div>
   );

@@ -7,6 +7,18 @@ import {
 } from "../../common";
 import { FocusCoordinates } from "../focus/types";
 
+export type BodyCellVariantFn = (
+  cell: CellData,
+  row: FormattedRow,
+  colIndex: number,
+  displayIndex: number,
+) => string | null;
+
+export type HeaderCellVariantFn = (
+  col: ColDef,
+  colIndex: number,
+) => string | null;
+
 export type GridProps = MainComponentSharedProps & {
   height?: GridHeightSetting;
   width?: GridWidthSetting;
@@ -18,14 +30,11 @@ export type GridProps = MainComponentSharedProps & {
   small?: boolean;
   divider?: boolean;
   headerRowVariant?: string;
-  headerCellVariant?: (col: ColDef, colIndex: number) => string | null;
+  headerCellVariant?: HeaderCellVariantFn;
   bodyRowVariant?: (row: FormattedRow, displayIndex: number) => string | null;
-  bodyCellVariant?: (
-    cell: CellData,
-    row: FormattedRow,
-    colIndex: number,
-    displayIndex: number,
-  ) => string | null;
+  bodyCellVariant?: BodyCellVariantFn;
+  headerCellFocusVariant?: HeaderCellVariantFn;
+  bodyCellFocusVariant?: BodyCellVariantFn;
 };
 
 export interface GridHeaderProps {
@@ -34,6 +43,7 @@ export interface GridHeaderProps {
   rowVariant?: GridProps["headerRowVariant"];
   cellVariant?: GridProps["headerCellVariant"];
   focusColIndex: number | null;
+  cellFocusVariant?: GridProps["headerCellFocusVariant"];
 }
 
 export type GridBodyProps = {
@@ -42,6 +52,7 @@ export type GridBodyProps = {
   rowVariant?: GridProps["bodyRowVariant"];
   cellVariant?: GridProps["bodyCellVariant"];
   focusCoords: FocusCoordinates;
+  cellFocusVariant?: GridProps["bodyCellFocusVariant"];
 };
 
 export type GridHeightSetting = number | "auto" | "parent";
