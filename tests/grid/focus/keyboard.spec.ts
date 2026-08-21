@@ -142,3 +142,32 @@ test("Clipboard copy works correctly", async ({ page, context, browserName }) =>
   await expect(numHeaderCell).toBeFocused();
   await testKeyboardCopy(page, "Number Column");
 });
+
+test("Home and end keys work correctly", async ({ page }) => {
+  await keyboardTabToGrid(page);
+
+  await page.keyboard.press("Home");
+  const strColHeaderCell = page.getByRole("columnheader", {
+    name: "String Column",
+  });
+  await expect(strColHeaderCell).toBeFocused();
+
+  await page.keyboard.press("End");
+  const datetimeHeaderCell = page.getByRole("columnheader", { name: "Datetime Column" });
+  await expect(datetimeHeaderCell).toBeFocused();
+
+  await page.keyboard.press("ControlOrMeta+End");
+  const tenthDatetimeCell = page.getByRole("gridcell", {
+    name: "2026-10-10T10:10",
+  });
+  await expect(tenthDatetimeCell).toBeFocused();
+
+  await page.keyboard.press("Home");
+  const tenthStringCell = page.getByRole("gridcell", {
+    name: "10th row string",
+  });
+  await expect(tenthStringCell).toBeFocused();
+
+  await page.keyboard.press("ControlOrMeta+Home");
+  await expect(strColHeaderCell).toBeFocused();
+});

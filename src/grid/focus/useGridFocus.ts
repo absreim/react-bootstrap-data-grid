@@ -99,6 +99,36 @@ const useGridFocus: (
           }
           break;
         }
+        case "Home": {
+          if (event.ctrlKey || event.metaKey) {
+            setCoords({
+              ariaColIndex: 1,
+              ariaRowIndex: 1,
+            });
+            break;
+          }
+
+          setCoords({
+            ariaColIndex: 1,
+            ariaRowIndex: effectiveCoords.ariaRowIndex,
+          });
+          break;
+        }
+        case "End": {
+          if (event.ctrlKey || event.metaKey) {
+            setCoords({
+              ariaColIndex: numCols,
+              ariaRowIndex: numRows,
+            });
+            break;
+          }
+
+          setCoords({
+            ariaColIndex: numCols,
+            ariaRowIndex: effectiveCoords.ariaRowIndex,
+          });
+          break;
+        }
         default: {
           return;
         }
