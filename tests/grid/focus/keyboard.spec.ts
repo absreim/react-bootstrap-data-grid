@@ -115,3 +115,30 @@ test("Tabbing away and back goes causes previous cell to be focused", async ({ p
   await page.keyboard.press("Tab")
   await expect(fifthDateCell).toBeFocused();
 });
+
+const testKeyboardCopy: (page: Page, str: string) => Promise<void> = async (page, str) => {
+  await page.keyboard.press("ControlOrMeta+C");
+
+  const handle = await page.evaluateHandle(() =>
+    navigator.clipboard.readText(),
+  );
+  const clipboardContent = await handle.jsonValue();
+  expect(clipboardContent).toEqual(str);
+}
+
+test("Clipboard copy works correctly", async ({ page, context, browserName }) => {
+  test.skip(browserName === "firefox", "This test does not support Firefox");
+  await context.grantPermissions(["clipboard-read"]);
+
+  const fifthDatetimeCell = page.getByRole("gridcell", {
+    name: "2026-05-05T05:05",
+  });
+  await fifthDatetimeCell.click();
+  await expect(fifthDatetimeCell).toBeFocused();
+  await testKeyboardCopy(page, "2026-05-05T05:05");
+
+  const numHeaderCell = page.getByRole("columnheader", { name: "Number Column" });
+  await numHeaderCell.click();
+  await expect(numHeaderCell).toBeFocused();
+  await testKeyboardCopy(page, "Number Column");
+});
