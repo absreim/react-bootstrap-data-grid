@@ -44,7 +44,7 @@ const GridHeader: FC<GridHeaderProps> = ({
                 "fw-bold",
                 cellVariantVal && `${CSS_PREFIX}-${cellVariantVal}`,
                 cellFocusVariantVal && `focus-ring-${cellFocusVariantVal}`,
-                { "z-2": isFocused, "focus-ring": isFocused },
+                { "z-2": isFocused, "rbdg-focusable-cell": isFocused },
               )}
               role="columnheader"
               key={col.name}

@@ -60,7 +60,7 @@ const GridBody: FC<GridBodyProps> = ({
                     cellFocusVariantVal && `focus-ring-${cellFocusVariantVal}`,
                     {
                       "z-2": isFocused,
-                      "focus-ring": isFocused,
+                      "rbdg-focusable-cell": isFocused,
                     },
                   )}
                   aria-colindex={ariaColIndex}
