@@ -12,6 +12,12 @@ const successShadow =
   "rgba(0, 0, 0, 0) 0px 0px 0px 9999px inset, rgba(25, 135, 84, 0.25) 0px 0px 0px 4px";
 const secondaryShadow =
   "rgba(0, 0, 0, 0) 0px 0px 0px 9999px inset, rgba(108, 117, 125, 0.25) 0px 0px 0px 4px";
+const unhoveredStripeShadow =
+  "rgba(0, 0, 0, 0.05) 0px 0px 0px 9999px inset, rgba(13, 110, 253, 0.25) 0px 0px 0px 4px";
+const unhoveredStripeDangerShadow =
+  "rgba(0, 0, 0, 0.05) 0px 0px 0px 9999px inset, rgba(220, 53, 69, 0.25) 0px 0px 0px 4px";
+const hoveredStripeDangerShadow =
+  "rgba(0, 0, 0, 0.075) 0px 0px 0px 9999px inset, rgba(220, 53, 69, 0.25) 0px 0px 0px 4px";
 
 test.beforeEach(async ({ page }) => {
   await page.goto("grid");
@@ -65,4 +71,55 @@ test("Body cell variants work correctly", async ({ page }) => {
   for (const cell of row4Cells) {
     await verifyElementShadow(cell, successShadow);
   }
+});
+
+test.describe("Test hover styles", () => {
+  test.beforeEach(async ({ page }) => {
+    const hoverStyleToggle = page.getByRole("checkbox", {
+      name: "Hover Styles",
+    });
+    await hoverStyleToggle.check();
+  })
+
+  test("Works correctly with column stripes", async ({
+    page,
+  }) => {
+    const stripesFieldset = page.getByRole("group", { name: "Stripe Setting" });
+    const option = stripesFieldset.getByRole("radio", { name: "columns" });
+    await option.check();
+
+    const numColCell = page.getByRole("columnheader", {
+      name: "Number Column",
+    });
+    await verifyElementShadow(numColCell, unhoveredStripeShadow);
+
+    const numOneCell = page.getByRole("gridcell", { name: "1", exact: true });
+    await verifyElementShadow(numOneCell, hoveredStripeDangerShadow);
+
+    await numColCell.hover();
+    await expect(numOneCell).toHaveCSS(
+      "box-shadow",
+      unhoveredStripeDangerShadow,
+    );
+  });
+
+  test("Works correctly with row stripes", async ({ page }) => {
+    const stripesFieldset = page.getByRole("group", { name: "Stripe Setting" });
+    const option = stripesFieldset.getByRole("radio", { name: "rows" });
+    await option.check();
+
+    const numOneCell = page.getByRole("gridcell", { name: "1", exact: true });
+    await numOneCell.click();
+    await expect(numOneCell).toBeFocused();
+    await expect(numOneCell).toHaveCSS("box-shadow", hoveredStripeDangerShadow);
+
+    const numColCell = page.getByRole("columnheader", {
+      name: "Number Column",
+    });
+    await numColCell.hover();
+    await expect(numOneCell).toHaveCSS(
+      "box-shadow",
+      unhoveredStripeDangerShadow,
+    );
+  });
 });

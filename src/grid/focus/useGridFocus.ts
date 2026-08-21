@@ -10,8 +10,8 @@ import {
 import { FocusCoordinates } from "./types";
 
 const startingCoordinates: FocusCoordinates = {
-  ariaColIndex: 0,
-  ariaRowIndex: 0,
+  ariaColIndex: 1,
+  ariaRowIndex: 1,
 };
 
 export interface GridFocusOutput {
