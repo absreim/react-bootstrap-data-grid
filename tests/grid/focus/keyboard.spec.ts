@@ -127,7 +127,7 @@ const testKeyboardCopy: (page: Page, str: string) => Promise<void> = async (page
 }
 
 test("Clipboard copy works correctly", async ({ page, context, browserName }) => {
-  test.skip(browserName === "firefox", "This test does not support Firefox");
+  test.skip(browserName !== "chromium", "Test does not work on Firefox and is platform-dependent on Webkit");
   await context.grantPermissions(["clipboard-read"]);
 
   const fifthDatetimeCell = page.getByRole("gridcell", {
