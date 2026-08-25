@@ -2,15 +2,19 @@ import { FC, ReactNode, SubmitEventHandler, useState } from "react";
 import StringFilterRow from "./StringFilterRow";
 import {
   EditableFilterState,
-  FilterFormRowState,
-  FilterFormState,
-  FilterState,
+
+
 } from "./types";
 import NumberFilterRow from "./NumberFilterRow";
 import useFilterFormState from "./useFilterFormState";
 import DateFilterRow from "./DateFilterRow";
 import classNames from "classnames";
-import { FilterInputTableStyleModel } from "../../table/styling/types";
+import { FilterInputTableStyleModel } from "../../table";
+import {
+  FilterFormRowState,
+  FilterFormState,
+  FilterState,
+} from "./internalTypes";
 
 export interface FilterOptionsTableProps {
   filterState: FilterState;

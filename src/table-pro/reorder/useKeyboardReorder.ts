@@ -1,11 +1,11 @@
 import { RowId } from "../";
+import { useCallback, useMemo, useState } from "react";
+import trueModulo from "../../common/util/trueModulo";
 import {
   ActiveKeyboardReorderState,
   KeyboardReorderState,
   UseKeyboardReorderOutput,
-} from "./types";
-import { useCallback, useMemo, useState } from "react";
-import trueModulo from "../../common/util/trueModulo";
+} from "./internalTypes";
 
 const useKeyboardReorder: (
   displayRowIds: RowId[],

@@ -7,6 +7,11 @@ export interface UseControlledHoverHook<T> {
   handleMouseOut: MouseEventHandler<T>;
 }
 
+/**
+ * Implements React state-based hovering for an element.
+ *
+ * @internal
+ */
 const useControlledHover: <T>() => UseControlledHoverHook<T> = <T>() => {
   const [isHovering, setIsHovering] = useState(false);
   const handleMouseOver: MouseEventHandler<T> = () => setIsHovering(true);

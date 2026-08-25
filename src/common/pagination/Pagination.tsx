@@ -1,8 +1,8 @@
 import { FC } from "react";
 import PageSizeSelector from "./PageSizeSelector";
 import PageSelector from "./PageSelector";
-import { NormalizedPaginationModel } from "./types";
 import classNames from "classnames";
+import { NormalizedPaginationModel } from "./internalTypes";
 
 export interface PaginationProps {
   normalizedModel: NormalizedPaginationModel;

@@ -1,7 +1,6 @@
 "use client";
 
 import { FC, ReactNode, useMemo } from "react";
-import { BaseTableProps } from "./types";
 import SelectAllHeaderCell from "./selection/SelectAllHeaderCell";
 import Pagination from "../common/pagination/Pagination";
 import classNames from "classnames";
@@ -11,7 +10,8 @@ import useExportFn from "../common/export/useExportFn";
 import getWidthStyle from "../common/util/getWidthStyle";
 import { UseCombinedPipelineHook } from "../common/pipeline/useCombinedPipeline";
 import { UseGridSelectionFnsHook } from "../common/pipeline/useGridSelectionFns";
-import { InterfacePropGenerator } from "../common/toolbar/types";
+import { InterfacePropGenerator } from "../common/toolbar/internalTypes";
+import { BaseTableProps } from "./internalTypes";
 
 export interface InternalGridProps {
   gridProps: BaseTableProps;

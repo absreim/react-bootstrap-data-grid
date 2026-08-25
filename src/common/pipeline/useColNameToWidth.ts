@@ -1,4 +1,5 @@
-import { ColDef, ColNameToWidth } from "../";
+import { ColDef } from "../";
+import { ColNameToWidth } from "./internalTypes";
 import { useMemo } from "react";
 
 const useColNameToWidth: (cols: ColDef[]) => ColNameToWidth = (cols) =>

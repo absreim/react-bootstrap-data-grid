@@ -1,5 +1,6 @@
 import { useMemo } from "react";
-import { EditableFilterState, FilterState } from "../../filtering/types";
+import { EditableFilterState } from "../../filtering/types";
+import { FilterState } from "../../filtering/internalTypes";
 
 const useEditableFromFilterState: (
   filterState: FilterState | null,

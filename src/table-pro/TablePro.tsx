@@ -3,18 +3,18 @@
 import { FC, useCallback, useEffect, useMemo } from "react";
 import {
   FormattedRow,
-  ColSortModel,
   RowId,
-  FilterState,
-  AugFormattedRow,
 } from "./";
+import { ColSortModel } from "../common/sorting/internalTypes";
+import { AugFormattedRow } from "../common/internalTypes";
+import { FilterState } from "../common/filtering/internalTypes";
 import useCombinedPipeline from "../common/pipeline/useCombinedPipeline";
 import InternalTable from "../table/InternalTable";
 import { TableProProps } from "./types";
 import ColHeaderCellPro from "./ColHeaderCellPro";
 import useGridSelectionFns from "../common/pipeline/useGridSelectionFns";
 import useGetInputStrSubmitCallback from "../common/pipeline/useGetInputStrSubmitCallback";
-import { ColNameToWidth } from "../common";
+import { ColNameToWidth } from "../common/pipeline/internalTypes";
 import useAugFormattedRows from "../common/pipeline/useAugFormattedRows";
 import useResizeModel from "./resize/useResizeModel";
 import BodyRows from "../table/main/BodyRows";
@@ -25,6 +25,11 @@ import useReorderStyles from "./reorder/useReorderStyles";
 import useKeyboardReorderListener from "./reorder/useKeyboardReorderListener";
 import { UseCombinedPipelineHook } from "../common/pipeline/useCombinedPipeline";
 
+/**
+ * Pro edition of the table component.
+ *
+ * @public
+ */
 const TablePro: FC<TableProProps> = (props) => {
   const {
     rows,

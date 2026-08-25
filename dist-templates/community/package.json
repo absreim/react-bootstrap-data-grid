@@ -23,12 +23,12 @@
     "react": "^19",
     "react-dom": "^19"
   },
-  "main": "./index.js",
-  "module": "./index.js",
-  "types": "./index.d.ts",
+  "main": "./community/index.js",
+  "module": "./community/index.js",
+  "types": "./community/index.d.ts",
   "repository": {
     "type": "git",
     "url": "git+https://github.com/absreim/react-bootstrap-data-grid.git",
-    "directory": "src/grid"
+    "directory": "src/community"
   }
 }

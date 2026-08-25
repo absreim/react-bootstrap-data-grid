@@ -1,6 +1,6 @@
 import { ProColDef } from "../types";
 import { DisplayMode } from "../../table";
-import { ColResizeModel, ResizeModel } from "./types";
+import { ColResizeModel, ResizeModel } from "./internalType";
 import { useMemo, useState } from "react";
 
 const useResizeModel: (

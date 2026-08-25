@@ -1,4 +1,4 @@
-import { ToolbarOption } from "./types";
+import { ToolbarOption } from "./internalTypes";
 import {
   FC,
   KeyboardEventHandler,

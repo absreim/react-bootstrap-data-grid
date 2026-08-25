@@ -3,9 +3,9 @@ import FilterRow, { CommonFilterRowStyleProps } from "./FilterRow";
 import classNames from "classnames";
 import {
   StringFilterScheme,
-  stringFilterSchemeNames,
   StringFilterState,
 } from "./types";
+import { stringFilterSchemeNames } from "./constants";
 
 type StringFilterRowProps = {
   ariaRowIndex: number;

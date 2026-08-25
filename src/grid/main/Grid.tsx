@@ -18,13 +18,14 @@ import classNames from "classnames";
 import { CSS_PREFIX } from "../../common/constants";
 import useGridFocus from "../focus/useGridFocus";
 
+/**
+ * The main component for the grid feature of react-bootstrap-data-grid.
+ *
+ * @public
+ */
 const Grid: FC<GridProps> = ({
   rows,
   cols,
-  filterModel,
-  sortModel,
-  pagination,
-  selectModel,
   width,
   height,
   variant,
@@ -44,10 +45,6 @@ const Grid: FC<GridProps> = ({
   const { displayRows, filteredRows } = useCombinedPipeline({
     rows,
     cols,
-    filterModel,
-    sortModel,
-    pagination,
-    selectModel,
   });
   const colNameToWidth = useColNameToWidth(cols);
   const augFormattedRows = useAugFormattedRows(colNameToWidth, displayRows);

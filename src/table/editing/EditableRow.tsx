@@ -4,7 +4,7 @@ import { CSSProperties, FC, ReactNode, useRef, useState } from "react";
 import {
   dateToDatetimeInputStr,
   dateToInputStr,
-} from "../../common/util/datetime";
+} from "../../common";
 import EditControlsCell from "./EditControlsCell";
 import React from "react";
 import classNames from "classnames";
@@ -14,7 +14,7 @@ import {
   ColDataType,
   ColDataTypeStrings,
   RowId,
-} from "../../common/types";
+} from "../../common";
 
 export type EditableRowProps = Pick<
   React.ComponentProps<"tr">,

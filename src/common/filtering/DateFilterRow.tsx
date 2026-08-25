@@ -1,11 +1,12 @@
 import { ChangeEventHandler, FC, useId } from "react";
 import {
   DateFilterScheme,
-  dateFilterSchemeNames,
-  DateFormFilterState,
+
 } from "./types";
 import FilterRow, { CommonFilterRowStyleProps } from "./FilterRow";
 import classNames from "classnames";
+import { dateFilterSchemeNames } from "./constants";
+import { DateFormFilterState } from "./internalTypes";
 
 export type DateFilterRowProps = {
   ariaRowIndex: number;

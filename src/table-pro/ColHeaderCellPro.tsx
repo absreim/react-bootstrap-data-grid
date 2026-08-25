@@ -10,12 +10,12 @@ import {
 } from "react";
 import classNames from "classnames";
 import getWidthStyle from "../common/util/getWidthStyle";
-import { ColHeaderCellProProps } from "./types";
 import useSortHeaderStates from "../common/sorting/useSortHeaderStates";
 import VerticalGrip from "./assets/VerticalGrip";
 import regDragCleanup from "./lib/regDragCleanup";
 import sortOrderToAriaSort from "../common/sorting/sortOrderToAriaSort";
 import { KeyboardCleanupFnParam, PointerCleanupFnParam } from "./lib/types";
+import { ColHeaderCellProProps } from "./internalTypes";
 
 const setWidthStyle: (cells: HTMLTableCellElement[], width: number) => void = (
   cells,

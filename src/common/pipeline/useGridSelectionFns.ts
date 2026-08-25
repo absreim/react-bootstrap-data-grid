@@ -1,13 +1,15 @@
 import { MouseEventHandler, useCallback, useId, useMemo } from "react";
 import {
-  MultiExistingSelection,
   MultiSelectModel,
-  SelectionInfo,
   SelectModel,
 } from "../selection/types";
 import { SelectionInputModel } from "../../table/selection/SelectionInput";
 import isSubset from "../util/isSubset";
 import { RowDef, RowId } from "../types";
+import {
+  MultiExistingSelection,
+  SelectionInfo,
+} from "../selection/internalTypes";
 
 export interface UseGridSelectionFnsHook {
   selectedSet: Set<RowId>;

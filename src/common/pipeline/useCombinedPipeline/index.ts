@@ -6,16 +6,16 @@ import useCurrentPageRows, {
   CurrentPageRowsOutput,
 } from "./useCurrentPageRows";
 import useDisplayRows from "./useDisplayRows";
-import { NormalizedTableFilterModel, FilterState } from "../../";
+import { NormalizedTableFilterModel, FilterState } from "../../filtering/internalTypes";
 import {
   ColDefBase,
   FormattedRow,
-  MainComponentSharedProps,
   RowDef,
 } from "../../types";
+import { TableProps } from "../../../table";
 
 export type CombinedPipelineParams = Pick<
-  MainComponentSharedProps,
+  TableProps,
   "rows" | "filterModel" | "sortModel" | "pagination" | "selectModel"
 > & {
   cols: ColDefBase[];
