@@ -29,6 +29,7 @@
     "react-dom": "^19.2.1"
   },
   "devDependencies": {
+    "@microsoft/api-extractor": "^7.59.0",
     "@playwright/test": "^1.57.0",
     "@types/node": "^24",
     "@types/papaparse": "^5.5.2",
