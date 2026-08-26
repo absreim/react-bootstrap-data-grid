@@ -21,10 +21,6 @@ import useGridFocus from "../focus/useGridFocus";
 const Grid: FC<GridProps> = ({
   rows,
   cols,
-  filterModel,
-  sortModel,
-  pagination,
-  selectModel,
   width,
   height,
   variant,
@@ -44,10 +40,6 @@ const Grid: FC<GridProps> = ({
   const { displayRows, filteredRows } = useCombinedPipeline({
     rows,
     cols,
-    filterModel,
-    sortModel,
-    pagination,
-    selectModel,
   });
   const colNameToWidth = useColNameToWidth(cols);
   const augFormattedRows = useAugFormattedRows(colNameToWidth, displayRows);

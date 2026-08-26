@@ -593,55 +593,6 @@
           }
         },
         {
-          "kind": "TypeAlias",
-          "canonicalReference": "@absreim/react-bootstrap-data-grid!BaseTableProps:type",
-          "docComment": "",
-          "excerptTokens": [
-            {
-              "kind": "Content",
-              "text": "export type BaseTableProps = "
-            },
-            {
-              "kind": "Reference",
-              "text": "Omit",
-              "canonicalReference": "!Omit:type"
-            },
-            {
-              "kind": "Content",
-              "text": "<"
-            },
-            {
-              "kind": "Reference",
-              "text": "TableProps",
-              "canonicalReference": "@absreim/react-bootstrap-data-grid!TableProps:type"
-            },
-            {
-              "kind": "Content",
-              "text": ", \"cols\"> & {\n    cols: "
-            },
-            {
-              "kind": "Reference",
-              "text": "ColDefBase",
-              "canonicalReference": "@absreim/react-bootstrap-data-grid!ColDefBase:interface"
-            },
-            {
-              "kind": "Content",
-              "text": "[];\n}"
-            },
-            {
-              "kind": "Content",
-              "text": ";"
-            }
-          ],
-          "fileUrlPath": "../../dist/pro/table/types.d.ts",
-          "releaseTag": "Public",
-          "name": "BaseTableProps",
-          "typeTokenRange": {
-            "startIndex": 1,
-            "endIndex": 7
-          }
-        },
-        {
           "kind": "Interface",
           "canonicalReference": "@absreim/react-bootstrap-data-grid!BetweenDatesFilterState:interface",
           "docComment": "",
@@ -767,7 +718,7 @@
         {
           "kind": "TypeAlias",
           "canonicalReference": "@absreim/react-bootstrap-data-grid!BodyCellVariantFn:type",
-          "docComment": "",
+          "docComment": "/**\n * The type of the function used to specify color variants on a grid body on a per-cell level of granularity.\n *\n * @param cell - details the current cell\n *\n * @param row - details of the entire row that the current cell is in\n *\n * @param colIndex - zero-based column index of the current cell\n *\n * @param displayIndex - the zero-based index of the row that the cell is in. The index is based on how the cell is actually displayed, after pagination, filtering, and sorting are applied.\n *\n * @returns - a string that is name of the color variant or null for no color variant\n *\n * @public\n */\n",
           "excerptTokens": [
             {
               "kind": "Content",
@@ -3278,88 +3229,8 @@
         },
         {
           "kind": "TypeAlias",
-          "canonicalReference": "@absreim/react-bootstrap-data-grid!GridBodyProps:type",
-          "docComment": "",
-          "excerptTokens": [
-            {
-              "kind": "Content",
-              "text": "export type GridBodyProps = "
-            },
-            {
-              "kind": "Content",
-              "text": "{\n    augFormattedRows: "
-            },
-            {
-              "kind": "Reference",
-              "text": "AugFormattedRow",
-              "canonicalReference": "@absreim/react-bootstrap-data-grid!AugFormattedRow:type"
-            },
-            {
-              "kind": "Content",
-              "text": "[];\n    cols: "
-            },
-            {
-              "kind": "Reference",
-              "text": "GridProps",
-              "canonicalReference": "@absreim/react-bootstrap-data-grid!GridProps:type"
-            },
-            {
-              "kind": "Content",
-              "text": "[\"cols\"];\n    rowVariant?: "
-            },
-            {
-              "kind": "Reference",
-              "text": "GridProps",
-              "canonicalReference": "@absreim/react-bootstrap-data-grid!GridProps:type"
-            },
-            {
-              "kind": "Content",
-              "text": "[\"bodyRowVariant\"];\n    cellVariant?: "
-            },
-            {
-              "kind": "Reference",
-              "text": "GridProps",
-              "canonicalReference": "@absreim/react-bootstrap-data-grid!GridProps:type"
-            },
-            {
-              "kind": "Content",
-              "text": "[\"bodyCellVariant\"];\n    focusCoords: "
-            },
-            {
-              "kind": "Reference",
-              "text": "FocusCoordinates",
-              "canonicalReference": "@absreim/react-bootstrap-data-grid!~FocusCoordinates:interface"
-            },
-            {
-              "kind": "Content",
-              "text": ";\n    cellFocusVariant?: "
-            },
-            {
-              "kind": "Reference",
-              "text": "GridProps",
-              "canonicalReference": "@absreim/react-bootstrap-data-grid!GridProps:type"
-            },
-            {
-              "kind": "Content",
-              "text": "[\"bodyCellFocusVariant\"];\n}"
-            },
-            {
-              "kind": "Content",
-              "text": ";"
-            }
-          ],
-          "fileUrlPath": "../../dist/pro/grid/main/types.d.ts",
-          "releaseTag": "Public",
-          "name": "GridBodyProps",
-          "typeTokenRange": {
-            "startIndex": 1,
-            "endIndex": 14
-          }
-        },
-        {
-          "kind": "TypeAlias",
           "canonicalReference": "@absreim/react-bootstrap-data-grid!GridBorderSetting:type",
-          "docComment": "",
+          "docComment": "/**\n * The type of the prop to set the grid border style\n *\n * @public\n */\n",
           "excerptTokens": [
             {
               "kind": "Content",
@@ -3383,209 +3254,9 @@
           }
         },
         {
-          "kind": "Interface",
-          "canonicalReference": "@absreim/react-bootstrap-data-grid!GridHeaderProps:interface",
-          "docComment": "",
-          "excerptTokens": [
-            {
-              "kind": "Content",
-              "text": "export interface GridHeaderProps "
-            }
-          ],
-          "fileUrlPath": "../../dist/pro/grid/main/types.d.ts",
-          "releaseTag": "Public",
-          "name": "GridHeaderProps",
-          "preserveMemberOrder": false,
-          "members": [
-            {
-              "kind": "PropertySignature",
-              "canonicalReference": "@absreim/react-bootstrap-data-grid!GridHeaderProps#cellFocusVariant:member",
-              "docComment": "",
-              "excerptTokens": [
-                {
-                  "kind": "Content",
-                  "text": "cellFocusVariant?: "
-                },
-                {
-                  "kind": "Reference",
-                  "text": "GridProps",
-                  "canonicalReference": "@absreim/react-bootstrap-data-grid!GridProps:type"
-                },
-                {
-                  "kind": "Content",
-                  "text": "[\"headerCellFocusVariant\"]"
-                },
-                {
-                  "kind": "Content",
-                  "text": ";"
-                }
-              ],
-              "isReadonly": false,
-              "isOptional": true,
-              "releaseTag": "Public",
-              "name": "cellFocusVariant",
-              "propertyTypeTokenRange": {
-                "startIndex": 1,
-                "endIndex": 3
-              }
-            },
-            {
-              "kind": "PropertySignature",
-              "canonicalReference": "@absreim/react-bootstrap-data-grid!GridHeaderProps#cellVariant:member",
-              "docComment": "",
-              "excerptTokens": [
-                {
-                  "kind": "Content",
-                  "text": "cellVariant?: "
-                },
-                {
-                  "kind": "Reference",
-                  "text": "GridProps",
-                  "canonicalReference": "@absreim/react-bootstrap-data-grid!GridProps:type"
-                },
-                {
-                  "kind": "Content",
-                  "text": "[\"headerCellVariant\"]"
-                },
-                {
-                  "kind": "Content",
-                  "text": ";"
-                }
-              ],
-              "isReadonly": false,
-              "isOptional": true,
-              "releaseTag": "Public",
-              "name": "cellVariant",
-              "propertyTypeTokenRange": {
-                "startIndex": 1,
-                "endIndex": 3
-              }
-            },
-            {
-              "kind": "PropertySignature",
-              "canonicalReference": "@absreim/react-bootstrap-data-grid!GridHeaderProps#cols:member",
-              "docComment": "",
-              "excerptTokens": [
-                {
-                  "kind": "Content",
-                  "text": "cols: "
-                },
-                {
-                  "kind": "Reference",
-                  "text": "GridProps",
-                  "canonicalReference": "@absreim/react-bootstrap-data-grid!GridProps:type"
-                },
-                {
-                  "kind": "Content",
-                  "text": "[\"cols\"]"
-                },
-                {
-                  "kind": "Content",
-                  "text": ";"
-                }
-              ],
-              "isReadonly": false,
-              "isOptional": false,
-              "releaseTag": "Public",
-              "name": "cols",
-              "propertyTypeTokenRange": {
-                "startIndex": 1,
-                "endIndex": 3
-              }
-            },
-            {
-              "kind": "PropertySignature",
-              "canonicalReference": "@absreim/react-bootstrap-data-grid!GridHeaderProps#focusColIndex:member",
-              "docComment": "",
-              "excerptTokens": [
-                {
-                  "kind": "Content",
-                  "text": "focusColIndex: "
-                },
-                {
-                  "kind": "Content",
-                  "text": "number | null"
-                },
-                {
-                  "kind": "Content",
-                  "text": ";"
-                }
-              ],
-              "isReadonly": false,
-              "isOptional": false,
-              "releaseTag": "Public",
-              "name": "focusColIndex",
-              "propertyTypeTokenRange": {
-                "startIndex": 1,
-                "endIndex": 2
-              }
-            },
-            {
-              "kind": "PropertySignature",
-              "canonicalReference": "@absreim/react-bootstrap-data-grid!GridHeaderProps#rowVariant:member",
-              "docComment": "",
-              "excerptTokens": [
-                {
-                  "kind": "Content",
-                  "text": "rowVariant?: "
-                },
-                {
-                  "kind": "Reference",
-                  "text": "GridProps",
-                  "canonicalReference": "@absreim/react-bootstrap-data-grid!GridProps:type"
-                },
-                {
-                  "kind": "Content",
-                  "text": "[\"headerRowVariant\"]"
-                },
-                {
-                  "kind": "Content",
-                  "text": ";"
-                }
-              ],
-              "isReadonly": false,
-              "isOptional": true,
-              "releaseTag": "Public",
-              "name": "rowVariant",
-              "propertyTypeTokenRange": {
-                "startIndex": 1,
-                "endIndex": 3
-              }
-            },
-            {
-              "kind": "PropertySignature",
-              "canonicalReference": "@absreim/react-bootstrap-data-grid!GridHeaderProps#vertScrollable:member",
-              "docComment": "",
-              "excerptTokens": [
-                {
-                  "kind": "Content",
-                  "text": "vertScrollable: "
-                },
-                {
-                  "kind": "Content",
-                  "text": "boolean"
-                },
-                {
-                  "kind": "Content",
-                  "text": ";"
-                }
-              ],
-              "isReadonly": false,
-              "isOptional": false,
-              "releaseTag": "Public",
-              "name": "vertScrollable",
-              "propertyTypeTokenRange": {
-                "startIndex": 1,
-                "endIndex": 2
-              }
-            }
-          ],
-          "extendsTokenRanges": []
-        },
-        {
           "kind": "TypeAlias",
           "canonicalReference": "@absreim/react-bootstrap-data-grid!GridHeightSetting:type",
-          "docComment": "",
+          "docComment": "/**\n * The type of the prop to set grid height behavior\n *\n * @public\n */\n",
           "excerptTokens": [
             {
               "kind": "Content",
@@ -3611,7 +3282,7 @@
         {
           "kind": "TypeAlias",
           "canonicalReference": "@absreim/react-bootstrap-data-grid!GridProps:type",
-          "docComment": "",
+          "docComment": "/**\n * The type of the props passed to the Grid component.\n *\n * @public\n */\n",
           "excerptTokens": [
             {
               "kind": "Content",
@@ -3723,7 +3394,7 @@
         {
           "kind": "TypeAlias",
           "canonicalReference": "@absreim/react-bootstrap-data-grid!GridStripeSetting:type",
-          "docComment": "",
+          "docComment": "/**\n * The type of the prop to set the grid stripe style\n *\n * @public\n */\n",
           "excerptTokens": [
             {
               "kind": "Content",
@@ -3749,7 +3420,7 @@
         {
           "kind": "TypeAlias",
           "canonicalReference": "@absreim/react-bootstrap-data-grid!GridWidthSetting:type",
-          "docComment": "",
+          "docComment": "/**\n * The type of the prop to set grid width behavior\n *\n * @public\n */\n",
           "excerptTokens": [
             {
               "kind": "Content",
@@ -3775,7 +3446,7 @@
         {
           "kind": "TypeAlias",
           "canonicalReference": "@absreim/react-bootstrap-data-grid!HeaderCellVariantFn:type",
-          "docComment": "",
+          "docComment": "/**\n * The type of the function used to specify color variants on a grid header on a per-cell level of granularity.\n *\n * @param col - details of the column associated with the cell\n *\n * @param colIndex - the zero-based column index of the cell\n *\n * @returns - a string that is name of the color variant or null for no color variant\n *\n * @public\n */\n",
           "excerptTokens": [
             {
               "kind": "Content",
@@ -4115,7 +3786,7 @@
         {
           "kind": "Interface",
           "canonicalReference": "@absreim/react-bootstrap-data-grid!MainComponentSharedProps:interface",
-          "docComment": "",
+          "docComment": "/**\n * Interface that contains parameters shared between the Table, TablePro, and Grid components.\n *\n * @public\n */\n",
           "excerptTokens": [
             {
               "kind": "Content",
@@ -4129,35 +3800,8 @@
           "members": [
             {
               "kind": "PropertySignature",
-              "canonicalReference": "@absreim/react-bootstrap-data-grid!MainComponentSharedProps#allowExport:member",
-              "docComment": "",
-              "excerptTokens": [
-                {
-                  "kind": "Content",
-                  "text": "allowExport?: "
-                },
-                {
-                  "kind": "Content",
-                  "text": "boolean"
-                },
-                {
-                  "kind": "Content",
-                  "text": ";"
-                }
-              ],
-              "isReadonly": false,
-              "isOptional": true,
-              "releaseTag": "Public",
-              "name": "allowExport",
-              "propertyTypeTokenRange": {
-                "startIndex": 1,
-                "endIndex": 2
-              }
-            },
-            {
-              "kind": "PropertySignature",
               "canonicalReference": "@absreim/react-bootstrap-data-grid!MainComponentSharedProps#cols:member",
-              "docComment": "",
+              "docComment": "/**\n * The column definitions of the table or grid\n */\n",
               "excerptTokens": [
                 {
                   "kind": "Content",
@@ -4188,92 +3832,8 @@
             },
             {
               "kind": "PropertySignature",
-              "canonicalReference": "@absreim/react-bootstrap-data-grid!MainComponentSharedProps#editModel:member",
-              "docComment": "",
-              "excerptTokens": [
-                {
-                  "kind": "Content",
-                  "text": "editModel?: "
-                },
-                {
-                  "kind": "Reference",
-                  "text": "EditModel",
-                  "canonicalReference": "@absreim/react-bootstrap-data-grid!EditModel:interface"
-                },
-                {
-                  "kind": "Content",
-                  "text": ";"
-                }
-              ],
-              "isReadonly": false,
-              "isOptional": true,
-              "releaseTag": "Public",
-              "name": "editModel",
-              "propertyTypeTokenRange": {
-                "startIndex": 1,
-                "endIndex": 2
-              }
-            },
-            {
-              "kind": "PropertySignature",
-              "canonicalReference": "@absreim/react-bootstrap-data-grid!MainComponentSharedProps#filterModel:member",
-              "docComment": "",
-              "excerptTokens": [
-                {
-                  "kind": "Content",
-                  "text": "filterModel?: "
-                },
-                {
-                  "kind": "Reference",
-                  "text": "FilterModel",
-                  "canonicalReference": "@absreim/react-bootstrap-data-grid!FilterModel:type"
-                },
-                {
-                  "kind": "Content",
-                  "text": ";"
-                }
-              ],
-              "isReadonly": false,
-              "isOptional": true,
-              "releaseTag": "Public",
-              "name": "filterModel",
-              "propertyTypeTokenRange": {
-                "startIndex": 1,
-                "endIndex": 2
-              }
-            },
-            {
-              "kind": "PropertySignature",
-              "canonicalReference": "@absreim/react-bootstrap-data-grid!MainComponentSharedProps#pagination:member",
-              "docComment": "",
-              "excerptTokens": [
-                {
-                  "kind": "Content",
-                  "text": "pagination?: "
-                },
-                {
-                  "kind": "Reference",
-                  "text": "PaginationModel",
-                  "canonicalReference": "@absreim/react-bootstrap-data-grid!PaginationModel:type"
-                },
-                {
-                  "kind": "Content",
-                  "text": ";"
-                }
-              ],
-              "isReadonly": false,
-              "isOptional": true,
-              "releaseTag": "Public",
-              "name": "pagination",
-              "propertyTypeTokenRange": {
-                "startIndex": 1,
-                "endIndex": 2
-              }
-            },
-            {
-              "kind": "PropertySignature",
               "canonicalReference": "@absreim/react-bootstrap-data-grid!MainComponentSharedProps#rows:member",
-              "docComment": "",
+              "docComment": "/**\n * The rows of data to be displayed by the table or grid\n */\n",
               "excerptTokens": [
                 {
                   "kind": "Content",
@@ -4300,90 +3860,6 @@
               "propertyTypeTokenRange": {
                 "startIndex": 1,
                 "endIndex": 3
-              }
-            },
-            {
-              "kind": "PropertySignature",
-              "canonicalReference": "@absreim/react-bootstrap-data-grid!MainComponentSharedProps#selectModel:member",
-              "docComment": "",
-              "excerptTokens": [
-                {
-                  "kind": "Content",
-                  "text": "selectModel?: "
-                },
-                {
-                  "kind": "Reference",
-                  "text": "SelectModel",
-                  "canonicalReference": "@absreim/react-bootstrap-data-grid!SelectModel:type"
-                },
-                {
-                  "kind": "Content",
-                  "text": ";"
-                }
-              ],
-              "isReadonly": false,
-              "isOptional": true,
-              "releaseTag": "Public",
-              "name": "selectModel",
-              "propertyTypeTokenRange": {
-                "startIndex": 1,
-                "endIndex": 2
-              }
-            },
-            {
-              "kind": "PropertySignature",
-              "canonicalReference": "@absreim/react-bootstrap-data-grid!MainComponentSharedProps#sortModel:member",
-              "docComment": "",
-              "excerptTokens": [
-                {
-                  "kind": "Content",
-                  "text": "sortModel?: "
-                },
-                {
-                  "kind": "Reference",
-                  "text": "SortModel",
-                  "canonicalReference": "@absreim/react-bootstrap-data-grid!SortModel:type"
-                },
-                {
-                  "kind": "Content",
-                  "text": ";"
-                }
-              ],
-              "isReadonly": false,
-              "isOptional": true,
-              "releaseTag": "Public",
-              "name": "sortModel",
-              "propertyTypeTokenRange": {
-                "startIndex": 1,
-                "endIndex": 2
-              }
-            },
-            {
-              "kind": "PropertySignature",
-              "canonicalReference": "@absreim/react-bootstrap-data-grid!MainComponentSharedProps#styleModel:member",
-              "docComment": "",
-              "excerptTokens": [
-                {
-                  "kind": "Content",
-                  "text": "styleModel?: "
-                },
-                {
-                  "kind": "Reference",
-                  "text": "StyleModel",
-                  "canonicalReference": "@absreim/react-bootstrap-data-grid!StyleModel:interface"
-                },
-                {
-                  "kind": "Content",
-                  "text": ";"
-                }
-              ],
-              "isReadonly": false,
-              "isOptional": true,
-              "releaseTag": "Public",
-              "name": "styleModel",
-              "propertyTypeTokenRange": {
-                "startIndex": 1,
-                "endIndex": 2
               }
             }
           ],
@@ -7200,7 +6676,7 @@
         {
           "kind": "TypeAlias",
           "canonicalReference": "@absreim/react-bootstrap-data-grid!TableProps:type",
-          "docComment": "",
+          "docComment": "/**\n * The type of the props object for the Table component\n *\n * @public\n */\n",
           "excerptTokens": [
             {
               "kind": "Content",
@@ -7213,7 +6689,52 @@
             },
             {
               "kind": "Content",
-              "text": " & {\n    caption?: string;\n    styleModel?: "
+              "text": " & {\n    pagination?: "
+            },
+            {
+              "kind": "Reference",
+              "text": "PaginationModel",
+              "canonicalReference": "@absreim/react-bootstrap-data-grid!PaginationModel:type"
+            },
+            {
+              "kind": "Content",
+              "text": ";\n    sortModel?: "
+            },
+            {
+              "kind": "Reference",
+              "text": "SortModel",
+              "canonicalReference": "@absreim/react-bootstrap-data-grid!SortModel:type"
+            },
+            {
+              "kind": "Content",
+              "text": ";\n    filterModel?: "
+            },
+            {
+              "kind": "Reference",
+              "text": "FilterModel",
+              "canonicalReference": "@absreim/react-bootstrap-data-grid!FilterModel:type"
+            },
+            {
+              "kind": "Content",
+              "text": ";\n    selectModel?: "
+            },
+            {
+              "kind": "Reference",
+              "text": "SelectModel",
+              "canonicalReference": "@absreim/react-bootstrap-data-grid!SelectModel:type"
+            },
+            {
+              "kind": "Content",
+              "text": ";\n    editModel?: "
+            },
+            {
+              "kind": "Reference",
+              "text": "EditModel",
+              "canonicalReference": "@absreim/react-bootstrap-data-grid!EditModel:interface"
+            },
+            {
+              "kind": "Content",
+              "text": ";\n    styleModel?: "
             },
             {
               "kind": "Reference",
@@ -7222,7 +6743,7 @@
             },
             {
               "kind": "Content",
-              "text": ";\n    displayMode?: "
+              "text": ";\n    allowExport?: boolean;\n    caption?: string;\n    displayMode?: "
             },
             {
               "kind": "Reference",
@@ -7243,7 +6764,7 @@
           "name": "TableProps",
           "typeTokenRange": {
             "startIndex": 1,
-            "endIndex": 7
+            "endIndex": 17
           }
         },
         {

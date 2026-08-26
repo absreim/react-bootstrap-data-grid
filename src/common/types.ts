@@ -1,10 +1,3 @@
-import { EditModel } from "./editing/types";
-import { PaginationModel } from "./pagination/types";
-import { SortModel } from "./sorting/types";
-import { FilterModel } from "./filtering/types";
-import { SelectModel } from "./selection/types";
-import { StyleModel } from "./styling/types";
-
 export type ColDataType = string | number | Date;
 export type ColDataTypeStrings = "string" | "number" | "date" | "datetime";
 
@@ -28,16 +21,22 @@ export interface RowDef<Data extends ValidRowData = ValidRowData> {
   data: RowData<Data>;
 }
 
+/**
+ * Interface that contains parameters shared between the Table, TablePro, and
+ * Grid components.
+ *
+ * @public
+ */
 export interface MainComponentSharedProps {
+  /**
+   * The rows of data to be displayed by the table or grid
+   */
   rows: RowDef[];
+
+  /**
+   * The column definitions of the table or grid
+   */
   cols: ColDef[];
-  pagination?: PaginationModel;
-  sortModel?: SortModel;
-  filterModel?: FilterModel;
-  selectModel?: SelectModel;
-  editModel?: EditModel;
-  styleModel?: StyleModel;
-  allowExport?: boolean;
 }
 
 export type AugRowDef<Data extends ValidRowData = ValidRowData> =
