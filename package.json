@@ -13,6 +13,8 @@
     "build:package:pro": "node build.js pro",
     "pack": "npm pack ./dist/community --pack-destination ./package/community",
     "pack:pro": "npm pack ./dist/pro --pack-destination ./package/pro",
+    "extract:api": "npx api-extractor run -c ./src/community/api-extractor.json --local",
+    "extract:api:pro": "npx api-extractor run -c ./src/pro/api-extractor.json --local",
     "start": "next start",
     "lint": "eslint .",
     "prettify": "npx prettier --write ./",
