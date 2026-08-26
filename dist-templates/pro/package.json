@@ -23,12 +23,12 @@
     "react": "^19",
     "react-dom": "^19"
   },
-  "main": "./grid-pro/index.js",
-  "module": "./grid-pro/index.js",
-  "types": "./grid-pro/index.d.ts",
+  "main": "./table-pro/index.js",
+  "module": "./table-pro/index.js",
+  "types": "./table-pro/index.d.ts",
   "repository": {
     "type": "git",
     "url": "git+https://github.com/absreim/react-bootstrap-data-grid.git",
-    "directory": "src/grid-pro"
+    "directory": "src/pro"
   }
 }
