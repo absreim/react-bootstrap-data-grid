@@ -49,15 +49,39 @@ export interface ProColDefSpecificFields {
   keyboardResizeStep?: number;
 }
 
+/**
+ * Type of the column definition object for the pro edition of the table
+ * feature.
+ *
+ * @public
+ */
 export type ProColDef<ValueType = any> = ColDefBase<ValueType> &
   ProColDefSpecificFields;
 
-export type TableProProps = Omit<TableProps, "cols" | "styleModel"> & {
+/**
+ * Props that are specific to the pro edition of the table component.
+ *
+ * @public
+ */
+export interface TableProSpecificProps {
   cols: ProColDef[];
   reorder?: ReorderModel;
   styleModel?: ProStyleModel;
-};
+}
 
+/**
+ * Props object for the pro edition of the table component, {@link TablePro}.
+ *
+ * @public
+ */
+export type TableProProps = Omit<TableProps, "cols" | "styleModel"> &
+  TableProSpecificProps;
+
+/**
+ * Props for the {@link ColHeaderCellPro} component.
+ *
+ * @internal
+ */
 export type ColHeaderCellProProps = ColHeaderCellProps &
   Pick<TableProps, "displayMode"> & {
     setWidth?: (width: number) => void;
@@ -66,13 +90,31 @@ export type ColHeaderCellProProps = ColHeaderCellProps &
     "minResizeWidth" | "maxResizeWidth" | "keyboardResizeStep"
   >;
 
+/**
+ * State object with getter and setter that represents the width of a column.
+ * Used as part of {@link ProColDefSpecificFields} to specify the width of a
+ * column in a way that can be changed externally.
+ *
+ * @public
+ */
 export interface WidthModel {
   width: number;
   setWidth: (width: number) => void;
 }
 
+/**
+ * Style models specific the pro edition of the table component.
+ *
+ * @public
+ */
 export interface ProStyleSubmodels {
   reorderModel?: ReorderStyleModel;
 }
 
+/**
+ * Type of the combined style model object for the pro edition of the table
+ * component.
+ *
+ * @public
+ */
 export type ProStyleModel = ProStyleSubmodels & StyleModel;
