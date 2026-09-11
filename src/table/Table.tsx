@@ -3,7 +3,7 @@
 import { FC } from "react";
 import { TableProps } from "./types";
 import InternalTable from "./InternalTable";
-import { ColSortModel } from "../common/sorting/types";
+import { ColSortModel } from "../common";
 import ColHeaderCell from "./main/ColHeaderCell";
 import useCombinedPipeline from "../common/pipeline/useCombinedPipeline";
 import useGridSelectionFns from "../common/pipeline/useGridSelectionFns";
@@ -13,6 +13,11 @@ import BodyRows from "./main/BodyRows";
 import { AugFormattedRow } from "../common";
 import useColNameToWidth from "../common/pipeline/useColNameToWidth";
 
+/**
+ * The main component of the table feature of react-bootstrap-data-grid.
+ *
+ * @public
+ */
 const Table: FC<TableProps> = (props) => {
   const {
     rows,
@@ -100,5 +105,3 @@ const Table: FC<TableProps> = (props) => {
 };
 
 export default Table;
-
-export type { TableProps } from "./types";

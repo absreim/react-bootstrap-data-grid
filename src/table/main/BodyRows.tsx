@@ -5,11 +5,11 @@ import getWidthStyle from "../../common/util/getWidthStyle";
 import SelectionInput from "../selection/SelectionInput";
 import { UseGridSelectionFnsHook } from "../../common/pipeline/useGridSelectionFns";
 import { UseCombinedPipelineHook } from "../../common/pipeline/useCombinedPipeline";
-import { SelectModel } from "../../common/selection/types";
+import { SelectModel } from "../../common";
 import { UseGetInputStrSubmitCallbackHook } from "../../common/pipeline/useGetInputStrSubmitCallback";
 import { TableStyleModel } from "../styling/types";
-import { AugFormattedRow, FormattedRow, RowId } from "../../common/types";
-import { EditModel } from "../../common/editing/types";
+import { AugFormattedRow, FormattedRow, RowId } from "../../common";
+import { EditModel } from "../../common";
 
 interface BodyRowsProps {
   augFormattedRows: AugFormattedRow[];

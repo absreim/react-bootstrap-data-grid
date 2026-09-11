@@ -48,11 +48,18 @@ export type HeaderCellVariantFn = (
 ) => string | null;
 
 /**
- * The type of the props passed to the Grid component.
+ * The type of the props passed to the {@link Grid} component.
  *
  * @public
  */
-export type GridProps = MainComponentSharedProps & {
+export type GridProps = MainComponentSharedProps & GridSpecificProps;
+
+/**
+ * Props specific to the {@link Grid} and not the {@link Table}.
+ *
+ * @public
+ */
+export interface GridSpecificProps {
   /**
    * The height setting of the grid
    */
@@ -129,7 +136,7 @@ export type GridProps = MainComponentSharedProps & {
    * Function to set the color variant of body cell focus rings
    */
   bodyCellFocusVariant?: BodyCellVariantFn;
-};
+}
 
 /**
  * Props interface for the GridHeader component

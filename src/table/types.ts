@@ -12,13 +12,13 @@ import {
 
 export type DisplayMode = "table" | "block";
 
-
 /**
- * The type of the props object for the Table component
+ * Props specific to the {@link Table} component and not the {@link Grid}
+ * component.
  *
  * @public
  */
-export type TableProps = MainComponentSharedProps & {
+export interface TableSpecificProps {
   /**
    * The pagination model of the table. Passing a truthy value enables
    * the pagination feature of the component.
@@ -72,7 +72,14 @@ export type TableProps = MainComponentSharedProps & {
    * @defaultValue `"table"`
    */
   displayMode?: DisplayMode;
-};
+}
+
+/**
+ * The type of the props object for the Table component.
+ *
+ * @public
+ */
+export type TableProps = MainComponentSharedProps & TableSpecificProps;
 
 /**
  * All props that community and pro versions of the table have in common
@@ -83,6 +90,11 @@ export type BaseTableProps = Omit<TableProps, "cols"> & {
   cols: ColDefBase[];
 };
 
+/**
+ * Props for the {@link ColHeaderCell} component.
+ *
+ * @internal
+ */
 export interface ColHeaderCellProps {
   label: string;
   sortModel?: ColSortModel;

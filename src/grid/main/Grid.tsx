@@ -18,6 +18,11 @@ import classNames from "classnames";
 import { CSS_PREFIX } from "../../common/constants";
 import useGridFocus from "../focus/useGridFocus";
 
+/**
+ * The main component for the grid feature of react-bootstrap-data-grid.
+ *
+ * @public
+ */
 const Grid: FC<GridProps> = ({
   rows,
   cols,
