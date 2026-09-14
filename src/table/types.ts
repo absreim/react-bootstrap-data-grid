@@ -91,7 +91,7 @@ export type BaseTableProps = Omit<TableProps, "cols"> & {
 };
 
 /**
- * Props for the {@link ColHeaderCell} component.
+ * Props for the ColHeaderCell component.
  *
  * @internal
  */

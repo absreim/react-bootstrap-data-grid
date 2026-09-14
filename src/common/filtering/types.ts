@@ -1,9 +1,4 @@
-/**
- * Like {@link EditableFilterState}, but includes additional metadata.
- *
- * @internal
- */
-export type FilterState = Record<string, ColFilterState>;
+import { EditableColFilterState } from "./internalTypes";
 
 /**
  * State object that represents the filter settings for all of the columns in a
@@ -12,16 +7,6 @@ export type FilterState = Record<string, ColFilterState>;
  * @public
  */
 export type EditableFilterState = Record<string, EditableColFilterState>;
-
-/**
- * Like {@link EditableColFilterState}, but includes additional metadata.
- *
- * @internal
- */
-export interface ColFilterState {
-  editableState: EditableColFilterState;
-  label: string;
-}
 
 /**
  * Base interface for various objects that represent the form state for the
@@ -65,17 +50,6 @@ export const stringFilterSchemes = [
  * @public
  */
 export type StringFilterScheme = (typeof stringFilterSchemes)[number];
-
-/**
- * A mapping of {@link StringFilterScheme} to display names.
- *
- * @internal
- */
-export const stringFilterSchemeNames: Record<StringFilterScheme, string> = {
-  contains: "Contains",
-  startsWith: "Starts With",
-  endsWith: "Ends With",
-};
 
 /**
  * Form state for the filter settings for a string column.
@@ -137,19 +111,6 @@ export const numberFilterSchemes = [
 export type NumberFilterScheme = (typeof numberFilterSchemes)[number];
 
 /**
- * A mapping of display names for {@link NumberFilterScheme}.
- *
- * @internal
- */
-export const numberFilterSchemeNames: Record<NumberFilterScheme, string> = {
-  equals: "=",
-  greaterThan: ">",
-  lessThan: "<",
-  greaterOrEqual: ">=",
-  lessOrEqual: "<=",
-};
-
-/**
  * The form state for filter settings on a number column.
  *
  * @public
@@ -173,29 +134,6 @@ export const dateFilterSchemes = ["startFrom", "endAt", "between"] as const;
  * @public
  */
 export type DateFilterScheme = (typeof dateFilterSchemes)[number];
-
-/**
- * A mapping of display names for {@link DateFilterScheme}.
- *
- * @internal
- */
-export const dateFilterSchemeNames: Record<DateFilterScheme, string> = {
-  /**
-   * Displays the row only if {@link Date} value occurs on or after the
-   * inputted {@link Date}.
-   */
-  startFrom: "Start Form",
-  /**
-   * Displays the row only if {@link Date} value occurs on or before the
-   * inputted {@link Date}.
-   */
-  endAt: "End At",
-  /**
-   * Displays the row only if {@link Date} value occurs between the
-   * inputted before and end dates, inclusive.
-   */
-  between: "Between",
-};
 
 /**
  * A base interface for {@link DateFilterState}.
@@ -258,16 +196,6 @@ export type DateFilterState =
   | BetweenDatesFilterState;
 
 /**
- * The form state object for the filtering feature for a column.
- *
- * @public
- */
-export type EditableColFilterState =
-  | StringFilterState
-  | NumberFilterState
-  | DateFilterState;
-
-/**
  * Object that enables the filtering feature on a grid or table in an
  * externally controllable manner.
  *
@@ -310,80 +238,9 @@ export type UncontrolledFilterModel = Partial<
 };
 
 /**
- * An effective value for the filter model of a grid or table based on
- * whether the controlled or uncontrolled mode was chosen.
- *
- * @internal
- */
-export type NormalizedTableFilterModel = Pick<
-  ControlledFilterModel,
-  "tableFilterState" | "setTableFilterState"
->;
-
-/**
- * Represents the form state for a number column in the filter settings UI.
- * This interface differs from {@link NumberFilterState} because numerical
- * HTML input elements are better represented by strings.
- *
- * @internal
- */
-export interface NumberFormFilterState extends AbstractFilterState {
-  type: "number";
-  scheme: NumberFilterScheme;
-  inputValue: string;
-}
-
-/**
  * Object used to enable and configure filtering for a grid or table.
  *
  * @public
  */
 export type FilterModel = ControlledFilterModel | UncontrolledFilterModel;
 
-/**
- * Represents the form state for a date or datetime column in the filter
- * settings UI. This interface differs from {@link NumberFilterState} because
- * numerical HTML input elements are better represented by strings.
- *
- * @remarks
- *
- * For schemes startFrom and endAt that do not use both date input fields, the
- * unused field still serves the purpose of remembering the previous value. That
- * way, the user can switch between filtering schemes in the UI without losing
- * their previously entered date.
- *
- * @internal
- */
-export interface DateFormFilterState extends AbstractDateFilterState {
-  scheme: DateFilterScheme;
-  startDate: string;
-  endDate: string;
-}
-
-/**
- * Represents the actual form state for a column in the filtering settings UI.
- * Differs from {@link EditableColFilterState} because the HTML input fields
- * for number and dates are better represented by strings.
- *
- * @remarks
- *
- * The string type in JavaScript already encompasses the full range of
- * possibilities of the value of HTML text inputs. Therefore, unlike
- * {@link NumberFilterState} and {@link DateFilterState},
- * {@link StringFilterState} is usable as it is to represent the state of a form
- * input.
- *
- * @internal
- */
-export type FilterFormRowState =
-  | StringFilterState
-  | NumberFormFilterState
-  | DateFormFilterState;
-
-/**
- * Represents the form state for filter settings for all columns in a grid or
- * table.
- *
- * @internal
- */
-export type FilterFormState = Record<string, FilterFormRowState>;

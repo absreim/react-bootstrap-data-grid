@@ -1,11 +1,12 @@
 import { ChangeEventHandler, FC } from "react";
 import {
   NumberFilterScheme,
-  numberFilterSchemeNames,
-  NumberFormFilterState,
+
 } from "./types";
 import FilterRow, { CommonFilterRowStyleProps } from "./FilterRow";
 import classNames from "classnames";
+import { numberFilterSchemeNames } from "./constants";
+import { NumberFormFilterState } from "./internalTypes";
 
 export type NumberFilterRowProps = {
   ariaRowIndex: number;

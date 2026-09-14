@@ -6,7 +6,7 @@ import useCurrentPageRows, {
   CurrentPageRowsOutput,
 } from "./useCurrentPageRows";
 import useDisplayRows from "./useDisplayRows";
-import { NormalizedTableFilterModel, FilterState } from "../../";
+import { NormalizedTableFilterModel, FilterState } from "../../filtering/internalTypes";
 import {
   ColDefBase,
   FormattedRow,

@@ -151,5 +151,7 @@ export interface MultiSelectionInfo {
 /**
  * Indicates the selection mode of a grid or table and contains metadata
  * on whether selections exist.
+ *
+ * @internal
  */
 export type SelectionInfo = SingleSelectionInfo | MultiSelectionInfo;

@@ -5,9 +5,9 @@ import {
   FormattedRow,
   ColSortModel,
   RowId,
-  FilterState,
   AugFormattedRow,
 } from "./";
+import { FilterState } from "../common/filtering/internalTypes";
 import useCombinedPipeline from "../common/pipeline/useCombinedPipeline";
 import InternalTable from "../table/InternalTable";
 import { TableProProps } from "./types";
