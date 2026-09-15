@@ -1919,7 +1919,7 @@
         {
           "kind": "TypeAlias",
           "canonicalReference": "@absreim/react-bootstrap-data-grid!DisplayMode:type",
-          "docComment": "",
+          "docComment": "/**\n * Available options for the displayMode prop of {@link TableSpecificProps}.\n *\n * @public\n */\n",
           "excerptTokens": [
             {
               "kind": "Content",
@@ -3453,76 +3453,6 @@
             "startIndex": 1,
             "endIndex": 4
           }
-        },
-        {
-          "kind": "Function",
-          "canonicalReference": "@absreim/react-bootstrap-data-grid!isSubset:function(1)",
-          "docComment": "/**\n * Determines whether the elements of an array is the subset of another.\n *\n * @param subset - an array that may be the subset of another set\n *\n * @param superset - an array that may be the superset of another set\n *\n * @returns a boolean value indicating whether the elements in subset are a subset of the elements in superset\n *\n * @public\n */\n",
-          "excerptTokens": [
-            {
-              "kind": "Content",
-              "text": "isSubset: <T>(subset: "
-            },
-            {
-              "kind": "Content",
-              "text": "T[]"
-            },
-            {
-              "kind": "Content",
-              "text": ", superset: "
-            },
-            {
-              "kind": "Content",
-              "text": "T[]"
-            },
-            {
-              "kind": "Content",
-              "text": ") => "
-            },
-            {
-              "kind": "Content",
-              "text": "boolean"
-            }
-          ],
-          "fileUrlPath": "../../dist/community/common/util/isSubset.d.ts",
-          "returnTypeTokenRange": {
-            "startIndex": 5,
-            "endIndex": 6
-          },
-          "releaseTag": "Public",
-          "overloadIndex": 1,
-          "parameters": [
-            {
-              "parameterName": "subset",
-              "parameterTypeTokenRange": {
-                "startIndex": 1,
-                "endIndex": 2
-              },
-              "isOptional": false
-            },
-            {
-              "parameterName": "superset",
-              "parameterTypeTokenRange": {
-                "startIndex": 3,
-                "endIndex": 4
-              },
-              "isOptional": false
-            }
-          ],
-          "typeParameters": [
-            {
-              "typeParameterName": "T",
-              "constraintTokenRange": {
-                "startIndex": 0,
-                "endIndex": 0
-              },
-              "defaultTypeTokenRange": {
-                "startIndex": 0,
-                "endIndex": 0
-              }
-            }
-          ],
-          "name": "isSubset"
         },
         {
           "kind": "TypeAlias",
@@ -5975,7 +5905,7 @@
             {
               "kind": "PropertySignature",
               "canonicalReference": "@absreim/react-bootstrap-data-grid!TableSpecificProps#displayMode:member",
-              "docComment": "/**\n * Sets the CSS display property for the table element\n *\n * @defaultValue `\"table\"`\n */\n",
+              "docComment": "/**\n * Sets the CSS display property for the table element.\n *\n * @defaultValue `\"table\"`\n */\n",
               "excerptTokens": [
                 {
                   "kind": "Content",
@@ -6332,63 +6262,6 @@
             }
           ],
           "extendsTokenRanges": []
-        },
-        {
-          "kind": "Function",
-          "canonicalReference": "@absreim/react-bootstrap-data-grid!trueModulo:function(1)",
-          "docComment": "/**\n * Computes a mathematical modulo.\n *\n * @param num - to number to which to apply the modulo operator\n *\n * @param divisor - the divisor of the module operator\n */\n",
-          "excerptTokens": [
-            {
-              "kind": "Content",
-              "text": "trueModulo: (num: "
-            },
-            {
-              "kind": "Content",
-              "text": "number"
-            },
-            {
-              "kind": "Content",
-              "text": ", divisor: "
-            },
-            {
-              "kind": "Content",
-              "text": "number"
-            },
-            {
-              "kind": "Content",
-              "text": ") => "
-            },
-            {
-              "kind": "Content",
-              "text": "number"
-            }
-          ],
-          "fileUrlPath": "../../dist/community/common/util/trueModulo.d.ts",
-          "returnTypeTokenRange": {
-            "startIndex": 5,
-            "endIndex": 6
-          },
-          "releaseTag": "Public",
-          "overloadIndex": 1,
-          "parameters": [
-            {
-              "parameterName": "num",
-              "parameterTypeTokenRange": {
-                "startIndex": 1,
-                "endIndex": 2
-              },
-              "isOptional": false
-            },
-            {
-              "parameterName": "divisor",
-              "parameterTypeTokenRange": {
-                "startIndex": 3,
-                "endIndex": 4
-              },
-              "isOptional": false
-            }
-          ],
-          "name": "trueModulo"
         },
         {
           "kind": "TypeAlias",

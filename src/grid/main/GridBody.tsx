@@ -1,9 +1,9 @@
 import { FC } from "react";
-import { GridBodyProps } from "./types";
 import getWidthStyles from "./getWidthStyles";
 import classNames from "classnames";
 import { CSS_PREFIX, DEFAULT_COL_WIDTH } from "../../common/constants";
 import { GRID_BODY_DATA_TEST_ID } from "../constants";
+import { GridBodyProps } from "./internalTypes";
 
 const GridBody: FC<GridBodyProps> = ({
   augFormattedRows,

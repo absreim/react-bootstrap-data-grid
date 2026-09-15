@@ -1,11 +1,4 @@
-import {
-  AugFormattedRow,
-  CellData,
-  ColDef,
-  FormattedRow,
-  MainComponentSharedProps,
-} from "../../common";
-import { FocusCoordinates } from "../focus/types";
+import { CellData, ColDef, FormattedRow, MainComponentSharedProps } from "../../common";
 
 /**
  * The type of the function used to specify color variants on a grid body on a
@@ -137,34 +130,6 @@ export interface GridSpecificProps {
    */
   bodyCellFocusVariant?: BodyCellVariantFn;
 }
-
-/**
- * Props interface for the GridHeader component
- *
- * @internal
- */
-export interface GridHeaderProps {
-  cols: GridProps["cols"];
-  vertScrollable: boolean;
-  rowVariant?: GridProps["headerRowVariant"];
-  cellVariant?: GridProps["headerCellVariant"];
-  focusColIndex: number | null;
-  cellFocusVariant?: GridProps["headerCellFocusVariant"];
-}
-
-/**
- * Props interface for the GridBody component
- *
- * @internal
- */
-export type GridBodyProps = {
-  augFormattedRows: AugFormattedRow[];
-  cols: GridProps["cols"];
-  rowVariant?: GridProps["bodyRowVariant"];
-  cellVariant?: GridProps["bodyCellVariant"];
-  focusCoords: FocusCoordinates;
-  cellFocusVariant?: GridProps["bodyCellFocusVariant"];
-};
 
 /**
  * The type of the prop to set grid height behavior

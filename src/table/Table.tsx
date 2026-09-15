@@ -3,14 +3,14 @@
 import { FC } from "react";
 import { TableProps } from "./types";
 import InternalTable from "./InternalTable";
-import { ColSortModel } from "../common";
+import { ColSortModel } from "../common/sorting/internalTypes";
 import ColHeaderCell from "./main/ColHeaderCell";
 import useCombinedPipeline from "../common/pipeline/useCombinedPipeline";
 import useGridSelectionFns from "../common/pipeline/useGridSelectionFns";
 import useGetInputStrSubmitCallback from "../common/pipeline/useGetInputStrSubmitCallback";
 import useAugFormattedRows from "../common/pipeline/useAugFormattedRows";
 import BodyRows from "./main/BodyRows";
-import { AugFormattedRow } from "../common";
+import { AugFormattedRow } from "../common/internalTypes";
 import useColNameToWidth from "../common/pipeline/useColNameToWidth";
 
 /**

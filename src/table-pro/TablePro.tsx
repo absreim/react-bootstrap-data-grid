@@ -3,10 +3,10 @@
 import { FC, useCallback, useEffect, useMemo } from "react";
 import {
   FormattedRow,
-  ColSortModel,
   RowId,
-  AugFormattedRow,
 } from "./";
+import { ColSortModel } from "../common/sorting/internalTypes";
+import { AugFormattedRow } from "../common/internalTypes";
 import { FilterState } from "../common/filtering/internalTypes";
 import useCombinedPipeline from "../common/pipeline/useCombinedPipeline";
 import InternalTable from "../table/InternalTable";
@@ -25,6 +25,11 @@ import useReorderStyles from "./reorder/useReorderStyles";
 import useKeyboardReorderListener from "./reorder/useKeyboardReorderListener";
 import { UseCombinedPipelineHook } from "../common/pipeline/useCombinedPipeline";
 
+/**
+ * Pro edition of the table component.
+ *
+ * @public
+ */
 const TablePro: FC<TableProProps> = (props) => {
   const {
     rows,

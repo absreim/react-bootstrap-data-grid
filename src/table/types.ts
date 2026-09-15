@@ -1,15 +1,18 @@
 import {
-  StyleModel,
-  ColDefBase,
-  MainComponentSharedProps,
-  ColSortModel,
-  PaginationModel,
-  SortModel,
-  FilterModel,
-  SelectModel,
   EditModel,
+  FilterModel,
+  MainComponentSharedProps,
+  PaginationModel,
+  SelectModel,
+  SortModel,
+  StyleModel
 } from "../common";
 
+/**
+ * Available options for the displayMode prop of {@link TableSpecificProps}.
+ *
+ * @public
+ */
 export type DisplayMode = "table" | "block";
 
 /**
@@ -67,7 +70,7 @@ export interface TableSpecificProps {
   caption?: string;
 
   /**
-   * Sets the CSS display property for the table element
+   * Sets the CSS display property for the table element.
    *
    * @defaultValue `"table"`
    */
@@ -80,25 +83,3 @@ export interface TableSpecificProps {
  * @public
  */
 export type TableProps = MainComponentSharedProps & TableSpecificProps;
-
-/**
- * All props that community and pro versions of the table have in common
- *
- * @internal
- */
-export type BaseTableProps = Omit<TableProps, "cols"> & {
-  cols: ColDefBase[];
-};
-
-/**
- * Props for the ColHeaderCell component.
- *
- * @internal
- */
-export interface ColHeaderCellProps {
-  label: string;
-  sortModel?: ColSortModel;
-  ariaColIndex: number;
-  additionalClasses?: string[] | null;
-  width?: number;
-}

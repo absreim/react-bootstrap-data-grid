@@ -1,5 +1,18 @@
 import { RowDef, RowId, ValidRowData } from "../";
 
+/**
+ * Utility function for implementing the reorder callback function for the
+ * row reordering feature.
+ *
+ * @param rows - an array of row data of the type {@link RowDef}.
+ * @param id - the id of the row to move.
+ * @param destIndex - the destination index of the row to move.
+ *
+ * @returns - a new array where row to move is inserted into the destination
+ * index.
+ *
+ * @public
+ */
 const reorderRows: <Data extends ValidRowData>(
   rows: RowDef<Data>[],
   id: RowId,

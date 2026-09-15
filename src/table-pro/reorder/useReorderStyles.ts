@@ -1,5 +1,6 @@
 import { useMemo } from "react";
-import { ReorderStyleModel, ReorderStyles } from "./types";
+import { ReorderStyleModel } from "./types";
+import { ReorderStyles } from "./internalTypes";
 
 const useReorderStyles: (
   styleModel: ReorderStyleModel | undefined,

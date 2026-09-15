@@ -8,7 +8,8 @@ import { UseCombinedPipelineHook } from "../../common/pipeline/useCombinedPipeli
 import { SelectModel } from "../../common";
 import { UseGetInputStrSubmitCallbackHook } from "../../common/pipeline/useGetInputStrSubmitCallback";
 import { TableStyleModel } from "../styling/types";
-import { AugFormattedRow, FormattedRow, RowId } from "../../common";
+import { FormattedRow, RowId } from "../../common";
+import { AugFormattedRow } from "../../common/internalTypes";
 import { EditModel } from "../../common";
 
 interface BodyRowsProps {

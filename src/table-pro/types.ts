@@ -1,10 +1,4 @@
-import {
-  ColDef,
-  ColDefBase,
-  ColHeaderCellProps,
-  TableProps,
-  StyleModel,
-} from "../table";
+import { ColDef, ColDefBase, StyleModel, TableProps } from "../table";
 import { ReorderModel, ReorderStyleModel } from "./reorder/types";
 
 /**
@@ -76,19 +70,6 @@ export interface TableProSpecificProps {
  */
 export type TableProProps = Omit<TableProps, "cols" | "styleModel"> &
   TableProSpecificProps;
-
-/**
- * Props for the {@link ColHeaderCellPro} component.
- *
- * @internal
- */
-export type ColHeaderCellProProps = ColHeaderCellProps &
-  Pick<TableProps, "displayMode"> & {
-    setWidth?: (width: number) => void;
-  } & Pick<
-    ProColDef,
-    "minResizeWidth" | "maxResizeWidth" | "keyboardResizeStep"
-  >;
 
 /**
  * State object with getter and setter that represents the width of a column.

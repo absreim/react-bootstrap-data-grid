@@ -6,10 +6,11 @@ import {
   useCallback,
 } from "react";
 import HorizontalGrip from "../assets/HorizontalGrip";
-import { ReorderStyles, RowId } from "../";
+import { RowId } from "../";
 import regDragCleanup from "../lib/regDragCleanup";
 import classNames from "classnames";
 import { KeyboardCleanupFnParam, PointerCleanupFnParam } from "../lib/types";
+import { ReorderStyles } from "./internalTypes";
 
 export type ReorderHandleCellProps = {
   rowId: RowId;

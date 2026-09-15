@@ -10,7 +10,8 @@ export interface ColResizeModel {
 }
 
 /**
- * {@link Record} that contains {@link ColResizeModel} for each column.
+ * {@link https://www.typescriptlang.org/docs/handbook/utility-types.html#recordkeys-type | Record}
+ * that contains {@link ColResizeModel} for each column.
  *
  * @typeParam ColName - type of the name of the column. Can specify a more
  * restrictive type for type safety.
