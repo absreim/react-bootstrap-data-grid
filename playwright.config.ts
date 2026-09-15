@@ -40,6 +40,11 @@ export default defineConfig({
       use: { ...devices["Desktop Chrome"] },
     },
 
+    /*
+      Broken on macOS 27 as of this writing. Use command line parameters
+      --project=chromium --project=webkit
+      to work around.
+    */
     {
       name: "firefox",
       use: { ...devices["Desktop Firefox"] },
