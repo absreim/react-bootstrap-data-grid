@@ -134,24 +134,9 @@ export type UncontrolledPaginationModel = PaginationOptions & UncontrolledPagina
 
 /**
  * Object that enables and configures pagination for a grid or table.
+ *
+ * @public
  */
 export type PaginationModel =
   | ControlledPaginationModel
   | UncontrolledPaginationModel;
-
-/**
- * Effective value for the {@link PaginationModel} that takes in values
- * depending on whether controlled or uncontrolled mode is selected.
- *
- * @internal
- */
-export type NormalizedPaginationModel = Required<
-  Omit<
-    ControlledPaginationModel,
-    "type" | "pageSelectorAriaLabel" | "pageSelectorJustifyContent"
-  >
-> &
-  Pick<
-    ControlledPaginationModel,
-    "pageSelectorAriaLabel" | "pageSelectorJustifyContent"
-  >;

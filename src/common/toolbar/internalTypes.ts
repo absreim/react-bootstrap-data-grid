@@ -10,7 +10,7 @@ import { ExportFormProps } from "../export/ExportForm";
 export type ToolbarOption = "filtering" | "exporting";
 
 /**
- * A mapping of {@link ReactNode} for different toolbar tools.
+ * A mapping React elements for different toolbar tools.
  *
  * @internal
  */
@@ -27,8 +27,8 @@ export interface InterfaceParams {
 }
 
 /**
- * Generates props for toolbar tool components based on a callback function
- * to close a tool.
+ * Defines props for toolbar tool UI React components while allowing the
+ * callback to close the tool UI to be supplied later.
  *
  * @internal
  */
@@ -37,8 +37,8 @@ export type InterfacePropGenerator = (
 ) => InterfaceParams;
 
 /**
- * Injects a callback function to close toolbar tools into the {@link ReactNode}
- * for those tools.
+ * Defines toolbar tool UI React elements while allowing the callback
+ * to close the tool UI to be supplied later.
  *
  * @internal
  */

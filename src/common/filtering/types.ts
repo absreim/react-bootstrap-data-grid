@@ -1,4 +1,12 @@
-import { EditableColFilterState } from "./internalTypes";
+/**
+ * The form state object for the filtering feature for a column.
+ *
+ * @public
+ */
+export type EditableColFilterState =
+  | StringFilterState
+  | NumberFilterState
+  | DateFilterState;
 
 /**
  * State object that represents the filter settings for all of the columns in a

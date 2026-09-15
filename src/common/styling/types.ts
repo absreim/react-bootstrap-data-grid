@@ -58,6 +58,8 @@ export interface ExportFormStyleModel {
 
 /**
  * Top level object that is passed as a prop to a table to enable custom styles.
+ *
+ * @public
  */
 export interface StyleModel {
   /**

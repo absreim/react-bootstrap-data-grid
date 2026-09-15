@@ -1,4 +1,4 @@
-import { InterfaceNodeGenerator, ToolbarOption } from "./types";
+import { InterfaceNodeGenerator, ToolbarOption } from "./internalTypes";
 import { FC, useCallback, useMemo, useState } from "react";
 import Toolbar from "./Toolbar";
 import classNames from "classnames";

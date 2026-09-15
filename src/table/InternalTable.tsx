@@ -11,7 +11,7 @@ import useExportFn from "../common/export/useExportFn";
 import getWidthStyle from "../common/util/getWidthStyle";
 import { UseCombinedPipelineHook } from "../common/pipeline/useCombinedPipeline";
 import { UseGridSelectionFnsHook } from "../common/pipeline/useGridSelectionFns";
-import { InterfacePropGenerator } from "../common/toolbar/types";
+import { InterfacePropGenerator } from "../common/toolbar/internalTypes";
 
 export interface InternalGridProps {
   gridProps: BaseTableProps;

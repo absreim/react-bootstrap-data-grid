@@ -14,7 +14,7 @@ import { TableProProps } from "./types";
 import ColHeaderCellPro from "./ColHeaderCellPro";
 import useGridSelectionFns from "../common/pipeline/useGridSelectionFns";
 import useGetInputStrSubmitCallback from "../common/pipeline/useGetInputStrSubmitCallback";
-import { ColNameToWidth } from "../common";
+import { ColNameToWidth } from "../common/pipeline/internalTypes";
 import useAugFormattedRows from "../common/pipeline/useAugFormattedRows";
 import useResizeModel from "./resize/useResizeModel";
 import BodyRows from "../table/main/BodyRows";

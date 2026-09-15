@@ -7,7 +7,7 @@
  * @returns a boolean value indicating whether the elements in subset are a
  * subset of the elements in superset
  *
- * @public
+ * @internal
  */
 const isSubset: <T>(subset: T[], superset: T[]) => boolean = (
   subset,

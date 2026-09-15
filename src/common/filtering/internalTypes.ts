@@ -4,6 +4,7 @@ import {
   ControlledFilterModel,
   DateFilterScheme,
   DateFilterState,
+  EditableColFilterState,
   NumberFilterScheme,
   NumberFilterState,
   StringFilterState
@@ -25,16 +26,6 @@ export interface ColFilterState {
  * @internal
  */
 export type FilterState = Record<string, ColFilterState>;
-
-/**
- * The form state object for the filtering feature for a column.
- *
- * @public
- */
-export type EditableColFilterState =
-  | StringFilterState
-  | NumberFilterState
-  | DateFilterState;
 
 /**
  * An effective value for the filter model of a grid or table based on

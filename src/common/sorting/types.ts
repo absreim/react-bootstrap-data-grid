@@ -23,16 +23,6 @@ export interface SortColDef {
 }
 
 /**
- * Value-setter pair for the sort settings for a single column.
- *
- * @internal
- */
-export interface ColSortModel {
-  sortOrder: SortOrder | null;
-  setSortOrder: (order: SortOrder | null) => void;
-}
-
-/**
  * Externally-controllable variant of the {@link SortModel}.
  *
  * @public

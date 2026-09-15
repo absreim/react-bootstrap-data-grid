@@ -5,7 +5,8 @@ import { ReactNode, useMemo } from "react";
 import upArrow from "./upArrow";
 import arrowPlaceholder from "./arrowPlaceholder";
 import downArrow from "./downArrow";
-import { ColSortModel } from "./types";
+
+import { ColSortModel } from "./internalTypes";
 
 export type UseSortHeaderStatesHook =
   UseControlledHoverHook<HTMLTableCellElement> & {

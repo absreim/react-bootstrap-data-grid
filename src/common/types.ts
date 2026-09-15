@@ -215,13 +215,3 @@ export interface CellData {
 export type FormattedRow = {
   contents: Omit<CellData, "width">[];
 } & Omit<PostPaginationRowDef, "data">;
-
-/**
- * Like {@link FormattedRow}, but additionally contains the "width" property
- * for the column definition related to each cell.
- *
- * @internal
- */
-export type AugFormattedRow = {
-  contents: CellData[];
-} & Omit<PostPaginationRowDef, "data">;
