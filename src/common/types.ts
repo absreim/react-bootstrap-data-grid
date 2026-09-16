@@ -145,6 +145,8 @@ export interface MainComponentSharedProps {
  * {@link RowDef} object that additionally contains the index of the row in the
  * original array.
  *
+ * @typeParam Data - type of the data property of the RowDef object
+ *
  * @public
  */
 export type AugRowDef<Data extends ValidRowData = ValidRowData> =

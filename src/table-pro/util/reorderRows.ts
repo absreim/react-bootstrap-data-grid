@@ -8,7 +8,7 @@ import { RowDef, RowId, ValidRowData } from "../";
  * @param id - the id of the row to move.
  * @param destIndex - the destination index of the row to move.
  *
- * @returns - a new array where row to move is inserted into the destination
+ * @returns A new array where row to move is inserted into the destination
  * index.
  *
  * @public

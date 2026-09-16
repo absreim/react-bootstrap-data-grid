@@ -154,7 +154,13 @@ export type DateFilterScheme = (typeof dateFilterSchemes)[number];
  * @public
  */
 export interface AbstractDateFilterState extends AbstractFilterState {
+  /**
+   * A type discriminator.
+   */
   type: "date" | "datetime";
+  /**
+   * The filter scheme to apply.
+   */
   scheme: DateFilterScheme;
 }
 
@@ -165,7 +171,13 @@ export interface AbstractDateFilterState extends AbstractFilterState {
  * @public
  */
 export interface StartDateFilterState extends AbstractDateFilterState {
+  /**
+   * A type discriminator.
+   */
   scheme: "startFrom";
+  /**
+   * The start date to filter against.
+   */
   startDate: Date | null;
 }
 
@@ -176,7 +188,13 @@ export interface StartDateFilterState extends AbstractDateFilterState {
  * @public
  */
 export interface EndDateFilterState extends AbstractDateFilterState {
+  /**
+   * A type discriminator.
+   */
   scheme: "endAt";
+  /**
+   * The end date to filter against.
+   */
   endDate: Date | null;
 }
 
@@ -187,8 +205,17 @@ export interface EndDateFilterState extends AbstractDateFilterState {
  * @public
  */
 export interface BetweenDatesFilterState extends AbstractDateFilterState {
+  /**
+   * A type discriminator.
+   */
   scheme: "between";
+  /**
+   * The start date to filter against.
+   */
   startDate: Date | null;
+  /**
+   * The end date to filter against.
+   */
   endDate: Date | null;
 }
 

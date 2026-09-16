@@ -58,8 +58,18 @@ export type ProColDef<ValueType = any> = ColDefBase<ValueType> &
  * @public
  */
 export interface TableProSpecificProps {
+  /**
+   * Column definitions for the table.
+   */
   cols: ProColDef[];
+  /**
+   * Enables and configures the row reordering feature.
+   */
   reorder?: ReorderModel;
+  /**
+   * Applies custom CSS styles for elements specific to the pro edition of the
+   * table.
+   */
   styleModel?: ProStyleModel;
 }
 
@@ -79,7 +89,13 @@ export type TableProProps = Omit<TableProps, "cols" | "styleModel"> &
  * @public
  */
 export interface WidthModel {
+  /**
+   * The current width value stored by the object.
+   */
   width: number;
+  /**
+   * Setter function to update the width value.
+   */
   setWidth: (width: number) => void;
 }
 
