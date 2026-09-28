@@ -1,4 +1,6 @@
-const downArrow = (
+import { FC } from "react";
+
+const DownArrow: FC = () => (
   <svg
     xmlns="http://www.w3.org/2000/svg"
     width="16"
@@ -6,10 +8,9 @@ const downArrow = (
     fill="currentColor"
     viewBox="0 0 16 16"
   >
-    <title>(sorted descending)</title>
+    <title>Down arrow</title>
     <desc>
-      Down arrow indicating that the column is being sorted in an descending
-      manner
+      Downward-pointing arrow
     </desc>
     <path
       fillRule="evenodd"
@@ -18,4 +19,4 @@ const downArrow = (
   </svg>
 );
 
-export default downArrow;
+export default DownArrow;

@@ -11,13 +11,13 @@ test("sorting still works even if resizing is enabled", async ({ page }) => {
   await page.getByText("Resizeable Sortable Column").click();
 
   await expect(
-    page.getByRole("img", { name: "(sorted ascending)" }),
+    page.getByRole("img", { name: "Up arrow" }),
   ).toBeVisible();
   await validateGridContents(tbody, [["1"], ["2"], ["3"]]);
   await page.getByText("Resizeable Sortable Column").click();
 
   await expect(
-    page.getByRole("img", { name: "(sorted descending)" }),
+    page.getByRole("img", { name: "Down arrow" }),
   ).toBeVisible();
   await validateGridContents(tbody, [["3"], ["2"], ["1"]]);
   await page.getByText("Resizeable Sortable Column").click();

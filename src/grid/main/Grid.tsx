@@ -26,6 +26,7 @@ import useGridFocus from "../focus/useGridFocus";
 const Grid: FC<GridProps> = ({
   rows,
   cols,
+  sortModel,
   width,
   height,
   variant,
@@ -40,11 +41,12 @@ const Grid: FC<GridProps> = ({
   bodyCellVariant,
   bodyRowVariant,
   headerCellFocusVariant,
-  bodyCellFocusVariant
+  bodyCellFocusVariant,
 }) => {
   const { displayRows, filteredRows } = useCombinedPipeline({
     rows,
     cols,
+    sortModel,
   });
   const colNameToWidth = useColNameToWidth(cols);
   const augFormattedRows = useAugFormattedRows(colNameToWidth, displayRows);
@@ -98,7 +100,10 @@ const Grid: FC<GridProps> = ({
     }
 
     event.preventDefault();
-    event.clipboardData.setData("text/plain", selection.focusNode!.textContent!);
+    event.clipboardData.setData(
+      "text/plain",
+      selection.focusNode!.textContent!,
+    );
   }, []);
 
   return (

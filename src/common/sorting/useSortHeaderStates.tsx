@@ -2,9 +2,9 @@ import useControlledHover, {
   UseControlledHoverHook,
 } from "../util/useControlledHover";
 import { ReactNode, useMemo } from "react";
-import upArrow from "./upArrow";
-import arrowPlaceholder from "./arrowPlaceholder";
-import downArrow from "./downArrow";
+import UpArrow from "./UpArrow";
+import ArrowPlaceholder from "./ArrowPlaceholder";
+import DownArrow from "./DownArrow";
 
 import { ColSortModel } from "./internalTypes";
 
@@ -47,15 +47,15 @@ const useSortHeaderStates: (
     switch (sortModel.sortOrder) {
       case null: {
         if (isHovering) {
-          return upArrow(true);
+          return <UpArrow grayed />;
         }
-        return arrowPlaceholder;
+        return <ArrowPlaceholder />;
       }
       case "asc": {
-        return upArrow(false);
+        return <UpArrow grayed={false} />;
       }
       case "desc": {
-        return downArrow;
+        return <DownArrow />;
       }
     }
   }, [isHovering, sortModel]);

@@ -29,12 +29,6 @@ export interface TableSpecificProps {
   pagination?: PaginationModel;
 
   /**
-   * The sort model of the table. Passing a truthy value enables the
-   * sorting feature of the component.
-   */
-  sortModel?: SortModel;
-
-  /**
    * The filter model of the table. Passing a truthy value enables the
    * filtering feature of the component.
    */

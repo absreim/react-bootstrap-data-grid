@@ -7,8 +7,8 @@ import { CellData, ColDef, FormattedRow, MainComponentSharedProps } from "../../
  * @param cell - details the current cell
  * @param row - details of the entire row that the current cell is in
  * @param colIndex - zero-based column index of the current cell
- * @param displayIndex - the zero-based index of the row that the cell is in. The
- * index is based on how the cell is actually displayed, after pagination,
+ * @param displayIndex - the zero-based index of the row that the cell is in.
+ * The index is based on how the cell is actually displayed after pagination,
  * filtering, and sorting are applied.
  *
  * @returns - a string that is name of the color variant or null for no color

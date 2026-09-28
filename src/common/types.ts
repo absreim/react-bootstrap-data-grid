@@ -1,9 +1,12 @@
+import { SortModel } from "./sorting/types";
+
 /**
  * Union of all possible column data types.
  *
  * @public
  */
 export type ColDataType = string | number | Date;
+
 /**
  * Union of strings that describe the type of a column.
  *
@@ -20,23 +23,28 @@ export type ColDataTypeStrings = "string" | "number" | "date" | "datetime";
  *
  * @public
  */
-export interface ColDefBase<ValueType = any> {
+export interface  ColDefBase<ValueType = any> {
+
   /**
    * String that specifies the data type of the column.
    */
   type: ColDataTypeStrings;
+
   /**
    * The name of the property for the column in the {@link RowDef} object.
    */
   name: string;
+
   /**
    * The display name of the property in places like the column heading.
    */
   label: string;
+
   /**
    * The formatter function for the column.
    */
   formatter?: (value: ValueType) => string;
+
   /**
    * Specifies whether the column is sortable.
    *
@@ -131,21 +139,27 @@ export interface RowDef<Data extends ValidRowData = ValidRowData> {
  */
 export interface MainComponentSharedProps {
   /**
-   * The rows of data to be displayed by the table or grid
+   * The rows of data to be displayed by the table or grid.
    */
   rows: RowDef[];
 
   /**
-   * The column definitions of the table or grid
+   * The column definitions of the table or grid.
    */
   cols: ColDef[];
+
+  /**
+   * The sort model of the table or grid. Passing a truthy value enables the
+   * sorting feature of the component.
+   */
+  sortModel?: SortModel;
 }
 
 /**
  * {@link RowDef} object that additionally contains the index of the row in the
  * original array.
  *
- * @typeParam Data - type of the data property of the RowDef object
+ * @typeParam Data - type of the data property of the {@link RowDef} object
  *
  * @public
  */
