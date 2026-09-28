@@ -47,12 +47,12 @@ const useSortHeaderStates: (
     switch (sortModel.sortOrder) {
       case null: {
         if (isHovering) {
-          return <UpArrow grayed />;
+          return <UpArrow className="text-body-secondary" />;
         }
         return <ArrowPlaceholder />;
       }
       case "asc": {
-        return <UpArrow grayed={false} />;
+        return <UpArrow />;
       }
       case "desc": {
         return <DownArrow />;

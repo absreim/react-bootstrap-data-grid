@@ -223,21 +223,40 @@ $rbdg-prefix: "rbdg-";
   @include rbdg-grid-variant($color, $value);
 }
 
-// A note about Responsive Tables
-//
-// The Bootstrap _tables.scss file contains a series of classes to apply responsive tables at various breakpoints.
-// There is no such equivalent for RBDG flex grid for the following reason.
-//
-// The RBDG flex grid is a div of type "block," so the concept of "responsive" scrollable breakpoints doesn't apply.
-// It appears that for a table, even if the width is to 100%, the browser sometimes disobeys this setting causing
-// the width to be more than the parent, hence the need for responsive tables. Divs do not appear to have this problem.
-//
-// The RBDG flex grid provides other options to achieving a horizontally scrollable grid. They are as follows.
-//
-// When using the default or "auto" setting for the RBDG grid's "width," the intrinsic width of the grid columns is
-// used. In such circumstances, if one wants to make the grid scrollable horizontally, they can enclose the grid in a
-// horizontally-scrollable div.
-//
-// When the grid's width is to set to "parent", the grid takes on the width of the parent (width 100% CSS value) just
-// like the Bootstrap table does. In this case, the grid div itself is horizontally scrollable. In contrast, for
-// responsive Bootstrap tables, it is a div that encloses the table element that is scrollable.
+/*
+A Note About Responsive Tables
+
+The Bootstrap _tables.scss file contains a series of classes to apply responsive tables at various breakpoints.
+There is no such equivalent for RBDG flex grid for the following reason.
+
+The RBDG flex grid is a div of type "block," so the concept of "responsive" scrollable breakpoints doesn't apply.
+It appears that for a table, even if the width is to 100%, the browser sometimes disobeys this setting causing
+the width to be more than the parent, hence the need for responsive tables. Divs do not appear to have this problem.
+
+The RBDG flex grid provides other options to achieving a horizontally scrollable grid. They are as follows.
+
+When using the default or "auto" setting for the RBDG grid's "width," the intrinsic width of the grid columns is
+used. In such circumstances, if one wants to make the grid scrollable horizontally, they can enclose the grid in a
+horizontally-scrollable div.
+
+When the grid's width is to set to "parent", the grid takes on the width of the parent (width 100% CSS value) just
+like the Bootstrap table does. In this case, the grid div itself is horizontally scrollable. In contrast, for
+responsive Bootstrap tables, it is a div that encloses the table element that is scrollable.
+*/
+
+// TODO: use the grid's hover styles to style this kind of button as well
+.rbdg-grid-header-button {
+  appearance: none;
+  background: transparent;
+  border: none;
+  margin: 0;
+  padding: 0;
+  display: block;
+  width: 100%;
+  height: 100%;
+  cursor: pointer;
+  color: inherit;
+  overflow: inherit;
+  text-overflow: inherit;
+  white-space: inherit;
+}

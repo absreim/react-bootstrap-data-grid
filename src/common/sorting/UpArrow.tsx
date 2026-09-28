@@ -1,17 +1,16 @@
-import classNames from "classnames";
 import { FC } from "react";
 
 export interface UpArrowProps {
-  grayed: boolean;
+  className?: string;
 }
 
-const UpArrow: FC<UpArrowProps> = ({ grayed }) => (
+const UpArrow: FC<UpArrowProps> = ({ className }) => (
   <svg
     xmlns="http://www.w3.org/2000/svg"
     width="16"
     height="16"
     fill="currentColor"
-    className={classNames([...(grayed ? ["text-body-secondary"] : [])])}
+    className={className}
     viewBox="0 0 16 16"
   >
     <title>Up arrow</title>

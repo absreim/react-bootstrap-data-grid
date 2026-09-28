@@ -13,16 +13,16 @@ const HeaderToggleButton: FC<HeaderToggleButtonProps> = ({ colLabel, sortOrder, 
   function getIcon(): ReactNode {
     switch (sortOrder) {
       case "asc":
-        return <UpArrow grayed={false} />;
+        return <UpArrow />;
       case "desc":
         return <DownArrow />
       default:
-        return <UpArrow grayed />;
+        return <UpArrow />;
     }
   }
 
   return (
-    <button onClick={onClick}>
+    <button onClick={onClick} className="rbdg-grid-header-button">
       {colLabel}
       {getIcon()}
     </button>
