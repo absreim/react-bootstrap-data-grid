@@ -1,10 +1,7 @@
 import { ChangeEventHandler, FC } from "react";
 import FilterRow, { CommonFilterRowStyleProps } from "./FilterRow";
 import classNames from "classnames";
-import {
-  StringFilterScheme,
-  StringFilterState,
-} from "./types";
+import { StringFilterScheme, StringFilterState } from "./types";
 import { stringFilterSchemeNames } from "./constants";
 
 type StringFilterRowProps = {

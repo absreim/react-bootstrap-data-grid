@@ -1,4 +1,8 @@
-import { DateFilterScheme, NumberFilterScheme, StringFilterScheme } from "./types";
+import {
+  DateFilterScheme,
+  NumberFilterScheme,
+  StringFilterScheme,
+} from "./types";
 
 /**
  * A mapping of {@link StringFilterScheme} to display names.

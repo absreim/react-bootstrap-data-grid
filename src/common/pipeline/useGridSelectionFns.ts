@@ -1,8 +1,5 @@
 import { MouseEventHandler, useCallback, useId, useMemo } from "react";
-import {
-  MultiSelectModel,
-  SelectModel,
-} from "../selection/types";
+import { MultiSelectModel, SelectModel } from "../selection/types";
 import { SelectionInputModel } from "../../table/selection/SelectionInput";
 import isSubset from "../util/isSubset";
 import { RowDef, RowId } from "../types";

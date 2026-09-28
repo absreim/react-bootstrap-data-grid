@@ -103,7 +103,8 @@ export interface ControlledPaginationState {
  *
  * @public
  */
-export type ControlledPaginationModel = PaginationOptions & ControlledPaginationState;
+export type ControlledPaginationModel = PaginationOptions &
+  ControlledPaginationState;
 
 /**
  * Initial values for pagination in uncontrolled mode.
@@ -130,7 +131,8 @@ export interface UncontrolledPaginationInitState {
  *
  * @public
  */
-export type UncontrolledPaginationModel = PaginationOptions & UncontrolledPaginationInitState;
+export type UncontrolledPaginationModel = PaginationOptions &
+  UncontrolledPaginationInitState;
 
 /**
  * Object that enables and configures pagination for a grid or table.

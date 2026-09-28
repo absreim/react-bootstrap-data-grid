@@ -278,4 +278,3 @@ export type UncontrolledFilterModel = Partial<
  * @public
  */
 export type FilterModel = ControlledFilterModel | UncontrolledFilterModel;
-

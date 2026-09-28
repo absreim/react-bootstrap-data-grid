@@ -4,6 +4,8 @@ import classNames from "classnames";
 import { CSS_PREFIX, DEFAULT_COL_WIDTH } from "../../common/constants";
 import { GRID_HEADER_DATA_TEST_ID } from "../constants";
 import { GridHeaderProps } from "./internalTypes";
+import HeaderToggleButton from "../sort/HeaderToggleButton";
+import sortOrderToAriaSort from "../../common/sorting/sortOrderToAriaSort";
 
 const GridHeader: FC<GridHeaderProps> = ({
   cols,
@@ -11,8 +13,31 @@ const GridHeader: FC<GridHeaderProps> = ({
   rowVariant,
   cellVariant,
   focusColIndex,
-  cellFocusVariant
+  cellFocusVariant,
+  sortInfo,
 }) => {
+  const { sortingEnabled, sortColDef, setSortColDef } = sortInfo;
+  const getSortButtonListener: (colName: string) => () => void =
+    (colName) => () => {
+      if (sortColDef?.name !== colName) {
+        setSortColDef!({
+          name: colName,
+          order: "asc",
+        });
+        return;
+      }
+
+      if (sortColDef.order === "asc") {
+        setSortColDef!({
+          name: colName,
+          order: "desc",
+        });
+        return;
+      }
+
+      setSortColDef!(null);
+    };
+
   return (
     <div
       data-testid={GRID_HEADER_DATA_TEST_ID}
@@ -34,24 +59,46 @@ const GridHeader: FC<GridHeaderProps> = ({
           const ariaColIndex = index + 1;
           const isFocused = focusColIndex === ariaColIndex;
           const cellVariantVal = cellVariant && cellVariant(col, index);
-          const cellFocusVariantVal = cellFocusVariant && cellFocusVariant(col, index);
+          const cellFocusVariantVal =
+            cellFocusVariant && cellFocusVariant(col, index);
+          const currentColSortingEnabled = sortingEnabled && col.sortable;
 
           return (
             <div
-              tabIndex={isFocused ? 0 : -1}
+              tabIndex={isFocused && !currentColSortingEnabled ? 0 : -1}
               className={classNames(
                 "rbdg-grid-cell",
                 "fw-bold",
                 cellVariantVal && `${CSS_PREFIX}-${cellVariantVal}`,
                 cellFocusVariantVal && `focus-ring-${cellFocusVariantVal}`,
-                { "z-2": isFocused, "rbdg-focusable-cell": isFocused },
+                {
+                  "z-2": isFocused,
+                  "rbdg-focusable-cell": isFocused && !currentColSortingEnabled,
+                  "rbdg-sortable-header-cell": currentColSortingEnabled,
+                },
               )}
               role="columnheader"
               key={col.name}
               aria-colindex={ariaColIndex}
+              aria-sort={
+                currentColSortingEnabled && sortColDef?.name === col.name
+                  ? sortOrderToAriaSort(sortColDef.order)
+                  : undefined
+              }
               style={getWidthStyles(col.width || DEFAULT_COL_WIDTH)}
             >
-              {col.label}
+              {currentColSortingEnabled ? (
+                <HeaderToggleButton
+                  tabIndex={isFocused ? 0 : -1}
+                  colLabel={col.label}
+                  sortOrder={
+                    sortColDef?.name === col.name ? sortColDef.order : null
+                  }
+                  onClick={getSortButtonListener(col.name)}
+                />
+              ) : (
+                col.label
+              )}
             </div>
           );
         })}

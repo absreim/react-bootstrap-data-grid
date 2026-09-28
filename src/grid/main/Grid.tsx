@@ -26,6 +26,7 @@ import useGridFocus from "../focus/useGridFocus";
 const Grid: FC<GridProps> = ({
   rows,
   cols,
+  sortModel,
   width,
   height,
   variant,
@@ -40,11 +41,12 @@ const Grid: FC<GridProps> = ({
   bodyCellVariant,
   bodyRowVariant,
   headerCellFocusVariant,
-  bodyCellFocusVariant
+  bodyCellFocusVariant,
 }) => {
-  const { displayRows, filteredRows } = useCombinedPipeline({
+  const { displayRows, filteredRows, sortedRowsOutput } = useCombinedPipeline({
     rows,
     cols,
+    sortModel,
   });
   const colNameToWidth = useColNameToWidth(cols);
   const augFormattedRows = useAugFormattedRows(colNameToWidth, displayRows);
@@ -84,8 +86,13 @@ const Grid: FC<GridProps> = ({
 
   const vertScrollable = height !== undefined && height !== "auto";
   const gridRef = useRef<HTMLDivElement>(null);
+  const sortableColIndices = sortModel
+    ? cols
+        .map((_, index) => index + 1)
+        .filter((ariaColIndex) => cols[ariaColIndex - 1].sortable)
+    : [];
   const { effectiveCoords, gridClickHandler, gridKeydownHandler } =
-    useGridFocus(gridRef, rows.length + 1, cols.length);
+    useGridFocus(gridRef, rows.length + 1, cols.length, sortableColIndices);
 
   const onCopy: ClipboardEventHandler<HTMLDivElement> = useCallback((event) => {
     if (!gridRef.current?.contains(document.activeElement)) {
@@ -98,7 +105,10 @@ const Grid: FC<GridProps> = ({
     }
 
     event.preventDefault();
-    event.clipboardData.setData("text/plain", selection.focusNode!.textContent!);
+    event.clipboardData.setData(
+      "text/plain",
+      selection.focusNode!.textContent!,
+    );
   }, []);
 
   return (
@@ -139,6 +149,7 @@ const Grid: FC<GridProps> = ({
             : null
         }
         cellFocusVariant={headerCellFocusVariant}
+        sortInfo={sortedRowsOutput}
       />
       <GridBody
         focusCoords={effectiveCoords}

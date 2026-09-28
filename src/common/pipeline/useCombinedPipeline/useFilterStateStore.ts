@@ -1,8 +1,4 @@
-import {
-  EditableFilterState,
-  FilterModel,
-
-} from "../../filtering/types";
+import { EditableFilterState, FilterModel } from "../../filtering/types";
 import { useState } from "react";
 import { ColDef, ColDefBase } from "../../types";
 import { NormalizedTableFilterModel } from "../../filtering/internalTypes";

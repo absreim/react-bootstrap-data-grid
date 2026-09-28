@@ -4,8 +4,7 @@ import {
   MainComponentSharedProps,
   PaginationModel,
   SelectModel,
-  SortModel,
-  StyleModel
+  StyleModel,
 } from "../common";
 
 /**
@@ -27,12 +26,6 @@ export interface TableSpecificProps {
    * the pagination feature of the component.
    */
   pagination?: PaginationModel;
-
-  /**
-   * The sort model of the table. Passing a truthy value enables the
-   * sorting feature of the component.
-   */
-  sortModel?: SortModel;
 
   /**
    * The filter model of the table. Passing a truthy value enables the

@@ -1,4 +1,9 @@
-import { CellData, ColDef, FormattedRow, MainComponentSharedProps } from "../../common";
+import {
+  CellData,
+  ColDef,
+  FormattedRow,
+  MainComponentSharedProps,
+} from "../../common";
 
 /**
  * The type of the function used to specify color variants on a grid body on a
@@ -7,8 +12,8 @@ import { CellData, ColDef, FormattedRow, MainComponentSharedProps } from "../../
  * @param cell - details the current cell
  * @param row - details of the entire row that the current cell is in
  * @param colIndex - zero-based column index of the current cell
- * @param displayIndex - the zero-based index of the row that the cell is in. The
- * index is based on how the cell is actually displayed, after pagination,
+ * @param displayIndex - the zero-based index of the row that the cell is in.
+ * The index is based on how the cell is actually displayed after pagination,
  * filtering, and sorting are applied.
  *
  * @returns - a string that is name of the color variant or null for no color
@@ -55,11 +60,15 @@ export type GridProps = MainComponentSharedProps & GridSpecificProps;
 export interface GridSpecificProps {
   /**
    * The height setting of the grid
+   *
+   * @defaultValue `auto`
    */
   height?: GridHeightSetting;
 
   /**
    * The width setting of the grid
+   *
+   * @defaultValue `auto`
    */
   width?: GridWidthSetting;
 
@@ -134,12 +143,20 @@ export interface GridSpecificProps {
 /**
  * The type of the prop to set grid height behavior
  *
+ * - number: fixed height of grid in pixels
+ * - `auto`: takes on the intrinsic height of the contents
+ * - `parent`: takes on 100% of the parent height
+ *
  * @public
  */
 export type GridHeightSetting = number | "auto" | "parent";
 
 /**
  * The type of the prop to set grid width behavior
+ *
+ * - number: fixed width of grid in pixels
+ * - `auto`: takes on the intrinsic width of the contents
+ * - `parent`: takes on 100% of the parent width
  *
  * @public
  */

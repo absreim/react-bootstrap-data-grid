@@ -7,7 +7,7 @@ import {
   EditableColFilterState,
   NumberFilterScheme,
   NumberFilterState,
-  StringFilterState
+  StringFilterState,
 } from "./types";
 
 /**

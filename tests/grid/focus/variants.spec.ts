@@ -28,18 +28,25 @@ test.beforeEach(async ({ page }) => {
   await focusVariantsSwitch.click();
 });
 
-const verifyElementShadow: (locator: Locator, shadowCss: string) => Promise<void> = async (locator, shadowCss) => {
+const verifyElementShadow: (
+  locator: Locator,
+  shadowCss: string,
+) => Promise<void> = async (locator, shadowCss) => {
   await locator.click();
   await expect(locator).toBeFocused();
   await expect(locator).toHaveCSS("box-shadow", shadowCss);
-}
+};
 
-const verifyHeaderShadow: (page: Page, cellText: string, shadowCss: string) => Promise<void> = async (page, cellText, shadowCss) => {
+const verifyHeaderShadow: (
+  page: Page,
+  cellText: string,
+  shadowCss: string,
+) => Promise<void> = async (page, cellText, shadowCss) => {
   const headerCell = page.getByRole("columnheader", {
     name: cellText,
   });
   await verifyElementShadow(headerCell, shadowCss);
-}
+};
 
 test("Header focus variants work correctly", async ({ page }) => {
   await verifyHeaderShadow(page, "String Column", warningShadow);
@@ -49,7 +56,9 @@ test("Header focus variants work correctly", async ({ page }) => {
 });
 
 test("Body cell variants work correctly", async ({ page }) => {
-  const firstColBodyCells = await page.getByRole("gridcell", { name: /row string$/ }).all();
+  const firstColBodyCells = await page
+    .getByRole("gridcell", { name: /row string$/ })
+    .all();
   expect(firstColBodyCells).toHaveLength(10);
   for (const cell of firstColBodyCells) {
     await verifyElementShadow(cell, secondaryShadow);
@@ -79,11 +88,9 @@ test.describe("Test hover styles", () => {
       name: "Hover Styles",
     });
     await hoverStyleToggle.check();
-  })
+  });
 
-  test("Works correctly with column stripes", async ({
-    page,
-  }) => {
+  test("Works correctly with column stripes", async ({ page }) => {
     const stripesFieldset = page.getByRole("group", { name: "Stripe Setting" });
     const option = stripesFieldset.getByRole("radio", { name: "columns" });
     await option.check();

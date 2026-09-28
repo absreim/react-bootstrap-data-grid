@@ -187,9 +187,10 @@ const checkDragBtnsEnablement: (
 
 test("drag buttons are disabled if sorting is occurring", async ({ page }) => {
   const unsortedStrColHeader = page.getByRole("columnheader", {
-    name: "String Column(not being sorted)",
+    name: "String Column",
     exact: true,
   });
+  await expect(unsortedStrColHeader).toHaveAttribute("aria-sort", "none");
   await unsortedStrColHeader.click();
 
   await checkDragBtnsEnablement(page, false);
