@@ -244,7 +244,6 @@ like the Bootstrap table does. In this case, the grid div itself is horizontally
 responsive Bootstrap tables, it is a div that encloses the table element that is scrollable.
 */
 
-// TODO: use the grid's hover styles to style this kind of button as well
 .rbdg-grid-header-button {
   appearance: none;
   background: transparent;
@@ -259,4 +258,21 @@ responsive Bootstrap tables, it is a div that encloses the table element that is
   overflow: inherit;
   text-overflow: inherit;
   white-space: inherit;
+
+  .rbdg-grid-header-button-hover-only-icon {
+    visibility: hidden;
+  }
+
+  &:hover {
+    color: var(--#{$rbdg-prefix}grid-hover-color);
+    background: var(--#{$rbdg-prefix}grid-hover-bg);
+
+    .rbdg-grid-header-button-hover-only-icon {
+      visibility: visible;
+    }
+  }
+}
+
+.rbdg-grid-header-button-icon {
+  height: 1em;
 }
