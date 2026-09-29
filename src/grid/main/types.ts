@@ -55,11 +55,15 @@ export type GridProps = MainComponentSharedProps & GridSpecificProps;
 export interface GridSpecificProps {
   /**
    * The height setting of the grid
+   *
+   * @defaultValue `auto`
    */
   height?: GridHeightSetting;
 
   /**
    * The width setting of the grid
+   *
+   * @defaultValue `auto`
    */
   width?: GridWidthSetting;
 
@@ -134,12 +138,20 @@ export interface GridSpecificProps {
 /**
  * The type of the prop to set grid height behavior
  *
+ * - number: fixed height of grid in pixels
+ * - `auto`: takes on the intrinsic height of the contents
+ * - `parent`: takes on 100% of the parent height
+ *
  * @public
  */
 export type GridHeightSetting = number | "auto" | "parent";
 
 /**
  * The type of the prop to set grid width behavior
+ *
+ * - number: fixed width of grid in pixels
+ * - `auto`: takes on the intrinsic width of the contents
+ * - `parent`: takes on 100% of the parent width
  *
  * @public
  */
