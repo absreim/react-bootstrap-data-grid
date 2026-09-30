@@ -33,8 +33,20 @@ const HeaderToggleButton: FC<HeaderToggleButtonProps> = ({
     }
   }
 
+  function getAriaLabelSuffix(): string {
+    switch (sortOrder) {
+      case "asc":
+        return "(Sorted ascending. Click to sort descending.)";
+      case "desc":
+        return "(Sorted descending. Click to stop sorting.)";
+      default:
+        return "(Not sorted. Click to sort ascending.)";
+    }
+  }
+
   return (
     <button
+      aria-label={colLabel + " " + getAriaLabelSuffix()}
       onClick={onClick}
       className={classNames("rbdg-grid-header-button", className)}
       tabIndex={tabIndex}
