@@ -4,6 +4,7 @@ import classNames from "classnames";
 import { CSS_PREFIX, DEFAULT_COL_WIDTH } from "../../common/constants";
 import { GRID_HEADER_DATA_TEST_ID } from "../constants";
 import { GridHeaderProps } from "./internalTypes";
+import HeaderToggleButton from "../sort/HeaderToggleButton";
 
 const GridHeader: FC<GridHeaderProps> = ({
   cols,
@@ -11,8 +12,31 @@ const GridHeader: FC<GridHeaderProps> = ({
   rowVariant,
   cellVariant,
   focusColIndex,
-  cellFocusVariant
+  cellFocusVariant,
+  sortInfo,
 }) => {
+  const { sortingEnabled, sortColDef, setSortColDef } = sortInfo;
+  const getSortButtonListener: (colName: string) => () => void =
+    (colName) => () => {
+      if (sortColDef?.name !== colName) {
+        setSortColDef!({
+          name: colName,
+          order: "asc",
+        });
+        return;
+      }
+
+      if (sortColDef.order === "asc") {
+        setSortColDef!({
+          name: colName,
+          order: "desc",
+        });
+        return;
+      }
+
+      setSortColDef!(null);
+    };
+
   return (
     <div
       data-testid={GRID_HEADER_DATA_TEST_ID}
@@ -34,7 +58,8 @@ const GridHeader: FC<GridHeaderProps> = ({
           const ariaColIndex = index + 1;
           const isFocused = focusColIndex === ariaColIndex;
           const cellVariantVal = cellVariant && cellVariant(col, index);
-          const cellFocusVariantVal = cellFocusVariant && cellFocusVariant(col, index);
+          const cellFocusVariantVal =
+            cellFocusVariant && cellFocusVariant(col, index);
 
           return (
             <div
@@ -44,14 +69,28 @@ const GridHeader: FC<GridHeaderProps> = ({
                 "fw-bold",
                 cellVariantVal && `${CSS_PREFIX}-${cellVariantVal}`,
                 cellFocusVariantVal && `focus-ring-${cellFocusVariantVal}`,
-                { "z-2": isFocused, "rbdg-focusable-cell": isFocused },
+                {
+                  "z-2": isFocused,
+                  "rbdg-focusable-cell": isFocused,
+                  "rbdg-sortable-header-cell": col.sortable && sortingEnabled,
+                },
               )}
               role="columnheader"
               key={col.name}
               aria-colindex={ariaColIndex}
               style={getWidthStyles(col.width || DEFAULT_COL_WIDTH)}
             >
-              {col.label}
+              {col.sortable && sortingEnabled ? (
+                <HeaderToggleButton
+                  colLabel={col.label}
+                  sortOrder={
+                    sortColDef?.name === col.name ? sortColDef.order : null
+                  }
+                  onClick={getSortButtonListener(col.name)}
+                />
+              ) : (
+                col.label
+              )}
             </div>
           );
         })}

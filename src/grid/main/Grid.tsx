@@ -43,7 +43,7 @@ const Grid: FC<GridProps> = ({
   headerCellFocusVariant,
   bodyCellFocusVariant,
 }) => {
-  const { displayRows, filteredRows } = useCombinedPipeline({
+  const { displayRows, filteredRows, sortedRowsOutput } = useCombinedPipeline({
     rows,
     cols,
     sortModel,
@@ -144,6 +144,7 @@ const Grid: FC<GridProps> = ({
             : null
         }
         cellFocusVariant={headerCellFocusVariant}
+        sortInfo={sortedRowsOutput}
       />
       <GridBody
         focusCoords={effectiveCoords}

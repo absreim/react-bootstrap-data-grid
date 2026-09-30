@@ -25,10 +25,10 @@ const HeaderToggleButton: FC<HeaderToggleButtonProps> = ({ colLabel, sortOrder, 
 
   return (
     <button onClick={onClick} className="rbdg-grid-header-button">
-      {colLabel}
+      <span className="rbdg-grid-header-button-label">{colLabel}</span>
       {getIcon()}
     </button>
-  )
+  );
 }
 
 export default HeaderToggleButton;

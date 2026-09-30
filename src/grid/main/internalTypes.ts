@@ -1,6 +1,7 @@
 import { AugFormattedRow } from "../../common/internalTypes";
 import { FocusCoordinates } from "../focus/types";
 import { GridProps } from "./types";
+import { SortedRowsOutput } from "../../common/pipeline/useCombinedPipeline/useSortedRows";
 
 /**
  * Props interface for the GridHeader component
@@ -14,6 +15,7 @@ export interface GridHeaderProps {
   cellVariant?: GridProps["headerCellVariant"];
   focusColIndex: number | null;
   cellFocusVariant?: GridProps["headerCellFocusVariant"];
+  sortInfo: Omit<SortedRowsOutput, "sortedRows">;
 }
 
 /**

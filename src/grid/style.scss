@@ -60,6 +60,10 @@ $rbdg-prefix: "rbdg-";
         );
       }
 
+      > div.rbdg-sortable-header-cell {
+        padding: 0;
+      }
+
       > div.rbdg-focusable-cell:focus {
         outline: 0;
         box-shadow: inset 0 0 0 9999px var(
@@ -245,19 +249,27 @@ responsive Bootstrap tables, it is a div that encloses the table element that is
 */
 
 .rbdg-grid-header-button {
+  display: flex;
+  align-items: center;
   appearance: none;
   background: transparent;
   border: none;
   margin: 0;
-  padding: 0;
-  display: block;
+  padding: $table-cell-padding-y $table-cell-padding-x;
   width: 100%;
   height: 100%;
   cursor: pointer;
   color: inherit;
-  overflow: inherit;
-  text-overflow: inherit;
-  white-space: inherit;
+  font-weight: inherit;
+  text-align: inherit;
+
+  .rbdg-grid-header-button-label {
+    overflow: hidden;
+    text-overflow: ellipsis;
+    white-space: nowrap;
+    min-width: 0;
+    flex-shrink: 1;
+  }
 
   .rbdg-grid-header-button-hover-only-icon {
     visibility: hidden;
@@ -275,4 +287,5 @@ responsive Bootstrap tables, it is a div that encloses the table element that is
 
 .rbdg-grid-header-button-icon {
   height: 1em;
+  flex-shrink: 0;
 }
