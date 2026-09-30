@@ -24,7 +24,8 @@ const useGridFocus: (
   gridRef: RefObject<HTMLDivElement | null>,
   numRows: number, // Number that includes the header row
   numCols: number,
-) => GridFocusOutput = (gridRef, numRows, numCols) => {
+  sortableColIndices: number[], // 1-based ARIA col index
+) => GridFocusOutput = (gridRef, numRows, numCols, sortableColIndices) => {
   const [coords, setCoords] = useState<FocusCoordinates>(startingCoordinates);
 
   // Even though row and col count can be gotten from attributes, it needs to
@@ -37,10 +38,21 @@ const useGridFocus: (
     [coords.ariaColIndex, coords.ariaRowIndex, numCols, numRows],
   );
 
+  const currentCellIsSortableHeader = useMemo(() => {
+    if (coords.ariaRowIndex !== 1) {
+      return false;
+    }
+
+    return sortableColIndices.includes(coords.ariaColIndex);
+  }, [coords.ariaColIndex, coords.ariaRowIndex, sortableColIndices]);
+
   const gridClickHandler: PointerEventHandler<HTMLDivElement> = useCallback(
     (event) => {
       let cursor = event.target as HTMLElement;
-      while (cursor !== event.currentTarget && !cursor.hasAttribute("aria-colindex")) {
+      while (
+        cursor !== event.currentTarget &&
+        !cursor.hasAttribute("aria-colindex")
+      ) {
         cursor = cursor.parentElement!;
       }
 
@@ -159,20 +171,29 @@ const useGridFocus: (
       return;
     }
 
+    const cellSelector = `:scope > div > div[aria-rowindex="${effectiveCoords.ariaRowIndex}"] > div[aria-colindex="${effectiveCoords.ariaColIndex}"]`;
+
     const elToFocus = gridRef.current.querySelector(
-      `:scope > div > div[aria-rowindex="${effectiveCoords.ariaRowIndex}"] > div[aria-colindex="${effectiveCoords.ariaColIndex}"]`,
+      currentCellIsSortableHeader
+        ? cellSelector + " .rbdg-grid-header-button"
+        : cellSelector,
     );
 
     if (elToFocus !== document.activeElement) {
       (elToFocus as HTMLElement).focus({ preventScroll: true });
     }
-  }, [effectiveCoords.ariaColIndex, effectiveCoords.ariaRowIndex, gridRef]);
+  }, [
+    effectiveCoords.ariaColIndex,
+    effectiveCoords.ariaRowIndex,
+    gridRef,
+    currentCellIsSortableHeader,
+  ]);
 
   return {
     effectiveCoords,
     gridClickHandler,
-    gridKeydownHandler
-  }
+    gridKeydownHandler,
+  };
 };
 
 export default useGridFocus;

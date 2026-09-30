@@ -11,6 +11,17 @@ $rbdg-prefix: "rbdg-";
   border-width: 0;
 }
 
+@mixin rbdg-focusable-element {
+  outline: 0;
+  box-shadow: inset 0 0 0 9999px var(
+    --#{$rbdg-prefix}grid-bg-state,
+    var(
+      --#{$rbdg-prefix}grid-bg-type,
+      var(--#{$rbdg-prefix}grid-accent-bg)
+    )
+  ), var(--#{$prefix}focus-ring-x, 0) var(--#{$prefix}focus-ring-y, 0) var(--#{$prefix}focus-ring-blur, 0) var(--#{$prefix}focus-ring-width) var(--#{$prefix}focus-ring-color);
+}
+
 // While these rules seem to work, the way that the three border modes, default; bordered; and borderless override each
 // other is quite hard to understand.
 // Consider refactoring so that each type mode, including default, has a separate class that contains rules for just
@@ -62,17 +73,11 @@ $rbdg-prefix: "rbdg-";
 
       > div.rbdg-sortable-header-cell {
         padding: 0;
+        overflow: visible;
       }
 
       > div.rbdg-focusable-cell:focus {
-        outline: 0;
-        box-shadow: inset 0 0 0 9999px var(
-          --#{$rbdg-prefix}grid-bg-state,
-          var(
-            --#{$rbdg-prefix}grid-bg-type,
-            var(--#{$rbdg-prefix}grid-accent-bg)
-          )
-        ), var(--#{$prefix}focus-ring-x, 0) var(--#{$prefix}focus-ring-y, 0) var(--#{$prefix}focus-ring-blur, 0) var(--#{$prefix}focus-ring-width) var(--#{$prefix}focus-ring-color);
+        @include rbdg-focusable-element;
       }
     }
   }
@@ -254,7 +259,6 @@ responsive Bootstrap tables, it is a div that encloses the table element that is
   appearance: none;
   background: transparent;
   border: none;
-  margin: 0;
   padding: $table-cell-padding-y $table-cell-padding-x;
   width: 100%;
   height: 100%;
@@ -282,6 +286,10 @@ responsive Bootstrap tables, it is a div that encloses the table element that is
     .rbdg-grid-header-button-hover-only-icon {
       visibility: visible;
     }
+  }
+
+  &:focus {
+    @include rbdg-focusable-element;
   }
 }
 

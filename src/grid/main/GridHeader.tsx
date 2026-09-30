@@ -60,10 +60,11 @@ const GridHeader: FC<GridHeaderProps> = ({
           const cellVariantVal = cellVariant && cellVariant(col, index);
           const cellFocusVariantVal =
             cellFocusVariant && cellFocusVariant(col, index);
+          const currentColSortingEnabled = sortingEnabled && col.sortable;
 
           return (
             <div
-              tabIndex={isFocused ? 0 : -1}
+              tabIndex={isFocused && !sortingEnabled ? 0 : -1}
               className={classNames(
                 "rbdg-grid-cell",
                 "fw-bold",
@@ -71,7 +72,7 @@ const GridHeader: FC<GridHeaderProps> = ({
                 cellFocusVariantVal && `focus-ring-${cellFocusVariantVal}`,
                 {
                   "z-2": isFocused,
-                  "rbdg-focusable-cell": isFocused,
+                  "rbdg-focusable-cell": isFocused && !currentColSortingEnabled,
                   "rbdg-sortable-header-cell": col.sortable && sortingEnabled,
                 },
               )}
@@ -82,6 +83,7 @@ const GridHeader: FC<GridHeaderProps> = ({
             >
               {col.sortable && sortingEnabled ? (
                 <HeaderToggleButton
+                  tabIndex={isFocused ? 0 : -1}
                   colLabel={col.label}
                   sortOrder={
                     sortColDef?.name === col.name ? sortColDef.order : null

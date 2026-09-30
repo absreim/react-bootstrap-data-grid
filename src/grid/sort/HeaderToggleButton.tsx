@@ -3,14 +3,23 @@ import { FC, MouseEventHandler, ReactNode } from "react";
 import CaretUp from "../../common/icons/CaretUp";
 import CaretDownFill from "../../common/icons/CaretDownFill";
 import CaretUpFill from "../../common/icons/CaretUpFill";
+import classNames from "classnames";
 
 export interface HeaderToggleButtonProps {
   colLabel: string;
   sortOrder: SortOrder | null;
-  onClick: MouseEventHandler<HTMLButtonElement>
+  onClick: MouseEventHandler<HTMLButtonElement>;
+  tabIndex: number;
+  className?: string;
 }
 
-const HeaderToggleButton: FC<HeaderToggleButtonProps> = ({ colLabel, sortOrder, onClick }) => {
+const HeaderToggleButton: FC<HeaderToggleButtonProps> = ({
+  colLabel,
+  sortOrder,
+  onClick,
+  tabIndex,
+  className
+}) => {
   function getIcon(): ReactNode {
     switch (sortOrder) {
       case "asc":
@@ -25,11 +34,15 @@ const HeaderToggleButton: FC<HeaderToggleButtonProps> = ({ colLabel, sortOrder, 
   }
 
   return (
-    <button onClick={onClick} className="rbdg-grid-header-button">
+    <button
+      onClick={onClick}
+      className={classNames("rbdg-grid-header-button", className)}
+      tabIndex={tabIndex}
+    >
       <span className="rbdg-grid-header-button-label">{colLabel}</span>
       {getIcon()}
     </button>
   );
-}
+};
 
 export default HeaderToggleButton;

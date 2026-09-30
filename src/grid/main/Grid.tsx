@@ -86,8 +86,13 @@ const Grid: FC<GridProps> = ({
 
   const vertScrollable = height !== undefined && height !== "auto";
   const gridRef = useRef<HTMLDivElement>(null);
+  const sortableColIndices = sortModel
+    ? cols
+        .map((_, index) => index + 1)
+        .filter((ariaColIndex) => cols[ariaColIndex - 1].sortable)
+    : [];
   const { effectiveCoords, gridClickHandler, gridKeydownHandler } =
-    useGridFocus(gridRef, rows.length + 1, cols.length);
+    useGridFocus(gridRef, rows.length + 1, cols.length, sortableColIndices);
 
   const onCopy: ClipboardEventHandler<HTMLDivElement> = useCallback((event) => {
     if (!gridRef.current?.contains(document.activeElement)) {
