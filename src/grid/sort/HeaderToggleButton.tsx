@@ -1,7 +1,8 @@
 import { SortOrder } from "../../common";
 import { FC, MouseEventHandler, ReactNode } from "react";
-import UpArrow from "../../common/sorting/UpArrow";
-import DownArrow from "../../common/sorting/DownArrow";
+import CaretUp from "../../common/icons/CaretUp";
+import CaretDownFill from "../../common/icons/CaretDownFill";
+import CaretUpFill from "../../common/icons/CaretUpFill";
 
 export interface HeaderToggleButtonProps {
   colLabel: string;
@@ -13,12 +14,12 @@ const HeaderToggleButton: FC<HeaderToggleButtonProps> = ({ colLabel, sortOrder, 
   function getIcon(): ReactNode {
     switch (sortOrder) {
       case "asc":
-        return <UpArrow className="rbdg-grid-header-button-icon" />;
+        return <CaretUpFill className="rbdg-grid-header-button-icon" />;
       case "desc":
-        return <DownArrow className="rbdg-grid-header-button-icon" />;
+        return <CaretDownFill className="rbdg-grid-header-button-icon" />;
       default:
         return (
-          <UpArrow className="rbdg-grid-header-button-icon rbdg-grid-header-button-hover-only-icon" />
+          <CaretUp className="rbdg-grid-header-button-icon rbdg-grid-header-button-hover-only-icon" />
         );
     }
   }
