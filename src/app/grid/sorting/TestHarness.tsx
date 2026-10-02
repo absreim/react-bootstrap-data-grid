@@ -7,7 +7,6 @@ import {
 import { FC, useMemo, useState } from "react";
 import Grid from "../../../grid";
 import Form from "react-bootstrap/Form";
-import transposeMatrix from "../../../test-tools/transposeMatrix";
 import { BasicTestRow } from "../../../test-tools/types";
 
 const sortedTestRows = generateBasicTestRows(5);
@@ -17,17 +16,15 @@ const newOrder: Record<keyof BasicTestRow, number[]> = {
   date: [2, 4, 0, 1, 3],
   datetime: [3, 2, 0, 4, 1],
 };
-const reorderedTestRows = transposeMatrix([
-  [4, 3, 2, 1, 0],
-  [0, 1, 2, 3, 4],
-  [2, 4, 0, 1, 3],
-  [3, 2, 0, 4, 1],
-]).map((row, destRowIndex) =>
-  row.map(
-    (sourceColIndex, destColIndex) =>
-      sortedTestRows[destRowIndex][sourceColIndex],
-  ),
-);
+const reorderedTestRows = new Array(5).fill(0).map((_, i) => ({
+  id: i,
+  data: {
+    strCol: sortedTestRows[newOrder.strCol[i]].data.strCol,
+    numCol: sortedTestRows[newOrder.numCol[i]].data.numCol,
+    date: sortedTestRows[newOrder.date[i]].data.date,
+    datetime: sortedTestRows[newOrder.datetime[i]].data.datetime,
+  },
+}));
 
 const TestHarness: FC = () => {
   const [sortingEnabled, setSortingEnabled] = useState(

@@ -65,7 +65,7 @@ const GridHeader: FC<GridHeaderProps> = ({
 
           return (
             <div
-              tabIndex={isFocused && !sortingEnabled ? 0 : -1}
+              tabIndex={isFocused && !currentColSortingEnabled ? 0 : -1}
               className={classNames(
                 "rbdg-grid-cell",
                 "fw-bold",
