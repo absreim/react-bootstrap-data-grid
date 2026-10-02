@@ -40,10 +40,11 @@ import { test, expect } from "@playwright/test";
           const strColHeaderCell = unsortedToSortedContainer.getByRole(
             "columnheader",
             {
-              name: "String Column(not being sorted)",
+              name: "String Column",
               exact: true,
             },
           );
+          await expect(strColHeaderCell).toHaveAttribute("aria-sort", "none");
           await strColHeaderCell.click();
 
           const firstRowCell = unsortedToSortedContainer.locator(
@@ -59,7 +60,7 @@ import { test, expect } from "@playwright/test";
           const sortedColHeaderCell = unsortedToSortedContainer.getByRole(
             "columnheader",
             {
-              name: "String Column(sorted ascending)",
+              name: "String Column",
               exact: true,
             },
           );
@@ -94,10 +95,8 @@ import { test, expect } from "@playwright/test";
             'tr[aria-rowindex="4"] > td[aria-colindex="1"]',
           );
 
-          // In Chrome, this name shows up as "String Column (sorted descending)",
-          // with the space before the left parenthesis
           await expect(strColHeaderCell).toHaveAccessibleName(
-            "String Column(sorted descending)",
+            "String Column",
           );
           await expect(strColHeaderCell).toHaveAttribute(
             "aria-sort",
