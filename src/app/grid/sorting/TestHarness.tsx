@@ -7,9 +7,27 @@ import {
 import { FC, useMemo, useState } from "react";
 import Grid from "../../../grid";
 import Form from "react-bootstrap/Form";
+import transposeMatrix from "../../../test-tools/transposeMatrix";
+import { BasicTestRow } from "../../../test-tools/types";
 
 const sortedTestRows = generateBasicTestRows(5);
-const reorderedTestRows = [2, 1, 4, 0, 3].map((index) => sortedTestRows[index]);
+const newOrder: Record<keyof BasicTestRow, number[]> = {
+  strCol: [4, 3, 2, 1, 0],
+  numCol: [0, 1, 2, 3, 4],
+  date: [2, 4, 0, 1, 3],
+  datetime: [3, 2, 0, 4, 1],
+};
+const reorderedTestRows = transposeMatrix([
+  [4, 3, 2, 1, 0],
+  [0, 1, 2, 3, 4],
+  [2, 4, 0, 1, 3],
+  [3, 2, 0, 4, 1],
+]).map((row, destRowIndex) =>
+  row.map(
+    (sourceColIndex, destColIndex) =>
+      sortedTestRows[destRowIndex][sourceColIndex],
+  ),
+);
 
 const TestHarness: FC = () => {
   const [sortingEnabled, setSortingEnabled] = useState(

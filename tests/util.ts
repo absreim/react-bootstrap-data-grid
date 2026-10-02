@@ -2,22 +2,24 @@ import { expect, Locator } from "@playwright/test";
 
 // Assumes that there are no duplicate values within a row
 export const validateGridContents: (
-  tbody: Locator,
+  bodyElem: Locator,
   contents: string[][],
   rowIndexOffset?: number,
   colIndexOffset?: number,
+  cellRole?: "cell" | "gridcell",
 ) => Promise<void> = async (
-  tbody,
+  bodyElem,
   contents,
   rowIndexOffset = 0,
   colIndexOffset = 0,
+  cellRole = "cell",
 ) => {
   for (let i = 0; i < contents.length; i++) {
-    const tr = tbody.locator(`tr[aria-rowindex="${rowIndexOffset + i + 2}"]`);
-    const row = contents[i];
-    for (let j = 0; j < row.length; j++) {
-      const value = row[j];
-      const td = tr.getByRole("cell", { name: value, exact: true });
+    const rowElem = bodyElem.locator(`[aria-rowindex="${rowIndexOffset + i + 2}"]`);
+    const expectedContentRow = contents[i];
+    for (let j = 0; j < expectedContentRow.length; j++) {
+      const value = expectedContentRow[j];
+      const td = rowElem.getByRole(cellRole, { name: value, exact: true });
       await expect(td).toHaveAttribute(
         "aria-colindex",
         String(j + 1 + colIndexOffset),
