@@ -449,7 +449,7 @@
         {
           "kind": "TypeAlias",
           "canonicalReference": "@absreim/react-bootstrap-data-grid!AugRowDef:type",
-          "docComment": "/**\n * {@link RowDef} object that additionally contains the index of the row in the original array.\n *\n * @typeParam Data - type of the data property of the RowDef object\n *\n * @public\n */\n",
+          "docComment": "/**\n * {@link RowDef} object that additionally contains the index of the row in the original array.\n *\n * @typeParam Data - type of the data property of the {@link RowDef} object\n *\n * @public\n */\n",
           "excerptTokens": [
             {
               "kind": "Content",
@@ -707,7 +707,7 @@
         {
           "kind": "TypeAlias",
           "canonicalReference": "@absreim/react-bootstrap-data-grid!BodyCellVariantFn:type",
-          "docComment": "/**\n * The type of the function used to specify color variants on a grid body on a per-cell level of granularity.\n *\n * @param cell - details the current cell\n *\n * @param row - details of the entire row that the current cell is in\n *\n * @param colIndex - zero-based column index of the current cell\n *\n * @param displayIndex - the zero-based index of the row that the cell is in. The index is based on how the cell is actually displayed, after pagination, filtering, and sorting are applied.\n *\n * @returns - a string that is name of the color variant or null for no color variant\n *\n * @public\n */\n",
+          "docComment": "/**\n * The type of the function used to specify color variants on a grid body on a per-cell level of granularity.\n *\n * @param cell - details the current cell\n *\n * @param row - details of the entire row that the current cell is in\n *\n * @param colIndex - zero-based column index of the current cell\n *\n * @param displayIndex - the zero-based index of the row that the cell is in. The index is based on how the cell is actually displayed after pagination, filtering, and sorting are applied.\n *\n * @returns - a string that is name of the color variant or null for no color variant\n *\n * @public\n */\n",
           "excerptTokens": [
             {
               "kind": "Content",
@@ -2868,7 +2868,7 @@
         {
           "kind": "TypeAlias",
           "canonicalReference": "@absreim/react-bootstrap-data-grid!GridHeightSetting:type",
-          "docComment": "/**\n * The type of the prop to set grid height behavior\n *\n * @public\n */\n",
+          "docComment": "/**\n * The type of the prop to set grid height behavior\n *\n * - number: fixed height of grid in pixels - `auto`: takes on the intrinsic height of the contents - `parent`: takes on 100% of the parent height\n *\n * @public\n */\n",
           "excerptTokens": [
             {
               "kind": "Content",
@@ -3202,7 +3202,7 @@
             {
               "kind": "PropertySignature",
               "canonicalReference": "@absreim/react-bootstrap-data-grid!GridSpecificProps#height:member",
-              "docComment": "/**\n * The height setting of the grid\n */\n",
+              "docComment": "/**\n * The height setting of the grid\n *\n * @defaultValue `auto`\n */\n",
               "excerptTokens": [
                 {
                   "kind": "Content",
@@ -3339,7 +3339,7 @@
             {
               "kind": "PropertySignature",
               "canonicalReference": "@absreim/react-bootstrap-data-grid!GridSpecificProps#width:member",
-              "docComment": "/**\n * The width setting of the grid\n */\n",
+              "docComment": "/**\n * The width setting of the grid\n *\n * @defaultValue `auto`\n */\n",
               "excerptTokens": [
                 {
                   "kind": "Content",
@@ -3396,7 +3396,7 @@
         {
           "kind": "TypeAlias",
           "canonicalReference": "@absreim/react-bootstrap-data-grid!GridWidthSetting:type",
-          "docComment": "/**\n * The type of the prop to set grid width behavior\n *\n * @public\n */\n",
+          "docComment": "/**\n * The type of the prop to set grid width behavior\n *\n * - number: fixed width of grid in pixels - `auto`: takes on the intrinsic width of the contents - `parent`: takes on 100% of the parent width\n *\n * @public\n */\n",
           "excerptTokens": [
             {
               "kind": "Content",
@@ -3498,7 +3498,7 @@
             {
               "kind": "PropertySignature",
               "canonicalReference": "@absreim/react-bootstrap-data-grid!MainComponentSharedProps#cols:member",
-              "docComment": "/**\n * The column definitions of the table or grid\n */\n",
+              "docComment": "/**\n * The column definitions of the table or grid.\n */\n",
               "excerptTokens": [
                 {
                   "kind": "Content",
@@ -3530,7 +3530,7 @@
             {
               "kind": "PropertySignature",
               "canonicalReference": "@absreim/react-bootstrap-data-grid!MainComponentSharedProps#rows:member",
-              "docComment": "/**\n * The rows of data to be displayed by the table or grid\n */\n",
+              "docComment": "/**\n * The rows of data to be displayed by the table or grid.\n */\n",
               "excerptTokens": [
                 {
                   "kind": "Content",
@@ -3557,6 +3557,34 @@
               "propertyTypeTokenRange": {
                 "startIndex": 1,
                 "endIndex": 3
+              }
+            },
+            {
+              "kind": "PropertySignature",
+              "canonicalReference": "@absreim/react-bootstrap-data-grid!MainComponentSharedProps#sortModel:member",
+              "docComment": "/**\n * The sort model of the table or grid. Passing a truthy value enables the sorting feature of the component.\n */\n",
+              "excerptTokens": [
+                {
+                  "kind": "Content",
+                  "text": "sortModel?: "
+                },
+                {
+                  "kind": "Reference",
+                  "text": "SortModel",
+                  "canonicalReference": "@absreim/react-bootstrap-data-grid!SortModel:type"
+                },
+                {
+                  "kind": "Content",
+                  "text": ";"
+                }
+              ],
+              "isReadonly": false,
+              "isOptional": true,
+              "releaseTag": "Public",
+              "name": "sortModel",
+              "propertyTypeTokenRange": {
+                "startIndex": 1,
+                "endIndex": 2
               }
             }
           ],
@@ -6037,34 +6065,6 @@
               "isOptional": true,
               "releaseTag": "Public",
               "name": "selectModel",
-              "propertyTypeTokenRange": {
-                "startIndex": 1,
-                "endIndex": 2
-              }
-            },
-            {
-              "kind": "PropertySignature",
-              "canonicalReference": "@absreim/react-bootstrap-data-grid!TableSpecificProps#sortModel:member",
-              "docComment": "/**\n * The sort model of the table. Passing a truthy value enables the sorting feature of the component.\n */\n",
-              "excerptTokens": [
-                {
-                  "kind": "Content",
-                  "text": "sortModel?: "
-                },
-                {
-                  "kind": "Reference",
-                  "text": "SortModel",
-                  "canonicalReference": "@absreim/react-bootstrap-data-grid!SortModel:type"
-                },
-                {
-                  "kind": "Content",
-                  "text": ";"
-                }
-              ],
-              "isReadonly": false,
-              "isOptional": true,
-              "releaseTag": "Public",
-              "name": "sortModel",
               "propertyTypeTokenRange": {
                 "startIndex": 1,
                 "endIndex": 2
