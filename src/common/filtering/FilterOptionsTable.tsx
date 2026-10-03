@@ -1,10 +1,6 @@
 import { FC, ReactNode, SubmitEventHandler, useState } from "react";
 import StringFilterRow from "./StringFilterRow";
-import {
-  EditableFilterState,
-
-
-} from "./types";
+import { EditableFilterState } from "./types";
 import NumberFilterRow from "./NumberFilterRow";
 import useFilterFormState from "./useFilterFormState";
 import DateFilterRow from "./DateFilterRow";

@@ -23,8 +23,7 @@ export type ColDataTypeStrings = "string" | "number" | "date" | "datetime";
  *
  * @public
  */
-export interface  ColDefBase<ValueType = any> {
-
+export interface ColDefBase<ValueType = any> {
   /**
    * String that specifies the data type of the column.
    */

@@ -87,7 +87,9 @@ test("Vertical navigation works", async ({ page }) => {
   await expect(ninthDateCell).toBeFocused();
 });
 
-test("Tabbing away and back goes causes previous cell to be focused", async ({ page }) => {
+test("Tabbing away and back goes causes previous cell to be focused", async ({
+  page,
+}) => {
   const fifthDatetimeCell = page.getByRole("gridcell", {
     name: "2026-05-05T05:05",
   });
@@ -96,7 +98,7 @@ test("Tabbing away and back goes causes previous cell to be focused", async ({ p
 
   await page.keyboard.press("ArrowLeft");
   const fifthDateCell = page.getByRole("gridcell", {
-    name: "1777939200000"
+    name: "1777939200000",
   });
   await expect(fifthDateCell).toBeFocused();
 
@@ -112,11 +114,14 @@ test("Tabbing away and back goes causes previous cell to be focused", async ({ p
   });
   await expect(headerRowDropdown).toBeFocused();
 
-  await page.keyboard.press("Tab")
+  await page.keyboard.press("Tab");
   await expect(fifthDateCell).toBeFocused();
 });
 
-const testKeyboardCopy: (page: Page, str: string) => Promise<void> = async (page, str) => {
+const testKeyboardCopy: (page: Page, str: string) => Promise<void> = async (
+  page,
+  str,
+) => {
   await page.keyboard.press("ControlOrMeta+C");
 
   const handle = await page.evaluateHandle(() =>
@@ -124,10 +129,17 @@ const testKeyboardCopy: (page: Page, str: string) => Promise<void> = async (page
   );
   const clipboardContent = await handle.jsonValue();
   expect(clipboardContent).toEqual(str);
-}
+};
 
-test("Clipboard copy works correctly", async ({ page, context, browserName }) => {
-  test.skip(browserName !== "chromium", "Test does not work on Firefox and is platform-dependent on Webkit");
+test("Clipboard copy works correctly", async ({
+  page,
+  context,
+  browserName,
+}) => {
+  test.skip(
+    browserName !== "chromium",
+    "Test does not work on Firefox and is platform-dependent on Webkit",
+  );
   await context.grantPermissions(["clipboard-read"]);
 
   const fifthDatetimeCell = page.getByRole("gridcell", {
@@ -137,7 +149,9 @@ test("Clipboard copy works correctly", async ({ page, context, browserName }) =>
   await expect(fifthDatetimeCell).toBeFocused();
   await testKeyboardCopy(page, "2026-05-05T05:05");
 
-  const numHeaderCell = page.getByRole("columnheader", { name: "Number Column" });
+  const numHeaderCell = page.getByRole("columnheader", {
+    name: "Number Column",
+  });
   await numHeaderCell.click();
   await expect(numHeaderCell).toBeFocused();
   await testKeyboardCopy(page, "Number Column");
@@ -153,7 +167,9 @@ test("Home and end keys work correctly", async ({ page }) => {
   await expect(strColHeaderCell).toBeFocused();
 
   await page.keyboard.press("End");
-  const datetimeHeaderCell = page.getByRole("columnheader", { name: "Datetime Column" });
+  const datetimeHeaderCell = page.getByRole("columnheader", {
+    name: "Datetime Column",
+  });
   await expect(datetimeHeaderCell).toBeFocused();
 
   await page.keyboard.press("ControlOrMeta+End");

@@ -95,9 +95,7 @@ import { test, expect } from "@playwright/test";
             'tr[aria-rowindex="4"] > td[aria-colindex="1"]',
           );
 
-          await expect(strColHeaderCell).toHaveAccessibleName(
-            "String Column",
-          );
+          await expect(strColHeaderCell).toHaveAccessibleName("String Column");
           await expect(strColHeaderCell).toHaveAttribute(
             "aria-sort",
             "descending",

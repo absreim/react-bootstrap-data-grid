@@ -13,13 +13,15 @@ $rbdg-prefix: "rbdg-";
 
 @mixin rbdg-focusable-element {
   outline: 0;
-  box-shadow: inset 0 0 0 9999px var(
-    --#{$rbdg-prefix}grid-bg-state,
-    var(
-      --#{$rbdg-prefix}grid-bg-type,
-      var(--#{$rbdg-prefix}grid-accent-bg)
-    )
-  ), var(--#{$prefix}focus-ring-x, 0) var(--#{$prefix}focus-ring-y, 0) var(--#{$prefix}focus-ring-blur, 0) var(--#{$prefix}focus-ring-width) var(--#{$prefix}focus-ring-color);
+  box-shadow:
+    inset 0 0 0 9999px
+      var(
+        --#{$rbdg-prefix}grid-bg-state,
+        var(--#{$rbdg-prefix}grid-bg-type, var(--#{$rbdg-prefix}grid-accent-bg))
+      ),
+    var(--#{$prefix}focus-ring-x, 0) var(--#{$prefix}focus-ring-y, 0)
+      var(--#{$prefix}focus-ring-blur, 0) var(--#{$prefix}focus-ring-width)
+      var(--#{$prefix}focus-ring-color);
 }
 
 // While these rules seem to work, the way that the three border modes, default; bordered; and borderless override each
@@ -58,17 +60,21 @@ $rbdg-prefix: "rbdg-";
         padding: $table-cell-padding-y $table-cell-padding-x;
         color: var(
           --#{$rbdg-prefix}grid-color-state,
-          var(--#{$rbdg-prefix}grid-color-type, var(--#{$rbdg-prefix}grid-color))
+          var(
+            --#{$rbdg-prefix}grid-color-type,
+            var(--#{$rbdg-prefix}grid-color)
+          )
         );
         background-color: var(--#{$rbdg-prefix}grid-bg);
         border-bottom-width: $table-border-width;
-        box-shadow: inset 0 0 0 9999px var(
-          --#{$rbdg-prefix}grid-bg-state,
+        box-shadow: inset 0 0 0 9999px
           var(
-            --#{$rbdg-prefix}grid-bg-type,
-            var(--#{$rbdg-prefix}grid-accent-bg)
-          )
-        );
+            --#{$rbdg-prefix}grid-bg-state,
+            var(
+              --#{$rbdg-prefix}grid-bg-type,
+              var(--#{$rbdg-prefix}grid-accent-bg)
+            )
+          );
       }
 
       > div.rbdg-sortable-header-cell {

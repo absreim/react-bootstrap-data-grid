@@ -15,7 +15,9 @@ export const validateGridContents: (
   cellRole = "cell",
 ) => {
   for (let i = 0; i < contents.length; i++) {
-    const rowElem = bodyElem.locator(`[aria-rowindex="${rowIndexOffset + i + 2}"]`);
+    const rowElem = bodyElem.locator(
+      `[aria-rowindex="${rowIndexOffset + i + 2}"]`,
+    );
     const expectedContentRow = contents[i];
     for (let j = 0; j < expectedContentRow.length; j++) {
       const value = expectedContentRow[j];

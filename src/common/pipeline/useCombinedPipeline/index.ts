@@ -6,12 +6,11 @@ import useCurrentPageRows, {
   CurrentPageRowsOutput,
 } from "./useCurrentPageRows";
 import useDisplayRows from "./useDisplayRows";
-import { NormalizedTableFilterModel, FilterState } from "../../filtering/internalTypes";
 import {
-  ColDefBase,
-  FormattedRow,
-  RowDef,
-} from "../../types";
+  NormalizedTableFilterModel,
+  FilterState,
+} from "../../filtering/internalTypes";
+import { ColDefBase, FormattedRow, RowDef } from "../../types";
 import { TableProps } from "../../../table";
 
 export type CombinedPipelineParams = Pick<

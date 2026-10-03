@@ -4,8 +4,7 @@ import {
   MainComponentSharedProps,
   PaginationModel,
   SelectModel,
-  SortModel,
-  StyleModel
+  StyleModel,
 } from "../common";
 
 /**

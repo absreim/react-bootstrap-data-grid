@@ -10,9 +10,7 @@ const keyboardTabToGrid: (page: Page) => Promise<void> = async (page) => {
     await page.keyboard.press("Shift+Tab");
     tabCount++;
   } while (
-    (await page.evaluate(
-      () => document.activeElement?.tagName !== "BUTTON",
-    )) &&
+    (await page.evaluate(() => document.activeElement?.tagName !== "BUTTON")) &&
     tabCount < 2
   );
 
@@ -22,7 +20,9 @@ const keyboardTabToGrid: (page: Page) => Promise<void> = async (page) => {
   await expect(strColHeaderCellButton).toBeFocused();
 };
 
-test("keyboard focus navigation from a header cell button works", async ({ page }) => {
+test("keyboard focus navigation from a header cell button works", async ({
+  page,
+}) => {
   await keyboardTabToGrid(page);
 
   await page.keyboard.press("ArrowDown");
@@ -45,7 +45,9 @@ test("keyboard focus navigation from a header cell button works", async ({ page 
   await expect(strColHeaderCellButton).toBeFocused();
 });
 
-test("Clicking on a header cell button focuses on the button", async ({ page }) => {
+test("Clicking on a header cell button focuses on the button", async ({
+  page,
+}) => {
   const dateColHeaderCellButton = page.getByRole("button", {
     name: "Date Column",
   });
@@ -54,8 +56,12 @@ test("Clicking on a header cell button focuses on the button", async ({ page }) 
   await expect(dateColHeaderCellButton).toBeFocused();
 });
 
-test("Toggling sortability of a column causes the tabindex to toggle between the button and cell properly", async ({ page }) => {
-  const datetimeColHeaderCellButton = page.getByRole("button", {name:"Datetime Column"});
+test("Toggling sortability of a column causes the tabindex to toggle between the button and cell properly", async ({
+  page,
+}) => {
+  const datetimeColHeaderCellButton = page.getByRole("button", {
+    name: "Datetime Column",
+  });
   await datetimeColHeaderCellButton.click();
   await expect(datetimeColHeaderCellButton).toBeFocused();
 

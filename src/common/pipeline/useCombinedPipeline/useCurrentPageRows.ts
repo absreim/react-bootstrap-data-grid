@@ -1,7 +1,5 @@
 import { useMemo, useState } from "react";
-import {
-  PaginationModel,
-} from "../../pagination/types";
+import { PaginationModel } from "../../pagination/types";
 import { AugRowDef, PostPaginationRowDef } from "../../";
 import { DEFAULT_MAX_PAGE_BUTTONS, DEFAULT_PAGE_SIZES } from "../../constants";
 import { NormalizedPaginationModel } from "../../pagination/internalTypes";
@@ -49,7 +47,8 @@ const useCurrentPageRows: (
       };
     }
 
-    const pageSizeOptions = paginationModel?.pageSizeOptions || DEFAULT_PAGE_SIZES;
+    const pageSizeOptions =
+      paginationModel?.pageSizeOptions || DEFAULT_PAGE_SIZES;
     const normalizedModel: NormalizedPaginationModel = {
       pageSizeIndex,
       setPageSizeIndex: setPageSizeIndex!,

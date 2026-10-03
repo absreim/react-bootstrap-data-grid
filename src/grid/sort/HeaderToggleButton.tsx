@@ -18,7 +18,7 @@ const HeaderToggleButton: FC<HeaderToggleButtonProps> = ({
   sortOrder,
   onClick,
   tabIndex,
-  className
+  className,
 }) => {
   function getIcon(): ReactNode {
     switch (sortOrder) {

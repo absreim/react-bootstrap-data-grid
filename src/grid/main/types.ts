@@ -1,4 +1,9 @@
-import { CellData, ColDef, FormattedRow, MainComponentSharedProps } from "../../common";
+import {
+  CellData,
+  ColDef,
+  FormattedRow,
+  MainComponentSharedProps,
+} from "../../common";
 
 /**
  * The type of the function used to specify color variants on a grid body on a

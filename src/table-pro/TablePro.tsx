@@ -1,10 +1,7 @@
 "use client";
 
 import { FC, useCallback, useEffect, useMemo } from "react";
-import {
-  FormattedRow,
-  RowId,
-} from "./";
+import { FormattedRow, RowId } from "./";
 import { ColSortModel } from "../common/sorting/internalTypes";
 import { AugFormattedRow } from "../common/internalTypes";
 import { FilterState } from "../common/filtering/internalTypes";
