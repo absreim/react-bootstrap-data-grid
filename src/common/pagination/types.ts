@@ -29,7 +29,7 @@ export interface PaginationOptions {
   /**
    * An array of page sizes that can be selected by the user.
    *
-   * @defaultValue [10, 25, 100]
+   * @defaultValue `[10, 25, 100]`
    */
   pageSizeOptions?: number[];
 
@@ -37,7 +37,7 @@ export interface PaginationOptions {
    * Maximum number of buttons pointing to numerically-indexed pages that can
    * be displayed at once.
    *
-   * @defaultValue 5
+   * @defaultValue `5`
    */
   maxPageButtons?: number;
 
@@ -45,7 +45,7 @@ export interface PaginationOptions {
    * The size of the pagination component. Set via CSS classes provided with
    * Bootstrap.
    *
-   * @defaultValue "medium" - corresponds to not specifying a CSS class for
+   * @defaultValue `"medium"` - corresponds to not specifying a CSS class for
    * pagination component size
    */
   componentSize?: Size;
@@ -54,7 +54,7 @@ export interface PaginationOptions {
    * The ARIA label for the nav element that represents the pagination
    * component.
    *
-   * @defaultValue undefined - no ARIA label
+   * @defaultValue `undefined` - no ARIA label
    */
   pageSelectorAriaLabel?: string;
 
@@ -62,7 +62,7 @@ export interface PaginationOptions {
    * Justify-content CSS property for the ul element of the pagination
    * component.
    *
-   * @defaultValue undefined - no justify-content property is specified, which
+   * @defaultValue `undefined` - no justify-content property is specified, which
    * acts like "start" based on CSS standards. See
    * {@link https://developer.mozilla.org/en-US/docs/Web/CSS/Reference/Properties/justify-content#syntax}.
    */

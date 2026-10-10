@@ -66,7 +66,7 @@ export interface CommunitySpecificColProps {
    * For the table, if no value is specified, then no value for min-width
    * or max-width will be set.
    *
-   * @defaultValue - 100 for the grid, undefined for the table
+   * @defaultValue - `100` for the grid, `undefined` for the table
    */
   width?: number;
 }

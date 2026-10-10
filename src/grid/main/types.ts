@@ -61,14 +61,14 @@ export interface GridSpecificProps {
   /**
    * The height setting of the grid
    *
-   * @defaultValue `auto`
+   * @defaultValue `"auto"`
    */
   height?: GridHeightSetting;
 
   /**
    * The width setting of the grid
    *
-   * @defaultValue `auto`
+   * @defaultValue `"auto"`
    */
   width?: GridWidthSetting;
 

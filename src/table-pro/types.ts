@@ -10,21 +10,21 @@ export interface ProColDefSpecificFields {
   /**
    * Configures whether the column is resizable.
    *
-   * @defaultValue false
+   * @defaultValue `false`
    */
   resizeable?: boolean;
   /**
    * Configures the width of the column. The value can be a number in pixels or
    * a state setter/getter object of type {@link WidthModel}.
    *
-   * @defaultValue 100
+   * @defaultValue `100`
    */
   width?: ColDef["width"] | WidthModel;
   /**
    * When the column is resizable, configures the minimum width to which the
    * column can be resized.
    *
-   * @defaultValue 64 if the column is sortable, 32 if not
+   * @defaultValue `64` if the column is sortable, `32` if not
    */
   minResizeWidth?: number;
   /**
@@ -38,7 +38,7 @@ export interface ProColDefSpecificFields {
    * Configures the number of pixels to change the width per keypress when
    * resizing.
    *
-   * @defaultValue 10
+   * @defaultValue `10`
    */
   keyboardResizeStep?: number;
 }
