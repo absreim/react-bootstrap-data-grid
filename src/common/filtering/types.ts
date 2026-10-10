@@ -254,7 +254,7 @@ export interface ControlledFilterModel {
   /**
    * Caption for the filter settings table element.
    *
-   * @defaultValue undefined - no caption will be displayed
+   * @defaultValue `undefined` - no caption will be displayed
    */
   filterTableCaption?: string;
 }

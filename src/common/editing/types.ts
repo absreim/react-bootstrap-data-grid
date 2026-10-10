@@ -33,7 +33,7 @@ export interface EditModel {
    * for editing a row. In particular, the min-width and max-width CSS
    * properties will be set.
    *
-   * @defaultValue undefined - no CSS will be specified
+   * @defaultValue `undefined` - no CSS will be specified
    */
   editColWidth?: number;
 }
