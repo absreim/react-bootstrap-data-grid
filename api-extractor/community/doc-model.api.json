@@ -554,7 +554,7 @@
             {
               "kind": "PropertySignature",
               "canonicalReference": "@absreim/react-bootstrap-data-grid!BaseSelectModel#selectColWidth:member",
-              "docComment": "/**\n * The width of the select column. Set via CSS min-width and max-width properties. The column is only shown if mode is set to \"column\".\n *\n * @defaultValue undefined - no CSS properties will be set\n */\n",
+              "docComment": "/**\n * The width of the select column. Set via CSS min-width and max-width properties. The column is only shown if mode is set to \"column\".\n *\n * @defaultValue `undefined` - no CSS properties will be set\n */\n",
               "excerptTokens": [
                 {
                   "kind": "Content",
@@ -1191,7 +1191,7 @@
             {
               "kind": "PropertySignature",
               "canonicalReference": "@absreim/react-bootstrap-data-grid!ColDefBase#sortable:member",
-              "docComment": "/**\n * Specifies whether the column is sortable.\n *\n * @defaultValue false\n */\n",
+              "docComment": "/**\n * Specifies whether the column is sortable.\n *\n * @defaultValue `false`\n */\n",
               "excerptTokens": [
                 {
                   "kind": "Content",
@@ -1264,7 +1264,7 @@
             {
               "kind": "PropertySignature",
               "canonicalReference": "@absreim/react-bootstrap-data-grid!CommunitySpecificColProps#width:member",
-              "docComment": "/**\n * Sets the min-width and max-width CSS properties for all cells of the column.\n *\n * For the table, if no value is specified, then no value for min-width or max-width will be set.\n *\n * @defaultValue - 100 for the grid, undefined for the table\n */\n",
+              "docComment": "/**\n * Sets the min-width and max-width CSS properties for all cells of the column.\n *\n * For the table, if no value is specified, then no value for min-width or max-width will be set.\n *\n * @defaultValue `100` for the grid, `undefined` for the table\n */\n",
               "excerptTokens": [
                 {
                   "kind": "Content",
@@ -1309,7 +1309,7 @@
             {
               "kind": "PropertySignature",
               "canonicalReference": "@absreim/react-bootstrap-data-grid!ControlledFilterModel#filterTableCaption:member",
-              "docComment": "/**\n * Caption for the filter settings table element.\n *\n * @defaultValue undefined - no caption will be displayed\n */\n",
+              "docComment": "/**\n * Caption for the filter settings table element.\n *\n * @defaultValue `undefined` - no caption will be displayed\n */\n",
               "excerptTokens": [
                 {
                   "kind": "Content",
@@ -2045,7 +2045,7 @@
             {
               "kind": "PropertySignature",
               "canonicalReference": "@absreim/react-bootstrap-data-grid!EditModel#editColWidth:member",
-              "docComment": "/**\n * Specifies a fixed width in pixels for the column that contains the buttons for editing a row. In particular, the min-width and max-width CSS properties will be set.\n *\n * @defaultValue undefined - no CSS will be specified\n */\n",
+              "docComment": "/**\n * Specifies a fixed width in pixels for the column that contains the buttons for editing a row. In particular, the min-width and max-width CSS properties will be set.\n *\n * @defaultValue `undefined` - no CSS will be specified\n */\n",
               "excerptTokens": [
                 {
                   "kind": "Content",
@@ -3202,7 +3202,7 @@
             {
               "kind": "PropertySignature",
               "canonicalReference": "@absreim/react-bootstrap-data-grid!GridSpecificProps#height:member",
-              "docComment": "/**\n * The height setting of the grid\n *\n * @defaultValue `auto`\n */\n",
+              "docComment": "/**\n * The height setting of the grid\n *\n * @defaultValue `\"auto\"`\n */\n",
               "excerptTokens": [
                 {
                   "kind": "Content",
@@ -3339,7 +3339,7 @@
             {
               "kind": "PropertySignature",
               "canonicalReference": "@absreim/react-bootstrap-data-grid!GridSpecificProps#width:member",
-              "docComment": "/**\n * The width setting of the grid\n *\n * @defaultValue `auto`\n */\n",
+              "docComment": "/**\n * The width setting of the grid\n *\n * @defaultValue `\"auto\"`\n */\n",
               "excerptTokens": [
                 {
                   "kind": "Content",
@@ -4397,7 +4397,7 @@
             {
               "kind": "PropertySignature",
               "canonicalReference": "@absreim/react-bootstrap-data-grid!PaginationOptions#componentSize:member",
-              "docComment": "/**\n * The size of the pagination component. Set via CSS classes provided with Bootstrap.\n *\n * @defaultValue \"medium\" - corresponds to not specifying a CSS class for pagination component size\n */\n",
+              "docComment": "/**\n * The size of the pagination component. Set via CSS classes provided with Bootstrap.\n *\n * @defaultValue `\"medium\"` - corresponds to not specifying a CSS class for pagination component size\n */\n",
               "excerptTokens": [
                 {
                   "kind": "Content",
@@ -4425,7 +4425,7 @@
             {
               "kind": "PropertySignature",
               "canonicalReference": "@absreim/react-bootstrap-data-grid!PaginationOptions#maxPageButtons:member",
-              "docComment": "/**\n * Maximum number of buttons pointing to numerically-indexed pages that can be displayed at once.\n *\n * @defaultValue 5\n */\n",
+              "docComment": "/**\n * Maximum number of buttons pointing to numerically-indexed pages that can be displayed at once.\n *\n * @defaultValue `5`\n */\n",
               "excerptTokens": [
                 {
                   "kind": "Content",
@@ -4452,7 +4452,7 @@
             {
               "kind": "PropertySignature",
               "canonicalReference": "@absreim/react-bootstrap-data-grid!PaginationOptions#pageSelectorAriaLabel:member",
-              "docComment": "/**\n * The ARIA label for the nav element that represents the pagination component.\n *\n * @defaultValue undefined - no ARIA label\n */\n",
+              "docComment": "/**\n * The ARIA label for the nav element that represents the pagination component.\n *\n * @defaultValue `undefined` - no ARIA label\n */\n",
               "excerptTokens": [
                 {
                   "kind": "Content",
@@ -4479,7 +4479,7 @@
             {
               "kind": "PropertySignature",
               "canonicalReference": "@absreim/react-bootstrap-data-grid!PaginationOptions#pageSelectorJustifyContent:member",
-              "docComment": "/**\n * Justify-content CSS property for the ul element of the pagination component.\n *\n * @defaultValue undefined - no justify-content property is specified, which acts like \"start\" based on CSS standards. See {@link https://developer.mozilla.org/en-US/docs/Web/CSS/Reference/Properties/justify-content#syntax}.\n */\n",
+              "docComment": "/**\n * Justify-content CSS property for the ul element of the pagination component.\n *\n * @defaultValue `undefined` - no justify-content property is specified, which acts like \"start\" based on CSS standards. See {@link https://developer.mozilla.org/en-US/docs/Web/CSS/Reference/Properties/justify-content#syntax}.\n */\n",
               "excerptTokens": [
                 {
                   "kind": "Content",
@@ -4507,7 +4507,7 @@
             {
               "kind": "PropertySignature",
               "canonicalReference": "@absreim/react-bootstrap-data-grid!PaginationOptions#pageSizeOptions:member",
-              "docComment": "/**\n * An array of page sizes that can be selected by the user.\n *\n * @defaultValue [10, 25, 100]\n */\n",
+              "docComment": "/**\n * An array of page sizes that can be selected by the user.\n *\n * @defaultValue `[10, 25, 100]`\n */\n",
               "excerptTokens": [
                 {
                   "kind": "Content",
@@ -5084,7 +5084,7 @@
             {
               "kind": "PropertySignature",
               "canonicalReference": "@absreim/react-bootstrap-data-grid!SingleSelectState#groupName:member",
-              "docComment": "/**\n * String to uniquely identify the group of radio buttons.\n *\n * @remarks\n *\n * If specified, must be unique across all radio button groups on the web page. Now optional because the {@link https://react.dev/reference/react/useId | useId hook} can be used to generate an ID.\n *\n * @defaultValue undefined - an id generated by the useId hook will be used\n */\n",
+              "docComment": "/**\n * String to uniquely identify the group of radio buttons.\n *\n * @remarks\n *\n * If specified, must be unique across all radio button groups on the web page. Now optional because the {@link https://react.dev/reference/react/useId | useId hook} can be used to generate an ID.\n *\n * @defaultValue `undefined` - an id generated by the useId hook will be used\n */\n",
               "excerptTokens": [
                 {
                   "kind": "Content",
