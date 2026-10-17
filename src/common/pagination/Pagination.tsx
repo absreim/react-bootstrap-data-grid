@@ -7,7 +7,7 @@ import { NormalizedPaginationModel } from "./internalTypes";
 export interface PaginationProps {
   normalizedModel: NormalizedPaginationModel;
   prePagingNumRows: number;
-  containerDivClasses: string[] | undefined;
+  containerDivClasses?: string[];
 }
 
 const Pagination: FC<PaginationProps> = ({

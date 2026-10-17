@@ -170,12 +170,14 @@ const Grid: FC<GridProps> = ({
   // - gap size
   // - pagination top vs bottom
   // - pagination size selector and page selector ordering
+  // TODO: fix "jumping around" behavior of pagination component that is
+  // caused by disappearing back and forward buttons. Instead, grey out buttons
+  // that cannot be clicked.
   return pagination ? (
     <div className="vstack gap-2">
       {mainGridComponent}
       <Pagination
         normalizedModel={currentPageRowsOutput.normalizedModel!}
-        containerDivClasses={[]}
         prePagingNumRows={rows.length}
       />
     </div>
