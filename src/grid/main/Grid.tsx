@@ -17,6 +17,7 @@ import GridBody from "./GridBody";
 import classNames from "classnames";
 import { CSS_PREFIX } from "../../common/constants";
 import useGridFocus from "../focus/useGridFocus";
+import Pagination from "../../common/pagination/Pagination";
 
 /**
  * The main component for the grid feature of react-bootstrap-data-grid.
@@ -27,6 +28,7 @@ const Grid: FC<GridProps> = ({
   rows,
   cols,
   sortModel,
+  pagination,
   width,
   height,
   variant,
@@ -43,11 +45,13 @@ const Grid: FC<GridProps> = ({
   headerCellFocusVariant,
   bodyCellFocusVariant,
 }) => {
-  const { displayRows, filteredRows, sortedRowsOutput } = useCombinedPipeline({
-    rows,
-    cols,
-    sortModel,
-  });
+  const { displayRows, filteredRows, sortedRowsOutput, currentPageRowsOutput } =
+    useCombinedPipeline({
+      rows,
+      cols,
+      sortModel,
+      pagination,
+    });
   const colNameToWidth = useColNameToWidth(cols);
   const augFormattedRows = useAugFormattedRows(colNameToWidth, displayRows);
   const gridStyle: CSSProperties = useMemo(() => {
@@ -111,7 +115,7 @@ const Grid: FC<GridProps> = ({
     );
   }, []);
 
-  return (
+  const mainGridComponent = (
     <div
       onCopy={onCopy}
       onClick={gridClickHandler}
@@ -160,6 +164,23 @@ const Grid: FC<GridProps> = ({
         cellFocusVariant={bodyCellFocusVariant}
       />
     </div>
+  );
+
+  // TODO: customization options for layout
+  // - gap size
+  // - pagination top vs bottom
+  // - pagination size selector and page selector ordering
+  return pagination ? (
+    <div className="vstack gap-2">
+      {mainGridComponent}
+      <Pagination
+        normalizedModel={currentPageRowsOutput.normalizedModel!}
+        containerDivClasses={[]}
+        prePagingNumRows={rows.length}
+      />
+    </div>
+  ) : (
+    <>{mainGridComponent}</>
   );
 };
 

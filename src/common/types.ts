@@ -1,4 +1,5 @@
 import { SortModel } from "./sorting/types";
+import { PaginationModel } from "./pagination/types";
 
 /**
  * Union of all possible column data types.
@@ -152,6 +153,12 @@ export interface MainComponentSharedProps {
    * sorting feature of the component.
    */
   sortModel?: SortModel;
+
+  /**
+   * The pagination model of the table. Passing a truthy value enables
+   * the pagination feature of the component.
+   */
+  pagination?: PaginationModel;
 }
 
 /**
