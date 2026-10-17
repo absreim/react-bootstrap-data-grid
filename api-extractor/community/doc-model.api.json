@@ -1,7 +1,7 @@
 {
   "metadata": {
     "toolPackage": "@microsoft/api-extractor",
-    "toolVersion": "7.59.0",
+    "toolVersion": "7.60.1",
     "schemaVersion": 1011,
     "oldestForwardsCompatibleVersion": 1001,
     "tsdocConfig": {
@@ -191,7 +191,7 @@
         {
           "kind": "Interface",
           "canonicalReference": "@absreim/react-bootstrap-data-grid!AbstractDateFilterState:interface",
-          "docComment": "/**\n * A base interface for {@link DateFilterState}.\n *\n * @remarks\n *\n * Date and datetime input elements can have a state where there is no input. Nulls in the date fields correspond to this empty state.\n *\n * @public\n */\n",
+          "docComment": "/**\n * A base interface for {@link DateFilterState}.\n *\n * @remarks\n *\n * Date and datetime input elements can have a state where there is no input.\n * Nulls in the date fields correspond to this empty state.\n *\n * @public\n */\n",
           "excerptTokens": [
             {
               "kind": "Content",
@@ -278,7 +278,7 @@
         {
           "kind": "Interface",
           "canonicalReference": "@absreim/react-bootstrap-data-grid!AbstractFilterState:interface",
-          "docComment": "/**\n * Base interface for various objects that represent the form state for the filter settings of a single column.\n *\n * @public\n */\n",
+          "docComment": "/**\n * Base interface for various objects that represent the form state for the\n * filter settings of a single column.\n *\n * @public\n */\n",
           "excerptTokens": [
             {
               "kind": "Content",
@@ -449,7 +449,7 @@
         {
           "kind": "TypeAlias",
           "canonicalReference": "@absreim/react-bootstrap-data-grid!AugRowDef:type",
-          "docComment": "/**\n * {@link RowDef} object that additionally contains the index of the row in the original array.\n *\n * @typeParam Data - type of the data property of the {@link RowDef} object\n *\n * @public\n */\n",
+          "docComment": "/**\n * {@link RowDef} object that additionally contains the index of the row in the\n * original array.\n *\n * @typeParam Data - type of the data property of the {@link RowDef} object\n *\n * @public\n */\n",
           "excerptTokens": [
             {
               "kind": "Content",
@@ -511,7 +511,7 @@
         {
           "kind": "Interface",
           "canonicalReference": "@absreim/react-bootstrap-data-grid!BaseSelectModel:interface",
-          "docComment": "/**\n * Properties shared between {@link SingleSelectModel} and {@link MultiSelectModel}.\n *\n * @public\n */\n",
+          "docComment": "/**\n * Properties shared between {@link SingleSelectModel} and\n * {@link MultiSelectModel}.\n *\n * @public\n */\n",
           "excerptTokens": [
             {
               "kind": "Content",
@@ -554,7 +554,7 @@
             {
               "kind": "PropertySignature",
               "canonicalReference": "@absreim/react-bootstrap-data-grid!BaseSelectModel#selectColWidth:member",
-              "docComment": "/**\n * The width of the select column. Set via CSS min-width and max-width properties. The column is only shown if mode is set to \"column\".\n *\n * @defaultValue `undefined` - no CSS properties will be set\n */\n",
+              "docComment": "/**\n * The width of the select column. Set via CSS min-width and max-width\n * properties. The column is only shown if mode is set to \"column\".\n *\n * @defaultValue `undefined` - no CSS properties will be set\n */\n",
               "excerptTokens": [
                 {
                   "kind": "Content",
@@ -584,7 +584,7 @@
         {
           "kind": "Interface",
           "canonicalReference": "@absreim/react-bootstrap-data-grid!BetweenDatesFilterState:interface",
-          "docComment": "/**\n * Object that holds the form state for date or datetime column filtered via the \"between\" scheme.\n *\n * @public\n */\n",
+          "docComment": "/**\n * Object that holds the form state for date or datetime column filtered via the\n * \"between\" scheme.\n *\n * @public\n */\n",
           "excerptTokens": [
             {
               "kind": "Content",
@@ -707,7 +707,7 @@
         {
           "kind": "TypeAlias",
           "canonicalReference": "@absreim/react-bootstrap-data-grid!BodyCellVariantFn:type",
-          "docComment": "/**\n * The type of the function used to specify color variants on a grid body on a per-cell level of granularity.\n *\n * @param cell - details the current cell\n *\n * @param row - details of the entire row that the current cell is in\n *\n * @param colIndex - zero-based column index of the current cell\n *\n * @param displayIndex - the zero-based index of the row that the cell is in. The index is based on how the cell is actually displayed after pagination, filtering, and sorting are applied.\n *\n * @returns - a string that is name of the color variant or null for no color variant\n *\n * @public\n */\n",
+          "docComment": "/**\n * The type of the function used to specify color variants on a grid body on a\n * per-cell level of granularity.\n *\n * @param cell - details the current cell\n *\n * @param row - details of the entire row that the current cell is in\n *\n * @param colIndex - zero-based column index of the current cell\n *\n * @param displayIndex - the zero-based index of the row that the cell is in.\n * The index is based on how the cell is actually displayed after pagination,\n * filtering, and sorting are applied.\n *\n * @returns - a string that is name of the color variant or null for no color\n * variant\n *\n * @public\n */\n",
           "excerptTokens": [
             {
               "kind": "Content",
@@ -751,7 +751,7 @@
         {
           "kind": "Interface",
           "canonicalReference": "@absreim/react-bootstrap-data-grid!CellData:interface",
-          "docComment": "/**\n * Object that describes the contents for a single table or grid cell along with various metadata.\n *\n * @public\n */\n",
+          "docComment": "/**\n * Object that describes the contents for a single table or grid cell along\n * with various metadata.\n *\n * @public\n */\n",
           "excerptTokens": [
             {
               "kind": "Content",
@@ -793,7 +793,7 @@
             {
               "kind": "PropertySignature",
               "canonicalReference": "@absreim/react-bootstrap-data-grid!CellData#fieldName:member",
-              "docComment": "/**\n * The name of the property in the {@link RowDef} \"data\" property that contains the value for the cell.\n */\n",
+              "docComment": "/**\n * The name of the property in the {@link RowDef} \"data\" property that\n * contains the value for the cell.\n */\n",
               "excerptTokens": [
                 {
                   "kind": "Content",
@@ -847,7 +847,7 @@
             {
               "kind": "PropertySignature",
               "canonicalReference": "@absreim/react-bootstrap-data-grid!CellData#label:member",
-              "docComment": "/**\n * The label of the column that the cell is in. Same as the property of the same name in the corresponding {@link ColDef} object.\n */\n",
+              "docComment": "/**\n * The label of the column that the cell is in. Same as the property of the\n * same name in the corresponding {@link ColDef} object.\n */\n",
               "excerptTokens": [
                 {
                   "kind": "Content",
@@ -874,7 +874,7 @@
             {
               "kind": "PropertySignature",
               "canonicalReference": "@absreim/react-bootstrap-data-grid!CellData#type:member",
-              "docComment": "/**\n * A string that specifies of the value type of the column for the cell. Same as the \"type\" property in corresponding {@link ColDef} object.\n */\n",
+              "docComment": "/**\n * A string that specifies of the value type of the column for the cell.\n * Same as the \"type\" property in corresponding {@link ColDef} object.\n */\n",
               "excerptTokens": [
                 {
                   "kind": "Content",
@@ -930,7 +930,7 @@
             {
               "kind": "PropertySignature",
               "canonicalReference": "@absreim/react-bootstrap-data-grid!CellData#width:member",
-              "docComment": "/**\n * The width of the column that the cell is in. Same as the property of the same name in the corresponding {@link ColDef} object.\n */\n",
+              "docComment": "/**\n * The width of the column that the cell is in. Same as the property of the\n * same name in the corresponding {@link ColDef} object.\n */\n",
               "excerptTokens": [
                 {
                   "kind": "Content",
@@ -1017,7 +1017,7 @@
         {
           "kind": "TypeAlias",
           "canonicalReference": "@absreim/react-bootstrap-data-grid!ColDef:type",
-          "docComment": "/**\n * Column definition object for the community edition of the table and grid.\n *\n * @typeParam ValueType - the type of the value of the column (e.g. string, number, or Date)\n *\n * @public\n */\n",
+          "docComment": "/**\n * Column definition object for the community edition of the table and grid.\n *\n * @typeParam ValueType - the type of the value of the column (e.g. string,\n * number, or Date)\n *\n * @public\n */\n",
           "excerptTokens": [
             {
               "kind": "Content",
@@ -1074,7 +1074,7 @@
         {
           "kind": "Interface",
           "canonicalReference": "@absreim/react-bootstrap-data-grid!ColDefBase:interface",
-          "docComment": "/**\n * Properties to a define a column that is shared between community and pro editions.\n *\n * @typeParam ValueType - the type of the value of the column (e.g. string, number, or Date)\n *\n * @public\n */\n",
+          "docComment": "/**\n * Properties to a define a column that is shared between community and pro\n * editions.\n *\n * @typeParam ValueType - the type of the value of the column (e.g. string,\n * number, or Date)\n *\n * @public\n */\n",
           "excerptTokens": [
             {
               "kind": "Content",
@@ -1249,7 +1249,7 @@
         {
           "kind": "Interface",
           "canonicalReference": "@absreim/react-bootstrap-data-grid!CommunitySpecificColProps:interface",
-          "docComment": "/**\n * Column definition properties specific to the community edition of the table and grid.\n *\n * @public\n */\n",
+          "docComment": "/**\n * Column definition properties specific to the community edition of the table\n * and grid.\n *\n * @public\n */\n",
           "excerptTokens": [
             {
               "kind": "Content",
@@ -1264,7 +1264,7 @@
             {
               "kind": "PropertySignature",
               "canonicalReference": "@absreim/react-bootstrap-data-grid!CommunitySpecificColProps#width:member",
-              "docComment": "/**\n * Sets the min-width and max-width CSS properties for all cells of the column.\n *\n * For the table, if no value is specified, then no value for min-width or max-width will be set.\n *\n * @defaultValue `100` for the grid, `undefined` for the table\n */\n",
+              "docComment": "/**\n * Sets the min-width and max-width CSS properties for all cells of the\n * column.\n *\n * For the table, if no value is specified, then no value for min-width\n * or max-width will be set.\n *\n * @defaultValue `100` for the grid, `undefined` for the table\n */\n",
               "excerptTokens": [
                 {
                   "kind": "Content",
@@ -1294,7 +1294,7 @@
         {
           "kind": "Interface",
           "canonicalReference": "@absreim/react-bootstrap-data-grid!ControlledFilterModel:interface",
-          "docComment": "/**\n * Object that enables the filtering feature on a grid or table in an externally controllable manner.\n *\n * @public\n */\n",
+          "docComment": "/**\n * Object that enables the filtering feature on a grid or table in an\n * externally controllable manner.\n *\n * @public\n */\n",
           "excerptTokens": [
             {
               "kind": "Content",
@@ -1336,7 +1336,7 @@
             {
               "kind": "PropertySignature",
               "canonicalReference": "@absreim/react-bootstrap-data-grid!ControlledFilterModel#setTableFilterState:member",
-              "docComment": "/**\n * Update callback function for the tableFilterState property. This function is called when the user submits the filter settings form.\n */\n",
+              "docComment": "/**\n * Update callback function for the tableFilterState property. This function\n * is called when the user submits the filter settings form.\n */\n",
               "excerptTokens": [
                 {
                   "kind": "Content",
@@ -1372,7 +1372,7 @@
             {
               "kind": "PropertySignature",
               "canonicalReference": "@absreim/react-bootstrap-data-grid!ControlledFilterModel#tableFilterState:member",
-              "docComment": "/**\n * State object that represents the filters currently being applied to the table or grid.\n */\n",
+              "docComment": "/**\n * State object that represents the filters currently being applied to the\n * table or grid.\n */\n",
               "excerptTokens": [
                 {
                   "kind": "Content",
@@ -1430,7 +1430,7 @@
         {
           "kind": "TypeAlias",
           "canonicalReference": "@absreim/react-bootstrap-data-grid!ControlledPaginationModel:type",
-          "docComment": "/**\n * Object that enables and configures the pagination feature for a table or grid in an externally-controllable manner.\n *\n * @public\n */\n",
+          "docComment": "/**\n * Object that enables and configures the pagination feature for a table or\n * grid in an externally-controllable manner.\n *\n * @public\n */\n",
           "excerptTokens": [
             {
               "kind": "Content",
@@ -1670,7 +1670,7 @@
             {
               "kind": "PropertySignature",
               "canonicalReference": "@absreim/react-bootstrap-data-grid!ControlledSortModel#sortColDef:member",
-              "docComment": "/**\n * Information on the column to sort on. Null means no column is being sorted and the rows shown be shown in their original order.\n */\n",
+              "docComment": "/**\n * Information on the column to sort on. Null means no column is being sorted\n * and the rows shown be shown in their original order.\n */\n",
               "excerptTokens": [
                 {
                   "kind": "Content",
@@ -1790,7 +1790,7 @@
         {
           "kind": "TypeAlias",
           "canonicalReference": "@absreim/react-bootstrap-data-grid!DateFilterState:type",
-          "docComment": "/**\n * The form state object for the filtering feature for a date or datetime column.\n *\n * @public\n */\n",
+          "docComment": "/**\n * The form state object for the filtering feature for a date or datetime\n * column.\n *\n * @public\n */\n",
           "excerptTokens": [
             {
               "kind": "Content",
@@ -1877,7 +1877,7 @@
         {
           "kind": "Function",
           "canonicalReference": "@absreim/react-bootstrap-data-grid!dateToInputStr:function(1)",
-          "docComment": "/**\n * Returns a string that represents a date in the format used by the input element of type \"date\".\n *\n * @param date - the Date object to format\n *\n * @returns a string in the format YYYY-MM-DD\n *\n * @public\n */\n",
+          "docComment": "/**\n * Returns a string that represents a date in the format used by the input\n * element of type \"date\".\n *\n * @param date - the Date object to format\n *\n * @returns a string in the format YYYY-MM-DD\n *\n * @public\n */\n",
           "excerptTokens": [
             {
               "kind": "Content",
@@ -1990,7 +1990,7 @@
         {
           "kind": "TypeAlias",
           "canonicalReference": "@absreim/react-bootstrap-data-grid!EditableFilterState:type",
-          "docComment": "/**\n * State object that represents the filter settings for all of the columns in a grid or table.\n *\n * @public\n */\n",
+          "docComment": "/**\n * State object that represents the filter settings for all of the columns in a\n * grid or table.\n *\n * @public\n */\n",
           "excerptTokens": [
             {
               "kind": "Content",
@@ -2045,7 +2045,7 @@
             {
               "kind": "PropertySignature",
               "canonicalReference": "@absreim/react-bootstrap-data-grid!EditModel#editColWidth:member",
-              "docComment": "/**\n * Specifies a fixed width in pixels for the column that contains the buttons for editing a row. In particular, the min-width and max-width CSS properties will be set.\n *\n * @defaultValue `undefined` - no CSS will be specified\n */\n",
+              "docComment": "/**\n * Specifies a fixed width in pixels for the column that contains the buttons\n * for editing a row. In particular, the min-width and max-width CSS\n * properties will be set.\n *\n * @defaultValue `undefined` - no CSS will be specified\n */\n",
               "excerptTokens": [
                 {
                   "kind": "Content",
@@ -2072,7 +2072,7 @@
             {
               "kind": "PropertySignature",
               "canonicalReference": "@absreim/react-bootstrap-data-grid!EditModel#getDeleteCallback:member",
-              "docComment": "/**\n * Callback function for deleting rows via the UI. Omit this property or pass undefined to disallow deletions via the UI.\n */\n",
+              "docComment": "/**\n * Callback function for deleting rows via the UI. Omit this property or pass\n * undefined to disallow deletions via the UI.\n */\n",
               "excerptTokens": [
                 {
                   "kind": "Content",
@@ -2108,7 +2108,7 @@
             {
               "kind": "PropertySignature",
               "canonicalReference": "@absreim/react-bootstrap-data-grid!EditModel#getUpdateCallback:member",
-              "docComment": "/**\n * Function that generates a callback function that responds to a row update. Use this property to specify how row updates affect the state outside the table component.\n */\n",
+              "docComment": "/**\n * Function that generates a callback function that responds to a row update.\n * Use this property to specify how row updates affect the state outside\n * the table component.\n */\n",
               "excerptTokens": [
                 {
                   "kind": "Content",
@@ -2139,7 +2139,7 @@
         {
           "kind": "Interface",
           "canonicalReference": "@absreim/react-bootstrap-data-grid!EndDateFilterState:interface",
-          "docComment": "/**\n * Object that holds the form state for date or datetime column filtered via the \"endAt\" scheme.\n *\n * @public\n */\n",
+          "docComment": "/**\n * Object that holds the form state for date or datetime column filtered via the\n * \"endAt\" scheme.\n *\n * @public\n */\n",
           "excerptTokens": [
             {
               "kind": "Content",
@@ -2743,7 +2743,7 @@
         {
           "kind": "TypeAlias",
           "canonicalReference": "@absreim/react-bootstrap-data-grid!FormattedRow:type",
-          "docComment": "/**\n * Comprehensive information for an entire row of a table or grid, after postprocessing such as sorting, pagination, and filtering are applied.\n *\n * Contains an array of {@link CellData} in the order that the columns appear.\n *\n * @public\n */\n",
+          "docComment": "/**\n * Comprehensive information for an entire row of a table or grid, after\n * postprocessing such as sorting, pagination, and filtering are applied.\n *\n * Contains an array of {@link CellData} in the order that the columns appear.\n *\n * @public\n */\n",
           "excerptTokens": [
             {
               "kind": "Content",
@@ -2868,7 +2868,7 @@
         {
           "kind": "TypeAlias",
           "canonicalReference": "@absreim/react-bootstrap-data-grid!GridHeightSetting:type",
-          "docComment": "/**\n * The type of the prop to set grid height behavior\n *\n * - number: fixed height of grid in pixels - `auto`: takes on the intrinsic height of the contents - `parent`: takes on 100% of the parent height\n *\n * @public\n */\n",
+          "docComment": "/**\n * The type of the prop to set grid height behavior\n *\n * - number: fixed height of grid in pixels\n * - `auto`: takes on the intrinsic height of the contents\n * - `parent`: takes on 100% of the parent height\n *\n * @public\n */\n",
           "excerptTokens": [
             {
               "kind": "Content",
@@ -2889,6 +2889,42 @@
           "typeTokenRange": {
             "startIndex": 1,
             "endIndex": 2
+          }
+        },
+        {
+          "kind": "TypeAlias",
+          "canonicalReference": "@absreim/react-bootstrap-data-grid!GridPaginationModel:type",
+          "docComment": "/**\n * Enables and configures pagination for the {@link Grid} component.\n *\n * @public\n */\n",
+          "excerptTokens": [
+            {
+              "kind": "Content",
+              "text": "export type GridPaginationModel = "
+            },
+            {
+              "kind": "Reference",
+              "text": "PaginationModel",
+              "canonicalReference": "@absreim/react-bootstrap-data-grid!PaginationModel:type"
+            },
+            {
+              "kind": "Content",
+              "text": " & "
+            },
+            {
+              "kind": "Reference",
+              "text": "GridSpecificPaginationProperties",
+              "canonicalReference": "@absreim/react-bootstrap-data-grid!GridSpecificPaginationProperties:interface"
+            },
+            {
+              "kind": "Content",
+              "text": ";"
+            }
+          ],
+          "fileUrlPath": "../../dist/community/grid/pagination/types.d.ts",
+          "releaseTag": "Public",
+          "name": "GridPaginationModel",
+          "typeTokenRange": {
+            "startIndex": 1,
+            "endIndex": 4
           }
         },
         {
@@ -2926,6 +2962,52 @@
             "startIndex": 1,
             "endIndex": 4
           }
+        },
+        {
+          "kind": "Interface",
+          "canonicalReference": "@absreim/react-bootstrap-data-grid!GridSpecificPaginationProperties:interface",
+          "docComment": "/**\n * Properties in the {@link GridPaginationModel} but not the\n * {@link PaginationModel}.\n *\n * @public\n */\n",
+          "excerptTokens": [
+            {
+              "kind": "Content",
+              "text": "export interface GridSpecificPaginationProperties "
+            }
+          ],
+          "fileUrlPath": "../../dist/community/grid/pagination/types.d.ts",
+          "releaseTag": "Public",
+          "name": "GridSpecificPaginationProperties",
+          "preserveMemberOrder": false,
+          "members": [
+            {
+              "kind": "PropertySignature",
+              "canonicalReference": "@absreim/react-bootstrap-data-grid!GridSpecificPaginationProperties#styleOptions:member",
+              "docComment": "/**\n * Preset style options involving pagination UI components.\n *\n * @defaultValue `undefined` - All default values for the\n * {@link PaginationStyleOptions} interface will be applied.\n */\n",
+              "excerptTokens": [
+                {
+                  "kind": "Content",
+                  "text": "styleOptions?: "
+                },
+                {
+                  "kind": "Reference",
+                  "text": "PaginationStyleOptions",
+                  "canonicalReference": "@absreim/react-bootstrap-data-grid!PaginationStyleOptions:interface"
+                },
+                {
+                  "kind": "Content",
+                  "text": ";"
+                }
+              ],
+              "isReadonly": false,
+              "isOptional": true,
+              "releaseTag": "Public",
+              "name": "styleOptions",
+              "propertyTypeTokenRange": {
+                "startIndex": 1,
+                "endIndex": 2
+              }
+            }
+          ],
+          "extendsTokenRanges": []
         },
         {
           "kind": "Interface",
@@ -2973,7 +3055,7 @@
             {
               "kind": "PropertySignature",
               "canonicalReference": "@absreim/react-bootstrap-data-grid!GridSpecificProps#bodyCellVariant:member",
-              "docComment": "/**\n * Function to set the color variant of body cells on a per-cell basis. Overrides the row-wide setting when this function returns a non-null value.\n */\n",
+              "docComment": "/**\n * Function to set the color variant of body cells on a per-cell basis.\n * Overrides the row-wide setting when this function returns a non-null value.\n */\n",
               "excerptTokens": [
                 {
                   "kind": "Content",
@@ -3147,7 +3229,7 @@
             {
               "kind": "PropertySignature",
               "canonicalReference": "@absreim/react-bootstrap-data-grid!GridSpecificProps#headerCellVariant:member",
-              "docComment": "/**\n * Function to set the color variant of header cells. Overrides the row-wide setting when this function returns a non-null value.\n */\n",
+              "docComment": "/**\n * Function to set the color variant of header cells. Overrides the row-wide\n * setting when this function returns a non-null value.\n */\n",
               "excerptTokens": [
                 {
                   "kind": "Content",
@@ -3249,6 +3331,34 @@
               "isOptional": true,
               "releaseTag": "Public",
               "name": "hover",
+              "propertyTypeTokenRange": {
+                "startIndex": 1,
+                "endIndex": 2
+              }
+            },
+            {
+              "kind": "PropertySignature",
+              "canonicalReference": "@absreim/react-bootstrap-data-grid!GridSpecificProps#pagination:member",
+              "docComment": "/**\n * Enables and configures pagination for the grid\n */\n",
+              "excerptTokens": [
+                {
+                  "kind": "Content",
+                  "text": "pagination?: "
+                },
+                {
+                  "kind": "Reference",
+                  "text": "GridPaginationModel",
+                  "canonicalReference": "@absreim/react-bootstrap-data-grid!GridPaginationModel:type"
+                },
+                {
+                  "kind": "Content",
+                  "text": ";"
+                }
+              ],
+              "isReadonly": false,
+              "isOptional": true,
+              "releaseTag": "Public",
+              "name": "pagination",
               "propertyTypeTokenRange": {
                 "startIndex": 1,
                 "endIndex": 2
@@ -3396,7 +3506,7 @@
         {
           "kind": "TypeAlias",
           "canonicalReference": "@absreim/react-bootstrap-data-grid!GridWidthSetting:type",
-          "docComment": "/**\n * The type of the prop to set grid width behavior\n *\n * - number: fixed width of grid in pixels - `auto`: takes on the intrinsic width of the contents - `parent`: takes on 100% of the parent width\n *\n * @public\n */\n",
+          "docComment": "/**\n * The type of the prop to set grid width behavior\n *\n * - number: fixed width of grid in pixels\n * - `auto`: takes on the intrinsic width of the contents\n * - `parent`: takes on 100% of the parent width\n *\n * @public\n */\n",
           "excerptTokens": [
             {
               "kind": "Content",
@@ -3422,7 +3532,7 @@
         {
           "kind": "TypeAlias",
           "canonicalReference": "@absreim/react-bootstrap-data-grid!HeaderCellVariantFn:type",
-          "docComment": "/**\n * The type of the function used to specify color variants on a grid header on a per-cell level of granularity.\n *\n * @param col - details of the column associated with the cell\n *\n * @param colIndex - the zero-based column index of the cell\n *\n * @returns - a string that is name of the color variant or null for no color variant\n *\n * @public\n */\n",
+          "docComment": "/**\n * The type of the function used to specify color variants on a grid header on a\n * per-cell level of granularity.\n *\n * @param col - details of the column associated with the cell\n *\n * @param colIndex - the zero-based column index of the cell\n *\n * @returns - a string that is name of the color variant or null for no color\n * variant\n *\n * @public\n */\n",
           "excerptTokens": [
             {
               "kind": "Content",
@@ -3457,7 +3567,7 @@
         {
           "kind": "TypeAlias",
           "canonicalReference": "@absreim/react-bootstrap-data-grid!JustifyContentSetting:type",
-          "docComment": "/**\n * Strings representing different possible values of the {@link https://developer.mozilla.org/en-US/docs/Web/CSS/Reference/Properties/justify-content | justify-content CSS property}.\n *\n * @public\n */\n",
+          "docComment": "/**\n * Strings representing different possible values of the\n * {@link https://developer.mozilla.org/en-US/docs/Web/CSS/Reference/Properties/justify-content | justify-content CSS property}.\n *\n * @public\n */\n",
           "excerptTokens": [
             {
               "kind": "Content",
@@ -3483,7 +3593,7 @@
         {
           "kind": "Interface",
           "canonicalReference": "@absreim/react-bootstrap-data-grid!MainComponentSharedProps:interface",
-          "docComment": "/**\n * Interface that contains parameters shared between the {@link Table}, {@link TablePro}, and {@link Grid} components.\n *\n * @public\n */\n",
+          "docComment": "/**\n * Interface that contains parameters shared between the {@link Table},\n * {@link @absreim/react-bootstrap-data-grid-pro#TablePro | TablePro}, and\n * {@link Grid} components.\n *\n * @public\n */\n",
           "excerptTokens": [
             {
               "kind": "Content",
@@ -3562,7 +3672,7 @@
             {
               "kind": "PropertySignature",
               "canonicalReference": "@absreim/react-bootstrap-data-grid!MainComponentSharedProps#sortModel:member",
-              "docComment": "/**\n * The sort model of the table or grid. Passing a truthy value enables the sorting feature of the component.\n */\n",
+              "docComment": "/**\n * The sort model of the table or grid. Passing a truthy value enables the\n * sorting feature of the component.\n */\n",
               "excerptTokens": [
                 {
                   "kind": "Content",
@@ -4025,7 +4135,7 @@
         {
           "kind": "TypeAlias",
           "canonicalReference": "@absreim/react-bootstrap-data-grid!MultiSelectModel:type",
-          "docComment": "/**\n * Object to enable and configure the selection feature for a grid or table in the multiselect mode.\n *\n * @public\n */\n",
+          "docComment": "/**\n * Object to enable and configure the selection feature for a grid or table in\n * the multiselect mode.\n *\n * @public\n */\n",
           "excerptTokens": [
             {
               "kind": "Content",
@@ -4397,7 +4507,7 @@
             {
               "kind": "PropertySignature",
               "canonicalReference": "@absreim/react-bootstrap-data-grid!PaginationOptions#componentSize:member",
-              "docComment": "/**\n * The size of the pagination component. Set via CSS classes provided with Bootstrap.\n *\n * @defaultValue `\"medium\"` - corresponds to not specifying a CSS class for pagination component size\n */\n",
+              "docComment": "/**\n * The size of the pagination component. Set via CSS classes provided with\n * Bootstrap.\n *\n * @defaultValue `\"medium\"` - corresponds to not specifying a CSS class for\n * pagination component size\n */\n",
               "excerptTokens": [
                 {
                   "kind": "Content",
@@ -4425,7 +4535,7 @@
             {
               "kind": "PropertySignature",
               "canonicalReference": "@absreim/react-bootstrap-data-grid!PaginationOptions#maxPageButtons:member",
-              "docComment": "/**\n * Maximum number of buttons pointing to numerically-indexed pages that can be displayed at once.\n *\n * @defaultValue `5`\n */\n",
+              "docComment": "/**\n * Maximum number of buttons pointing to numerically-indexed pages that can\n * be displayed at once.\n *\n * @defaultValue `5`\n */\n",
               "excerptTokens": [
                 {
                   "kind": "Content",
@@ -4452,7 +4562,7 @@
             {
               "kind": "PropertySignature",
               "canonicalReference": "@absreim/react-bootstrap-data-grid!PaginationOptions#pageSelectorAriaLabel:member",
-              "docComment": "/**\n * The ARIA label for the nav element that represents the pagination component.\n *\n * @defaultValue `undefined` - no ARIA label\n */\n",
+              "docComment": "/**\n * The ARIA label for the nav element that represents the pagination\n * component.\n *\n * @defaultValue `undefined` - no ARIA label\n */\n",
               "excerptTokens": [
                 {
                   "kind": "Content",
@@ -4479,7 +4589,7 @@
             {
               "kind": "PropertySignature",
               "canonicalReference": "@absreim/react-bootstrap-data-grid!PaginationOptions#pageSelectorJustifyContent:member",
-              "docComment": "/**\n * Justify-content CSS property for the ul element of the pagination component.\n *\n * @defaultValue `undefined` - no justify-content property is specified, which acts like \"start\" based on CSS standards. See {@link https://developer.mozilla.org/en-US/docs/Web/CSS/Reference/Properties/justify-content#syntax}.\n */\n",
+              "docComment": "/**\n * Justify-content CSS property for the ul element of the pagination\n * component.\n *\n * @defaultValue `undefined` - no justify-content property is specified, which\n * acts like \"start\" based on CSS standards. See\n * {@link https://developer.mozilla.org/en-US/docs/Web/CSS/Reference/Properties/justify-content#syntax}.\n */\n",
               "excerptTokens": [
                 {
                   "kind": "Content",
@@ -4535,9 +4645,162 @@
           "extendsTokenRanges": []
         },
         {
+          "kind": "Interface",
+          "canonicalReference": "@absreim/react-bootstrap-data-grid!PaginationStyleOptions:interface",
+          "docComment": "/**\n * Object that contains preset style options involving the pagination UI\n * components. These settings are in contrast to the alternative means of\n * controlling styling that involve applying custom CSS classes to different\n * slots.\n *\n * @public\n */\n",
+          "excerptTokens": [
+            {
+              "kind": "Content",
+              "text": "export interface PaginationStyleOptions "
+            }
+          ],
+          "fileUrlPath": "../../dist/community/grid/pagination/types.d.ts",
+          "releaseTag": "Public",
+          "name": "PaginationStyleOptions",
+          "preserveMemberOrder": false,
+          "members": [
+            {
+              "kind": "PropertySignature",
+              "canonicalReference": "@absreim/react-bootstrap-data-grid!PaginationStyleOptions#aboveMainComponent:member",
+              "docComment": "/**\n * Sets whether the pagination components are positioned above the main\n * grid or table component.\n *\n * @defaultValue `false` - pagination components are positioned below the main\n * component.\n */\n",
+              "excerptTokens": [
+                {
+                  "kind": "Content",
+                  "text": "aboveMainComponent?: "
+                },
+                {
+                  "kind": "Content",
+                  "text": "boolean"
+                },
+                {
+                  "kind": "Content",
+                  "text": ";"
+                }
+              ],
+              "isReadonly": false,
+              "isOptional": true,
+              "releaseTag": "Public",
+              "name": "aboveMainComponent",
+              "propertyTypeTokenRange": {
+                "startIndex": 1,
+                "endIndex": 2
+              }
+            },
+            {
+              "kind": "PropertySignature",
+              "canonicalReference": "@absreim/react-bootstrap-data-grid!PaginationStyleOptions#horizontalAlignment:member",
+              "docComment": "/**\n * Sets the horizontal alignment of the pagination UI components.\n *\n * @defaultValue `\"right\"` - both pagination UI components, the page size\n * selector and page number selector, are aligned to the left of the\n * enclosing div.\n */\n",
+              "excerptTokens": [
+                {
+                  "kind": "Content",
+                  "text": "horizontalAlignment?: "
+                },
+                {
+                  "kind": "Content",
+                  "text": "\"left\" | \"center\" | \"right\""
+                },
+                {
+                  "kind": "Content",
+                  "text": ";"
+                }
+              ],
+              "isReadonly": false,
+              "isOptional": true,
+              "releaseTag": "Public",
+              "name": "horizontalAlignment",
+              "propertyTypeTokenRange": {
+                "startIndex": 1,
+                "endIndex": 2
+              }
+            },
+            {
+              "kind": "PropertySignature",
+              "canonicalReference": "@absreim/react-bootstrap-data-grid!PaginationStyleOptions#mainComponentSpacing:member",
+              "docComment": "/**\n * Sets the amount of vertical spacing between the main grid or table\n * component and the pagination UI components. The number supplied to this\n * property will be used for the\n * {@link https://getbootstrap.com/docs/5.3/utilities/spacing/#gap | Bootstrap gap utility}.\n * Valid values depend on Bootstrap `$spacers` Sass map. Be default, the valid\n * values range from 0 to 5.\n *\n * @defaultValue `2`- the gap-2 Bootstrap utility class will be applied.\n */\n",
+              "excerptTokens": [
+                {
+                  "kind": "Content",
+                  "text": "mainComponentSpacing?: "
+                },
+                {
+                  "kind": "Content",
+                  "text": "number"
+                },
+                {
+                  "kind": "Content",
+                  "text": ";"
+                }
+              ],
+              "isReadonly": false,
+              "isOptional": true,
+              "releaseTag": "Public",
+              "name": "mainComponentSpacing",
+              "propertyTypeTokenRange": {
+                "startIndex": 1,
+                "endIndex": 2
+              }
+            },
+            {
+              "kind": "PropertySignature",
+              "canonicalReference": "@absreim/react-bootstrap-data-grid!PaginationStyleOptions#paginationComponentSpacing:member",
+              "docComment": "/**\n * Sets the amount of horizontal spacing between page size selector and page\n * number selector. The number supplied to this\n * property will be used for the\n * {@link https://getbootstrap.com/docs/5.3/utilities/spacing/#gap | Bootstrap gap utility}.\n * Valid values depend on Bootstrap `$spacers` Sass map. Be default, the valid\n * values range from 0 to 5.\n *\n * @defaultValue `2`- the gap-2 Bootstrap utility class will be applied.\n */\n",
+              "excerptTokens": [
+                {
+                  "kind": "Content",
+                  "text": "paginationComponentSpacing?: "
+                },
+                {
+                  "kind": "Content",
+                  "text": "number"
+                },
+                {
+                  "kind": "Content",
+                  "text": ";"
+                }
+              ],
+              "isReadonly": false,
+              "isOptional": true,
+              "releaseTag": "Public",
+              "name": "paginationComponentSpacing",
+              "propertyTypeTokenRange": {
+                "startIndex": 1,
+                "endIndex": 2
+              }
+            },
+            {
+              "kind": "PropertySignature",
+              "canonicalReference": "@absreim/react-bootstrap-data-grid!PaginationStyleOptions#sizeSelectAfterPageSelect:member",
+              "docComment": "/**\n * Sets whether the page size selector dropdown menu is placed to the right of\n * the page number selector.\n *\n * @defaultValue `false` - the page size selector dropdown menu is placed\n * before (to the left of) the page number selector component.\n */\n",
+              "excerptTokens": [
+                {
+                  "kind": "Content",
+                  "text": "sizeSelectAfterPageSelect?: "
+                },
+                {
+                  "kind": "Content",
+                  "text": "boolean"
+                },
+                {
+                  "kind": "Content",
+                  "text": ";"
+                }
+              ],
+              "isReadonly": false,
+              "isOptional": true,
+              "releaseTag": "Public",
+              "name": "sizeSelectAfterPageSelect",
+              "propertyTypeTokenRange": {
+                "startIndex": 1,
+                "endIndex": 2
+              }
+            }
+          ],
+          "extendsTokenRanges": []
+        },
+        {
           "kind": "TypeAlias",
           "canonicalReference": "@absreim/react-bootstrap-data-grid!PostPaginationRowDef:type",
-          "docComment": "/**\n * Row definition object that additionally contains index of the row before pagination was applied.\n *\n * @public\n */\n",
+          "docComment": "/**\n * Row definition object that additionally contains index of the row before\n * pagination was applied.\n *\n * @public\n */\n",
           "excerptTokens": [
             {
               "kind": "Content",
@@ -4599,7 +4862,7 @@
         {
           "kind": "TypeAlias",
           "canonicalReference": "@absreim/react-bootstrap-data-grid!RowData:type",
-          "docComment": "/**\n * The data fields for a row in a table or grid. Excludes the primary key for the row, which is stored separately in the \"id\" field of the {@link RowDef} interface.\n *\n * @typeParam Data - the type of the object. A more specific type can be specified in place of the default {@link ValidRowData} type to assist in type safety and IDE coding assistance.\n *\n * @public\n */\n",
+          "docComment": "/**\n * The data fields for a row in a table or grid. Excludes the primary key for\n * the row, which is stored separately in the \"id\" field of the {@link RowDef}\n * interface.\n *\n * @typeParam Data - the type of the object. A more specific type can be\n * specified in place of the default {@link ValidRowData} type to assist in\n * type safety and IDE coding assistance.\n *\n * @public\n */\n",
           "excerptTokens": [
             {
               "kind": "Content",
@@ -4656,7 +4919,7 @@
         {
           "kind": "Interface",
           "canonicalReference": "@absreim/react-bootstrap-data-grid!RowDef:interface",
-          "docComment": "/**\n * An object that represents a single row.\n *\n * @typeParam Data - the type of the \"data\" property. Can be specified to enhance type safety.\n *\n * @public\n */\n",
+          "docComment": "/**\n * An object that represents a single row.\n *\n * @typeParam Data - the type of the \"data\" property. Can be specified to\n * enhance type safety.\n *\n * @public\n */\n",
           "excerptTokens": [
             {
               "kind": "Content",
@@ -4734,7 +4997,7 @@
             {
               "kind": "PropertySignature",
               "canonicalReference": "@absreim/react-bootstrap-data-grid!RowDef#id:member",
-              "docComment": "/**\n * An id for the row that must be unique among all rows passed in the \"rows\" prop of the {@link Table} or {@link Grid}.\n */\n",
+              "docComment": "/**\n * An id for the row that must be unique among all rows passed in the \"rows\"\n * prop of the {@link Table} or {@link Grid}.\n */\n",
               "excerptTokens": [
                 {
                   "kind": "Content",
@@ -4791,7 +5054,7 @@
         {
           "kind": "TypeAlias",
           "canonicalReference": "@absreim/react-bootstrap-data-grid!SelectMode:type",
-          "docComment": "/**\n * Specifies whether the user can select rows by clicking on a control in a special column, by clicking on the row, or via either method.\n *\n * - column -- can only select by clicking on radio or checkbox input in special column - row -- selection column is hidden and selection can be done by clicking anywhere in a row - both -- selection can be done by either clicking on the input or row\n *\n * @public\n */\n",
+          "docComment": "/**\n * Specifies whether the user can select rows by clicking on a control in a\n * special column, by clicking on the row, or via either method.\n *\n * - column -- can only select by clicking on radio or checkbox input in special\n * column\n * - row -- selection column is hidden and selection can be done by clicking\n * anywhere in a row\n * - both -- selection can be done by either clicking on the input or row\n *\n * @public\n */\n",
           "excerptTokens": [
             {
               "kind": "Content",
@@ -4853,7 +5116,7 @@
         {
           "kind": "Interface",
           "canonicalReference": "@absreim/react-bootstrap-data-grid!SharedTableStyleModel:interface",
-          "docComment": "/**\n * Style model properties shared between the main table and the filter options table.\n *\n * @public\n */\n",
+          "docComment": "/**\n * Style model properties shared between the main table and the filter\n * options table.\n *\n * @public\n */\n",
           "excerptTokens": [
             {
               "kind": "Content",
@@ -5033,7 +5296,7 @@
         {
           "kind": "TypeAlias",
           "canonicalReference": "@absreim/react-bootstrap-data-grid!SingleSelectModel:type",
-          "docComment": "/**\n * Object to enable and configure the selection feature for a grid or table in the single select mode.\n *\n * @public\n */\n",
+          "docComment": "/**\n * Object to enable and configure the selection feature for a grid or table in\n * the single select mode.\n *\n * @public\n */\n",
           "excerptTokens": [
             {
               "kind": "Content",
@@ -5084,7 +5347,7 @@
             {
               "kind": "PropertySignature",
               "canonicalReference": "@absreim/react-bootstrap-data-grid!SingleSelectState#groupName:member",
-              "docComment": "/**\n * String to uniquely identify the group of radio buttons.\n *\n * @remarks\n *\n * If specified, must be unique across all radio button groups on the web page. Now optional because the {@link https://react.dev/reference/react/useId | useId hook} can be used to generate an ID.\n *\n * @defaultValue `undefined` - an id generated by the useId hook will be used\n */\n",
+              "docComment": "/**\n * String to uniquely identify the group of radio buttons.\n *\n * @remarks\n *\n * If specified, must be unique across all radio button groups on the web\n * page. Now optional because the\n * {@link https://react.dev/reference/react/useId | useId hook}\n * can be used to generate an ID.\n *\n * @defaultValue `undefined` - an id generated by the useId hook will be used\n */\n",
               "excerptTokens": [
                 {
                   "kind": "Content",
@@ -5209,7 +5472,7 @@
         {
           "kind": "TypeAlias",
           "canonicalReference": "@absreim/react-bootstrap-data-grid!Size:type",
-          "docComment": "/**\n * Strings representing the different {@link https://getbootstrap.com/docs/5.3/components/pagination/#sizing | possible sizes of the Bootstrap pagination component}.\n *\n * @public\n */\n",
+          "docComment": "/**\n * Strings representing the different\n * {@link https://getbootstrap.com/docs/5.3/components/pagination/#sizing | possible sizes of the Bootstrap pagination component}.\n *\n * @public\n */\n",
           "excerptTokens": [
             {
               "kind": "Content",
@@ -5250,7 +5513,7 @@
             {
               "kind": "PropertySignature",
               "canonicalReference": "@absreim/react-bootstrap-data-grid!SortColDef#name:member",
-              "docComment": "/**\n * The name of the column. Corresponds to the name in the {@link ColDef} type.\n */\n",
+              "docComment": "/**\n * The name of the column. Corresponds to the name in the {@link ColDef}\n * type.\n */\n",
               "excerptTokens": [
                 {
                   "kind": "Content",
@@ -5370,7 +5633,7 @@
         {
           "kind": "Interface",
           "canonicalReference": "@absreim/react-bootstrap-data-grid!StartDateFilterState:interface",
-          "docComment": "/**\n * Object that holds the form state for date or datetime column filtered via the \"startFrom\" scheme.\n *\n * @public\n */\n",
+          "docComment": "/**\n * Object that holds the form state for date or datetime column filtered via the\n * \"startFrom\" scheme.\n *\n * @public\n */\n",
           "excerptTokens": [
             {
               "kind": "Content",
@@ -5864,7 +6127,7 @@
         {
           "kind": "Interface",
           "canonicalReference": "@absreim/react-bootstrap-data-grid!TableSpecificProps:interface",
-          "docComment": "/**\n * Props specific to the {@link Table} component and not the {@link Grid} component.\n *\n * @public\n */\n",
+          "docComment": "/**\n * Props specific to the {@link Table} component and not the {@link Grid}\n * component.\n *\n * @public\n */\n",
           "excerptTokens": [
             {
               "kind": "Content",
@@ -5961,7 +6224,7 @@
             {
               "kind": "PropertySignature",
               "canonicalReference": "@absreim/react-bootstrap-data-grid!TableSpecificProps#editModel:member",
-              "docComment": "/**\n * The edit model of the table. Passing a truthy value enables the editing feature of the component.\n */\n",
+              "docComment": "/**\n * The edit model of the table. Passing a truthy value enables the\n * editing feature of the component.\n */\n",
               "excerptTokens": [
                 {
                   "kind": "Content",
@@ -5989,7 +6252,7 @@
             {
               "kind": "PropertySignature",
               "canonicalReference": "@absreim/react-bootstrap-data-grid!TableSpecificProps#filterModel:member",
-              "docComment": "/**\n * The filter model of the table. Passing a truthy value enables the filtering feature of the component.\n */\n",
+              "docComment": "/**\n * The filter model of the table. Passing a truthy value enables the\n * filtering feature of the component.\n */\n",
               "excerptTokens": [
                 {
                   "kind": "Content",
@@ -6017,7 +6280,7 @@
             {
               "kind": "PropertySignature",
               "canonicalReference": "@absreim/react-bootstrap-data-grid!TableSpecificProps#pagination:member",
-              "docComment": "/**\n * The pagination model of the table. Passing a truthy value enables the pagination feature of the component.\n */\n",
+              "docComment": "/**\n * The pagination model of the table. Passing a truthy value enables\n * the pagination feature of the component.\n */\n",
               "excerptTokens": [
                 {
                   "kind": "Content",
@@ -6045,7 +6308,7 @@
             {
               "kind": "PropertySignature",
               "canonicalReference": "@absreim/react-bootstrap-data-grid!TableSpecificProps#selectModel:member",
-              "docComment": "/**\n * The select model of the table. Passing a truthy value enables the selection feature of the component.\n */\n",
+              "docComment": "/**\n * The select model of the table. Passing a truthy value enables the\n * selection feature of the component.\n */\n",
               "excerptTokens": [
                 {
                   "kind": "Content",
@@ -6073,7 +6336,7 @@
             {
               "kind": "PropertySignature",
               "canonicalReference": "@absreim/react-bootstrap-data-grid!TableSpecificProps#styleModel:member",
-              "docComment": "/**\n * The style model of the table. Passing a truthy value enables the developer to customize the CSS classes applied to various elements of the table.\n */\n",
+              "docComment": "/**\n * The style model of the table. Passing a truthy value enables the\n * developer to customize the CSS classes applied to various elements of the\n * table.\n */\n",
               "excerptTokens": [
                 {
                   "kind": "Content",
@@ -6266,7 +6529,7 @@
         {
           "kind": "TypeAlias",
           "canonicalReference": "@absreim/react-bootstrap-data-grid!UncontrolledFilterModel:type",
-          "docComment": "/**\n * Object that enables the filtering feature on a grid or table in manner that cannot be controlled externally. In this mode, \"tableFilterState\" is the initial set of filtering settings.\n *\n * @public\n */\n",
+          "docComment": "/**\n * Object that enables the filtering feature on a grid or table in manner that\n * cannot be controlled externally. In this mode, \"tableFilterState\" is the\n * initial set of filtering settings.\n *\n * @public\n */\n",
           "excerptTokens": [
             {
               "kind": "Content",
@@ -6527,7 +6790,7 @@
         {
           "kind": "TypeAlias",
           "canonicalReference": "@absreim/react-bootstrap-data-grid!UpdateCallbackGenerator:type",
-          "docComment": "/**\n * Function that returns a callback function that responds to a row being updated with the editing feature.\n *\n * @param id - the id of the row being updated\n *\n * @param rowData - the contents of the edited row\n *\n * @public\n */\n",
+          "docComment": "/**\n * Function that returns a callback function that responds to a row being\n * updated with the editing feature.\n *\n * @param id - the id of the row being updated\n *\n * @param rowData - the contents of the edited row\n *\n * @public\n */\n",
           "excerptTokens": [
             {
               "kind": "Content",
@@ -6571,7 +6834,7 @@
         {
           "kind": "TypeAlias",
           "canonicalReference": "@absreim/react-bootstrap-data-grid!ValidRowData:type",
-          "docComment": "/**\n * Type alias for \"data\" property of the {@link RowDef} interface. This type alias represents the most general type possible. One can specify a more specific type via the Data type parameter.\n *\n * @public\n */\n",
+          "docComment": "/**\n * Type alias for \"data\" property of the {@link RowDef} interface. This type\n * alias represents the most general type possible. One can specify a more\n * specific type via the Data type parameter.\n *\n * @public\n */\n",
           "excerptTokens": [
             {
               "kind": "Content",

@@ -303,3 +303,15 @@ responsive Bootstrap tables, it is a div that encloses the table element that is
   height: 1em;
   flex-shrink: 0;
 }
+
+.rbdg-justify-content-center {
+  justify-content: center;
+}
+
+.rbdg-justify-content-left {
+  justify-content: left;
+}
+
+.rbdg-justify-content-right {
+  justify-content: right;
+}

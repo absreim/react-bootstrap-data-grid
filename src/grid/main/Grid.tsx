@@ -4,8 +4,8 @@ import {
   ClipboardEventHandler,
   CSSProperties,
   FC,
+  ReactNode,
   useCallback,
-  useMemo,
   useRef,
 } from "react";
 import useCombinedPipeline from "../../common/pipeline/useCombinedPipeline";
@@ -17,6 +17,8 @@ import GridBody from "./GridBody";
 import classNames from "classnames";
 import { CSS_PREFIX } from "../../common/constants";
 import useGridFocus from "../focus/useGridFocus";
+import Pagination from "../../common/pagination/Pagination";
+import { GridPaginationModel } from "../pagination/types";
 
 /**
  * The main component for the grid feature of react-bootstrap-data-grid.
@@ -27,6 +29,7 @@ const Grid: FC<GridProps> = ({
   rows,
   cols,
   sortModel,
+  pagination,
   width,
   height,
   variant,
@@ -43,46 +46,51 @@ const Grid: FC<GridProps> = ({
   headerCellFocusVariant,
   bodyCellFocusVariant,
 }) => {
-  const { displayRows, filteredRows, sortedRowsOutput } = useCombinedPipeline({
-    rows,
-    cols,
-    sortModel,
-  });
+  const { displayRows, filteredRows, sortedRowsOutput, currentPageRowsOutput } =
+    useCombinedPipeline({
+      rows,
+      cols,
+      sortModel,
+      pagination,
+    });
   const colNameToWidth = useColNameToWidth(cols);
   const augFormattedRows = useAugFormattedRows(colNameToWidth, displayRows);
-  const gridStyle: CSSProperties = useMemo(() => {
-    function getWidthProperty(
-      width: GridProps["width"],
-    ): CSSProperties["width"] {
-      if (width === "parent") {
-        return "100%";
-      }
-
-      if (typeof width === "number") {
-        return width;
-      }
-
-      return "min-content";
+  function getWidthProperty(width: GridProps["width"]): CSSProperties["width"] {
+    if (width === "parent") {
+      return "100%";
     }
 
-    function getHeightProperty(
-      height: GridProps["height"],
-    ): CSSProperties["height"] {
-      if (height === "parent") {
-        return "100%";
-      }
-      if (typeof height === "number") {
-        return height;
-      }
+    if (typeof width === "number") {
+      return width;
+    }
 
-      return undefined;
+    return "min-content";
+  }
+  const widthProperty = getWidthProperty(width);
+
+  function getHeightProperties(height: GridProps["height"]): {
+    containerDiv: CSSProperties["height"];
+    mainDiv: CSSProperties["height"];
+  } {
+    if (height === "parent") {
+      return {
+        containerDiv: "100%",
+        mainDiv: "100%",
+      };
+    }
+    if (typeof height === "number") {
+      return {
+        containerDiv: undefined,
+        mainDiv: height,
+      };
     }
 
     return {
-      width: getWidthProperty(width),
-      height: getHeightProperty(height),
+      containerDiv: undefined,
+      mainDiv: undefined,
     };
-  }, [width, height]);
+  }
+  const heightProperties = getHeightProperties(height);
 
   const vertScrollable = height !== undefined && height !== "auto";
   const gridRef = useRef<HTMLDivElement>(null);
@@ -92,7 +100,7 @@ const Grid: FC<GridProps> = ({
         .filter((ariaColIndex) => cols[ariaColIndex - 1].sortable)
     : [];
   const { effectiveCoords, gridClickHandler, gridKeydownHandler } =
-    useGridFocus(gridRef, rows.length + 1, cols.length, sortableColIndices);
+    useGridFocus(gridRef, displayRows.length + 1, cols.length, sortableColIndices);
 
   const onCopy: ClipboardEventHandler<HTMLDivElement> = useCallback((event) => {
     if (!gridRef.current?.contains(document.activeElement)) {
@@ -111,13 +119,16 @@ const Grid: FC<GridProps> = ({
     );
   }, []);
 
-  return (
+  const mainGridComponent = (
     <div
       onCopy={onCopy}
       onClick={gridClickHandler}
       onKeyDown={gridKeydownHandler}
       ref={gridRef}
-      style={gridStyle}
+      style={{
+        width: widthProperty,
+        height: heightProperties.mainDiv,
+      }}
       className={classNames(
         {
           "overflow-x-auto": width !== undefined && width !== "auto",
@@ -137,6 +148,7 @@ const Grid: FC<GridProps> = ({
       role="grid"
       aria-colcount={cols.length}
       aria-rowcount={filteredRows.length + 1}
+      data-testid="rbdg-grid"
     >
       <GridHeader
         cols={cols}
@@ -160,6 +172,49 @@ const Grid: FC<GridProps> = ({
         cellFocusVariant={bodyCellFocusVariant}
       />
     </div>
+  );
+
+  const getPagination: (paginationModel: GridPaginationModel) => ReactNode = (
+    pagination,
+  ) => (
+    <Pagination
+      containerDivClasses={[
+        "d-flex",
+        `rbdg-justify-content-${pagination.styleOptions?.horizontalAlignment || "right"}`,
+        `gap-${pagination.styleOptions?.paginationComponentSpacing === undefined ? 2 : pagination.styleOptions?.paginationComponentSpacing}`,
+      ]}
+      normalizedModel={currentPageRowsOutput.normalizedModel!}
+      prePagingNumRows={rows.length}
+      sizeSelectAfterPageSelect={
+        pagination.styleOptions?.sizeSelectAfterPageSelect
+      }
+    />
+  );
+
+  return pagination ? (
+    <div
+      style={{ width: widthProperty, height: heightProperties.containerDiv }}
+      className={classNames(
+        "d-flex",
+        "flex-column",
+        `gap-${pagination.styleOptions?.mainComponentSpacing === undefined ? 2 : pagination.styleOptions?.mainComponentSpacing}`,
+      )}
+      data-testid="rbdg-top-level-grid-container"
+    >
+      {pagination.styleOptions?.aboveMainComponent ? (
+        <>
+          {getPagination(pagination)}
+          {mainGridComponent}
+        </>
+      ) : (
+        <>
+          {mainGridComponent}
+          {getPagination(pagination)}
+        </>
+      )}
+    </div>
+  ) : (
+    <>{mainGridComponent}</>
   );
 };
 

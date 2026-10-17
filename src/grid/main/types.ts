@@ -4,6 +4,7 @@ import {
   FormattedRow,
   MainComponentSharedProps,
 } from "../../common";
+import { GridPaginationModel } from "../pagination/types";
 
 /**
  * The type of the function used to specify color variants on a grid body on a
@@ -138,6 +139,11 @@ export interface GridSpecificProps {
    * Function to set the color variant of body cell focus rings
    */
   bodyCellFocusVariant?: BodyCellVariantFn;
+
+  /**
+   * Enables and configures pagination for the grid
+   */
+  pagination?: GridPaginationModel;
 }
 
 /**

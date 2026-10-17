@@ -43,7 +43,8 @@ export default defineConfig({
     /*
       Broken on macOS 27 as of this writing. Use command line parameters
       --project=chromium --project=webkit
-      to work around.
+      to work around. Can also be worked around by granting full disk access to
+      the app (such as the IDE) that is running the tests.
     */
     {
       name: "firefox",

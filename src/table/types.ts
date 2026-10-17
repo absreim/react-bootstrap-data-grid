@@ -22,12 +22,6 @@ export type DisplayMode = "table" | "block";
  */
 export interface TableSpecificProps {
   /**
-   * The pagination model of the table. Passing a truthy value enables
-   * the pagination feature of the component.
-   */
-  pagination?: PaginationModel;
-
-  /**
    * The filter model of the table. Passing a truthy value enables the
    * filtering feature of the component.
    */
@@ -68,6 +62,12 @@ export interface TableSpecificProps {
    * @defaultValue `"table"`
    */
   displayMode?: DisplayMode;
+
+  /**
+   * The pagination model of the table. Passing a truthy value enables
+   * the pagination feature of the component.
+   */
+  pagination?: PaginationModel;
 }
 
 /**

@@ -5,12 +5,11 @@ import Grid, {
   GridBorderSetting,
   GridProps,
   GridStripeSetting,
-  GridWidthSetting,
 } from "../../grid";
 import Form from "react-bootstrap/Form";
 import { cols, generateBasicTestRows } from "../../test-tools/basic-test-data";
+import useDimSetting from "./useDimSetting";
 
-type GridDimSetting = "unset" | "number" | "auto" | "parent";
 type TestGridStripeSetting = GridStripeSetting | "unset";
 type TestGridBorderSetting = GridBorderSetting | "unset";
 
@@ -41,8 +40,6 @@ const variants = [
   "light",
   "bsbrand",
 ];
-
-const gridDimSettings: GridDimSetting[] = ["unset", "number", "auto", "parent"];
 
 const headerCellVariantFn: GridProps["headerCellVariant"] = (col, colIndex) => {
   if (col.name.startsWith("date")) {
@@ -102,8 +99,6 @@ const bodyCellVariantsFn: GridProps["bodyCellVariant"] = (
 // done as part of testing of a feature that uses active rows and/or cells.
 
 const TestHarness: FC = () => {
-  const [heightSetting, setHeightSetting] = useState<GridDimSetting>("unset");
-  const [widthSetting, setWidthSetting] = useState<GridDimSetting>("unset");
   const [stripes, setStripes] = useState<TestGridStripeSetting>("unset");
   const [hover, setHover] = useState<boolean>(false);
   const [divider, setDivider] = useState<boolean>(false);
@@ -118,27 +113,8 @@ const TestHarness: FC = () => {
   const [enableBodyCellVariants, setEnableBodyCellVariants] = useState(false);
   const [enableFocusVariants, setEnableFocusVariants] = useState(false);
 
-  const getEffectiveWidth: () => GridWidthSetting | undefined = () => {
-    switch (widthSetting) {
-      case "unset":
-        return undefined;
-      case "number":
-        return 400;
-      default:
-        return widthSetting;
-    }
-  };
-
-  const getEffectiveHeight: () => GridWidthSetting | undefined = () => {
-    switch (heightSetting) {
-      case "unset":
-        return undefined;
-      case "number":
-        return 300;
-      default:
-        return heightSetting;
-    }
-  };
+  const { heightFieldset, widthFieldset, effectiveHeight, effectiveWidth } =
+    useDimSetting(300, 400);
 
   const variantSelectSetInfos: {
     name: string;
@@ -169,38 +145,8 @@ const TestHarness: FC = () => {
   return (
     <>
       <Form>
-        <fieldset>
-          <legend>Height Setting</legend>
-          {gridDimSettings.map((setting) => (
-            <Form.Check
-              key={setting}
-              type="radio"
-              id={`heightSetting-${setting}`}
-              label={setting}
-              checked={heightSetting === setting}
-              value={setting}
-              onChange={({ target }) =>
-                setHeightSetting(target.value as GridDimSetting)
-              }
-            />
-          ))}
-        </fieldset>
-        <fieldset>
-          <legend>Width Setting</legend>
-          {gridDimSettings.map((setting) => (
-            <Form.Check
-              key={setting}
-              type="radio"
-              id={`widthSetting-${setting}`}
-              label={setting}
-              checked={widthSetting === setting}
-              value={setting}
-              onChange={({ target }) =>
-                setWidthSetting(target.value as GridDimSetting)
-              }
-            />
-          ))}
-        </fieldset>
+        {heightFieldset}
+        {widthFieldset}
         <fieldset>
           <legend>Stripe Setting</legend>
           {stripeSettings.map((setting) => (
@@ -308,8 +254,8 @@ const TestHarness: FC = () => {
         <Grid
           rows={testRows}
           cols={cols}
-          width={getEffectiveWidth()}
-          height={getEffectiveHeight()}
+          width={effectiveWidth}
+          height={effectiveHeight}
           stripes={stripes === "unset" ? undefined : stripes}
           hover={hover}
           divider={divider}
