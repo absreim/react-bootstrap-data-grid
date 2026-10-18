@@ -166,17 +166,25 @@ const Grid: FC<GridProps> = ({
     </div>
   );
 
-  // TODO: customization options for layout
-  // - gap size
-  // - pagination top vs bottom
-  // - pagination size selector and page selector ordering
   // TODO: fix "jumping around" behavior of pagination component that is
   // caused by disappearing back and forward buttons. Instead, grey out buttons
   // that cannot be clicked.
   return pagination ? (
-    <div className="vstack gap-2">
+    <div
+      className={classNames(
+        "d-flex",
+        `flex-column${pagination.styleOptions?.aboveMainComponent ? "-reverse" : ""}`,
+        `gap-${pagination.styleOptions?.mainComponentSpacing || 2}`,
+      )}
+    >
       {mainGridComponent}
       <Pagination
+        containerDivClasses={[
+          "d-flex",
+          `flex-row${pagination.styleOptions?.sizeSelectAfterPageSelect ? "-reverse" : ""}`,
+          `justify-content-${pagination.styleOptions?.horizontalAlignment || "end"}`,
+          `gap-${pagination.styleOptions?.paginationComponentSpacing || 2}`
+        ]}
         normalizedModel={currentPageRowsOutput.normalizedModel!}
         prePagingNumRows={rows.length}
       />

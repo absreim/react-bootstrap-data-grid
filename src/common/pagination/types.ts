@@ -67,6 +67,14 @@ export interface PaginationOptions {
    * {@link https://developer.mozilla.org/en-US/docs/Web/CSS/Reference/Properties/justify-content#syntax}.
    */
   pageSelectorJustifyContent?: JustifyContentSetting;
+
+  /**
+   * Preset style options involving pagination UI components.
+   *
+   * @defaultValue `undefined` - All default values for the
+   * {@link PaginationStyleOptions} interface will be applied.
+   */
+  styleOptions?: PaginationStyleOptions;
 }
 
 /**
@@ -159,7 +167,7 @@ export interface PaginationStyleOptions {
    * @defaultValue `false` - pagination components are positioned below the main
    * component.
    */
-  isAboveMainComponent?: boolean;
+  aboveMainComponent?: boolean;
 
   /**
    * Sets whether the page size selector dropdown menu is placed to the right of
@@ -168,16 +176,16 @@ export interface PaginationStyleOptions {
    * @defaultValue `false` - the page size selector dropdown menu is placed
    * before (to the left of) the page number selector component.
    */
-  pageSizeSelectIsAfterPageSelect?: boolean;
+  sizeSelectAfterPageSelect?: boolean;
 
   /**
    * Sets the horizontal alignment of the pagination UI components.
    *
-   * @defaultValue `"right"` - both pagination UI components, the page size
-   * selector and page number selector, are aligned to the right of the
+   * @defaultValue `"end"` - both pagination UI components, the page size
+   * selector and page number selector, are aligned to the left of the
    * enclosing div.
    */
-  horizontalAlignment?: "left" | "center" | "right";
+  horizontalAlignment?: "start" | "center" | "end";
 
   /**
    * Sets the amount of vertical spacing between the main grid or table
@@ -190,4 +198,16 @@ export interface PaginationStyleOptions {
    * @defaultValue `2`- the gap-2 Bootstrap utility class will be applied.
    */
   mainComponentSpacing?: number;
+
+  /**
+   * Sets the amount of horizontal spacing between page size selector and page
+   * number selector. The number supplied to this
+   * property will be used for the
+   * {@link https://getbootstrap.com/docs/5.3/utilities/spacing/#gap | Bootstrap gap utility}.
+   * Valid values depend on Bootstrap `$spacers` Sass map. Be default, the valid
+   * values range from 0 to 5.
+   *
+   * @defaultValue `2`- the gap-2 Bootstrap utility class will be applied.
+   */
+  paginationComponentSpacing?: number;
 }
