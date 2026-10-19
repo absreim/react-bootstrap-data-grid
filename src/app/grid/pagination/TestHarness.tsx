@@ -14,7 +14,7 @@ type BooleanOptions = Record<
   { label: string; value: boolean | undefined }
 >;
 type GapOptions = Record<string, { label: string; value: number | undefined }>;
-type AlignSettingString = "start" | "center" | "end";
+type AlignSettingString = "left" | "center" | "right";
 type AlignOptions = Record<
   AlignSettingString | "unset",
   { label: string; value: AlignSettingString | undefined }
@@ -66,20 +66,20 @@ const gapOptNameToLabel = Object.keys(gapOptions).reduce(
 
 const alignOptions: AlignOptions = {
   unset: {
-    label: "Unset (same as end)",
+    label: "Unset (same as right)",
     value: undefined,
   },
-  start: {
-    label: "Start",
-    value: "start",
+  left: {
+    label: "Left",
+    value: "left",
   },
   center: {
     label: "Center",
     value: "center",
   },
-  end: {
-    label: "End",
-    value: "end",
+  right: {
+    label: "Right",
+    value: "right",
   },
 };
 const alignOptNameToLabel = Object.keys(alignOptions).reduce(

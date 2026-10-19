@@ -181,11 +181,11 @@ export interface PaginationStyleOptions {
   /**
    * Sets the horizontal alignment of the pagination UI components.
    *
-   * @defaultValue `"end"` - both pagination UI components, the page size
+   * @defaultValue `"right"` - both pagination UI components, the page size
    * selector and page number selector, are aligned to the left of the
    * enclosing div.
    */
-  horizontalAlignment?: "start" | "center" | "end";
+  horizontalAlignment?: "left" | "center" | "right";
 
   /**
    * Sets the amount of vertical spacing between the main grid or table

@@ -18,6 +18,7 @@ import classNames from "classnames";
 import { CSS_PREFIX } from "../../common/constants";
 import useGridFocus from "../focus/useGridFocus";
 import Pagination from "../../common/pagination/Pagination";
+import { PaginationStyleOptions } from "../../common";
 
 /**
  * The main component for the grid feature of react-bootstrap-data-grid.
@@ -54,21 +55,20 @@ const Grid: FC<GridProps> = ({
     });
   const colNameToWidth = useColNameToWidth(cols);
   const augFormattedRows = useAugFormattedRows(colNameToWidth, displayRows);
-  const gridStyle: CSSProperties = useMemo(() => {
-    function getWidthProperty(
-      width: GridProps["width"],
-    ): CSSProperties["width"] {
-      if (width === "parent") {
-        return "100%";
-      }
-
-      if (typeof width === "number") {
-        return width;
-      }
-
-      return "min-content";
+  function getWidthProperty(width: GridProps["width"]): CSSProperties["width"] {
+    if (width === "parent") {
+      return "100%";
     }
 
+    if (typeof width === "number") {
+      return width;
+    }
+
+    return "min-content";
+  }
+  const widthProperty = getWidthProperty(width);
+
+  const gridStyle: CSSProperties = useMemo(() => {
     function getHeightProperty(
       height: GridProps["height"],
     ): CSSProperties["height"] {
@@ -83,10 +83,10 @@ const Grid: FC<GridProps> = ({
     }
 
     return {
-      width: getWidthProperty(width),
+      width: widthProperty,
       height: getHeightProperty(height),
     };
-  }, [width, height]);
+  }, [widthProperty, height]);
 
   const vertScrollable = height !== undefined && height !== "auto";
   const gridRef = useRef<HTMLDivElement>(null);
@@ -166,15 +166,51 @@ const Grid: FC<GridProps> = ({
     </div>
   );
 
+  function getJustifyContentSetting(
+    sizeSelectAfterPageSelect: PaginationStyleOptions["sizeSelectAfterPageSelect"],
+    horizontalAlignment: PaginationStyleOptions["horizontalAlignment"],
+  ): "start" | "center" | "end" {
+    if (
+      sizeSelectAfterPageSelect &&
+      (horizontalAlignment === "right" || horizontalAlignment === undefined)
+    ) {
+      return "start";
+    }
+
+    if (
+      !sizeSelectAfterPageSelect &&
+      (horizontalAlignment === "right" || horizontalAlignment === undefined)
+    ) {
+      return "end";
+    }
+
+    if (
+      sizeSelectAfterPageSelect &&
+      (horizontalAlignment === "left" || horizontalAlignment === undefined)
+    ) {
+      return "end";
+    }
+
+    if (
+      sizeSelectAfterPageSelect &&
+      (horizontalAlignment === "left" || horizontalAlignment === undefined)
+    ) {
+      return "start";
+    }
+
+    return "center";
+  }
+
   // TODO: fix "jumping around" behavior of pagination component that is
   // caused by disappearing back and forward buttons. Instead, grey out buttons
   // that cannot be clicked.
   return pagination ? (
     <div
+      style={{ width: widthProperty }}
       className={classNames(
         "d-flex",
         `flex-column${pagination.styleOptions?.aboveMainComponent ? "-reverse" : ""}`,
-        `gap-${pagination.styleOptions?.mainComponentSpacing || 2}`,
+        `gap-${pagination.styleOptions?.mainComponentSpacing === undefined ? 2 : pagination.styleOptions?.mainComponentSpacing}`,
       )}
     >
       {mainGridComponent}
@@ -182,8 +218,8 @@ const Grid: FC<GridProps> = ({
         containerDivClasses={[
           "d-flex",
           `flex-row${pagination.styleOptions?.sizeSelectAfterPageSelect ? "-reverse" : ""}`,
-          `justify-content-${pagination.styleOptions?.horizontalAlignment || "end"}`,
-          `gap-${pagination.styleOptions?.paginationComponentSpacing || 2}`
+          `justify-content-${getJustifyContentSetting(pagination.styleOptions?.sizeSelectAfterPageSelect, pagination.styleOptions?.horizontalAlignment)}`,
+          `gap-${pagination.styleOptions?.paginationComponentSpacing === undefined ? 2 : pagination.styleOptions?.paginationComponentSpacing}`,
         ]}
         normalizedModel={currentPageRowsOutput.normalizedModel!}
         prePagingNumRows={rows.length}
