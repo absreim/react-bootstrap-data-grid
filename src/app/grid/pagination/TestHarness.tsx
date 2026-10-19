@@ -7,6 +7,7 @@ import {
 import { FC, ReactNode, useState } from "react";
 import Grid from "../../../grid";
 import Form from "react-bootstrap/Form";
+import useDimSetting from "../useDimSetting";
 
 type BooleanOptionName = "true" | "false" | "unset";
 type BooleanOptions = Record<
@@ -36,10 +37,13 @@ const booleanOptions: BooleanOptions = {
     value: true,
   },
 };
-const booleanOptNameToLabel = Object.keys(booleanOptions).reduce((prev, curr) => {
-  prev[curr] = booleanOptions[curr as BooleanOptionName].label;
-  return prev;
-}, {} as Record<string, string>);
+const booleanOptNameToLabel = Object.keys(booleanOptions).reduce(
+  (prev, curr) => {
+    prev[curr] = booleanOptions[curr as BooleanOptionName].label;
+    return prev;
+  },
+  {} as Record<string, string>,
+);
 
 const gapOptions: GapOptions = [0, 1, 2, 3, 4, 5].reduce(
   (prev, curr) => {
@@ -59,7 +63,7 @@ const gapOptions: GapOptions = [0, 1, 2, 3, 4, 5].reduce(
 const gapOptNameToLabel = Object.keys(gapOptions).reduce(
   (prev, curr) => {
     prev[curr] = gapOptions[curr].label;
-    return prev
+    return prev;
   },
   {} as Record<string, string>,
 );
@@ -119,13 +123,13 @@ function getRadioGroup(
 
 const TestHarness: FC = () => {
   const [aboveMain, setAboveMain] = useState<string>("unset");
-  const [sizeAfterPageNum, setSizeAfterPageNum] =
-    useState<string>("unset");
-  const [horizAlign, setHorizAlign] = useState<string>(
-    "unset",
-  );
+  const [sizeAfterPageNum, setSizeAfterPageNum] = useState<string>("unset");
+  const [horizAlign, setHorizAlign] = useState<string>("unset");
   const [mainSpacing, setMainSpacing] = useState<string>("unset");
   const [pageSpacing, setPageSpacing] = useState<string>("unset");
+
+  const { heightFieldset, widthFieldset, effectiveHeight, effectiveWidth } =
+    useDimSetting(300, 400);
 
   return (
     <>
@@ -165,25 +169,31 @@ const TestHarness: FC = () => {
           setPageSpacing,
           "pageSpacingSetting",
         )}
+        {heightFieldset}
+        {widthFieldset}
       </Form>
-      <Grid
-        rows={testRows}
-        cols={cols}
-        pagination={{
-          type: "uncontrolled",
-          pageSizeOptions: [5, 10],
-          styleOptions: {
-            aboveMainComponent:
-              booleanOptions[aboveMain as BooleanOptionName].value,
-            sizeSelectAfterPageSelect:
-              booleanOptions[sizeAfterPageNum as BooleanOptionName].value,
-            horizontalAlignment:
-              alignOptions[horizAlign as AlignSettingString | "unset"].value,
-            mainComponentSpacing: gapOptions[mainSpacing].value,
-            paginationComponentSpacing: gapOptions[pageSpacing].value,
-          },
-        }}
-      />
+      <div style={{ height: 500, width: 700 }}>
+        <Grid
+          rows={testRows}
+          cols={cols}
+          width={effectiveWidth}
+          height={effectiveHeight}
+          pagination={{
+            type: "uncontrolled",
+            pageSizeOptions: [5, 10],
+            styleOptions: {
+              aboveMainComponent:
+                booleanOptions[aboveMain as BooleanOptionName].value,
+              sizeSelectAfterPageSelect:
+                booleanOptions[sizeAfterPageNum as BooleanOptionName].value,
+              horizontalAlignment:
+                alignOptions[horizAlign as AlignSettingString | "unset"].value,
+              mainComponentSpacing: gapOptions[mainSpacing].value,
+              paginationComponentSpacing: gapOptions[pageSpacing].value,
+            },
+          }}
+        />
+      </div>
     </>
   );
 };

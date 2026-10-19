@@ -5,7 +5,6 @@ import {
   CSSProperties,
   FC,
   useCallback,
-  useMemo,
   useRef,
 } from "react";
 import useCombinedPipeline from "../../common/pipeline/useCombinedPipeline";
@@ -68,25 +67,29 @@ const Grid: FC<GridProps> = ({
   }
   const widthProperty = getWidthProperty(width);
 
-  const gridStyle: CSSProperties = useMemo(() => {
-    function getHeightProperty(
-      height: GridProps["height"],
-    ): CSSProperties["height"] {
-      if (height === "parent") {
-        return "100%";
-      }
-      if (typeof height === "number") {
-        return height;
-      }
-
-      return undefined;
+  function getHeightProperties(height: GridProps["height"]): {
+    containerDiv: CSSProperties["height"];
+    mainDiv: CSSProperties["height"];
+  } {
+    if (height === "parent") {
+      return {
+        containerDiv: "100%",
+        mainDiv: "100%",
+      };
+    }
+    if (typeof height === "number") {
+      return {
+        containerDiv: undefined,
+        mainDiv: height,
+      };
     }
 
     return {
-      width: widthProperty,
-      height: getHeightProperty(height),
+      containerDiv: undefined,
+      mainDiv: undefined,
     };
-  }, [widthProperty, height]);
+  }
+  const heightProperties = getHeightProperties(height);
 
   const vertScrollable = height !== undefined && height !== "auto";
   const gridRef = useRef<HTMLDivElement>(null);
@@ -121,7 +124,10 @@ const Grid: FC<GridProps> = ({
       onClick={gridClickHandler}
       onKeyDown={gridKeydownHandler}
       ref={gridRef}
-      style={gridStyle}
+      style={{
+        width: widthProperty,
+        height: heightProperties.mainDiv,
+      }}
       className={classNames(
         {
           "overflow-x-auto": width !== undefined && width !== "auto",
@@ -206,7 +212,7 @@ const Grid: FC<GridProps> = ({
   // that cannot be clicked.
   return pagination ? (
     <div
-      style={{ width: widthProperty }}
+      style={{ width: widthProperty, height: heightProperties.containerDiv }}
       className={classNames(
         "d-flex",
         `flex-column${pagination.styleOptions?.aboveMainComponent ? "-reverse" : ""}`,
