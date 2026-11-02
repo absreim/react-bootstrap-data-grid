@@ -17,7 +17,6 @@ import classNames from "classnames";
 import { CSS_PREFIX } from "../../common/constants";
 import useGridFocus from "../focus/useGridFocus";
 import Pagination from "../../common/pagination/Pagination";
-import { PaginationStyleOptions } from "../../common";
 
 /**
  * The main component for the grid feature of react-bootstrap-data-grid.
@@ -172,41 +171,6 @@ const Grid: FC<GridProps> = ({
     </div>
   );
 
-  function getJustifyContentSetting(
-    sizeSelectAfterPageSelect: PaginationStyleOptions["sizeSelectAfterPageSelect"],
-    horizontalAlignment: PaginationStyleOptions["horizontalAlignment"],
-  ): "start" | "center" | "end" {
-    if (
-      sizeSelectAfterPageSelect &&
-      (horizontalAlignment === "right" || horizontalAlignment === undefined)
-    ) {
-      return "start";
-    }
-
-    if (
-      !sizeSelectAfterPageSelect &&
-      (horizontalAlignment === "right" || horizontalAlignment === undefined)
-    ) {
-      return "end";
-    }
-
-    if (
-      sizeSelectAfterPageSelect &&
-      (horizontalAlignment === "left" || horizontalAlignment === undefined)
-    ) {
-      return "end";
-    }
-
-    if (
-      sizeSelectAfterPageSelect &&
-      (horizontalAlignment === "left" || horizontalAlignment === undefined)
-    ) {
-      return "start";
-    }
-
-    return "center";
-  }
-
   // TODO: fix "jumping around" behavior of pagination component that is
   // caused by disappearing back and forward buttons. Instead, grey out buttons
   // that cannot be clicked.
@@ -224,7 +188,7 @@ const Grid: FC<GridProps> = ({
         containerDivClasses={[
           "d-flex",
           `flex-row${pagination.styleOptions?.sizeSelectAfterPageSelect ? "-reverse" : ""}`,
-          `justify-content-${getJustifyContentSetting(pagination.styleOptions?.sizeSelectAfterPageSelect, pagination.styleOptions?.horizontalAlignment)}`,
+          `rbdg-justify-content-${pagination.styleOptions?.horizontalAlignment || "right"}`,
           `gap-${pagination.styleOptions?.paginationComponentSpacing === undefined ? 2 : pagination.styleOptions?.paginationComponentSpacing}`,
         ]}
         normalizedModel={currentPageRowsOutput.normalizedModel!}
