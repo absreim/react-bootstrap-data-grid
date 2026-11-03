@@ -171,9 +171,6 @@ const Grid: FC<GridProps> = ({
     </div>
   );
 
-  // TODO: fix "jumping around" behavior of pagination component that is
-  // caused by disappearing back and forward buttons. Instead, grey out buttons
-  // that cannot be clicked.
   return pagination ? (
     <div
       style={{ width: widthProperty, height: heightProperties.containerDiv }}
