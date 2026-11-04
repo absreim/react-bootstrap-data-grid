@@ -8,12 +8,14 @@ export interface PaginationProps {
   normalizedModel: NormalizedPaginationModel;
   prePagingNumRows: number;
   containerDivClasses?: string[];
+  sizeSelectAfterPageSelect?: boolean;
 }
 
 const Pagination: FC<PaginationProps> = ({
   normalizedModel,
   prePagingNumRows,
   containerDivClasses,
+  sizeSelectAfterPageSelect
 }) => {
   const {
     pageSizeOptions,
@@ -44,6 +46,26 @@ const Pagination: FC<PaginationProps> = ({
     }
   };
 
+  const pageSizeSelect = (
+    <PageSizeSelector
+      componentSize={componentSize}
+      pageSizeOptions={pageSizeOptions}
+      pageSizeIndex={pageSizeIndex}
+      handleSetPageSize={pageIndexAwarePageSizeSetter}
+    />
+  );
+  const pageSelect = (
+    <PageSelector
+      numPages={numPages}
+      pageNum={currentPage}
+      numButtons={maxPageButtons}
+      setPageNum={setCurrentPage}
+      size={componentSize}
+      ariaLabel={pageSelectorAriaLabel}
+      alignment={pageSelectorJustifyContent}
+    />
+  );
+
   return (
     <div
       data-testid="pagination ui container div"
@@ -56,21 +78,17 @@ const Pagination: FC<PaginationProps> = ({
         ],
       )}
     >
-      <PageSizeSelector
-        componentSize={componentSize}
-        pageSizeOptions={pageSizeOptions}
-        pageSizeIndex={pageSizeIndex}
-        handleSetPageSize={pageIndexAwarePageSizeSetter}
-      />
-      <PageSelector
-        numPages={numPages}
-        pageNum={currentPage}
-        numButtons={maxPageButtons}
-        setPageNum={setCurrentPage}
-        size={componentSize}
-        ariaLabel={pageSelectorAriaLabel}
-        alignment={pageSelectorJustifyContent}
-      />
+      {sizeSelectAfterPageSelect ? (
+        <>
+          {pageSelect}
+          {pageSizeSelect}
+        </>
+      ) : (
+        <>
+          {pageSizeSelect}
+          {pageSelect}
+        </>
+      )}
     </div>
   );
 };

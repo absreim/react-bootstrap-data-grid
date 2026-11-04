@@ -4,6 +4,7 @@ import {
   ClipboardEventHandler,
   CSSProperties,
   FC,
+  ReactNode,
   useCallback,
   useRef,
 } from "react";
@@ -17,6 +18,7 @@ import classNames from "classnames";
 import { CSS_PREFIX } from "../../common/constants";
 import useGridFocus from "../focus/useGridFocus";
 import Pagination from "../../common/pagination/Pagination";
+import { GridPaginationModel } from "../pagination/types";
 
 /**
  * The main component for the grid feature of react-bootstrap-data-grid.
@@ -171,27 +173,44 @@ const Grid: FC<GridProps> = ({
     </div>
   );
 
+  const getPagination: (paginationModel: GridPaginationModel) => ReactNode = (
+    pagination,
+  ) => (
+    <Pagination
+      containerDivClasses={[
+        "d-flex",
+        `rbdg-justify-content-${pagination.styleOptions?.horizontalAlignment || "right"}`,
+        `gap-${pagination.styleOptions?.paginationComponentSpacing === undefined ? 2 : pagination.styleOptions?.paginationComponentSpacing}`,
+      ]}
+      normalizedModel={currentPageRowsOutput.normalizedModel!}
+      prePagingNumRows={rows.length}
+      sizeSelectAfterPageSelect={
+        pagination.styleOptions?.sizeSelectAfterPageSelect
+      }
+    />
+  );
+
   return pagination ? (
     <div
       style={{ width: widthProperty, height: heightProperties.containerDiv }}
       className={classNames(
         "d-flex",
-        `flex-column${pagination.styleOptions?.aboveMainComponent ? "-reverse" : ""}`,
+        "flex-column",
         `gap-${pagination.styleOptions?.mainComponentSpacing === undefined ? 2 : pagination.styleOptions?.mainComponentSpacing}`,
       )}
       data-testid="rbdg-top-level-grid-container"
     >
-      {mainGridComponent}
-      <Pagination
-        containerDivClasses={[
-          "d-flex",
-          `flex-row${pagination.styleOptions?.sizeSelectAfterPageSelect ? "-reverse" : ""}`,
-          `rbdg-justify-content-${pagination.styleOptions?.horizontalAlignment || "right"}`,
-          `gap-${pagination.styleOptions?.paginationComponentSpacing === undefined ? 2 : pagination.styleOptions?.paginationComponentSpacing}`,
-        ]}
-        normalizedModel={currentPageRowsOutput.normalizedModel!}
-        prePagingNumRows={rows.length}
-      />
+      {pagination.styleOptions?.aboveMainComponent ? (
+        <>
+          {getPagination(pagination)}
+          {mainGridComponent}
+        </>
+      ) : (
+        <>
+          {mainGridComponent}
+          {getPagination(pagination)}
+        </>
+      )}
     </div>
   ) : (
     <>{mainGridComponent}</>
