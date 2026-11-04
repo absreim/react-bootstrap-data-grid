@@ -21,7 +21,7 @@ const PageSizeSelector: FC<PageSizeSelectorProps> = ({
   };
 
   return (
-    <div>
+    <div data-testid="rbdg-page-size-selector">
       <select
         name="rowsPerPage"
         className={classNames({

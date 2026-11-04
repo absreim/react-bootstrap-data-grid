@@ -148,6 +148,7 @@ const Grid: FC<GridProps> = ({
       role="grid"
       aria-colcount={cols.length}
       aria-rowcount={filteredRows.length + 1}
+      data-testid="rbdg-grid"
     >
       <GridHeader
         cols={cols}

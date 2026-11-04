@@ -21,7 +21,7 @@ const displayIndexToOrigIndex: Record<0 | 1, number> = {
       );
       const tableDiv = container.getByTestId("rbdg-table-div");
       const paginationUiDiv = container.getByTestId(
-        "pagination ui container div",
+        "rdbg-pagination-ui-container",
       );
       const table = container.getByRole("table");
       const tbody = container.locator("tbody");

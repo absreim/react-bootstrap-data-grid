@@ -68,7 +68,7 @@ const Pagination: FC<PaginationProps> = ({
 
   return (
     <div
-      data-testid="pagination ui container div"
+      data-testid="rdbg-pagination-ui-container"
       className={classNames(
         containerDivClasses || [
           "d-flex",

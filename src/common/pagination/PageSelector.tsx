@@ -176,7 +176,7 @@ const PageSelector: FC<PageSelectorProps> = ({
   ));
 
   return (
-    <nav aria-label={ariaLabel}>
+    <nav aria-label={ariaLabel} data-testid="rbdg-page-selector">
       <ul className={classNames(ulClasses)}>
         {getFirstArrowButton()}
         {getPrevArrowButton()}
