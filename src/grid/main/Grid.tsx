@@ -98,7 +98,7 @@ const Grid: FC<GridProps> = ({
         .filter((ariaColIndex) => cols[ariaColIndex - 1].sortable)
     : [];
   const { effectiveCoords, gridClickHandler, gridKeydownHandler } =
-    useGridFocus(gridRef, rows.length + 1, cols.length, sortableColIndices);
+    useGridFocus(gridRef, displayRows.length + 1, cols.length, sortableColIndices);
 
   const onCopy: ClipboardEventHandler<HTMLDivElement> = useCallback((event) => {
     if (!gridRef.current?.contains(document.activeElement)) {
@@ -179,6 +179,7 @@ const Grid: FC<GridProps> = ({
         `flex-column${pagination.styleOptions?.aboveMainComponent ? "-reverse" : ""}`,
         `gap-${pagination.styleOptions?.mainComponentSpacing === undefined ? 2 : pagination.styleOptions?.mainComponentSpacing}`,
       )}
+      data-testid="rbdg-top-level-grid-container"
     >
       {mainGridComponent}
       <Pagination
