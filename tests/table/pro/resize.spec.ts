@@ -58,6 +58,7 @@ test("pressing escape key cancels a resize in progress", async ({ page }) => {
   await confirmColWidth(100, 1, 1, table);
 });
 
+// Observed to be a flaky test
 test("keyboard resizing works and obeys limits", async ({ page }) => {
   const table = page.getByRole("table");
 

@@ -132,7 +132,8 @@ export interface RowDef<Data extends ValidRowData = ValidRowData> {
 
 /**
  * Interface that contains parameters shared between the {@link Table},
- * {@link TablePro}, and {@link Grid} components.
+ * {@link @absreim/react-bootstrap-data-grid-pro#TablePro | TablePro}, and
+ * {@link Grid} components.
  *
  * @public
  */

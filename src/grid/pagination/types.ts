@@ -64,6 +64,8 @@ export interface PaginationStyleOptions {
 /**
  * Properties in the {@link GridPaginationModel} but not the
  * {@link PaginationModel}.
+ *
+ * @public
  */
 export interface GridSpecificPaginationProperties {
   /**
@@ -77,6 +79,8 @@ export interface GridSpecificPaginationProperties {
 
 /**
  * Enables and configures pagination for the {@link Grid} component.
+ *
+ * @public
  */
 export type GridPaginationModel = PaginationModel &
   GridSpecificPaginationProperties;
