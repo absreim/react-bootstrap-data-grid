@@ -65,6 +65,10 @@ export interface PaginationOptions {
    * @defaultValue `undefined` - no justify-content property is specified, which
    * acts like "start" based on CSS standards. See
    * {@link https://developer.mozilla.org/en-US/docs/Web/CSS/Reference/Properties/justify-content#syntax}.
+   *
+   * @deprecated This property has no effect under normal circumstances because
+   * the enclosing nav element is using the block display type. It is kept
+   * around only to avoid breaking existing code.
    */
   pageSelectorJustifyContent?: JustifyContentSetting;
 }

@@ -4589,7 +4589,7 @@
             {
               "kind": "PropertySignature",
               "canonicalReference": "@absreim/react-bootstrap-data-grid!PaginationOptions#pageSelectorJustifyContent:member",
-              "docComment": "/**\n * Justify-content CSS property for the ul element of the pagination\n * component.\n *\n * @defaultValue `undefined` - no justify-content property is specified, which\n * acts like \"start\" based on CSS standards. See\n * {@link https://developer.mozilla.org/en-US/docs/Web/CSS/Reference/Properties/justify-content#syntax}.\n */\n",
+              "docComment": "/**\n * Justify-content CSS property for the ul element of the pagination\n * component.\n *\n * @deprecated\n *\n * This property has no effect under normal circumstances because\n * the enclosing nav element is using the block display type. It is kept\n * around only to avoid breaking existing code.\n *\n * @defaultValue `undefined` - no justify-content property is specified, which\n * acts like \"start\" based on CSS standards. See\n * {@link https://developer.mozilla.org/en-US/docs/Web/CSS/Reference/Properties/justify-content#syntax}.\n */\n",
               "excerptTokens": [
                 {
                   "kind": "Content",
