@@ -66,12 +66,12 @@ const PageSelector: FC<PageSelectorProps> = ({
   }, [lowerBound, upperBound]);
 
   function getFirstArrowButton() {
-    if (lowerBound === 1) {
-      return null;
-    }
-
     return (
-      <li className="page-item">
+      <li
+        className={classNames("page-item", {
+          disabled: pageNum === 1,
+        })}
+      >
         <a
           className="page-link"
           href="#"
@@ -88,12 +88,12 @@ const PageSelector: FC<PageSelectorProps> = ({
   }
 
   function getPrevArrowButton() {
-    if (pageNum === 1) {
-      return null;
-    }
-
     return (
-      <li className="page-item">
+      <li
+        className={classNames("page-item", {
+          disabled: pageNum === 1,
+        })}
+      >
         <a
           className="page-link"
           href="#"
@@ -110,12 +110,12 @@ const PageSelector: FC<PageSelectorProps> = ({
   }
 
   function getNextArrowButton() {
-    if (pageNum === numPages) {
-      return null;
-    }
-
     return (
-      <li className="page-item">
+      <li
+        className={classNames("page-item", {
+          disabled: pageNum === numPages,
+        })}
+      >
         <a
           className="page-link"
           href="#"
@@ -132,12 +132,12 @@ const PageSelector: FC<PageSelectorProps> = ({
   }
 
   function getLastArrowButton() {
-    if (upperBound === numPages) {
-      return null;
-    }
-
     return (
-      <li className="page-item">
+      <li
+        className={classNames("page-item", {
+          disabled: pageNum === numPages,
+        })}
+      >
         <a
           className="page-link"
           href="#"
