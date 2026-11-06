@@ -18,6 +18,7 @@ const packDir = `./package/${isPro ? "pro" : "community"}`;
 const tableRoot = path.resolve(srcDir, "./table");
 const proTableRoot = path.resolve(srcDir, "./table-pro");
 const gridRoot = path.resolve(srcDir, "./grid");
+const commonRoot = path.resolve(srcDir, "./common");
 
 const srcTableScss = path.join(tableRoot, "style.scss");
 const distTableScss = path.join(distDir, "table.scss");
@@ -38,6 +39,11 @@ const srcGridScss = path.join(gridRoot, "style.scss");
 const compilableGridScss = path.join(gridRoot, "compilable.scss");
 const distGridScss = path.join(distDir, "grid.scss");
 const distGridCss = path.join(distDir, "grid.css");
+
+const srcCommonScss = path.join(commonRoot, "style.scss");
+const compilableCommonScss = path.join(commonRoot, "compilable.scss");
+const distCommonScss = path.join(distDir, "common.scss");
+const distCommonCss = path.join(distDir, "common.css");
 
 const templateDir = path.join(
   __dirname,
@@ -110,3 +116,6 @@ if (isPro) {
 }
 copyWithDirs(srcGridScss, distGridScss);
 compileScss(compilableGridScss, distGridCss);
+
+copyWithDirs(srcCommonScss, distCommonScss);
+compileScss(compilableCommonScss, distCommonCss);

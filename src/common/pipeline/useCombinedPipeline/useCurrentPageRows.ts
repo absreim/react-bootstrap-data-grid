@@ -59,6 +59,7 @@ const useCurrentPageRows: (
       componentSize,
       pageSelectorAriaLabel: paginationModel?.pageSelectorAriaLabel,
       pageSelectorJustifyContent: paginationModel?.pageSelectorJustifyContent,
+      showTextLabel: paginationModel?.showTextLabel,
     };
 
     const pageSize = pageSizeOptions[pageSizeIndex];

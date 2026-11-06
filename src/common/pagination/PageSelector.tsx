@@ -34,7 +34,7 @@ const PageSelector: FC<PageSelectorProps> = ({
   alignment,
   size,
 }) => {
-  const ulClasses: string[] = ["pagination"];
+  const ulClasses: string[] = ["pagination", "mb-0"];
 
   if (size === "small") {
     ulClasses.push("pagination-sm");
@@ -65,19 +65,28 @@ const PageSelector: FC<PageSelectorProps> = ({
     return indices;
   }, [lowerBound, upperBound]);
 
-  function getFirstArrowButton() {
-    if (lowerBound === 1) {
-      return null;
-    }
+  const leftArrowButtonsDisabled = pageNum === 1;
+  const rightArrowButtonsDisabled = pageNum === numPages;
 
+  function getFirstArrowButton() {
     return (
-      <li className="page-item">
+      <li
+        className={classNames("page-item", {
+          disabled: leftArrowButtonsDisabled,
+        })}
+      >
         <a
           className="page-link"
           href="#"
           aria-label="First"
+          tabIndex={leftArrowButtonsDisabled ? -1 : 0}
           onClick={(event) => {
             event.preventDefault();
+
+            if (leftArrowButtonsDisabled) {
+              return;
+            }
+
             setPageNum(1);
           }}
         >
@@ -88,18 +97,24 @@ const PageSelector: FC<PageSelectorProps> = ({
   }
 
   function getPrevArrowButton() {
-    if (pageNum === 1) {
-      return null;
-    }
-
     return (
-      <li className="page-item">
+      <li
+        className={classNames("page-item", {
+          disabled: leftArrowButtonsDisabled,
+        })}
+      >
         <a
           className="page-link"
           href="#"
           aria-label="Previous"
+          tabIndex={leftArrowButtonsDisabled ? -1 : 0}
           onClick={(event) => {
             event.preventDefault();
+
+            if (leftArrowButtonsDisabled) {
+              return;
+            }
+
             setPageNum(pageNum - 1);
           }}
         >
@@ -110,18 +125,24 @@ const PageSelector: FC<PageSelectorProps> = ({
   }
 
   function getNextArrowButton() {
-    if (pageNum === numPages) {
-      return null;
-    }
-
     return (
-      <li className="page-item">
+      <li
+        className={classNames("page-item", {
+          disabled: rightArrowButtonsDisabled,
+        })}
+      >
         <a
           className="page-link"
           href="#"
           aria-label="Next"
+          tabIndex={rightArrowButtonsDisabled ? -1 : 0}
           onClick={(event) => {
             event.preventDefault();
+
+            if (rightArrowButtonsDisabled) {
+              return;
+            }
+
             setPageNum(pageNum + 1);
           }}
         >
@@ -132,18 +153,24 @@ const PageSelector: FC<PageSelectorProps> = ({
   }
 
   function getLastArrowButton() {
-    if (upperBound === numPages) {
-      return null;
-    }
-
     return (
-      <li className="page-item">
+      <li
+        className={classNames("page-item", {
+          disabled: rightArrowButtonsDisabled,
+        })}
+      >
         <a
           className="page-link"
           href="#"
           aria-label="Last"
+          tabIndex={rightArrowButtonsDisabled ? -1 : 0}
           onClick={(event) => {
             event.preventDefault();
+
+            if (rightArrowButtonsDisabled) {
+              return;
+            }
+
             setPageNum(numPages);
           }}
         >
@@ -176,7 +203,10 @@ const PageSelector: FC<PageSelectorProps> = ({
   ));
 
   return (
-    <nav aria-label={ariaLabel} data-testid="rbdg-page-selector">
+    <nav
+      aria-label={ariaLabel === undefined ? "Select page" : ariaLabel}
+      data-testid="rbdg-page-selector"
+    >
       <ul className={classNames(ulClasses)}>
         {getFirstArrowButton()}
         {getPrevArrowButton()}

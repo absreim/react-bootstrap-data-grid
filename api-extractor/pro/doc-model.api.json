@@ -4562,7 +4562,7 @@
             {
               "kind": "PropertySignature",
               "canonicalReference": "@absreim/react-bootstrap-data-grid!PaginationOptions#pageSelectorAriaLabel:member",
-              "docComment": "/**\n * The ARIA label for the nav element that represents the pagination\n * component.\n *\n * @defaultValue `undefined` - no ARIA label\n */\n",
+              "docComment": "/**\n * The ARIA label for the nav element that represents the pagination\n * component.\n *\n * @defaultValue `\"Select page\"`\n */\n",
               "excerptTokens": [
                 {
                   "kind": "Content",
@@ -4589,7 +4589,7 @@
             {
               "kind": "PropertySignature",
               "canonicalReference": "@absreim/react-bootstrap-data-grid!PaginationOptions#pageSelectorJustifyContent:member",
-              "docComment": "/**\n * Justify-content CSS property for the ul element of the pagination\n * component.\n *\n * @defaultValue `undefined` - no justify-content property is specified, which\n * acts like \"start\" based on CSS standards. See\n * {@link https://developer.mozilla.org/en-US/docs/Web/CSS/Reference/Properties/justify-content#syntax}.\n */\n",
+              "docComment": "/**\n * Justify-content CSS property for the ul element of the pagination\n * component.\n *\n * @deprecated\n *\n * This property has no effect under normal circumstances because\n * the enclosing nav element is using the block display type. It is kept\n * around only to avoid breaking existing code.\n *\n * @defaultValue `undefined` - no justify-content property is specified, which\n * acts like \"start\" based on CSS standards. See\n * {@link https://developer.mozilla.org/en-US/docs/Web/CSS/Reference/Properties/justify-content#syntax}.\n */\n",
               "excerptTokens": [
                 {
                   "kind": "Content",
@@ -4636,6 +4636,33 @@
               "isOptional": true,
               "releaseTag": "Public",
               "name": "pageSizeOptions",
+              "propertyTypeTokenRange": {
+                "startIndex": 1,
+                "endIndex": 2
+              }
+            },
+            {
+              "kind": "PropertySignature",
+              "canonicalReference": "@absreim/react-bootstrap-data-grid!PaginationOptions#showTextLabel:member",
+              "docComment": "/**\n * Configures whether to show a text label for the page size selector\n * dropdown.\n *\n * @defaultValue `undefined` - the text label is not displayed.\n */\n",
+              "excerptTokens": [
+                {
+                  "kind": "Content",
+                  "text": "showTextLabel?: "
+                },
+                {
+                  "kind": "Content",
+                  "text": "boolean"
+                },
+                {
+                  "kind": "Content",
+                  "text": ";"
+                }
+              ],
+              "isReadonly": false,
+              "isOptional": true,
+              "releaseTag": "Public",
+              "name": "showTextLabel",
               "propertyTypeTokenRange": {
                 "startIndex": 1,
                 "endIndex": 2

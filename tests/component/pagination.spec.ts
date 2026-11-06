@@ -83,34 +83,54 @@ test("pagination component displays specified number even if symmetry is not pos
   ).toBeEnabled();
 });
 
-test("pagination component displays a link to the first page if there isn't already an index button for it", async ({
+test("pagination component disables links to the first and prev page if already on first page", async ({
   page,
 }) => {
-  const firstPageLinkContainer = page.getByTestId("first page link test case");
+  const prevPageLinkContainer = page.getByTestId("first page link test case");
+  const firstPageLink = prevPageLinkContainer.getByRole("link", {
+    name: "First",
+  });
+  const prevPageLink = prevPageLinkContainer.getByRole("link", {
+    name: "Previous",
+  });
 
-  await expect(
-    firstPageLinkContainer.getByRole("link", { name: "First" }),
-  ).toBeEnabled();
+  await expect(firstPageLink).toHaveCSS("pointer-events", "none");
+  await expect(prevPageLink).toHaveCSS("pointer-events", "none");
+
+  await expect(firstPageLink).toHaveAttribute("tabindex", "-1");
+  await expect(prevPageLink).toHaveAttribute("tabindex", "-1");
 });
 
-test("pagination component displays a link to the prev page if not already on first page", async ({
+test("pagination component displays a link to the first and prev page if not already on first page", async ({
   page,
 }) => {
   const prevPageLinkContainer = page.getByTestId("prev page link test case");
 
   await expect(
+    prevPageLinkContainer.getByRole("link", { name: "First" }),
+  ).toBeEnabled();
+  await expect(
     prevPageLinkContainer.getByRole("link", { name: "Previous" }),
   ).toBeEnabled();
 });
 
-test("pagination component displays a link to the last page if not already on last page", async ({
+test("pagination component disables links to the next and last pages if already on the last page", async ({
   page,
 }) => {
-  const lastPageLinkContainer = page.getByTestId("last page link test case");
+  const nextPageLinkContainer = page.getByTestId("last page link test case");
 
-  await expect(
-    lastPageLinkContainer.getByRole("link", { name: "Last" }),
-  ).toBeEnabled();
+  const nextPageLink = nextPageLinkContainer.getByRole("link", {
+    name: "Next",
+  });
+  const lastPageLink = nextPageLinkContainer.getByRole("link", {
+    name: "Last",
+  });
+
+  await expect(nextPageLink).toHaveCSS("pointer-events", "none");
+  await expect(lastPageLink).toHaveCSS("pointer-events", "none");
+
+  await expect(nextPageLink).toHaveAttribute("tabindex", "-1");
+  await expect(lastPageLink).toHaveAttribute("tabindex", "-1");
 });
 
 test("pagination component displays a link to the next page if not already on last page", async ({
@@ -120,6 +140,9 @@ test("pagination component displays a link to the next page if not already on la
 
   await expect(
     nextPageLinkContainer.getByRole("link", { name: "Next" }),
+  ).toBeEnabled();
+  await expect(
+    nextPageLinkContainer.getByRole("link", { name: "Last" }),
   ).toBeEnabled();
 });
 

@@ -43,7 +43,7 @@ const Test: FC = () => {
         <div data-testid="first page link test case">
           <PageSelector
             numPages={10}
-            pageNum={7}
+            pageNum={1}
             numButtons={3}
             setPageNum={() => {}}
           />
@@ -59,7 +59,7 @@ const Test: FC = () => {
         <div data-testid="last page link test case">
           <PageSelector
             numPages={10}
-            pageNum={5}
+            pageNum={10}
             numButtons={3}
             setPageNum={() => {}}
           />

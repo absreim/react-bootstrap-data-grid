@@ -64,7 +64,7 @@ const Grid: FC<GridProps> = ({
       return width;
     }
 
-    return "min-content";
+    return "max-content";
   }
   const widthProperty = getWidthProperty(width);
 
@@ -100,7 +100,12 @@ const Grid: FC<GridProps> = ({
         .filter((ariaColIndex) => cols[ariaColIndex - 1].sortable)
     : [];
   const { effectiveCoords, gridClickHandler, gridKeydownHandler } =
-    useGridFocus(gridRef, displayRows.length + 1, cols.length, sortableColIndices);
+    useGridFocus(
+      gridRef,
+      displayRows.length + 1,
+      cols.length,
+      sortableColIndices,
+    );
 
   const onCopy: ClipboardEventHandler<HTMLDivElement> = useCallback((event) => {
     if (!gridRef.current?.contains(document.activeElement)) {
