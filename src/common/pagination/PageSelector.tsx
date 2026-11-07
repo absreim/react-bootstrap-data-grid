@@ -65,19 +65,28 @@ const PageSelector: FC<PageSelectorProps> = ({
     return indices;
   }, [lowerBound, upperBound]);
 
+  const leftArrowButtonsDisabled = pageNum === 1;
+  const rightArrowButtonsDisabled = pageNum === numPages;
+
   function getFirstArrowButton() {
     return (
       <li
         className={classNames("page-item", {
-          disabled: pageNum === 1,
+          disabled: leftArrowButtonsDisabled,
         })}
       >
         <a
           className="page-link"
           href="#"
           aria-label="First"
+          tabIndex={leftArrowButtonsDisabled ? -1 : 0}
           onClick={(event) => {
             event.preventDefault();
+
+            if (leftArrowButtonsDisabled) {
+              return;
+            }
+
             setPageNum(1);
           }}
         >
@@ -91,15 +100,21 @@ const PageSelector: FC<PageSelectorProps> = ({
     return (
       <li
         className={classNames("page-item", {
-          disabled: pageNum === 1,
+          disabled: leftArrowButtonsDisabled,
         })}
       >
         <a
           className="page-link"
           href="#"
           aria-label="Previous"
+          tabIndex={leftArrowButtonsDisabled ? -1 : 0}
           onClick={(event) => {
             event.preventDefault();
+
+            if (leftArrowButtonsDisabled) {
+              return;
+            }
+
             setPageNum(pageNum - 1);
           }}
         >
@@ -113,15 +128,21 @@ const PageSelector: FC<PageSelectorProps> = ({
     return (
       <li
         className={classNames("page-item", {
-          disabled: pageNum === numPages,
+          disabled: rightArrowButtonsDisabled,
         })}
       >
         <a
           className="page-link"
           href="#"
           aria-label="Next"
+          tabIndex={rightArrowButtonsDisabled ? -1 : 0}
           onClick={(event) => {
             event.preventDefault();
+
+            if (rightArrowButtonsDisabled) {
+              return;
+            }
+
             setPageNum(pageNum + 1);
           }}
         >
@@ -135,15 +156,21 @@ const PageSelector: FC<PageSelectorProps> = ({
     return (
       <li
         className={classNames("page-item", {
-          disabled: pageNum === numPages,
+          disabled: rightArrowButtonsDisabled,
         })}
       >
         <a
           className="page-link"
           href="#"
           aria-label="Last"
+          tabIndex={rightArrowButtonsDisabled ? -1 : 0}
           onClick={(event) => {
             event.preventDefault();
+
+            if (rightArrowButtonsDisabled) {
+              return;
+            }
+
             setPageNum(numPages);
           }}
         >

@@ -87,13 +87,18 @@ test("pagination component disables links to the first and prev page if already 
   page,
 }) => {
   const prevPageLinkContainer = page.getByTestId("first page link test case");
+  const firstPageLink = prevPageLinkContainer.getByRole("link", {
+    name: "First",
+  });
+  const prevPageLink = prevPageLinkContainer.getByRole("link", {
+    name: "Previous",
+  });
 
-  await expect(
-    prevPageLinkContainer.getByRole("link", { name: "First" }),
-  ).toHaveCSS("pointer-events", "none");
-  await expect(
-    prevPageLinkContainer.getByRole("link", { name: "Previous" }),
-  ).toHaveCSS("pointer-events", "none");
+  await expect(firstPageLink).toHaveCSS("pointer-events", "none");
+  await expect(prevPageLink).toHaveCSS("pointer-events", "none");
+
+  await expect(firstPageLink).toHaveAttribute("tabindex", "-1");
+  await expect(prevPageLink).toHaveAttribute("tabindex", "-1");
 });
 
 test("pagination component displays a link to the first and prev page if not already on first page", async ({
@@ -114,12 +119,14 @@ test("pagination component disables links to the next and last pages if already 
 }) => {
   const nextPageLinkContainer = page.getByTestId("last page link test case");
 
-  await expect(
-    nextPageLinkContainer.getByRole("link", { name: "Next" }),
-  ).toHaveCSS("pointer-events", "none");
-  await expect(
-    nextPageLinkContainer.getByRole("link", { name: "Last" }),
-  ).toHaveCSS("pointer-events", "none");
+  const nextPageLink = nextPageLinkContainer.getByRole("link", { name: "Next" });
+  const lastPageLink = nextPageLinkContainer.getByRole("link", { name: "Last" });
+
+  await expect(nextPageLink).toHaveCSS("pointer-events", "none");
+  await expect(lastPageLink).toHaveCSS("pointer-events", "none");
+
+  await expect(nextPageLink).toHaveAttribute("tabindex", "-1");
+  await expect(lastPageLink).toHaveAttribute("tabindex", "-1");
 });
 
 test("pagination component displays a link to the next page if not already on last page", async ({
