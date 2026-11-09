@@ -1,5 +1,6 @@
 import { test, expect } from "@playwright/test";
 import { validateGridContents } from "../../util";
+import { pageSizeSelectorLabel } from "../../constants";
 
 ["community", "pro"].forEach((edition) => {
   const url =
@@ -114,7 +115,7 @@ import { validateGridContents } from "../../util";
         await validateGridContents(tbody, expectedSecondPageContents, 5);
 
         await container
-          .locator('select[aria-label="Number of Rows per Page"]')
+          .getByRole("combobox", { name: pageSizeSelectorLabel })
           .selectOption("1");
         await expect(container.locator('tr[data-rowid="14"]')).toBeVisible();
 
@@ -132,7 +133,7 @@ import { validateGridContents } from "../../util";
         );
 
         await container
-          .locator('select[aria-label="Number of Rows per Page"]')
+          .getByRole("combobox", { name: pageSizeSelectorLabel })
           .selectOption("0");
         await expect(container.locator('tr[data-rowid="9"]')).toBeVisible();
         await validateGridContents(tbody, expectedSecondPageContents, 5);
@@ -157,7 +158,7 @@ import { validateGridContents } from "../../util";
         await validateGridContents(tbody, expectedThirdPageContents, 10);
 
         await container
-          .locator('select[aria-label="Number of Rows per Page"]')
+          .getByRole("combobox", { name: pageSizeSelectorLabel })
           .selectOption("2");
         await expect(container.locator('tr[data-rowid="14"]')).toBeVisible();
         await expect(container.locator('tr[data-rowid="0"]')).toBeVisible();

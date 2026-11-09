@@ -5,7 +5,7 @@ import {
   generateBasicTestRows,
 } from "../../../test-tools/basic-test-data";
 import { FC, ReactNode, useState } from "react";
-import Grid from "../../../grid";
+import Grid, { Size } from "../../../grid";
 import Form from "react-bootstrap/Form";
 import useDimSetting from "../useDimSetting";
 
@@ -94,6 +94,12 @@ const alignOptNameToLabel = Object.keys(alignOptions).reduce(
   {} as Record<string, string>,
 );
 
+const sizeOptionToLabel: Record<string, string> = {
+  small: "Small",
+  medium: "Medium",
+  large: "Large",
+};
+
 function getRadioGroup(
   legend: string,
   optionLabels: Record<string, string>,
@@ -127,6 +133,7 @@ const TestHarness: FC = () => {
   const [horizAlign, setHorizAlign] = useState<string>("unset");
   const [mainSpacing, setMainSpacing] = useState<string>("unset");
   const [pageSpacing, setPageSpacing] = useState<string>("unset");
+  const [size, setSize] = useState<string>("medium");
 
   const { heightFieldset, widthFieldset, effectiveHeight, effectiveWidth } =
     useDimSetting(300, 400);
@@ -169,6 +176,13 @@ const TestHarness: FC = () => {
           setPageSpacing,
           "pageSpacingSetting",
         )}
+        {getRadioGroup(
+          "Pagination Component Size",
+          sizeOptionToLabel,
+          size,
+          setSize,
+          "sizeSetting",
+        )}
         {heightFieldset}
         {widthFieldset}
       </Form>
@@ -181,6 +195,7 @@ const TestHarness: FC = () => {
           pagination={{
             type: "uncontrolled",
             pageSizeOptions: [5, 10],
+            componentSize: size as Size,
             styleOptions: {
               aboveMainComponent:
                 booleanOptions[aboveMain as BooleanOptionName].value,

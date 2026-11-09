@@ -2,6 +2,7 @@ import { generateBasicTestRows } from "../../../src/test-tools/basic-test-data";
 import { dateToDatetimeInputStr } from "../../../src/common";
 import { test } from "@playwright/test";
 import { validateGridContents } from "../../util";
+import { pageSizeSelectorLabel } from "../../constants";
 
 const getTestContentDisplayRows: (numRows: number) => string[][] = (numRows) =>
   generateBasicTestRows(numRows).map(
@@ -73,7 +74,7 @@ test("page size selection tries preserves page index if possible", async ({ page
   const page2Link = page.getByRole("link", { name: "2" });
   await page2Link.click();
 
-  const pageSizeSelector = page.getByRole("combobox", { name: "Number of Rows per Page" });
+  const pageSizeSelector = page.getByRole("combobox", { name: pageSizeSelectorLabel });
   await pageSizeSelector.selectOption({ label: "10" });
 
   const bodyElem = page.getByTestId("rbdg-body-rowgroup");
@@ -91,7 +92,7 @@ test("page size selection corrects for indices that are out of bounds", async ({
   await page4Link.click();
 
   const pageSizeSelector = page.getByRole("combobox", {
-    name: "Number of Rows per Page",
+    name: pageSizeSelectorLabel
   });
   await pageSizeSelector.selectOption({ label: "10" });
 
