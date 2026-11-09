@@ -2,10 +2,10 @@ import {
   EditModel,
   FilterModel,
   MainComponentSharedProps,
-  PaginationModel,
   SelectModel,
   StyleModel,
 } from "../common";
+import { GridPaginationModel } from "../grid";
 
 /**
  * Available options for the displayMode prop of {@link TableSpecificProps}.
@@ -63,11 +63,13 @@ export interface TableSpecificProps {
    */
   displayMode?: DisplayMode;
 
+  // TODO: make grid pagination model the shared model once implementation of
+  // style options is complete
   /**
    * The pagination model of the table. Passing a truthy value enables
    * the pagination feature of the component.
    */
-  pagination?: PaginationModel;
+  pagination?: GridPaginationModel;
 }
 
 /**

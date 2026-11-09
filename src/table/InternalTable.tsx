@@ -158,11 +158,56 @@ const InternalTable: FC<InternalGridProps> = ({
     </table>
   );
 
+  const mainTableContainer = (
+    <div
+      data-testid="rbdg-table-div"
+      className={classNames(
+        styleModel?.additionalComponentsStyleModel?.tableDiv ||
+          "table-responsive",
+      )}
+    >
+      {mainTable}
+    </div>
+  );
+
+  const getTablePaginationDivContents: () => ReactNode = () => {
+    if (!pagination) {
+      return mainTableContainer;
+    }
+
+    const paginationNode = (
+      <Pagination
+        normalizedModel={normalizedModel!}
+        prePagingNumRows={sortedRows.length}
+        containerDivClasses={
+          styleModel?.additionalComponentsStyleModel?.paginationUiDiv
+        }
+      />
+    );
+
+    if (pagination.styleOptions?.aboveMainComponent) {
+      return (
+        <>
+          {paginationNode}
+          {mainTableContainer}
+        </>
+      );
+    }
+
+    return (
+      <>
+        {mainTableContainer}
+        {paginationNode}
+      </>
+    );
+  };
+
   return (
     <div
       data-testid="rbdg-top-level-div"
       className={classNames(
-        styleModel?.additionalComponentsStyleModel?.topLevelDiv,
+        styleModel?.additionalComponentsStyleModel?.topLevelDiv ||
+        `gap-${pagination?.styleOptions?.mainComponentSpacing === undefined ? 2 : pagination.styleOptions?.mainComponentSpacing}`,
       )}
     >
       {showToolbar && (
@@ -177,24 +222,7 @@ const InternalTable: FC<InternalGridProps> = ({
           styleModel?.additionalComponentsStyleModel?.tableAndPaginationDiv,
         )}
       >
-        <div
-          data-testid="rbdg-table-div"
-          className={classNames(
-            styleModel?.additionalComponentsStyleModel?.tableDiv ||
-              "table-responsive",
-          )}
-        >
-          {mainTable}
-        </div>
-        {normalizedModel && (
-          <Pagination
-            normalizedModel={normalizedModel}
-            prePagingNumRows={sortedRows.length}
-            containerDivClasses={
-              styleModel?.additionalComponentsStyleModel?.paginationUiDiv
-            }
-          />
-        )}
+        {getTablePaginationDivContents()}
       </div>
     </div>
   );
