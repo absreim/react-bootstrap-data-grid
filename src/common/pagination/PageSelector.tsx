@@ -34,7 +34,7 @@ const PageSelector: FC<PageSelectorProps> = ({
   alignment,
   size,
 }) => {
-  const ulClasses: string[] = ["pagination"];
+  const ulClasses: string[] = ["pagination", "mb-0"];
 
   if (size === "small") {
     ulClasses.push("pagination-sm");

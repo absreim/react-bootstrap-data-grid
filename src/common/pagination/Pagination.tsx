@@ -15,7 +15,7 @@ const Pagination: FC<PaginationProps> = ({
   normalizedModel,
   prePagingNumRows,
   containerDivClasses,
-  sizeSelectAfterPageSelect
+  sizeSelectAfterPageSelect,
 }) => {
   const {
     pageSizeOptions,

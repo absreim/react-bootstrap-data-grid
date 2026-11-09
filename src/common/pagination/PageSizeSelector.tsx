@@ -1,4 +1,4 @@
-import { ChangeEventHandler, FC } from "react";
+import { ChangeEventHandler, FC, useId } from "react";
 import classNames from "classnames";
 import { Size } from "../";
 
@@ -15,14 +15,21 @@ const PageSizeSelector: FC<PageSizeSelectorProps> = ({
   pageSizeIndex,
   handleSetPageSize,
 }) => {
+  const id = useId();
+
   const onChange: ChangeEventHandler<HTMLSelectElement> = (event) => {
     const pageSizeIndex = Number(event.target.value);
     handleSetPageSize(pageSizeIndex);
   };
 
   return (
-    <div data-testid="rbdg-page-size-selector">
+    <div
+      data-testid="rbdg-page-size-selector"
+      className="d-flex align-items-center"
+    >
+      <label htmlFor={id} className="flex-shrink-0">Rows per page</label>
       <select
+        id={id}
         name="rowsPerPage"
         className={classNames({
           "form-select": true,
@@ -30,7 +37,6 @@ const PageSizeSelector: FC<PageSizeSelectorProps> = ({
           "form-select-sm": componentSize === "small",
         })}
         value={pageSizeIndex}
-        aria-label="Number of Rows per Page"
         onChange={onChange}
       >
         {pageSizeOptions.map((numRows, index) => (
