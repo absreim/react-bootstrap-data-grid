@@ -7,13 +7,17 @@ export interface PageSizeSelectorProps {
   pageSizeOptions: number[];
   pageSizeIndex: number;
   handleSetPageSize: (index: number) => void;
+  showTextLabel: boolean;
 }
+
+const labelText = "Rows per page";
 
 const PageSizeSelector: FC<PageSizeSelectorProps> = ({
   componentSize,
   pageSizeOptions,
   pageSizeIndex,
   handleSetPageSize,
+  showTextLabel,
 }) => {
   const id = useId();
 
@@ -22,15 +26,29 @@ const PageSizeSelector: FC<PageSizeSelectorProps> = ({
     handleSetPageSize(pageSizeIndex);
   };
 
+  function getTextSizeClass() {
+    switch (componentSize) {
+      case "small":
+        return "rbdg-input-label-sm";
+      case "large":
+        return "rbdg-input-label-lg";
+      default:
+        return undefined;
+    }
+  }
+
   return (
     <div
       data-testid="rbdg-page-size-selector"
       className="d-flex align-items-center gap-2 flex-shrink-0"
     >
-      <label htmlFor={id} className="flex-shrink-0">
-        Rows per page
-      </label>
+      {showTextLabel && (
+        <label htmlFor={id} className={classNames("flex-shrink-0", getTextSizeClass())}>
+          {labelText}
+        </label>
+      )}
       <select
+        aria-label={showTextLabel ? undefined : labelText}
         id={id}
         name="rowsPerPage"
         className={classNames(

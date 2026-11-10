@@ -71,6 +71,14 @@ export interface PaginationOptions {
    * around only to avoid breaking existing code.
    */
   pageSelectorJustifyContent?: JustifyContentSetting;
+
+  /**
+   * Configures whether to show a text label for the page size selector
+   * dropdown.
+   *
+   * @defaultValue `undefined` - the text label is not displayed.
+   */
+  showTextLabel?: boolean;
 }
 
 /**

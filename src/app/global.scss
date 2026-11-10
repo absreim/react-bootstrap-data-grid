@@ -40,8 +40,13 @@ $table-variants: map.merge($table-variants, $custom-table-variants);
 
 // --- End Bootstrap imports ---
 
+// --- RBDG module imports ---
+
 @import "../table-pro/style";
 @import "../grid/style";
+@import "../common/style";
+
+// --- End RBDG module imports ---
 
 // Test project-specific styles
 

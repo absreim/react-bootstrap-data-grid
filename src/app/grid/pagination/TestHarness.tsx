@@ -134,6 +134,7 @@ const TestHarness: FC = () => {
   const [mainSpacing, setMainSpacing] = useState<string>("unset");
   const [pageSpacing, setPageSpacing] = useState<string>("unset");
   const [size, setSize] = useState<string>("medium");
+  const [showTextLabel, setShowTextLabel] = useState<string>("unset");
 
   const { heightFieldset, widthFieldset, effectiveHeight, effectiveWidth } =
     useDimSetting(300, 400);
@@ -183,6 +184,13 @@ const TestHarness: FC = () => {
           setSize,
           "sizeSetting",
         )}
+        {getRadioGroup(
+          "Show Text Label",
+          booleanOptNameToLabel,
+          showTextLabel,
+          setShowTextLabel,
+          "showTextLabelSetting",
+        )}
         {heightFieldset}
         {widthFieldset}
       </Form>
@@ -196,6 +204,7 @@ const TestHarness: FC = () => {
             type: "uncontrolled",
             pageSizeOptions: [5, 10],
             componentSize: size as Size,
+            showTextLabel: booleanOptions[showTextLabel as BooleanOptionName].value,
             styleOptions: {
               aboveMainComponent:
                 booleanOptions[aboveMain as BooleanOptionName].value,

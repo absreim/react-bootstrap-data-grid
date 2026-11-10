@@ -27,6 +27,7 @@ const Pagination: FC<PaginationProps> = ({
     maxPageButtons,
     pageSelectorAriaLabel,
     pageSelectorJustifyContent,
+    showTextLabel,
   } = normalizedModel;
 
   const numPages = Math.ceil(prePagingNumRows / pageSizeOptions[pageSizeIndex]);
@@ -52,6 +53,7 @@ const Pagination: FC<PaginationProps> = ({
       pageSizeOptions={pageSizeOptions}
       pageSizeIndex={pageSizeIndex}
       handleSetPageSize={pageIndexAwarePageSizeSetter}
+      showTextLabel={!!showTextLabel}
     />
   );
   const pageSelect = (
