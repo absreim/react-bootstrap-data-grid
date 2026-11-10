@@ -64,7 +64,7 @@ const Grid: FC<GridProps> = ({
       return width;
     }
 
-    return "min-content";
+    return "max-content";
   }
   const widthProperty = getWidthProperty(width);
 

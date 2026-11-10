@@ -25,33 +25,32 @@ const PageSizeSelector: FC<PageSizeSelectorProps> = ({
   return (
     <div
       data-testid="rbdg-page-size-selector"
-      className="d-flex align-items-center gap-2"
+      className="d-flex align-items-center gap-2 flex-shrink-0"
     >
       <label htmlFor={id} className="flex-shrink-0">
         Rows per page
       </label>
-      <div>
-        <select
-          id={id}
-          name="rowsPerPage"
-          className={classNames(
-            {
-              "form-select": true,
-              "form-select-lg": componentSize === "large",
-              "form-select-sm": componentSize === "small",
-            },
-            "flex-shrink-0",
-          )}
-          value={pageSizeIndex}
-          onChange={onChange}
-        >
-          {pageSizeOptions.map((numRows, index) => (
-            <option key={index} value={index}>
-              {numRows}
-            </option>
-          ))}
-        </select>
-      </div>
+      <select
+        id={id}
+        name="rowsPerPage"
+        className={classNames(
+          {
+            "form-select": true,
+            "form-select-lg": componentSize === "large",
+            "form-select-sm": componentSize === "small",
+          },
+          "flex-shrink-0",
+          "w-auto",
+        )}
+        value={pageSizeIndex}
+        onChange={onChange}
+      >
+        {pageSizeOptions.map((numRows, index) => (
+          <option key={index} value={index}>
+            {numRows}
+          </option>
+        ))}
+      </select>
     </div>
   );
 };
