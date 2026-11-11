@@ -162,3 +162,31 @@ test("pagination component order works correctly", async ({ page }) => {
     "rbdg-page-selector",
   ]);
 });
+
+test("component size and text label options work correctly", async ({ page }) => {
+  const textLabelGroup = page.getByRole("group", { name: "Show Text Label" });
+  const trueOption = textLabelGroup.getByRole("radio", { name: "True" });
+  await trueOption.check();
+
+  const label = page.getByText("Rows per page");
+  await expect(label).toHaveCSS("font-size", "16px");
+
+  const componentSizeGroup = page.getByRole("group", { name: "Pagination Component Size" });
+  const smallOption = componentSizeGroup.getByRole("radio", { name: "Small" });
+  await smallOption.check();
+
+  const pageSizeDropdown = page.getByRole("combobox", { name: "Rows per page" });
+  const paginationNav = page.getByLabel("Grid page selection");
+  const paginationList = paginationNav.getByRole("list");
+
+  await expect(label).toHaveCSS("font-size", "14px");
+  await expect(pageSizeDropdown).toContainClass("form-select-sm");
+  await expect(paginationList).toContainClass("pagination-sm");
+
+  const largeOption = componentSizeGroup.getByRole("radio", { name: "Large" });
+  await largeOption.check();
+
+  await expect(label).toHaveCSS("font-size", "20px");
+  await expect(pageSizeDropdown).toContainClass("form-select-lg");
+  await expect(paginationList).toContainClass("pagination-lg");
+});
