@@ -43,7 +43,10 @@ const PageSizeSelector: FC<PageSizeSelectorProps> = ({
       className="d-flex align-items-center gap-2 flex-shrink-0"
     >
       {showTextLabel && (
-        <label htmlFor={id} className={classNames("flex-shrink-0", getTextSizeClass())}>
+        <label
+          htmlFor={id}
+          className={classNames("flex-shrink-0", getTextSizeClass())}
+        >
           {labelText}
         </label>
       )}

@@ -204,7 +204,8 @@ const TestHarness: FC = () => {
             type: "uncontrolled",
             pageSizeOptions: [5, 10],
             componentSize: size as Size,
-            showTextLabel: booleanOptions[showTextLabel as BooleanOptionName].value,
+            showTextLabel:
+              booleanOptions[showTextLabel as BooleanOptionName].value,
             pageSelectorAriaLabel: "Grid page selection",
             styleOptions: {
               aboveMainComponent:

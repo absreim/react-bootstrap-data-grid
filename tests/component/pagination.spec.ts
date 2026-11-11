@@ -119,8 +119,12 @@ test("pagination component disables links to the next and last pages if already 
 }) => {
   const nextPageLinkContainer = page.getByTestId("last page link test case");
 
-  const nextPageLink = nextPageLinkContainer.getByRole("link", { name: "Next" });
-  const lastPageLink = nextPageLinkContainer.getByRole("link", { name: "Last" });
+  const nextPageLink = nextPageLinkContainer.getByRole("link", {
+    name: "Next",
+  });
+  const lastPageLink = nextPageLinkContainer.getByRole("link", {
+    name: "Last",
+  });
 
   await expect(nextPageLink).toHaveCSS("pointer-events", "none");
   await expect(lastPageLink).toHaveCSS("pointer-events", "none");

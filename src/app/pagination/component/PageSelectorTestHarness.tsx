@@ -1,4 +1,4 @@
-import { FC, useEffect, useState } from "react";
+import { FC, useState } from "react";
 import PageSelector, {
   PageSelectorProps,
 } from "../../../common/pagination/PageSelector";
@@ -9,10 +9,7 @@ const PageSelectorTestHarness: FC<PageSelectorTestHarnessProps> = ({
   pageNum,
   ...props
 }) => {
-  const [currentPageNum, setCurrentPageNum] = useState(1);
-  useEffect(() => {
-    setCurrentPageNum(pageNum);
-  }, [pageNum]);
+  const [currentPageNum, setCurrentPageNum] = useState(pageNum);
 
   return (
     <PageSelector

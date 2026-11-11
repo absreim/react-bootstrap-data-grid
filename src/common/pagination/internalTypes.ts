@@ -9,7 +9,10 @@ import { ControlledPaginationModel } from "./types";
 export type NormalizedPaginationModel = Required<
   Omit<
     ControlledPaginationModel,
-    "type" | "pageSelectorAriaLabel" | "pageSelectorJustifyContent" | "showTextLabel"
+    | "type"
+    | "pageSelectorAriaLabel"
+    | "pageSelectorJustifyContent"
+    | "showTextLabel"
   >
 > &
   Pick<

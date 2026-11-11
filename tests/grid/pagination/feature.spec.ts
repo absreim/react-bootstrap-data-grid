@@ -18,7 +18,7 @@ const testDisplayRows = getTestContentDisplayRows(25);
 
 test.beforeEach(async ({ page }) => {
   await page.goto("grid/pagination");
-})
+});
 
 test("pagination works correctly with numeric buttons", async ({ page }) => {
   const page3Link = page.getByRole("link", { name: "3" });
@@ -70,11 +70,15 @@ test("pagination works correctly with arrow buttons", async ({ page }) => {
   );
 });
 
-test("page size selection tries preserves page index if possible", async ({ page }) => {
+test("page size selection tries preserves page index if possible", async ({
+  page,
+}) => {
   const page2Link = page.getByRole("link", { name: "2" });
   await page2Link.click();
 
-  const pageSizeSelector = page.getByRole("combobox", { name: pageSizeSelectorLabel });
+  const pageSizeSelector = page.getByRole("combobox", {
+    name: pageSizeSelectorLabel,
+  });
   await pageSizeSelector.selectOption({ label: "10" });
 
   const bodyElem = page.getByTestId("rbdg-body-rowgroup");
@@ -87,12 +91,14 @@ test("page size selection tries preserves page index if possible", async ({ page
   );
 });
 
-test("page size selection corrects for indices that are out of bounds", async ({ page }) => {
+test("page size selection corrects for indices that are out of bounds", async ({
+  page,
+}) => {
   const page4Link = page.getByRole("link", { name: "4" });
   await page4Link.click();
 
   const pageSizeSelector = page.getByRole("combobox", {
-    name: pageSizeSelectorLabel
+    name: pageSizeSelectorLabel,
   });
   await pageSizeSelector.selectOption({ label: "10" });
 
