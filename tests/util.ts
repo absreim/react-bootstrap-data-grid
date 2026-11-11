@@ -22,6 +22,7 @@ export const validateGridContents: (
     for (let j = 0; j < expectedContentRow.length; j++) {
       const value = expectedContentRow[j];
       const td = rowElem.getByRole(cellRole, { name: value, exact: true });
+      // Has been shown to be flaky sometimes
       await expect(td).toHaveAttribute(
         "aria-colindex",
         String(j + 1 + colIndexOffset),

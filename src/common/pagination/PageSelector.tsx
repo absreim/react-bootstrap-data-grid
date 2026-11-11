@@ -203,7 +203,10 @@ const PageSelector: FC<PageSelectorProps> = ({
   ));
 
   return (
-    <nav aria-label={ariaLabel} data-testid="rbdg-page-selector">
+    <nav
+      aria-label={ariaLabel === undefined ? "Select page" : ariaLabel}
+      data-testid="rbdg-page-selector"
+    >
       <ul className={classNames(ulClasses)}>
         {getFirstArrowButton()}
         {getPrevArrowButton()}

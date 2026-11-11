@@ -54,7 +54,7 @@ export interface PaginationOptions {
    * The ARIA label for the nav element that represents the pagination
    * component.
    *
-   * @defaultValue `undefined` - no ARIA label
+   * @defaultValue `"Select page"`
    */
   pageSelectorAriaLabel?: string;
 

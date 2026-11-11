@@ -4562,7 +4562,7 @@
             {
               "kind": "PropertySignature",
               "canonicalReference": "@absreim/react-bootstrap-data-grid!PaginationOptions#pageSelectorAriaLabel:member",
-              "docComment": "/**\n * The ARIA label for the nav element that represents the pagination\n * component.\n *\n * @defaultValue `undefined` - no ARIA label\n */\n",
+              "docComment": "/**\n * The ARIA label for the nav element that represents the pagination\n * component.\n *\n * @defaultValue `\"Select page\"`\n */\n",
               "excerptTokens": [
                 {
                   "kind": "Content",
