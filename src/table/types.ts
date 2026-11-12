@@ -47,11 +47,6 @@ export interface TableSpecificProps {
   styleModel?: StyleModel;
 
   /**
-   * Enables exporting of data from the table.
-   */
-  allowExport?: boolean;
-
-  /**
    * Sets a caption for the table
    */
   caption?: string;

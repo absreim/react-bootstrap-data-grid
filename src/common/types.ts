@@ -153,6 +153,13 @@ export interface MainComponentSharedProps {
    * sorting feature of the component.
    */
   sortModel?: SortModel;
+
+  /**
+   * Enables exporting of data from the table.
+   *
+   * @defaultValue `false` - Export button will not be displayed to the user.
+   */
+  allowExport?: boolean;
 }
 
 /**

@@ -30,6 +30,7 @@ const Grid: FC<GridProps> = ({
   cols,
   sortModel,
   pagination,
+  allowExport,
   width,
   height,
   variant,
