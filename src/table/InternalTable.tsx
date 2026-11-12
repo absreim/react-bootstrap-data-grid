@@ -12,8 +12,8 @@ import { UseCombinedPipelineHook } from "../common/pipeline/useCombinedPipeline"
 import { UseGridSelectionFnsHook } from "../common/pipeline/useGridSelectionFns";
 import { BaseTableProps } from "./internalTypes";
 
-export interface InternalGridProps {
-  gridProps: BaseTableProps;
+export interface InternalTableProps {
+  tableProps: BaseTableProps;
   hooks: {
     selectFns: UseGridSelectionFnsHook;
     pipelineOutput: UseCombinedPipelineHook;
@@ -28,8 +28,8 @@ export interface InternalGridProps {
   };
 }
 
-const InternalTable: FC<InternalGridProps> = ({
-  gridProps: {
+const InternalTable: FC<InternalTableProps> = ({
+  tableProps: {
     rows,
     cols,
     pagination,

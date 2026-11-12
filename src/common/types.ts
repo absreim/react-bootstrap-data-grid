@@ -1,4 +1,5 @@
 import { SortModel } from "./sorting/types";
+import { FilterModel } from "./filtering/types";
 
 /**
  * Union of all possible column data types.
@@ -81,6 +82,7 @@ export interface CommunitySpecificColProps {
  */
 export type ColDef<ValueType = any> = ColDefBase<ValueType> &
   CommunitySpecificColProps;
+
 /**
  * Type alias for "data" property of the {@link RowDef} interface. This type
  * alias represents the most general type possible. One can specify a more
@@ -124,6 +126,7 @@ export interface RowDef<Data extends ValidRowData = ValidRowData> {
    * prop of the {@link Table} or {@link Grid}.
    */
   id: RowId;
+
   /**
    * Contains all data fields for different columns of the row.
    */
@@ -160,6 +163,14 @@ export interface MainComponentSharedProps {
    * @defaultValue `false` - Export button will not be displayed to the user.
    */
   allowExport?: boolean;
+
+  /**
+   * The filter model of the table. Passing a truthy value enables the
+   * filtering feature of the component.
+   *
+   * @defaultValue `undefined` - Filtering will not be enabled.
+   */
+  filterModel?: FilterModel;
 }
 
 /**
@@ -198,28 +209,34 @@ export interface CellData {
    * contains the value for the cell.
    */
   fieldName: string;
+
   /**
    * The raw, unformatted, value of the cell.
    */
   value: ColDataType;
+
   /**
    * A string that specifies of the value type of the column for the cell.
    * Same as the "type" property in corresponding {@link ColDef} object.
    */
   type: ColDataTypeStrings;
+
   /**
    * The ARIA column index of the column that contains the cell.
    */
   ariaColIndex: number;
+
   /**
    * The value of the cell after the column's formatter function is applied.
    */
   formattedValue: string;
+
   /**
    * The label of the column that the cell is in. Same as the property of the
    * same name in the corresponding {@link ColDef} object.
    */
   label: string;
+
   /**
    * The width of the column that the cell is in. Same as the property of the
    * same name in the corresponding {@link ColDef} object.

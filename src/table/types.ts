@@ -1,6 +1,5 @@
 import {
   EditModel,
-  FilterModel,
   MainComponentSharedProps,
   PaginationModel,
   SelectModel,
@@ -21,12 +20,6 @@ export type DisplayMode = "table" | "block";
  * @public
  */
 export interface TableSpecificProps {
-  /**
-   * The filter model of the table. Passing a truthy value enables the
-   * filtering feature of the component.
-   */
-  filterModel?: FilterModel;
-
   /**
    * The select model of the table. Passing a truthy value enables the
    * selection feature of the component.

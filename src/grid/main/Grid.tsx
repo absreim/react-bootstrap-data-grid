@@ -19,6 +19,8 @@ import { CSS_PREFIX } from "../../common/constants";
 import useGridFocus from "../focus/useGridFocus";
 import Pagination from "../../common/pagination/Pagination";
 import { GridPaginationModel } from "../pagination/types";
+import useExportFn from "../../common/export/useExportFn";
+import useInterfaces from "../../common/toolbar/useInterfaces";
 
 /**
  * The main component for the grid feature of react-bootstrap-data-grid.
@@ -31,6 +33,7 @@ const Grid: FC<GridProps> = ({
   sortModel,
   pagination,
   allowExport,
+  filterModel,
   width,
   height,
   variant,
@@ -47,12 +50,13 @@ const Grid: FC<GridProps> = ({
   headerCellFocusVariant,
   bodyCellFocusVariant,
 }) => {
-  const { displayRows, filteredRows, sortedRowsOutput, currentPageRowsOutput } =
+  const { displayRows, filterState, normalizedTableFilterModel, filteredRows, sortedRowsOutput, currentPageRowsOutput: { paginatedRows, normalizedModel } } =
     useCombinedPipeline({
       rows,
       cols,
       sortModel,
       pagination,
+      filterModel,
     });
   const colNameToWidth = useColNameToWidth(cols);
   const augFormattedRows = useAugFormattedRows(colNameToWidth, displayRows);
@@ -189,13 +193,28 @@ const Grid: FC<GridProps> = ({
         `rbdg-justify-content-${pagination.styleOptions?.horizontalAlignment || "right"}`,
         `gap-${pagination.styleOptions?.paginationComponentSpacing === undefined ? 2 : pagination.styleOptions?.paginationComponentSpacing}`,
       ]}
-      normalizedModel={currentPageRowsOutput.normalizedModel!}
+      normalizedModel={normalizedModel!}
       prePagingNumRows={rows.length}
       sizeSelectAfterPageSelect={
         pagination.styleOptions?.sizeSelectAfterPageSelect
       }
     />
   );
+
+  const exportFnInfo = useExportFn({
+    rows,
+    cols,
+    filteredRows: filterModel && filteredRows,
+    currentPageRows: pagination && paginatedRows,
+  });
+  const toolbarInterfaces = useInterfaces({
+    exportParams: allowExport ? { exportFnInfo } : undefined,
+    filterParams: filterModel ? {
+      filterState: filterState!,
+      setFilterState: normalizedTableFilterModel!.setTableFilterState,
+      caption: filterModel.filterTableCaption,
+    } : undefined,
+  })
 
   return pagination ? (
     <div
