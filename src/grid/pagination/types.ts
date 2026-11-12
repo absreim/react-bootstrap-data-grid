@@ -37,14 +37,13 @@ export interface PaginationStyleOptions {
   horizontalAlignment?: "left" | "center" | "right";
 
   /**
-   * Sets the amount of vertical spacing between the main grid or table
-   * component and the pagination UI components. The number supplied to this
-   * property will be used for the
-   * {@link https://getbootstrap.com/docs/5.3/utilities/spacing/#gap | Bootstrap gap utility}.
-   * Valid values depend on Bootstrap `$spacers` Sass map. Be default, the valid
-   * values range from 0 to 5.
+   * Copy of the property of the same name in the {@link StyleOptions}
+   * interface. The value of the {@link StyleOptions} property takes
+   * precedence. This value is only used if the other value doesn't exist.
    *
-   * @defaultValue `2`- the gap-2 Bootstrap utility class will be applied.
+   * @deprecated Use the property in the {@link StyleOptions} interface instead.
+   * The property is only kept around for backwards compatibility and may be
+   * removed in the next major release.
    */
   mainComponentSpacing?: number;
 

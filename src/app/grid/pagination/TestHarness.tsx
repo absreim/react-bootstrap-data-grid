@@ -4,128 +4,26 @@ import {
   cols,
   generateBasicTestRows,
 } from "../../../test-tools/basic-test-data";
-import { FC, ReactNode, useState } from "react";
+import { FC, useState } from "react";
 import Grid, { Size } from "../../../grid";
 import Form from "react-bootstrap/Form";
 import useDimSetting from "../useDimSetting";
-
-type BooleanOptionName = "true" | "false" | "unset";
-type BooleanOptions = Record<
+import {
+  AlignSettingString,
   BooleanOptionName,
-  { label: string; value: boolean | undefined }
->;
-type GapOptions = Record<string, { label: string; value: number | undefined }>;
-type AlignSettingString = "left" | "center" | "right";
-type AlignOptions = Record<
-  AlignSettingString | "unset",
-  { label: string; value: AlignSettingString | undefined }
->;
+} from "../../../test-tools/types";
+import {
+  alignOptions,
+  alignOptNameToLabel,
+  booleanOptions,
+  booleanOptNameToLabel,
+  gapOptions,
+  gapOptNameToLabel,
+  getRadioGroup,
+  sizeOptionToLabel,
+} from "../../../test-tools/interface-options";
 
 const testRows = generateBasicTestRows(25);
-
-const booleanOptions: BooleanOptions = {
-  unset: {
-    label: "Unset (same as false)",
-    value: undefined,
-  },
-  false: {
-    label: "False",
-    value: false,
-  },
-  true: {
-    label: "True",
-    value: true,
-  },
-};
-const booleanOptNameToLabel = Object.keys(booleanOptions).reduce(
-  (prev, curr) => {
-    prev[curr] = booleanOptions[curr as BooleanOptionName].label;
-    return prev;
-  },
-  {} as Record<string, string>,
-);
-
-const gapOptions: GapOptions = [0, 1, 2, 3, 4, 5].reduce(
-  (prev, curr) => {
-    prev[String(curr)] = {
-      label: String(curr),
-      value: curr,
-    };
-    return prev;
-  },
-  {
-    unset: {
-      label: "Unset (same as 2)",
-      value: undefined,
-    },
-  } as GapOptions,
-);
-const gapOptNameToLabel = Object.keys(gapOptions).reduce(
-  (prev, curr) => {
-    prev[curr] = gapOptions[curr].label;
-    return prev;
-  },
-  {} as Record<string, string>,
-);
-
-const alignOptions: AlignOptions = {
-  unset: {
-    label: "Unset (same as right)",
-    value: undefined,
-  },
-  left: {
-    label: "Left",
-    value: "left",
-  },
-  center: {
-    label: "Center",
-    value: "center",
-  },
-  right: {
-    label: "Right",
-    value: "right",
-  },
-};
-const alignOptNameToLabel = Object.keys(alignOptions).reduce(
-  (prev, curr) => {
-    prev[curr] = alignOptions[curr as AlignSettingString | "unset"].label;
-    return prev;
-  },
-  {} as Record<string, string>,
-);
-
-const sizeOptionToLabel: Record<string, string> = {
-  small: "Small",
-  medium: "Medium",
-  large: "Large",
-};
-
-function getRadioGroup(
-  legend: string,
-  optionLabels: Record<string, string>,
-  currentVal: string,
-  setVal: (val: string) => void,
-  settingTypeId: string,
-): ReactNode {
-  return (
-    <fieldset key={settingTypeId}>
-      <legend>{legend}</legend>
-      {Object.keys(optionLabels).map((optionName) => {
-        return (
-          <Form.Check
-            key={optionName}
-            type="radio"
-            id={`${settingTypeId}-${optionName}`}
-            label={optionLabels[optionName]}
-            checked={currentVal === optionName}
-            value={optionName}
-            onChange={({ target }) => setVal(target.value as BooleanOptionName)}
-          />
-        );
-      })}
-    </fieldset>
-  );
-}
 
 const TestHarness: FC = () => {
   const [aboveMain, setAboveMain] = useState<string>("unset");

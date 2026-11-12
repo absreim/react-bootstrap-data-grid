@@ -255,7 +255,7 @@ const TablePro: FC<TableProProps> = (props) => {
 
   return (
     <InternalTable
-      gridProps={props}
+      tableProps={props}
       hooks={{
         pipelineOutput: combinedPipelineOutput,
         selectFns: gridSelectionFns,

@@ -3,6 +3,7 @@ import { FC, useCallback, useMemo, useState } from "react";
 import Toolbar from "./Toolbar";
 import classNames from "classnames";
 import { ToolbarStyleModel } from "../styling/types";
+import { TOOLBAR_CONTAINER_TEST_ID } from "../constants";
 
 interface ToolbarContainerProps {
   interfaceGen: InterfaceNodeGenerator;
@@ -30,6 +31,11 @@ const ToolbarContainer: FC<ToolbarContainerProps> = ({
     );
   }, [interfaces]);
 
+  // Z-index of 4 is needed to go on top of Bootstrap pagination links that have
+  // a z-index of 3.
+  // The z-index of 4 is applied as a style prop here to avoid a breaking
+  // change. As part of the next major release, move this setting the common
+  // SCSS file.
   return (
     <div className="vstack" data-testid="toolbar container">
       <Toolbar
@@ -43,11 +49,13 @@ const ToolbarContainer: FC<ToolbarContainerProps> = ({
       <div className="position-relative">
         {option !== null && (
           <div
-            data-testid="toolbar feature interface content container"
+            data-testid={TOOLBAR_CONTAINER_TEST_ID}
+            style={{
+              zIndex: 4,
+            }}
             className={classNames(
               styleModel?.interfaceContainer || [
                 "position-absolute",
-                "z-1",
                 "bg-body",
                 "border",
                 "shadow",

@@ -1,6 +1,6 @@
 "use client";
 
-import { FC, ReactNode, useMemo } from "react";
+import { FC, ReactNode } from "react";
 import SelectAllHeaderCell from "./selection/SelectAllHeaderCell";
 import Pagination from "../common/pagination/Pagination";
 import classNames from "classnames";
@@ -10,11 +10,10 @@ import useExportFn from "../common/export/useExportFn";
 import getWidthStyle from "../common/util/getWidthStyle";
 import { UseCombinedPipelineHook } from "../common/pipeline/useCombinedPipeline";
 import { UseGridSelectionFnsHook } from "../common/pipeline/useGridSelectionFns";
-import { InterfacePropGenerator } from "../common/toolbar/internalTypes";
 import { BaseTableProps } from "./internalTypes";
 
-export interface InternalGridProps {
-  gridProps: BaseTableProps;
+export interface InternalTableProps {
+  tableProps: BaseTableProps;
   hooks: {
     selectFns: UseGridSelectionFnsHook;
     pipelineOutput: UseCombinedPipelineHook;
@@ -29,8 +28,8 @@ export interface InternalGridProps {
   };
 }
 
-const InternalTable: FC<InternalGridProps> = ({
-  gridProps: {
+const InternalTable: FC<InternalTableProps> = ({
+  tableProps: {
     rows,
     cols,
     pagination,
@@ -63,39 +62,22 @@ const InternalTable: FC<InternalGridProps> = ({
   });
 
   const showToolbar = filterModel || allowExport;
-  const toolbarPropGen: InterfacePropGenerator = useMemo(
-    () => (closeUiCallback) => {
-      return {
-        filtering:
-          filterState && filterModel && normalizedTableFilterModel
-            ? {
-                filterState: filterState,
-                setFilterState: normalizedTableFilterModel.setTableFilterState,
-                caption: filterModel.filterTableCaption,
-                styleModel: styleModel?.filterInputTableStyleModel,
-                closeFormCallback: closeUiCallback,
-              }
-            : undefined,
-        exporting: allowExport
-          ? {
-              exportFnInfo,
-              styleModel: styleModel?.exportFormStyleModel,
-              closeCallback: closeUiCallback,
-            }
-          : undefined,
-      };
-    },
-    [
-      allowExport,
-      exportFnInfo,
-      filterModel,
-      filterState,
-      normalizedTableFilterModel,
-      styleModel?.exportFormStyleModel,
-      styleModel?.filterInputTableStyleModel,
-    ],
-  );
-  const toolbarInterfaces = useInterfaces(toolbarPropGen);
+  const toolbarInterfaces = useInterfaces({
+    exportParams: allowExport
+      ? {
+          exportFnInfo,
+          styleModel: styleModel?.exportFormStyleModel,
+        }
+      : undefined,
+    filterParams: filterModel
+      ? {
+          filterState: filterState!,
+          setFilterState: normalizedTableFilterModel!.setTableFilterState,
+          caption: filterModel.filterTableCaption,
+          styleModel: styleModel?.filterInputTableStyleModel,
+        }
+      : undefined,
+  });
 
   const { rowsAreSelectable, selectionInfo, selectAllOnClick } = selectFns;
 

@@ -13,6 +13,7 @@ export interface ProColDefSpecificFields {
    * @defaultValue `false`
    */
   resizeable?: boolean;
+
   /**
    * Configures the width of the column. The value can be a number in pixels or
    * a state setter/getter object of type {@link WidthModel}.
@@ -20,6 +21,7 @@ export interface ProColDefSpecificFields {
    * @defaultValue `100`
    */
   width?: ColDef["width"] | WidthModel;
+
   /**
    * When the column is resizable, configures the minimum width to which the
    * column can be resized.
@@ -27,6 +29,7 @@ export interface ProColDefSpecificFields {
    * @defaultValue `64` if the column is sortable, `32` if not
    */
   minResizeWidth?: number;
+
   /**
    * When the column is resizable, configures the maximum width to which the
    * column can be resized.
@@ -34,6 +37,7 @@ export interface ProColDefSpecificFields {
    * @defaultValue {@link https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/Number/MAX_VALUE | Number.MAX_VALUE}
    */
   maxResizeWidth?: number;
+
   /**
    * Configures the number of pixels to change the width per keypress when
    * resizing.
@@ -62,10 +66,12 @@ export interface TableProSpecificProps {
    * Column definitions for the table.
    */
   cols: ProColDef[];
+
   /**
    * Enables and configures the row reordering feature.
    */
   reorder?: ReorderModel;
+
   /**
    * Applies custom CSS styles for elements specific to the pro edition of the
    * table.
@@ -93,6 +99,7 @@ export interface WidthModel {
    * The current width value stored by the object.
    */
   width: number;
+
   /**
    * Setter function to update the width value.
    */

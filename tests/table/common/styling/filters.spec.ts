@@ -1,4 +1,5 @@
 import { test, expect } from "@playwright/test";
+import { toolbarUiContainerTestId } from "../../../constants";
 
 ["community", "pro"].forEach((edition) => {
   const url = edition === "pro" ? "styling/filtering/pro" : "styling/filtering";
@@ -15,7 +16,7 @@ import { test, expect } from "@playwright/test";
       await filterToggle.click();
 
       const toolbarUiContainer = container.getByTestId(
-        "toolbar feature interface content container",
+        toolbarUiContainerTestId,
       );
 
       const form = toolbarUiContainer.locator("form");
@@ -48,7 +49,7 @@ import { test, expect } from "@playwright/test";
       await filterToggle.click();
 
       const toolbarUiContainer = container.getByTestId(
-        "toolbar feature interface content container",
+        toolbarUiContainerTestId,
       );
 
       const table = toolbarUiContainer.getByRole("table");
@@ -79,7 +80,7 @@ import { test, expect } from "@playwright/test";
       await filterToggle.click();
 
       const toolbarUiContainer = container.getByTestId(
-        "toolbar feature interface content container",
+        toolbarUiContainerTestId,
       );
 
       const table = toolbarUiContainer.getByRole("table");
@@ -168,7 +169,7 @@ import { test, expect } from "@playwright/test";
       await filterToggle.click();
 
       const toolbarUiContainer = container.getByTestId(
-        "toolbar feature interface content container",
+        toolbarUiContainerTestId,
       );
 
       const table = toolbarUiContainer.getByRole("table");
@@ -194,7 +195,7 @@ import { test, expect } from "@playwright/test";
       await filterToggle.click();
 
       const toolbarUiContainer = container.getByTestId(
-        "toolbar feature interface content container",
+        toolbarUiContainerTestId,
       );
 
       const table = toolbarUiContainer.getByRole("table");

@@ -1,4 +1,7 @@
-import { expect, Locator } from "@playwright/test";
+import { expect, Locator, Page } from "@playwright/test";
+import { generateBasicTestRows } from "../src/test-tools/basic-test-data";
+import { dateToDatetimeInputStr } from "../src/common";
+import fs from "node:fs";
 
 // Assumes that there are no duplicate values within a row
 export const validateGridContents: (
@@ -70,7 +73,7 @@ export const clickSelectAllAndVerify: (
   name,
   endState,
   startChecked,
-  startIndet,
+  startIndeterminate,
   endName,
   endChecked,
 ) => {
@@ -81,7 +84,10 @@ export const clickSelectAllAndVerify: (
     name,
   });
   await expect(selectAllCheckbox).toHaveJSProperty("checked", startChecked);
-  await expect(selectAllCheckbox).toHaveJSProperty("indeterminate", startIndet);
+  await expect(selectAllCheckbox).toHaveJSProperty(
+    "indeterminate",
+    startIndeterminate,
+  );
   await selectAllCheckbox.click();
 
   for (let i = 0; i < 4; i++) {
@@ -94,4 +100,27 @@ export const clickSelectAllAndVerify: (
   });
   await expect(endSelectAllCheckbox).toHaveJSProperty("checked", endChecked);
   await expect(endSelectAllCheckbox).toHaveJSProperty("indeterminate", false);
+};
+
+export const getTestContentDisplayRows: (numRows: number) => string[][] = (
+  numRows,
+) =>
+  generateBasicTestRows(numRows).map(
+    ({ data: { strCol, numCol, date, datetime } }) => [
+      strCol,
+      String(numCol),
+      String(date.valueOf()),
+      dateToDatetimeInputStr(datetime),
+    ],
+  );
+
+export const downloadAndRead: (
+  page: Page,
+  container: Locator,
+) => Promise<string> = async (page, container) => {
+  const downloadPromise = page.waitForEvent("download");
+  await container.getByRole("button", { name: "Submit" }).click();
+  const download = await downloadPromise;
+
+  return fs.readFileSync(await download.path(), "utf8");
 };
