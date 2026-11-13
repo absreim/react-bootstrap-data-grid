@@ -21,6 +21,7 @@ import Pagination from "../../common/pagination/Pagination";
 import { GridPaginationModel } from "../pagination/types";
 import useExportFn from "../../common/export/useExportFn";
 import useInterfaces from "../../common/toolbar/useInterfaces";
+import ToolbarContainer from "../../common/toolbar/ToolbarContainer";
 
 /**
  * The main component for the grid feature of react-bootstrap-data-grid.
@@ -49,15 +50,22 @@ const Grid: FC<GridProps> = ({
   bodyRowVariant,
   headerCellFocusVariant,
   bodyCellFocusVariant,
+  styleOptions,
 }) => {
-  const { displayRows, filterState, normalizedTableFilterModel, filteredRows, sortedRowsOutput, currentPageRowsOutput: { paginatedRows, normalizedModel } } =
-    useCombinedPipeline({
-      rows,
-      cols,
-      sortModel,
-      pagination,
-      filterModel,
-    });
+  const {
+    displayRows,
+    filterState,
+    normalizedTableFilterModel,
+    filteredRows,
+    sortedRowsOutput,
+    currentPageRowsOutput: { paginatedRows, normalizedModel },
+  } = useCombinedPipeline({
+    rows,
+    cols,
+    sortModel,
+    pagination,
+    filterModel,
+  });
   const colNameToWidth = useColNameToWidth(cols);
   const augFormattedRows = useAugFormattedRows(colNameToWidth, displayRows);
   function getWidthProperty(width: GridProps["width"]): CSSProperties["width"] {
@@ -209,33 +217,47 @@ const Grid: FC<GridProps> = ({
   });
   const toolbarInterfaces = useInterfaces({
     exportParams: allowExport ? { exportFnInfo } : undefined,
-    filterParams: filterModel ? {
-      filterState: filterState!,
-      setFilterState: normalizedTableFilterModel!.setTableFilterState,
-      caption: filterModel.filterTableCaption,
-    } : undefined,
-  })
+    filterParams: filterModel
+      ? {
+          filterState: filterState!,
+          setFilterState: normalizedTableFilterModel!.setTableFilterState,
+          caption: filterModel.filterTableCaption,
+        }
+      : undefined,
+  });
+  const showToolbar = allowExport || filterModel;
 
-  return pagination ? (
+  const mainSpacingSetting =
+    styleOptions?.mainComponentSpacing ??
+    pagination?.styleOptions?.mainComponentSpacing;
+
+  return pagination || showToolbar ? (
     <div
       style={{ width: widthProperty, height: heightProperties.containerDiv }}
       className={classNames(
         "d-flex",
         "flex-column",
-        `gap-${pagination.styleOptions?.mainComponentSpacing === undefined ? 2 : pagination.styleOptions?.mainComponentSpacing}`,
+        `gap-${mainSpacingSetting === undefined ? 2 : mainSpacingSetting}`,
       )}
       data-testid="rbdg-top-level-grid-container"
     >
-      {pagination.styleOptions?.aboveMainComponent ? (
+      {showToolbar && <ToolbarContainer interfaceGen={toolbarInterfaces} />}
+      {pagination ? (
         <>
-          {getPagination(pagination)}
-          {mainGridComponent}
+          {pagination.styleOptions?.aboveMainComponent ? (
+            <>
+              {getPagination(pagination)}
+              {mainGridComponent}
+            </>
+          ) : (
+            <>
+              {mainGridComponent}
+              {getPagination(pagination)}
+            </>
+          )}
         </>
       ) : (
-        <>
-          {mainGridComponent}
-          {getPagination(pagination)}
-        </>
+        <>{mainGridComponent}</>
       )}
     </div>
   ) : (
