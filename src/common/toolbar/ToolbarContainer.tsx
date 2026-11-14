@@ -47,7 +47,7 @@ const ToolbarContainer: FC<ToolbarContainerProps> = ({
             className={classNames(
               styleModel?.interfaceContainer || [
                 "position-absolute",
-                "z-1",
+                "z-3",
                 "bg-body",
                 "border",
                 "shadow",
