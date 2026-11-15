@@ -3027,7 +3027,7 @@
             {
               "kind": "PropertySignature",
               "canonicalReference": "@absreim/react-bootstrap-data-grid!GridSpecificProps#bodyCellFocusVariant:member",
-              "docComment": "/**\n * Function to set the color variant of body cell focus rings\n */\n",
+              "docComment": "/**\n * Function to set the color variant of body cell focus rings\n *\n * @defaultValue `undefined` - no variant will be specified.\n */\n",
               "excerptTokens": [
                 {
                   "kind": "Content",
@@ -3055,7 +3055,7 @@
             {
               "kind": "PropertySignature",
               "canonicalReference": "@absreim/react-bootstrap-data-grid!GridSpecificProps#bodyCellVariant:member",
-              "docComment": "/**\n * Function to set the color variant of body cells on a per-cell basis.\n * Overrides the row-wide setting when this function returns a non-null value.\n */\n",
+              "docComment": "/**\n * Function to set the color variant of body cells on a per-cell basis.\n * Overrides the row-wide setting when this function returns a non-null value.\n *\n * @defaultValue `undefined` - no variant will be specified.\n */\n",
               "excerptTokens": [
                 {
                   "kind": "Content",
@@ -3083,7 +3083,7 @@
             {
               "kind": "PropertySignature",
               "canonicalReference": "@absreim/react-bootstrap-data-grid!GridSpecificProps#bodyRowVariant:member",
-              "docComment": "/**\n * Function to set the color variant of body rows\n */\n",
+              "docComment": "/**\n * Function to set the color variant of body rows\n *\n * @defaultValue `undefined` - no variant will be specified.\n */\n",
               "excerptTokens": [
                 {
                   "kind": "Content",
@@ -3119,7 +3119,7 @@
             {
               "kind": "PropertySignature",
               "canonicalReference": "@absreim/react-bootstrap-data-grid!GridSpecificProps#borders:member",
-              "docComment": "/**\n * The border setting of the grid\n */\n",
+              "docComment": "/**\n * The border setting of the grid\n *\n * @defaultValue `undefined` - no borders will be shown.\n */\n",
               "excerptTokens": [
                 {
                   "kind": "Content",
@@ -3147,7 +3147,7 @@
             {
               "kind": "PropertySignature",
               "canonicalReference": "@absreim/react-bootstrap-data-grid!GridSpecificProps#borderVariant:member",
-              "docComment": "/**\n * The border color variant of the grid\n */\n",
+              "docComment": "/**\n * The border color variant of the grid\n *\n * @defaultValue `undefined` - the default Bootstrap border color will be\n * used.\n */\n",
               "excerptTokens": [
                 {
                   "kind": "Content",
@@ -3174,7 +3174,7 @@
             {
               "kind": "PropertySignature",
               "canonicalReference": "@absreim/react-bootstrap-data-grid!GridSpecificProps#divider:member",
-              "docComment": "/**\n * Toggles a horizontal divider between the grid header and body\n */\n",
+              "docComment": "/**\n * Toggles a horizontal divider between the grid header and body\n *\n * @defaultValue `false` - no divider will be shown.\n */\n",
               "excerptTokens": [
                 {
                   "kind": "Content",
@@ -3201,7 +3201,7 @@
             {
               "kind": "PropertySignature",
               "canonicalReference": "@absreim/react-bootstrap-data-grid!GridSpecificProps#headerCellFocusVariant:member",
-              "docComment": "/**\n * Function to set the color variant of header cell focus rings\n */\n",
+              "docComment": "/**\n * Function to set the color variant of header cell focus rings\n *\n * @defaultValue `undefined` - no variant will be specified.\n */\n",
               "excerptTokens": [
                 {
                   "kind": "Content",
@@ -3229,7 +3229,7 @@
             {
               "kind": "PropertySignature",
               "canonicalReference": "@absreim/react-bootstrap-data-grid!GridSpecificProps#headerCellVariant:member",
-              "docComment": "/**\n * Function to set the color variant of header cells. Overrides the row-wide\n * setting when this function returns a non-null value.\n */\n",
+              "docComment": "/**\n * Function to set the color variant of header cells. Overrides the row-wide\n * setting when this function returns a non-null value.\n *\n * @defaultValue `undefined` - no variant will be specified.\n */\n",
               "excerptTokens": [
                 {
                   "kind": "Content",
@@ -3257,7 +3257,7 @@
             {
               "kind": "PropertySignature",
               "canonicalReference": "@absreim/react-bootstrap-data-grid!GridSpecificProps#headerRowVariant:member",
-              "docComment": "/**\n * Sets the color variant of the header row\n */\n",
+              "docComment": "/**\n * Sets the color variant of the header row\n *\n * @defaultValue `undefined` - no variant will be specified.\n */\n",
               "excerptTokens": [
                 {
                   "kind": "Content",
@@ -3312,7 +3312,7 @@
             {
               "kind": "PropertySignature",
               "canonicalReference": "@absreim/react-bootstrap-data-grid!GridSpecificProps#hover:member",
-              "docComment": "/**\n * Toggles hover styles for the grid\n */\n",
+              "docComment": "/**\n * Toggles hover styles for the grid\n *\n * @defaultValue `undefined` - no hover styles will be active.\n */\n",
               "excerptTokens": [
                 {
                   "kind": "Content",
@@ -3339,7 +3339,7 @@
             {
               "kind": "PropertySignature",
               "canonicalReference": "@absreim/react-bootstrap-data-grid!GridSpecificProps#pagination:member",
-              "docComment": "/**\n * Enables and configures pagination for the grid\n */\n",
+              "docComment": "/**\n * Enables and configures pagination for the grid\n *\n * @defaultValue `undefined` - pagination will be disabled.\n */\n",
               "excerptTokens": [
                 {
                   "kind": "Content",
@@ -3367,7 +3367,7 @@
             {
               "kind": "PropertySignature",
               "canonicalReference": "@absreim/react-bootstrap-data-grid!GridSpecificProps#small:member",
-              "docComment": "/**\n * Toggles a denser grid style\n */\n",
+              "docComment": "/**\n * Toggles a denser grid style\n *\n * @defaultValue `false` - the grid will have the default density of cells\n * that are used in Bootstrap tables.\n */\n",
               "excerptTokens": [
                 {
                   "kind": "Content",
@@ -3394,7 +3394,7 @@
             {
               "kind": "PropertySignature",
               "canonicalReference": "@absreim/react-bootstrap-data-grid!GridSpecificProps#stripes:member",
-              "docComment": "/**\n * The stripe setting of the grid\n */\n",
+              "docComment": "/**\n * The stripe setting of the grid\n *\n * @defaultValue `undefined` - no stripes will be present.\n */\n",
               "excerptTokens": [
                 {
                   "kind": "Content",
@@ -3421,8 +3421,36 @@
             },
             {
               "kind": "PropertySignature",
+              "canonicalReference": "@absreim/react-bootstrap-data-grid!GridSpecificProps#styleOptions:member",
+              "docComment": "/**\n * Configures preset styles.\n *\n * @defaultValue `undefined` - default values for preset styles will be used.\n */\n",
+              "excerptTokens": [
+                {
+                  "kind": "Content",
+                  "text": "styleOptions?: "
+                },
+                {
+                  "kind": "Reference",
+                  "text": "StyleOptions",
+                  "canonicalReference": "@absreim/react-bootstrap-data-grid!StyleOptions:interface"
+                },
+                {
+                  "kind": "Content",
+                  "text": ";"
+                }
+              ],
+              "isReadonly": false,
+              "isOptional": true,
+              "releaseTag": "Public",
+              "name": "styleOptions",
+              "propertyTypeTokenRange": {
+                "startIndex": 1,
+                "endIndex": 2
+              }
+            },
+            {
+              "kind": "PropertySignature",
               "canonicalReference": "@absreim/react-bootstrap-data-grid!GridSpecificProps#variant:member",
-              "docComment": "/**\n * The grid-wide color variant\n */\n",
+              "docComment": "/**\n * The grid-wide color variant\n *\n * @defaultValue `undefined` - no variant will be specified.\n */\n",
               "excerptTokens": [
                 {
                   "kind": "Content",
@@ -3607,6 +3635,33 @@
           "members": [
             {
               "kind": "PropertySignature",
+              "canonicalReference": "@absreim/react-bootstrap-data-grid!MainComponentSharedProps#allowExport:member",
+              "docComment": "/**\n * Enables exporting of data from the table.\n *\n * @defaultValue `false` - Export button will not be displayed to the user.\n */\n",
+              "excerptTokens": [
+                {
+                  "kind": "Content",
+                  "text": "allowExport?: "
+                },
+                {
+                  "kind": "Content",
+                  "text": "boolean"
+                },
+                {
+                  "kind": "Content",
+                  "text": ";"
+                }
+              ],
+              "isReadonly": false,
+              "isOptional": true,
+              "releaseTag": "Public",
+              "name": "allowExport",
+              "propertyTypeTokenRange": {
+                "startIndex": 1,
+                "endIndex": 2
+              }
+            },
+            {
+              "kind": "PropertySignature",
               "canonicalReference": "@absreim/react-bootstrap-data-grid!MainComponentSharedProps#cols:member",
               "docComment": "/**\n * The column definitions of the table or grid.\n */\n",
               "excerptTokens": [
@@ -3635,6 +3690,34 @@
               "propertyTypeTokenRange": {
                 "startIndex": 1,
                 "endIndex": 3
+              }
+            },
+            {
+              "kind": "PropertySignature",
+              "canonicalReference": "@absreim/react-bootstrap-data-grid!MainComponentSharedProps#filterModel:member",
+              "docComment": "/**\n * The filter model of the table. Passing a truthy value enables the\n * filtering feature of the component.\n *\n * @defaultValue `undefined` - Filtering will not be enabled.\n */\n",
+              "excerptTokens": [
+                {
+                  "kind": "Content",
+                  "text": "filterModel?: "
+                },
+                {
+                  "kind": "Reference",
+                  "text": "FilterModel",
+                  "canonicalReference": "@absreim/react-bootstrap-data-grid!FilterModel:type"
+                },
+                {
+                  "kind": "Content",
+                  "text": ";"
+                }
+              ],
+              "isReadonly": false,
+              "isOptional": true,
+              "releaseTag": "Public",
+              "name": "filterModel",
+              "propertyTypeTokenRange": {
+                "startIndex": 1,
+                "endIndex": 2
               }
             },
             {
@@ -4743,7 +4826,7 @@
             {
               "kind": "PropertySignature",
               "canonicalReference": "@absreim/react-bootstrap-data-grid!PaginationStyleOptions#mainComponentSpacing:member",
-              "docComment": "/**\n * Sets the amount of vertical spacing between the main grid or table\n * component and the pagination UI components. The number supplied to this\n * property will be used for the\n * {@link https://getbootstrap.com/docs/5.3/utilities/spacing/#gap | Bootstrap gap utility}.\n * Valid values depend on Bootstrap `$spacers` Sass map. Be default, the valid\n * values range from 0 to 5.\n *\n * @defaultValue `2`- the gap-2 Bootstrap utility class will be applied.\n */\n",
+              "docComment": "/**\n * Copy of the property of the same name in the {@link StyleOptions}\n * interface. The value of the {@link StyleOptions} property takes\n * precedence. This value is only used if the other value doesn't exist.\n *\n * @deprecated\n *\n * Use the property in the {@link StyleOptions} interface instead.\n * The property is only kept around for backwards compatibility and may be\n * removed in the next major release.\n */\n",
               "excerptTokens": [
                 {
                   "kind": "Content",
@@ -6721,6 +6804,51 @@
           "extendsTokenRanges": []
         },
         {
+          "kind": "Interface",
+          "canonicalReference": "@absreim/react-bootstrap-data-grid!StyleOptions:interface",
+          "docComment": "/**\n * Object that contains preset style options for the {@link Grid} component.\n *\n * @public\n */\n",
+          "excerptTokens": [
+            {
+              "kind": "Content",
+              "text": "export interface StyleOptions "
+            }
+          ],
+          "fileUrlPath": "../../dist/pro/grid/main/types.d.ts",
+          "releaseTag": "Public",
+          "name": "StyleOptions",
+          "preserveMemberOrder": false,
+          "members": [
+            {
+              "kind": "PropertySignature",
+              "canonicalReference": "@absreim/react-bootstrap-data-grid!StyleOptions#mainComponentSpacing:member",
+              "docComment": "/**\n * Sets the amount of vertical spacing between the main grid component, the\n * toolbar, and pagination UI components. The number supplied to this\n * property will be used for the\n * {@link https://getbootstrap.com/docs/5.3/utilities/spacing/#gap | Bootstrap gap utility}.\n * Valid values depend on Bootstrap `$spacers` Sass map. Be default, the valid\n * values range from 0 to 5.\n *\n * @defaultValue `2`- the gap-2 Bootstrap utility class will be applied.\n */\n",
+              "excerptTokens": [
+                {
+                  "kind": "Content",
+                  "text": "mainComponentSpacing?: "
+                },
+                {
+                  "kind": "Content",
+                  "text": "number"
+                },
+                {
+                  "kind": "Content",
+                  "text": ";"
+                }
+              ],
+              "isReadonly": false,
+              "isOptional": true,
+              "releaseTag": "Public",
+              "name": "mainComponentSpacing",
+              "propertyTypeTokenRange": {
+                "startIndex": 1,
+                "endIndex": 2
+              }
+            }
+          ],
+          "extendsTokenRanges": []
+        },
+        {
           "kind": "Variable",
           "canonicalReference": "@absreim/react-bootstrap-data-grid!Table:var",
           "docComment": "/**\n * The main component of the table feature of react-bootstrap-data-grid.\n *\n * @public\n */\n",
@@ -6998,33 +7126,6 @@
           "members": [
             {
               "kind": "PropertySignature",
-              "canonicalReference": "@absreim/react-bootstrap-data-grid!TableSpecificProps#allowExport:member",
-              "docComment": "/**\n * Enables exporting of data from the table.\n */\n",
-              "excerptTokens": [
-                {
-                  "kind": "Content",
-                  "text": "allowExport?: "
-                },
-                {
-                  "kind": "Content",
-                  "text": "boolean"
-                },
-                {
-                  "kind": "Content",
-                  "text": ";"
-                }
-              ],
-              "isReadonly": false,
-              "isOptional": true,
-              "releaseTag": "Public",
-              "name": "allowExport",
-              "propertyTypeTokenRange": {
-                "startIndex": 1,
-                "endIndex": 2
-              }
-            },
-            {
-              "kind": "PropertySignature",
               "canonicalReference": "@absreim/react-bootstrap-data-grid!TableSpecificProps#caption:member",
               "docComment": "/**\n * Sets a caption for the table\n */\n",
               "excerptTokens": [
@@ -7101,34 +7202,6 @@
               "isOptional": true,
               "releaseTag": "Public",
               "name": "editModel",
-              "propertyTypeTokenRange": {
-                "startIndex": 1,
-                "endIndex": 2
-              }
-            },
-            {
-              "kind": "PropertySignature",
-              "canonicalReference": "@absreim/react-bootstrap-data-grid!TableSpecificProps#filterModel:member",
-              "docComment": "/**\n * The filter model of the table. Passing a truthy value enables the\n * filtering feature of the component.\n */\n",
-              "excerptTokens": [
-                {
-                  "kind": "Content",
-                  "text": "filterModel?: "
-                },
-                {
-                  "kind": "Reference",
-                  "text": "FilterModel",
-                  "canonicalReference": "@absreim/react-bootstrap-data-grid!FilterModel:type"
-                },
-                {
-                  "kind": "Content",
-                  "text": ";"
-                }
-              ],
-              "isReadonly": false,
-              "isOptional": true,
-              "releaseTag": "Public",
-              "name": "filterModel",
               "propertyTypeTokenRange": {
                 "startIndex": 1,
                 "endIndex": 2

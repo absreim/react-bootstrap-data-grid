@@ -63,16 +63,20 @@ const InternalTable: FC<InternalTableProps> = ({
 
   const showToolbar = filterModel || allowExport;
   const toolbarInterfaces = useInterfaces({
-    exportParams: allowExport ? {
-      exportFnInfo,
-      styleModel: styleModel?.exportFormStyleModel,
-    } : undefined,
-    filterParams: filterModel ? {
-      filterState: filterState!,
-      setFilterState: normalizedTableFilterModel!.setTableFilterState,
-      caption: filterModel.filterTableCaption,
-      styleModel: styleModel?.filterInputTableStyleModel
-    } : undefined,
+    exportParams: allowExport
+      ? {
+          exportFnInfo,
+          styleModel: styleModel?.exportFormStyleModel,
+        }
+      : undefined,
+    filterParams: filterModel
+      ? {
+          filterState: filterState!,
+          setFilterState: normalizedTableFilterModel!.setTableFilterState,
+          caption: filterModel.filterTableCaption,
+          styleModel: styleModel?.filterInputTableStyleModel,
+        }
+      : undefined,
   });
 
   const { rowsAreSelectable, selectionInfo, selectAllOnClick } = selectFns;

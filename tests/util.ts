@@ -84,7 +84,10 @@ export const clickSelectAllAndVerify: (
     name,
   });
   await expect(selectAllCheckbox).toHaveJSProperty("checked", startChecked);
-  await expect(selectAllCheckbox).toHaveJSProperty("indeterminate", startIndeterminate);
+  await expect(selectAllCheckbox).toHaveJSProperty(
+    "indeterminate",
+    startIndeterminate,
+  );
   await selectAllCheckbox.click();
 
   for (let i = 0; i < 4; i++) {

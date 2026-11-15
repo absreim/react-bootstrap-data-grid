@@ -1,9 +1,6 @@
 import { FilterState } from "../filtering/internalTypes";
 import { EditableFilterState } from "../filtering/types";
-import {
-  ExportFormStyleModel,
-  FilterInputTableStyleModel,
-} from "../../table";
+import { ExportFormStyleModel, FilterInputTableStyleModel } from "../../table";
 import { ExportFnInfo } from "../export/useExportFn";
 import { ToolbarInterfaces } from "./internalTypes";
 import { useCallback } from "react";
@@ -25,7 +22,7 @@ export interface InterfacePropParams {
 
 const useInterfaces: (
   params: InterfacePropParams,
-) => (closeCallback: () => void ) => ToolbarInterfaces = ({
+) => (closeCallback: () => void) => ToolbarInterfaces = ({
   exportParams,
   filterParams,
 }) => {
