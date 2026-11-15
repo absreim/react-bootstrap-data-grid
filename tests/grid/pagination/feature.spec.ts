@@ -1,18 +1,6 @@
-import { generateBasicTestRows } from "../../../src/test-tools/basic-test-data";
-import { dateToDatetimeInputStr } from "../../../src/common";
 import { test } from "@playwright/test";
-import { validateGridContents } from "../../util";
+import { getTestContentDisplayRows, validateGridContents } from "../../util";
 import { pageSizeSelectorLabel } from "../../constants";
-
-const getTestContentDisplayRows: (numRows: number) => string[][] = (numRows) =>
-  generateBasicTestRows(numRows).map(
-    ({ data: { strCol, numCol, date, datetime } }) => [
-      strCol,
-      String(numCol),
-      String(date.valueOf()),
-      dateToDatetimeInputStr(datetime),
-    ],
-  );
 
 const testDisplayRows = getTestContentDisplayRows(25);
 

@@ -1,7 +1,6 @@
-import { expect, test, Page } from "@playwright/test";
-import * as fs from "node:fs";
-import { Locator } from "playwright-core";
+import { expect, Page, test, Locator } from "@playwright/test";
 import Papa from "papaparse";
+import { downloadAndRead } from "../../util";
 
 const openExport: (page: Page, testId: string) => Promise<Locator> = async (
   page,
@@ -11,17 +10,6 @@ const openExport: (page: Page, testId: string) => Promise<Locator> = async (
   const toolbar = container.getByRole("toolbar");
   await toolbar.getByRole("button", { name: "Export" }).click();
   return container;
-};
-
-const downloadAndRead: (
-  page: Page,
-  container: Locator,
-) => Promise<string> = async (page, container) => {
-  const downloadPromise = page.waitForEvent("download");
-  await container.getByRole("button", { name: "Submit" }).click();
-  const download = await downloadPromise;
-
-  return fs.readFileSync(await download.path(), "utf8");
 };
 
 const formattedJsonOutput = [

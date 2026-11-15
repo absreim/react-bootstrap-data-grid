@@ -1,4 +1,5 @@
 import { test, expect } from "@playwright/test";
+import { toolbarUiContainerTestId } from "../../../constants";
 
 ["community", "pro"].forEach((edition) => {
   const url = edition === "pro" ? "styling/toolbar/pro" : "styling/toolbar";
@@ -25,7 +26,7 @@ import { test, expect } from "@playwright/test";
       await expect(toggleButton).toHaveClass("active-button-test-class");
 
       const interfaceContainer = toolbarContainer.getByTestId(
-        "toolbar feature interface content container",
+        toolbarUiContainerTestId,
       );
       await expect(interfaceContainer).toHaveClass(
         "interface-container-test-class",
