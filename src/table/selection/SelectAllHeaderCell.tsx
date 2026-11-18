@@ -96,6 +96,7 @@ const SelectAllHeaderCell: FC<SelectAllHeaderCellProps> = ({
       className={classNames(customClasses || "btn-primary")}
     >
       <input
+        className="form-check-input"
         tabIndex={0}
         type="checkbox"
         checked={checked}

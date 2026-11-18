@@ -55,7 +55,7 @@ const SelectionInput: FC<SelectionInputProps> = ({
   return (
     <input
       tabIndex={0}
-      className={classNames(additionalClasses || [])}
+      className={classNames(additionalClasses || ["form-check-input"])}
       aria-label={`Select row with index ${index}`}
       onClick={(event) => {
         event.stopPropagation();
