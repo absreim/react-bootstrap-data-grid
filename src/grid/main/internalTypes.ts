@@ -2,6 +2,8 @@ import { AugFormattedRow } from "../../common/internalTypes";
 import { FocusCoordinates } from "../focus/types";
 import { GridProps } from "./types";
 import { SortedRowsOutput } from "../../common/pipeline/useCombinedPipeline/useSortedRows";
+import { RowId } from "../../common";
+import { MouseEventHandler } from "react";
 
 /**
  * Props interface for the GridHeader component
@@ -30,4 +32,6 @@ export type GridBodyProps = {
   cellVariant?: GridProps["bodyCellVariant"];
   focusCoords: FocusCoordinates;
   cellFocusVariant?: GridProps["bodyCellFocusVariant"];
+  getRowIsSelected: (id: RowId) => boolean;
+  getRowClickHandler: (id: RowId) => MouseEventHandler<HTMLElement>;
 };

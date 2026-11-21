@@ -8,15 +8,15 @@ import useInterfaces from "../common/toolbar/useInterfaces";
 import ToolbarContainer from "../common/toolbar/ToolbarContainer";
 import useExportFn from "../common/export/useExportFn";
 import getWidthStyle from "../common/util/getWidthStyle";
-import { UseCombinedPipelineHook } from "../common/pipeline/useCombinedPipeline";
-import { UseGridSelectionFnsHook } from "../common/pipeline/useGridSelectionFns";
 import { BaseTableProps } from "./internalTypes";
+import { CombinedPipelineOutput } from "../common/pipeline/useCombinedPipeline/internalTypes";
+import { SelectionFns } from "../common/pipeline/internalTypes";
 
 export interface InternalTableProps {
   tableProps: BaseTableProps;
   hooks: {
-    selectFns: UseGridSelectionFnsHook;
-    pipelineOutput: UseCombinedPipelineHook;
+    selectFns: SelectionFns;
+    pipelineOutput: CombinedPipelineOutput;
   };
   slots: {
     colHeaderCells: ReactNode;

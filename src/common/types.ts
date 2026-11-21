@@ -1,5 +1,6 @@
 import { SortModel } from "./sorting/types";
 import { FilterModel } from "./filtering/types";
+import { SelectModel } from "./selection/types";
 
 /**
  * Union of all possible column data types.
@@ -171,6 +172,12 @@ export interface MainComponentSharedProps {
    * @defaultValue `undefined` - Filtering will not be enabled.
    */
   filterModel?: FilterModel;
+
+  /**
+   * The select model of the table. Passing a truthy value enables the
+   * selection feature of the component.
+   */
+  selectModel?: SelectModel;
 }
 
 /**

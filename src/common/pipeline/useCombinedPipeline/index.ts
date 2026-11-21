@@ -1,39 +1,18 @@
 import useFilterStateStore from "./useFilterStateStore";
 import useFilter from "./useFilter";
 import useFilterStateFromEditable from "./useFilterStateFromEditable";
-import useSortedRows, { SortedRowsOutput } from "./useSortedRows";
-import useCurrentPageRows, {
-  CurrentPageRowsOutput,
-} from "./useCurrentPageRows";
+import useSortedRows from "./useSortedRows";
+import useCurrentPageRows from "./useCurrentPageRows";
 import useDisplayRows from "./useDisplayRows";
+import { FormattedRow } from "../../types";
 import {
-  NormalizedTableFilterModel,
-  FilterState,
-} from "../../filtering/internalTypes";
-import { ColDefBase, FormattedRow, RowDef } from "../../types";
-import { TableProps } from "../../../table";
-
-export type CombinedPipelineParams = Pick<
-  TableProps,
-  "rows" | "filterModel" | "sortModel" | "pagination" | "selectModel"
-> & {
-  cols: ColDefBase[];
-};
-
-export interface UseCombinedPipelineHook {
-  normalizedTableFilterModel: NormalizedTableFilterModel | null;
-  filteredRows: RowDef[];
-  filterState: FilterState | null;
-  sortedRowsOutput: SortedRowsOutput;
-  currentPageRowsOutput: CurrentPageRowsOutput;
-  showSelectCol: boolean;
-  ariaColIndexOffset: number;
-  displayRows: FormattedRow[];
-}
+  CombinedPipelineOutput,
+  CombinedPipelineParams,
+} from "./internalTypes";
 
 const useCombinedPipeline: (
   params: CombinedPipelineParams,
-) => UseCombinedPipelineHook = ({
+) => CombinedPipelineOutput = ({
   filterModel,
   cols,
   rows,

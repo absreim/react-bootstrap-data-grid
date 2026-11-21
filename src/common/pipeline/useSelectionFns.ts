@@ -7,25 +7,12 @@ import {
   MultiExistingSelection,
   SelectionInfo,
 } from "../selection/internalTypes";
+import { SelectionFns } from "./internalTypes";
 
-export interface UseGridSelectionFnsHook {
-  selectedSet: Set<RowId>;
-  rowsAreSelectable: boolean | undefined;
-  selectionInfo: SelectionInfo | null;
-  selectAllOnClick: () => void;
-  getSelectHandler: (index: RowId) => () => void;
-  getSelectInputModel: (
-    id: RowId,
-    selectModel: SelectModel,
-  ) => SelectionInputModel;
-  getRowClickHandler: (index: RowId) => MouseEventHandler<HTMLTableRowElement>;
-  getAriaSelectedValue: (id: RowId) => "true" | "false" | undefined;
-}
-
-const useGridSelectionFns: (
+const useSelectionFns: (
   selectModel: SelectModel | undefined,
   rows: RowDef[],
-) => UseGridSelectionFnsHook = (selectModel, rows) => {
+) => SelectionFns = (selectModel, rows) => {
   const selectionExists = useMemo(() => {
     if (!selectModel) {
       return false;
@@ -141,8 +128,8 @@ const useGridSelectionFns: (
     ) => MultiExistingSelection = (selectionExists, rows) => {
       const rowIndices = rows.map((_, index) => index);
 
-      // Note that isFullSelection is true if there are no rows at all. In that case, the return value of this function
-      // should be "none", not "full".
+      // Note that isFullSelection is true if there are no rows at all. In that
+      // case, the return value of this function should be "none", not "full".
       const isFullSelection = isSubset(rowIndices, selectModel.selected!);
 
       if (!selectionExists) {
@@ -163,18 +150,18 @@ const useGridSelectionFns: (
   }, [selectModel, selectionExists, rows]);
 
   const getRowClickHandler: (
-    index: RowId,
-  ) => MouseEventHandler<HTMLTableRowElement> = (index) => () => {
+    rowId: RowId,
+  ) => MouseEventHandler<HTMLElement> = (rowId) => () => {
     if (!rowsAreSelectable) {
       return;
     }
 
-    if (selectedSet.has(index)) {
-      getDeselectHandler(index)();
+    if (selectedSet.has(rowId)) {
+      getDeselectHandler(rowId)();
       return;
     }
 
-    getSelectHandler(index)();
+    getSelectHandler(rowId)();
   };
 
   const getAriaSelectedValue: (id: RowId) => "true" | "false" | undefined = (
@@ -199,4 +186,4 @@ const useGridSelectionFns: (
   };
 };
 
-export default useGridSelectionFns;
+export default useSelectionFns;

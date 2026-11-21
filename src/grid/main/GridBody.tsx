@@ -12,16 +12,20 @@ const GridBody: FC<GridBodyProps> = ({
   cellVariant,
   focusCoords,
   cellFocusVariant,
+  getRowIsSelected,
+  getRowClickHandler,
 }) => {
   return (
     <div role="rowgroup" data-testid={GRID_BODY_DATA_TEST_ID}>
       {augFormattedRows.map((row, rowDisplayIndex) => {
         const ariaRowIndex = row.prePaginationIndex + 2;
+        const rowIsSelected = getRowIsSelected(row.id);
 
         return (
           <div
             role="row"
             key={row.id}
+            aria-selected={rowIsSelected}
             aria-rowindex={ariaRowIndex}
             className={classNames(
               "d-flex",
@@ -29,7 +33,11 @@ const GridBody: FC<GridBodyProps> = ({
               rowVariant &&
                 rowVariant(row, rowDisplayIndex) &&
                 `${CSS_PREFIX}-${rowVariant(row, rowDisplayIndex)}`,
+              {
+                "rbdg-grid-active": rowIsSelected,
+              }
             )}
+            onClick={getRowClickHandler(row.id)}
           >
             {row.contents.map(({ formattedValue, width }, index) => {
               const ariaColIndex = index + 1;

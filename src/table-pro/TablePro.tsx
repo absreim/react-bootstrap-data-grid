@@ -9,7 +9,7 @@ import useCombinedPipeline from "../common/pipeline/useCombinedPipeline";
 import InternalTable from "../table/InternalTable";
 import { TableProProps } from "./types";
 import ColHeaderCellPro from "./ColHeaderCellPro";
-import useGridSelectionFns from "../common/pipeline/useGridSelectionFns";
+import useSelectionFns from "../common/pipeline/useSelectionFns";
 import useGetInputStrSubmitCallback from "../common/pipeline/useGetInputStrSubmitCallback";
 import { ColNameToWidth } from "../common/pipeline/internalTypes";
 import useAugFormattedRows from "../common/pipeline/useAugFormattedRows";
@@ -20,7 +20,8 @@ import ReorderHandleCell from "./reorder/ReorderHandleCell";
 import useKeyboardReorder from "./reorder/useKeyboardReorder";
 import useReorderStyles from "./reorder/useReorderStyles";
 import useKeyboardReorderListener from "./reorder/useKeyboardReorderListener";
-import { UseCombinedPipelineHook } from "../common/pipeline/useCombinedPipeline";
+
+import { CombinedPipelineOutput } from "../common/pipeline/useCombinedPipeline/internalTypes";
 
 /**
  * Pro edition of the table component.
@@ -41,7 +42,7 @@ const TablePro: FC<TableProProps> = (props) => {
     reorder,
   } = props;
 
-  const combinedPipelineOutput: UseCombinedPipelineHook = useCombinedPipeline({
+  const combinedPipelineOutput: CombinedPipelineOutput = useCombinedPipeline({
     rows,
     cols,
     filterModel,
@@ -55,7 +56,7 @@ const TablePro: FC<TableProProps> = (props) => {
     displayRows,
     filterState,
   } = combinedPipelineOutput;
-  const gridSelectionFns = useGridSelectionFns(selectModel, rows);
+  const gridSelectionFns = useSelectionFns(selectModel, rows);
   const getInputStrSubmitCallback = useGetInputStrSubmitCallback(
     editModel,
     cols,

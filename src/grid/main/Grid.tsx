@@ -6,6 +6,7 @@ import {
   FC,
   ReactNode,
   useCallback,
+  useMemo,
   useRef,
 } from "react";
 import useCombinedPipeline from "../../common/pipeline/useCombinedPipeline";
@@ -22,6 +23,8 @@ import { GridPaginationModel } from "../pagination/types";
 import useExportFn from "../../common/export/useExportFn";
 import useInterfaces from "../../common/toolbar/useInterfaces";
 import ToolbarContainer from "../../common/toolbar/ToolbarContainer";
+import { RowId } from "../../common";
+import useSelectionFns from "../../common/pipeline/useSelectionFns";
 
 /**
  * The main component for the grid feature of react-bootstrap-data-grid.
@@ -51,6 +54,7 @@ const Grid: FC<GridProps> = ({
   headerCellFocusVariant,
   bodyCellFocusVariant,
   styleOptions,
+  selectModel,
 }) => {
   const {
     displayRows,
@@ -137,6 +141,26 @@ const Grid: FC<GridProps> = ({
     );
   }, []);
 
+  const selectedSet: Set<RowId> | null = useMemo(() => {
+    if (!(selectModel?.type === "multi")) {
+      return null;
+    }
+
+    return new Set(selectModel?.selected);
+  }, [selectModel?.selected, selectModel?.type]);
+  const getRowIsSelected: (id: RowId) => boolean = useCallback((id: RowId) => {
+    if (!selectModel) {
+      return false;
+    }
+
+    if (selectModel.type === "single") {
+      return id === selectModel.selected;
+    }
+
+    return selectedSet!.has(id);
+  }, [selectModel, selectedSet]);
+  const { getRowClickHandler } = useSelectionFns(selectModel, rows);
+
   const mainGridComponent = (
     <div
       onCopy={onCopy}
@@ -188,6 +212,8 @@ const Grid: FC<GridProps> = ({
         rowVariant={bodyRowVariant}
         cellVariant={bodyCellVariant}
         cellFocusVariant={bodyCellFocusVariant}
+        getRowIsSelected={getRowIsSelected}
+        getRowClickHandler={getRowClickHandler}
       />
     </div>
   );

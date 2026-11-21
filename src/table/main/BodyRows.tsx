@@ -3,20 +3,20 @@ import EditableRow from "../editing/EditableRow";
 import classNames from "classnames";
 import getWidthStyle from "../../common/util/getWidthStyle";
 import SelectionInput from "../selection/SelectionInput";
-import { UseGridSelectionFnsHook } from "../../common/pipeline/useGridSelectionFns";
-import { UseCombinedPipelineHook } from "../../common/pipeline/useCombinedPipeline";
 import { SelectModel } from "../../common";
 import { UseGetInputStrSubmitCallbackHook } from "../../common/pipeline/useGetInputStrSubmitCallback";
 import { TableStyleModel } from "../styling/types";
 import { FormattedRow, RowId } from "../../common";
 import { AugFormattedRow } from "../../common/internalTypes";
 import { EditModel } from "../../common";
+import { CombinedPipelineOutput } from "../../common/pipeline/useCombinedPipeline/internalTypes";
+import { SelectionFns } from "../../common/pipeline/internalTypes";
 
 interface BodyRowsProps {
   augFormattedRows: AugFormattedRow[];
-  gridSelectionFns: UseGridSelectionFnsHook;
+  gridSelectionFns: SelectionFns;
   tableStyleModel: TableStyleModel | undefined;
-  combinedPipelineOutput: UseCombinedPipelineHook;
+  combinedPipelineOutput: CombinedPipelineOutput;
   selectModel: SelectModel | undefined;
   editModel: EditModel | undefined;
   getInputStrSubmitCallback: UseGetInputStrSubmitCallbackHook;

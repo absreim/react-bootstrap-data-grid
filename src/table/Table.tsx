@@ -6,7 +6,7 @@ import InternalTable from "./InternalTable";
 import { ColSortModel } from "../common/sorting/internalTypes";
 import ColHeaderCell from "./main/ColHeaderCell";
 import useCombinedPipeline from "../common/pipeline/useCombinedPipeline";
-import useGridSelectionFns from "../common/pipeline/useGridSelectionFns";
+import useSelectionFns from "../common/pipeline/useSelectionFns";
 import useGetInputStrSubmitCallback from "../common/pipeline/useGetInputStrSubmitCallback";
 import useAugFormattedRows from "../common/pipeline/useAugFormattedRows";
 import BodyRows from "./main/BodyRows";
@@ -43,7 +43,7 @@ const Table: FC<TableProps> = (props) => {
     showSelectCol,
     displayRows,
   } = combinedPipelineOutput;
-  const gridSelectionFns = useGridSelectionFns(selectModel, rows);
+  const gridSelectionFns = useSelectionFns(selectModel, rows);
   const getInputStrSubmitCallback = useGetInputStrSubmitCallback(
     editModel,
     cols,

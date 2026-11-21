@@ -2,7 +2,6 @@ import {
   EditModel,
   MainComponentSharedProps,
   PaginationModel,
-  SelectModel,
   StyleModel,
 } from "../common";
 
@@ -20,12 +19,6 @@ export type DisplayMode = "table" | "block";
  * @public
  */
 export interface TableSpecificProps {
-  /**
-   * The select model of the table. Passing a truthy value enables the
-   * selection feature of the component.
-   */
-  selectModel?: SelectModel;
-
   /**
    * The edit model of the table. Passing a truthy value enables the
    * editing feature of the component.
