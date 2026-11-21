@@ -11,7 +11,7 @@ import { FocusCoordinates } from "./types";
 
 const startingCoordinates: FocusCoordinates = {
   ariaColIndex: 1,
-  ariaRowIndex: 1,
+  displayRowIndex: 1,
 };
 
 export interface GridFocusOutput {
@@ -33,18 +33,18 @@ const useGridFocus: (
   const effectiveCoords: FocusCoordinates = useMemo(
     () => ({
       ariaColIndex: Math.min(coords.ariaColIndex, numCols),
-      ariaRowIndex: Math.min(coords.ariaRowIndex, numRows),
+      displayRowIndex: Math.min(coords.displayRowIndex, numRows),
     }),
-    [coords.ariaColIndex, coords.ariaRowIndex, numCols, numRows],
+    [coords.ariaColIndex, coords.displayRowIndex, numCols, numRows],
   );
 
   const currentCellIsSortableHeader = useMemo(() => {
-    if (coords.ariaRowIndex !== 1) {
+    if (coords.displayRowIndex !== 1) {
       return false;
     }
 
     return sortableColIndices.includes(coords.ariaColIndex);
-  }, [coords.ariaColIndex, coords.ariaRowIndex, sortableColIndices]);
+  }, [coords.ariaColIndex, coords.displayRowIndex, sortableColIndices]);
 
   const gridClickHandler: PointerEventHandler<HTMLDivElement> = useCallback(
     (event) => {
@@ -65,8 +65,8 @@ const useGridFocus: (
       const row = cursor.parentElement!;
 
       setCoords({
-        ariaColIndex: Number(cursor.getAttribute("aria-colIndex")),
-        ariaRowIndex: Number(row.getAttribute("aria-rowIndex")),
+        ariaColIndex: Number(cursor.getAttribute("aria-colindex")),
+        displayRowIndex: Number(row.getAttribute("display-rowindex")),
       });
     },
     [],
@@ -76,19 +76,19 @@ const useGridFocus: (
     (event) => {
       switch (event.code) {
         case "ArrowDown": {
-          if (effectiveCoords.ariaRowIndex !== numRows) {
+          if (effectiveCoords.displayRowIndex !== numRows) {
             setCoords({
               ariaColIndex: effectiveCoords.ariaColIndex,
-              ariaRowIndex: effectiveCoords.ariaRowIndex + 1,
+              displayRowIndex: effectiveCoords.displayRowIndex + 1,
             });
           }
           break;
         }
         case "ArrowUp": {
-          if (effectiveCoords.ariaRowIndex !== 1) {
+          if (effectiveCoords.displayRowIndex !== 1) {
             setCoords({
               ariaColIndex: effectiveCoords.ariaColIndex,
-              ariaRowIndex: effectiveCoords.ariaRowIndex - 1,
+              displayRowIndex: effectiveCoords.displayRowIndex - 1,
             });
           }
           break;
@@ -97,7 +97,7 @@ const useGridFocus: (
           if (effectiveCoords.ariaColIndex !== 1) {
             setCoords({
               ariaColIndex: effectiveCoords.ariaColIndex - 1,
-              ariaRowIndex: effectiveCoords.ariaRowIndex,
+              displayRowIndex: effectiveCoords.displayRowIndex,
             });
           }
           break;
@@ -106,7 +106,7 @@ const useGridFocus: (
           if (effectiveCoords.ariaColIndex !== numCols) {
             setCoords({
               ariaColIndex: effectiveCoords.ariaColIndex + 1,
-              ariaRowIndex: effectiveCoords.ariaRowIndex,
+              displayRowIndex: effectiveCoords.displayRowIndex,
             });
           }
           break;
@@ -115,14 +115,14 @@ const useGridFocus: (
           if (event.ctrlKey || event.metaKey) {
             setCoords({
               ariaColIndex: 1,
-              ariaRowIndex: 1,
+              displayRowIndex: 1,
             });
             break;
           }
 
           setCoords({
             ariaColIndex: 1,
-            ariaRowIndex: effectiveCoords.ariaRowIndex,
+            displayRowIndex: effectiveCoords.displayRowIndex,
           });
           break;
         }
@@ -130,14 +130,14 @@ const useGridFocus: (
           if (event.ctrlKey || event.metaKey) {
             setCoords({
               ariaColIndex: numCols,
-              ariaRowIndex: numRows,
+              displayRowIndex: numRows,
             });
             break;
           }
 
           setCoords({
             ariaColIndex: numCols,
-            ariaRowIndex: effectiveCoords.ariaRowIndex,
+            displayRowIndex: effectiveCoords.displayRowIndex,
           });
           break;
         }
@@ -153,7 +153,7 @@ const useGridFocus: (
     },
     [
       effectiveCoords.ariaColIndex,
-      effectiveCoords.ariaRowIndex,
+      effectiveCoords.displayRowIndex,
       numCols,
       numRows,
     ],
@@ -171,7 +171,7 @@ const useGridFocus: (
       return;
     }
 
-    const cellSelector = `:scope > div > div[aria-rowindex="${effectiveCoords.ariaRowIndex}"] > div[aria-colindex="${effectiveCoords.ariaColIndex}"]`;
+    const cellSelector = `:scope > div > div[display-rowindex="${effectiveCoords.displayRowIndex}"] > div[aria-colindex="${effectiveCoords.ariaColIndex}"]`;
 
     const elToFocus = gridRef.current.querySelector(
       currentCellIsSortableHeader
@@ -184,7 +184,7 @@ const useGridFocus: (
     }
   }, [
     effectiveCoords.ariaColIndex,
-    effectiveCoords.ariaRowIndex,
+    effectiveCoords.displayRowIndex,
     gridRef,
     currentCellIsSortableHeader,
   ]);

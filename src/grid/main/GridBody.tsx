@@ -15,37 +15,44 @@ const GridBody: FC<GridBodyProps> = ({
 }) => {
   return (
     <div role="rowgroup" data-testid={GRID_BODY_DATA_TEST_ID}>
-      {augFormattedRows.map((row, rowDisplayIndex) => {
+      {augFormattedRows.map((row, displayRowArrayIndex) => {
         const ariaRowIndex = row.prePaginationIndex + 2;
+        const displayRowIndex = displayRowArrayIndex + 2;
 
         return (
           <div
             role="row"
             key={row.id}
+            display-rowindex={displayRowIndex}
             aria-rowindex={ariaRowIndex}
             className={classNames(
               "d-flex",
               "flex-row",
               rowVariant &&
-                rowVariant(row, rowDisplayIndex) &&
-                `${CSS_PREFIX}-${rowVariant(row, rowDisplayIndex)}`,
+                rowVariant(row, displayRowArrayIndex) &&
+                `${CSS_PREFIX}-${rowVariant(row, displayRowArrayIndex)}`,
             )}
           >
             {row.contents.map(({ formattedValue, width }, index) => {
               const ariaColIndex = index + 1;
               const isFocused =
                 focusCoords.ariaColIndex === ariaColIndex &&
-                focusCoords.ariaRowIndex === ariaRowIndex;
+                focusCoords.displayRowIndex === displayRowIndex;
               const cellVariantVal =
                 cellVariant &&
-                cellVariant(row.contents[index], row, index, rowDisplayIndex);
+                cellVariant(
+                  row.contents[index],
+                  row,
+                  index,
+                  displayRowArrayIndex,
+                );
               const cellFocusVariantVal =
                 cellFocusVariant &&
                 cellFocusVariant(
                   row.contents[index],
                   row,
                   index,
-                  rowDisplayIndex,
+                  displayRowArrayIndex,
                 );
 
               return (

@@ -5,9 +5,11 @@
  */
 export interface FocusCoordinates {
   /**
-   * The ARIA row index.
+   * An index like ARIA row index, except that it is based on the actual
+   * position of the row. When pagination is enabled, this value can differ from
+   * the ARIA row index.
    */
-  ariaRowIndex: number;
+  displayRowIndex: number;
 
   /**
    * The ARIA column index.

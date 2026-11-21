@@ -174,7 +174,7 @@ const Grid: FC<GridProps> = ({
         cellVariant={headerCellVariant}
         vertScrollable={vertScrollable}
         focusColIndex={
-          effectiveCoords.ariaRowIndex === 1
+          effectiveCoords.displayRowIndex === 1
             ? effectiveCoords.ariaColIndex
             : null
         }
