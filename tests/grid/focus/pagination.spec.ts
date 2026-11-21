@@ -36,9 +36,9 @@ test("a focus row coordinate that becomes out-of-bounds ends up at the last disp
 
   await rowsPerPageDropdown.selectOption("5");
   // For some reason, focus is not kept after selecting an option. Explicitly
-  // instructing Playwright to click on the dropdown seems to work as a
+  // instructing Playwright to focus on the dropdown seems to work as a
   // workaround.
-  await rowsPerPageDropdown.click();
+  await rowsPerPageDropdown.focus();
   await page.keyboard.press("Shift+Tab");
 
   const row10DatetimeCell = page.getByText("2026-10-10T10:10");
