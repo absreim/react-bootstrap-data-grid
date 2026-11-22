@@ -53,6 +53,7 @@ const GridHeader: FC<GridHeaderProps> = ({
           "flex-row",
           rowVariant && `${CSS_PREFIX}-${rowVariant}`,
         )}
+        display-rowindex={1}
         aria-rowindex={1}
       >
         {cols.map((col, index) => {
