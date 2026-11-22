@@ -31,7 +31,7 @@ const BodyRows: FC<BodyRowsProps> = ({
     selectedSet,
     getSelectInputModel,
     getSelectHandler,
-    getRowClickHandler,
+    getRowSelectHandler,
     getAriaSelectedValue,
   },
   tableStyleModel,
@@ -46,7 +46,7 @@ const BodyRows: FC<BodyRowsProps> = ({
   augFormattedRows.map((row, index) => {
     return (
       <EditableRow
-        onClick={getRowClickHandler(row.id)}
+        onClick={getRowSelectHandler(row.id)}
         className={classNames(
           {
             "table-active": selectedSet.has(row.id),

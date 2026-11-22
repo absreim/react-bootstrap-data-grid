@@ -1,4 +1,4 @@
-import { MouseEventHandler, useCallback, useId, useMemo } from "react";
+import { useCallback, useId, useMemo } from "react";
 import { MultiSelectModel, SelectModel } from "../selection/types";
 import { SelectionInputModel } from "../../table/selection/SelectionInput";
 import isSubset from "../util/isSubset";
@@ -154,20 +154,19 @@ const useSelectionFns: (
     };
   }, [selectModel, selectionExists, rows]);
 
-  const getRowClickHandler: (
-    rowId: RowId,
-  ) => MouseEventHandler<HTMLElement> = (rowId) => () => {
-    if (!rowsAreSelectable) {
-      return;
-    }
+  const getRowSelectHandler: (rowId: RowId) => () => void =
+    (rowId) => () => {
+      if (!rowsAreSelectable) {
+        return;
+      }
 
-    if (selectedSet.has(rowId)) {
-      getDeselectHandler(rowId)();
-      return;
-    }
+      if (selectedSet.has(rowId)) {
+        getDeselectHandler(rowId)();
+        return;
+      }
 
-    getSelectHandler(rowId)();
-  };
+      getSelectHandler(rowId)();
+    };
 
   const getAriaSelectedValue: (id: RowId) => "true" | "false" | undefined = (
     id,
@@ -186,8 +185,8 @@ const useSelectionFns: (
     selectAllOnClick,
     getSelectHandler,
     getSelectInputModel,
-    getRowClickHandler,
     getAriaSelectedValue,
+    getRowSelectHandler,
   };
 };
 

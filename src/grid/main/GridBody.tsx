@@ -1,9 +1,10 @@
-import { FC } from "react";
+import { FC, KeyboardEventHandler } from "react";
 import getWidthStyles from "./getWidthStyles";
 import classNames from "classnames";
 import { CSS_PREFIX, DEFAULT_COL_WIDTH } from "../../common/constants";
 import { GRID_BODY_DATA_TEST_ID } from "../constants";
 import { GridBodyProps } from "./internalTypes";
+import { RowId } from "../../common";
 
 const GridBody: FC<GridBodyProps> = ({
   augFormattedRows,
@@ -13,8 +14,21 @@ const GridBody: FC<GridBodyProps> = ({
   focusCoords,
   cellFocusVariant,
   getRowIsSelected,
-  getRowClickHandler,
+  getRowSelectHandler,
 }) => {
+  const getRowKeydownHandler: (
+    id: RowId,
+  ) => KeyboardEventHandler<HTMLDivElement> = (id) => (event) => {
+    switch (event.code) {
+      case "Space": {
+        getRowSelectHandler(id)();
+        break;
+      }
+      default:
+        return;
+    }
+  }
+
   return (
     <div role="rowgroup" data-testid={GRID_BODY_DATA_TEST_ID}>
       {augFormattedRows.map((row, displayRowArrayIndex) => {
@@ -39,7 +53,8 @@ const GridBody: FC<GridBodyProps> = ({
                 "rbdg-grid-active": rowIsSelected,
               }
             )}
-            onClick={getRowClickHandler(row.id)}
+            onClick={getRowSelectHandler(row.id)}
+            onKeyDown={getRowKeydownHandler(row.id)}
           >
             {row.contents.map(({ formattedValue, width }, index) => {
               const ariaColIndex = index + 1;

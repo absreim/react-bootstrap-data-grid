@@ -1,7 +1,7 @@
 /**
  * Grid cell coordinates based on ARIA row index and column index.
  *
- * @public
+ * @internal
  */
 export interface FocusCoordinates {
   /**

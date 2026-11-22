@@ -7,7 +7,7 @@ import {
   useMemo,
   useState,
 } from "react";
-import { FocusCoordinates } from "./types";
+import { FocusCoordinates } from "./internalTypes";
 
 const startingCoordinates: FocusCoordinates = {
   ariaColIndex: 1,
@@ -20,10 +20,6 @@ export interface GridFocusOutput {
   gridKeydownHandler: KeyboardEventHandler<HTMLDivElement>;
 }
 
-// TODO: fix bug with grid crashing when trying to focus on a paginated grid.
-// Focused cells should be identified by a display row index system rather than
-// ARIA system because pagination causes aria-rowindex to differ from the
-// displayed row index.
 const useGridFocus: (
   gridRef: RefObject<HTMLDivElement | null>,
   numRows: number, // Number that includes the header row

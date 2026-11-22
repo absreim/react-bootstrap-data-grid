@@ -6,7 +6,6 @@ import {
   FC,
   ReactNode,
   useCallback,
-  useMemo,
   useRef,
 } from "react";
 import useCombinedPipeline from "../../common/pipeline/useCombinedPipeline";
@@ -141,7 +140,7 @@ const Grid: FC<GridProps> = ({
     );
   }, []);
 
-  const { getRowClickHandler, selectedSet } = useSelectionFns(selectModel, rows);
+  const { getRowSelectHandler, selectedSet } = useSelectionFns(selectModel, rows);
   const getRowIsSelected: (id: RowId) => boolean = useCallback(
     (id: RowId) => selectedSet.has(id),
     [selectedSet],
@@ -199,7 +198,7 @@ const Grid: FC<GridProps> = ({
         cellVariant={bodyCellVariant}
         cellFocusVariant={bodyCellFocusVariant}
         getRowIsSelected={getRowIsSelected}
-        getRowClickHandler={getRowClickHandler}
+        getRowSelectHandler={getRowSelectHandler}
       />
     </div>
   );

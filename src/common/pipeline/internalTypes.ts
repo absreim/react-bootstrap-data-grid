@@ -24,6 +24,6 @@ export interface SelectionFns {
     id: RowId,
     selectModel: SelectModel,
   ) => SelectionInputModel;
-  getRowClickHandler: (index: RowId) => MouseEventHandler<HTMLTableRowElement>;
   getAriaSelectedValue: (id: RowId) => "true" | "false" | undefined;
+  getRowSelectHandler: (index: RowId) => () => void;
 }
