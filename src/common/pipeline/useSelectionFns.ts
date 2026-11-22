@@ -64,7 +64,12 @@ const useSelectionFns: (
   };
 
   const getDeselectHandler: (index: RowId) => () => void = (index) => () => {
-    if (!selectModel || selectModel.type === "single") {
+    if (!selectModel) {
+      return;
+    }
+
+    if (selectModel.type === "single") {
+      selectModel.setSelected(null);
       return;
     }
 

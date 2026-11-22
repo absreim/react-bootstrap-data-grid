@@ -141,25 +141,11 @@ const Grid: FC<GridProps> = ({
     );
   }, []);
 
-  const selectedSet: Set<RowId> | null = useMemo(() => {
-    if (!(selectModel?.type === "multi")) {
-      return null;
-    }
-
-    return new Set(selectModel?.selected);
-  }, [selectModel?.selected, selectModel?.type]);
-  const getRowIsSelected: (id: RowId) => boolean = useCallback((id: RowId) => {
-    if (!selectModel) {
-      return false;
-    }
-
-    if (selectModel.type === "single") {
-      return id === selectModel.selected;
-    }
-
-    return selectedSet!.has(id);
-  }, [selectModel, selectedSet]);
-  const { getRowClickHandler } = useSelectionFns(selectModel, rows);
+  const { getRowClickHandler, selectedSet } = useSelectionFns(selectModel, rows);
+  const getRowIsSelected: (id: RowId) => boolean = useCallback(
+    (id: RowId) => selectedSet.has(id),
+    [selectedSet],
+  );
 
   const mainGridComponent = (
     <div
