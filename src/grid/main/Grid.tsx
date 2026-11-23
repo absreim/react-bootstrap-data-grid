@@ -140,7 +140,7 @@ const Grid: FC<GridProps> = ({
     );
   }, []);
 
-  const { getRowSelectHandler, selectedSet } = useSelectionFns(selectModel, rows);
+  const { getRowSelectHandler, selectedSet, selectAllHandler } = useSelectionFns(selectModel, rows);
   const getRowIsSelected: (id: RowId) => boolean = useCallback(
     (id: RowId) => selectedSet.has(id),
     [selectedSet],
@@ -189,6 +189,7 @@ const Grid: FC<GridProps> = ({
         }
         cellFocusVariant={headerCellFocusVariant}
         sortInfo={sortedRowsOutput}
+        selectAllHandler={selectAllHandler}
       />
       <GridBody
         focusCoords={effectiveCoords}

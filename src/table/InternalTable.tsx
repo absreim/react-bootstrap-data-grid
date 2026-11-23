@@ -79,7 +79,7 @@ const InternalTable: FC<InternalTableProps> = ({
       : undefined,
   });
 
-  const { rowsAreSelectable, selectionInfo, selectAllOnClick } = selectFns;
+  const { rowsAreSelectable, selectionInfo, selectAllHandler } = selectFns;
 
   const mainTable = (
     <table
@@ -112,7 +112,7 @@ const InternalTable: FC<InternalTableProps> = ({
             <SelectAllHeaderCell
               style={getWidthStyle(selectModel?.selectColWidth)}
               selectionInfo={selectionInfo!}
-              onClick={selectAllOnClick}
+              onClick={selectAllHandler}
               totalRows={rows.length}
               customClasses={styleModel?.mainTableStyleModel?.rowSelectColTh}
               colIndexOffset={prefixHeader ? 1 : 0}

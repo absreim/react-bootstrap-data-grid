@@ -25,7 +25,7 @@ const useSelectionFns: (
     return (selectModel as MultiSelectModel).selected.length > 0;
   }, [selectModel]);
 
-  const selectAllOnClick: () => void = useCallback(() => {
+  const selectAllHandler: () => void = useCallback(() => {
     if (!selectModel) {
       return;
     }
@@ -45,9 +45,7 @@ const useSelectionFns: (
       selectModel.setSelected(allRowIndices);
     }
 
-    // Button should be disabled in the case of selectionExists &&
-    // selectModel.type === "single", so function execution should never get
-    // to this point.
+    // In case of !selectionExists && selectModel.type === "single", do nothing.
   }, [rows, selectModel, selectionExists]);
 
   const getSelectHandler: (index: RowId) => () => void = (index) => () => {
@@ -182,7 +180,7 @@ const useSelectionFns: (
     selectedSet,
     rowsAreSelectable,
     selectionInfo,
-    selectAllOnClick,
+    selectAllHandler,
     getSelectHandler,
     getSelectInputModel,
     getAriaSelectedValue,

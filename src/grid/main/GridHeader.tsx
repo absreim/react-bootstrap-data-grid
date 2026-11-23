@@ -1,4 +1,4 @@
-import { FC } from "react";
+import { FC, KeyboardEventHandler } from "react";
 import getWidthStyles from "./getWidthStyles";
 import classNames from "classnames";
 import { CSS_PREFIX, DEFAULT_COL_WIDTH } from "../../common/constants";
@@ -15,7 +15,19 @@ const GridHeader: FC<GridHeaderProps> = ({
   focusColIndex,
   cellFocusVariant,
   sortInfo,
+  selectAllHandler
 }) => {
+  const onKeyDown: KeyboardEventHandler<HTMLDivElement> = (event) => {
+    switch (event.code) {
+      case "Space": {
+        selectAllHandler();
+        break;
+      }
+      default:
+        return;
+    }
+  };
+
   const { sortingEnabled, sortColDef, setSortColDef } = sortInfo;
   const getSortButtonListener: (colName: string) => () => void =
     (colName) => () => {
@@ -45,6 +57,7 @@ const GridHeader: FC<GridHeaderProps> = ({
       className={classNames(
         vertScrollable ? ["position-sticky", "z-1", "top-0"] : [],
       )}
+      onKeyDown={onKeyDown}
     >
       <div
         role="row"

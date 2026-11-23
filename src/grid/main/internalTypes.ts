@@ -17,6 +17,7 @@ export interface GridHeaderProps {
   focusColIndex: number | null;
   cellFocusVariant?: GridProps["headerCellFocusVariant"];
   sortInfo: Omit<SortedRowsOutput, "sortedRows">;
+  selectAllHandler: () => void;
 }
 
 /**
