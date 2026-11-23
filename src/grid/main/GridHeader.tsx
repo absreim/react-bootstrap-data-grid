@@ -6,6 +6,7 @@ import { GRID_HEADER_DATA_TEST_ID } from "../constants";
 import { GridHeaderProps } from "./internalTypes";
 import HeaderToggleButton from "../sort/HeaderToggleButton";
 import sortOrderToAriaSort from "../../common/sorting/sortOrderToAriaSort";
+import SelectHeaderCell from "../selection/SelectHeaderCell";
 
 const GridHeader: FC<GridHeaderProps> = ({
   cols,
@@ -15,18 +16,21 @@ const GridHeader: FC<GridHeaderProps> = ({
   focusColIndex,
   cellFocusVariant,
   sortInfo,
-  selectAllHandler
+  selectionInfo,
 }) => {
-  const onKeyDown: KeyboardEventHandler<HTMLDivElement> = (event) => {
-    switch (event.code) {
-      case "Space": {
-        selectAllHandler();
-        break;
-      }
-      default:
-        return;
-    }
-  };
+  const onKeyDown: KeyboardEventHandler<HTMLDivElement> | undefined =
+    selectionInfo === undefined
+      ? undefined
+      : (event) => {
+          switch (event.code) {
+            case "Space": {
+              selectionInfo.selectAllHandler();
+              break;
+            }
+            default:
+              return;
+          }
+        };
 
   const { sortingEnabled, sortColDef, setSortColDef } = sortInfo;
   const getSortButtonListener: (colName: string) => () => void =
@@ -50,6 +54,7 @@ const GridHeader: FC<GridHeaderProps> = ({
       setSortColDef!(null);
     };
 
+  // TODO: styling variants for the selection column
   return (
     <div
       data-testid={GRID_HEADER_DATA_TEST_ID}
@@ -57,7 +62,9 @@ const GridHeader: FC<GridHeaderProps> = ({
       className={classNames(
         vertScrollable ? ["position-sticky", "z-1", "top-0"] : [],
       )}
-      onKeyDown={onKeyDown}
+      onKeyDown={
+        selectionInfo && selectionInfo.mode !== "column" ? onKeyDown : undefined
+      }
     >
       <div
         role="row"
@@ -69,8 +76,19 @@ const GridHeader: FC<GridHeaderProps> = ({
         display-rowindex={1}
         aria-rowindex={1}
       >
+        {selectionInfo && selectionInfo.mode !== "row" && (
+          <SelectHeaderCell
+            handleSelectAll={selectionInfo.selectAllHandler}
+            selectionState={selectionInfo.selectionState}
+            tabIndex={focusColIndex === 1 ? 0 : -1}
+            className={classNames(
+              "rbdg-grid-cell",
+            )}
+          />
+        )}
         {cols.map((col, index) => {
-          const ariaColIndex = index + 1;
+          const ariaColIndex =
+            index + 1 + (selectionInfo && selectionInfo.mode !== "row" ? 1 : 0);
           const isFocused = focusColIndex === ariaColIndex;
           const cellVariantVal = cellVariant && cellVariant(col, index);
           const cellFocusVariantVal =

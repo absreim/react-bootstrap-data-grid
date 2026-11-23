@@ -2,7 +2,15 @@ import { AugFormattedRow } from "../../common/internalTypes";
 import { FocusCoordinates } from "../focus/internalTypes";
 import { GridProps } from "./types";
 import { SortedRowsOutput } from "../../common/pipeline/useCombinedPipeline/useSortedRows";
-import { RowId } from "../../common";
+import { RowId, SelectMode } from "../../common";
+import { SelectionTotality } from "../selection/internalTypes";
+
+export interface GridHeaderSelectionInfo {
+  mode: SelectMode;
+  selectAllHandler: () => void;
+  selectionState: SelectionTotality;
+  noRows: boolean;
+}
 
 /**
  * Props interface for the GridHeader component
@@ -17,7 +25,12 @@ export interface GridHeaderProps {
   focusColIndex: number | null;
   cellFocusVariant?: GridProps["headerCellFocusVariant"];
   sortInfo: Omit<SortedRowsOutput, "sortedRows">;
-  selectAllHandler: () => void;
+
+  /**
+   * `undefined` value for ths prop means that selection is disabled for the
+   * grid.
+   */
+  selectionInfo?: GridHeaderSelectionInfo;
 }
 
 /**

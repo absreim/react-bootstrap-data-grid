@@ -35,3 +35,17 @@ export interface MultiSelectionInfo {
  * @internal
  */
 export type SelectionInfo = SingleSelectionInfo | MultiSelectionInfo;
+
+/**
+ * Describes the state of a checkbox can be set to be indeterminate in addition
+ * to the being disabled. Useful for the select all header cell checkbox common
+ * to both the table and grid.
+ *
+ * @internal
+ */
+export interface CheckboxState {
+  indeterminate: boolean;
+  checked: boolean;
+  disabled: boolean;
+  description: string;
+}
