@@ -1,4 +1,5 @@
 import { HTMLAttributes } from "react";
+import { CheckboxState } from "../../common/selection/internalTypes";
 
 export type SelectBodyCellProps = {
   handleSelect: () => void;
@@ -7,10 +8,7 @@ export type SelectBodyCellProps = {
   radioGroup: string;
 } & Pick<HTMLAttributes<HTMLDivElement>, "className" | "tabIndex">;
 
-export type SelectionTotality = "none" | "partial" | "full";
-
 export type SelectHeaderCellProps = {
   handleSelectAll: () => void;
-  selectionState: SelectionTotality;
-  noRows: boolean;
+  checkboxState: CheckboxState;
 } & Pick<HTMLAttributes<HTMLDivElement>, "className" | "tabIndex">;

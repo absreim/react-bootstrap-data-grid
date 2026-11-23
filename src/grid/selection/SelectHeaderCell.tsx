@@ -3,16 +3,20 @@ import { SelectHeaderCellProps } from "./internalTypes";
 
 const SelectHeaderCell: FC<SelectHeaderCellProps> = ({
   handleSelectAll,
-  selectionState,
-  noRows,
+  checkboxState: {
+    indeterminate,
+    checked,
+    disabled,
+    description,
+  },
   className,
   tabIndex,
 }) => {
   const inputRef = useRef<HTMLInputElement>(null);
 
   useEffect(() => {
-    inputRef.current!.indeterminate = selectionState === "partial";
-  }, [selectionState]);
+    inputRef.current!.indeterminate = indeterminate;
+  }, [indeterminate]);
 
   return (
     <div role="columnheader" className={className} tabIndex={tabIndex}>
@@ -21,8 +25,10 @@ const SelectHeaderCell: FC<SelectHeaderCellProps> = ({
         type="checkbox"
         ref={inputRef}
         onChange={handleSelectAll}
-        checked={selectionState !== "none"}
-        disabled={noRows}
+        checked={checked}
+        disabled={disabled}
+        aria-label={description}
+        title={description}
       />
     </div>
   );

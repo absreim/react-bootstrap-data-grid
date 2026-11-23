@@ -23,10 +23,10 @@ import { GridPaginationModel } from "../pagination/types";
 import useExportFn from "../../common/export/useExportFn";
 import useInterfaces from "../../common/toolbar/useInterfaces";
 import ToolbarContainer from "../../common/toolbar/ToolbarContainer";
-import { RowId, SelectModel } from "../../common";
+import { RowId } from "../../common";
 import useSelectionFns from "../../common/pipeline/useSelectionFns";
 import { GridHeaderSelectionInfo } from "./internalTypes";
-import { SelectionTotality } from "../selection/internalTypes";
+import getSelectionCheckboxState from "../../common/selection/getSelectionCheckboxState";
 
 /**
  * The main component for the grid feature of react-bootstrap-data-grid.
@@ -143,37 +143,23 @@ const Grid: FC<GridProps> = ({
     );
   }, []);
 
-  const { getRowSelectHandler, selectedSet, selectAllHandler } =
+  const { getRowSelectHandler, selectedSet, selectAllHandler, selectionInfo } =
     useSelectionFns(selectModel, rows);
   const getRowIsSelected: (id: RowId) => boolean = useCallback(
     (id: RowId) => selectedSet.has(id),
     [selectedSet],
   );
-  const gridHeaderSelectionInfo: GridHeaderSelectionInfo | undefined =
-    useMemo(() => {
-      if (!selectModel) {
-        return undefined;
-      }
+  const headerSelectionInfo: GridHeaderSelectionInfo | undefined = useMemo(() => {
+    if (!selectModel) {
+      return undefined;
+    }
 
-      function getSelectState(selectModel: SelectModel): SelectionTotality {
-        if (selectedSet.size === 0) {
-          return "none";
-        }
-
-        // It is possible for filtered out rows to be selected. This control
-        // is based on all rows before filtering is applied.
-        //
-        // In the future, we can consider functionality where the control can be
-        // configured to select all filtered rows or rows in the current page.
-        if (selectedSet.size === rows.length && selectModel.type === "multi") {
-          return "full";
-        }
-
-        // A grid with `"single"` selection type with a row selected is also
-        // considered a partial selection for the purposes of the header cell.
-        return "partial";
-      }
-    }, [selectModel]);
+    return {
+      mode: selectModel.mode,
+      selectAllHandler,
+      selectCheckboxState: getSelectionCheckboxState(selectionInfo!, rows.length === 0),
+    };
+  }, [rows.length, selectAllHandler, selectModel, selectionInfo])
 
   const mainGridComponent = (
     <div
@@ -218,6 +204,7 @@ const Grid: FC<GridProps> = ({
         }
         cellFocusVariant={headerCellFocusVariant}
         sortInfo={sortedRowsOutput}
+        selectionInfo={headerSelectionInfo}
       />
       <GridBody
         focusCoords={effectiveCoords}

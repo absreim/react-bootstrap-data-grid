@@ -3,13 +3,12 @@ import { FocusCoordinates } from "../focus/internalTypes";
 import { GridProps } from "./types";
 import { SortedRowsOutput } from "../../common/pipeline/useCombinedPipeline/useSortedRows";
 import { RowId, SelectMode } from "../../common";
-import { SelectionTotality } from "../selection/internalTypes";
+import { CheckboxState } from "../../common/selection/internalTypes";
 
 export interface GridHeaderSelectionInfo {
   mode: SelectMode;
   selectAllHandler: () => void;
-  selectionState: SelectionTotality;
-  noRows: boolean;
+  selectCheckboxState: CheckboxState;
 }
 
 /**

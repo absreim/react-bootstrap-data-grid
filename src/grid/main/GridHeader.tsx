@@ -79,7 +79,7 @@ const GridHeader: FC<GridHeaderProps> = ({
         {selectionInfo && selectionInfo.mode !== "row" && (
           <SelectHeaderCell
             handleSelectAll={selectionInfo.selectAllHandler}
-            selectionState={selectionInfo.selectionState}
+            checkboxState={selectionInfo.selectCheckboxState}
             tabIndex={focusColIndex === 1 ? 0 : -1}
             className={classNames(
               "rbdg-grid-cell",
