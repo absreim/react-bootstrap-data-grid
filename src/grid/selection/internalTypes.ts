@@ -2,9 +2,9 @@ import { HTMLAttributes } from "react";
 import { CheckboxState } from "../../common/selection/internalTypes";
 
 export type SelectBodyCellProps = {
-  handleSelect: () => void;
+  handleSelect?: () => void;
   isSelected: boolean;
-  selectMode: "single" | "multi";
+  selectType: "single" | "multi";
   radioGroup: string;
 } & Pick<HTMLAttributes<HTMLDivElement>, "className" | "tabIndex">;
 

@@ -6,6 +6,7 @@ import {
   FC,
   ReactNode,
   useCallback,
+  useId,
   useMemo,
   useRef,
 } from "react";
@@ -25,7 +26,10 @@ import useInterfaces from "../../common/toolbar/useInterfaces";
 import ToolbarContainer from "../../common/toolbar/ToolbarContainer";
 import { RowId } from "../../common";
 import useSelectionFns from "../../common/pipeline/useSelectionFns";
-import { GridHeaderSelectionInfo } from "./internalTypes";
+import {
+  GridBodySelectionInfo,
+  GridHeaderSelectionInfo,
+} from "./internalTypes";
 import getSelectionCheckboxState from "../../common/selection/getSelectionCheckboxState";
 
 /**
@@ -122,7 +126,7 @@ const Grid: FC<GridProps> = ({
     useGridFocus(
       gridRef,
       displayRows.length + 1,
-      cols.length,
+      cols.length + (selectModel && selectModel.mode !== "row" ? 1 : 0),
       sortableColIndices,
     );
 
@@ -143,7 +147,7 @@ const Grid: FC<GridProps> = ({
     );
   }, []);
 
-  const { getRowSelectHandler, selectedSet, selectAllHandler, selectionInfo } =
+  const { getSelectHandler, selectedSet, selectAllHandler, selectionInfo } =
     useSelectionFns(selectModel, rows);
   const getRowIsSelected: (id: RowId) => boolean = useCallback(
     (id: RowId) => selectedSet.has(id),
@@ -160,6 +164,20 @@ const Grid: FC<GridProps> = ({
       selectCheckboxState: getSelectionCheckboxState(selectionInfo!, rows.length === 0),
     };
   }, [rows.length, selectAllHandler, selectModel, selectionInfo])
+  const bodySelectionInfo: GridBodySelectionInfo | undefined = useMemo(() => {
+    if (!selectModel) {
+      return undefined;
+    }
+
+    return {
+      type: selectModel.type,
+      mode: selectModel.mode,
+      getRowIsSelected,
+      // GridBody itself enforces selectability of rows vs column only
+      getRowSelectHandler: getSelectHandler,
+    };
+  }, [getRowIsSelected, getSelectHandler, selectModel]);
+  const gridId = useId();
 
   const mainGridComponent = (
     <div
@@ -213,8 +231,8 @@ const Grid: FC<GridProps> = ({
         rowVariant={bodyRowVariant}
         cellVariant={bodyCellVariant}
         cellFocusVariant={bodyCellFocusVariant}
-        getRowIsSelected={getRowIsSelected}
-        getRowSelectHandler={getRowSelectHandler}
+        selectionInfo={bodySelectionInfo}
+        gridId={gridId}
       />
     </div>
   );

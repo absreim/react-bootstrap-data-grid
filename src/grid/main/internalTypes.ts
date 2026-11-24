@@ -11,6 +11,13 @@ export interface GridHeaderSelectionInfo {
   selectCheckboxState: CheckboxState;
 }
 
+export interface GridBodySelectionInfo {
+  type: "single" | "multi";
+  mode: SelectMode;
+  getRowIsSelected: (id: RowId) => boolean;
+  getRowSelectHandler: (id: RowId) => () => void;
+}
+
 /**
  * Props interface for the GridHeader component
  *
@@ -44,6 +51,11 @@ export type GridBodyProps = {
   cellVariant?: GridProps["bodyCellVariant"];
   focusCoords: FocusCoordinates;
   cellFocusVariant?: GridProps["bodyCellFocusVariant"];
-  getRowIsSelected: (id: RowId) => boolean;
-  getRowSelectHandler: (id: RowId) => () => void;
+
+  /**
+   * `undefined` value for ths prop means that selection is disabled for the
+   * grid.
+   */
+  selectionInfo?: GridBodySelectionInfo;
+  gridId: string;
 };

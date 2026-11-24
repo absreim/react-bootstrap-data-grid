@@ -83,6 +83,10 @@ const GridHeader: FC<GridHeaderProps> = ({
             tabIndex={focusColIndex === 1 ? 0 : -1}
             className={classNames(
               "rbdg-grid-cell",
+              {
+                "rbdg-focusable-cell": focusColIndex === 1,
+                "z-2": focusColIndex === 1,
+              }
             )}
           />
         )}

@@ -5,6 +5,7 @@ import { CSS_PREFIX, DEFAULT_COL_WIDTH } from "../../common/constants";
 import { GRID_BODY_DATA_TEST_ID } from "../constants";
 import { GridBodyProps } from "./internalTypes";
 import { RowId } from "../../common";
+import SelectBodyCell from "../selection/SelectBodyCell";
 
 const GridBody: FC<GridBodyProps> = ({
   augFormattedRows,
@@ -13,20 +14,53 @@ const GridBody: FC<GridBodyProps> = ({
   cellVariant,
   focusCoords,
   cellFocusVariant,
-  getRowIsSelected,
-  getRowSelectHandler,
+  selectionInfo,
+  gridId,
 }) => {
-  const getRowKeydownHandler: (
-    id: RowId,
-  ) => KeyboardEventHandler<HTMLDivElement> = (id) => (event) => {
-    switch (event.code) {
-      case "Space": {
-        getRowSelectHandler(id)();
-        break;
-      }
-      default:
-        return;
+  const getRowKeydownHandler:
+    | ((id: RowId) => KeyboardEventHandler<HTMLDivElement>)
+    | null = !selectionInfo
+    ? null
+    : (id) => {
+        return (event) => {
+          switch (event.code) {
+            case "Space": {
+              selectionInfo.getRowSelectHandler(id)();
+              break;
+            }
+            default:
+              return;
+          }
+        };
+      };
+
+  // TODO: add cell variant config that includes select column
+  function getSelectCellContent(rowId: RowId, displayRowIndex: number) {
+    if (!selectionInfo || selectionInfo.mode === "row") {
+      return null;
     }
+
+    const isFocused =
+      focusCoords.ariaColIndex === 1 &&
+      focusCoords.displayRowIndex === displayRowIndex;
+
+    return (
+      <SelectBodyCell
+        handleSelect={
+          selectionInfo && selectionInfo.mode === "column"
+            ? selectionInfo.getRowSelectHandler(rowId)
+            : undefined
+        }
+        isSelected={selectionInfo.getRowIsSelected(rowId)}
+        selectType={selectionInfo.type}
+        radioGroup={gridId}
+        tabIndex={isFocused ? 0 : -1}
+        className={classNames("rbdg-grid-cell", {
+          "z-2": isFocused,
+          "rbdg-focusable-cell": isFocused,
+        })}
+      />
+    );
   }
 
   return (
@@ -34,7 +68,9 @@ const GridBody: FC<GridBodyProps> = ({
       {augFormattedRows.map((row, displayRowArrayIndex) => {
         const ariaRowIndex = row.prePaginationIndex + 2;
         const displayRowIndex = displayRowArrayIndex + 2;
-        const rowIsSelected = getRowIsSelected(row.id);
+        const rowIsSelected = selectionInfo
+          ? selectionInfo.getRowIsSelected(row.id)
+          : undefined;
 
         return (
           <div
@@ -51,13 +87,25 @@ const GridBody: FC<GridBodyProps> = ({
                 `${CSS_PREFIX}-${rowVariant(row, displayRowArrayIndex)}`,
               {
                 "rbdg-grid-active": rowIsSelected,
-              }
+              },
             )}
-            onClick={getRowSelectHandler(row.id)}
-            onKeyDown={getRowKeydownHandler(row.id)}
+            onClick={
+              !selectionInfo || selectionInfo.mode === "column"
+                ? undefined
+                : selectionInfo.getRowSelectHandler(row.id)
+            }
+            onKeyDown={
+              !selectionInfo || selectionInfo.mode === "column"
+                ? undefined
+                : getRowKeydownHandler!(row.id)
+            }
           >
+            {getSelectCellContent(row.id, displayRowIndex)}
             {row.contents.map(({ formattedValue, width }, index) => {
-              const ariaColIndex = index + 1;
+              const ariaColIndex =
+                index +
+                1 +
+                (selectionInfo && selectionInfo.mode !== "row" ? 1 : 0);
               const isFocused =
                 focusCoords.ariaColIndex === ariaColIndex &&
                 focusCoords.displayRowIndex === displayRowIndex;
