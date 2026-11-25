@@ -31,6 +31,8 @@ export interface GridHeaderProps {
   focusColIndex: number | null;
   cellFocusVariant?: GridProps["headerCellFocusVariant"];
   sortInfo: Omit<SortedRowsOutput, "sortedRows">;
+  selectionCellVariant?: GridProps["headerSelectionCellVariant"];
+  selectionCellFocusVariant?: GridProps["headerSelectionCellFocusVariant"];
 
   /**
    * `undefined` value for ths prop means that selection is disabled for the
@@ -51,6 +53,8 @@ export type GridBodyProps = {
   cellVariant?: GridProps["bodyCellVariant"];
   focusCoords: FocusCoordinates;
   cellFocusVariant?: GridProps["bodyCellFocusVariant"];
+  selectionCellVariant?: GridProps["bodySelectionCellVariant"];
+  selectionCellFocusVariant?: GridProps["bodySelectionCellFocusVariant"];
 
   /**
    * `undefined` value for ths prop means that selection is disabled for the

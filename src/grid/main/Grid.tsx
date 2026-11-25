@@ -61,6 +61,10 @@ const Grid: FC<GridProps> = ({
   bodyCellFocusVariant,
   styleOptions,
   selectModel,
+  bodySelectionCellVariant,
+  bodySelectionCellFocusVariant,
+  headerSelectionCellVariant,
+  headerSelectionCellFocusVariant,
 }) => {
   const {
     displayRows,
@@ -223,6 +227,8 @@ const Grid: FC<GridProps> = ({
         cellFocusVariant={headerCellFocusVariant}
         sortInfo={sortedRowsOutput}
         selectionInfo={headerSelectionInfo}
+        selectionCellVariant={headerSelectionCellVariant}
+        selectionCellFocusVariant={headerSelectionCellFocusVariant}
       />
       <GridBody
         focusCoords={effectiveCoords}
@@ -233,6 +239,8 @@ const Grid: FC<GridProps> = ({
         cellFocusVariant={bodyCellFocusVariant}
         selectionInfo={bodySelectionInfo}
         gridId={gridId}
+        selectionCellVariant={bodySelectionCellVariant}
+        selectionCellFocusVariant={bodySelectionCellFocusVariant}
       />
     </div>
   );

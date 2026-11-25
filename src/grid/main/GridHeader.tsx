@@ -17,6 +17,8 @@ const GridHeader: FC<GridHeaderProps> = ({
   cellFocusVariant,
   sortInfo,
   selectionInfo,
+  selectionCellVariant,
+  selectionCellFocusVariant,
 }) => {
   const onKeyDown: KeyboardEventHandler<HTMLDivElement> | undefined =
     selectionInfo === undefined
@@ -54,7 +56,6 @@ const GridHeader: FC<GridHeaderProps> = ({
       setSortColDef!(null);
     };
 
-  // TODO: styling variants for the selection column
   return (
     <div
       data-testid={GRID_HEADER_DATA_TEST_ID}
@@ -83,10 +84,13 @@ const GridHeader: FC<GridHeaderProps> = ({
             tabIndex={focusColIndex === 1 ? 0 : -1}
             className={classNames(
               "rbdg-grid-cell",
+              selectionCellVariant && `${CSS_PREFIX}-${selectionCellVariant}`,
+              selectionCellFocusVariant &&
+                `focus-ring-${selectionCellFocusVariant}`,
               {
                 "rbdg-focusable-cell": focusColIndex === 1,
                 "z-2": focusColIndex === 1,
-              }
+              },
             )}
           />
         )}

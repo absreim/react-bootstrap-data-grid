@@ -4,7 +4,7 @@ import classNames from "classnames";
 import { CSS_PREFIX, DEFAULT_COL_WIDTH } from "../../common/constants";
 import { GRID_BODY_DATA_TEST_ID } from "../constants";
 import { GridBodyProps } from "./internalTypes";
-import { RowId } from "../../common";
+import { FormattedRow, RowId } from "../../common";
 import SelectBodyCell from "../selection/SelectBodyCell";
 
 const GridBody: FC<GridBodyProps> = ({
@@ -16,6 +16,8 @@ const GridBody: FC<GridBodyProps> = ({
   cellFocusVariant,
   selectionInfo,
   gridId,
+  selectionCellVariant,
+  selectionCellFocusVariant,
 }) => {
   const getRowKeydownHandler:
     | ((id: RowId) => KeyboardEventHandler<HTMLDivElement>)
@@ -34,8 +36,12 @@ const GridBody: FC<GridBodyProps> = ({
         };
       };
 
-  // TODO: add cell variant config that includes select column
-  function getSelectCellContent(rowId: RowId, displayRowIndex: number) {
+  function getSelectCellContent(
+    rowId: RowId,
+    displayRowIndex: number,
+    displayRowArrayIndex: number,
+    row: FormattedRow,
+  ) {
     if (!selectionInfo || selectionInfo.mode === "row") {
       return null;
     }
@@ -43,6 +49,12 @@ const GridBody: FC<GridBodyProps> = ({
     const isFocused =
       focusCoords.ariaColIndex === 1 &&
       focusCoords.displayRowIndex === displayRowIndex;
+
+    const cellVariantVal =
+      selectionCellVariant && selectionCellVariant(row, displayRowArrayIndex);
+    const cellFocusVariantVal =
+      selectionCellFocusVariant &&
+      selectionCellFocusVariant(row, displayRowArrayIndex);
 
     return (
       <SelectBodyCell
@@ -55,10 +67,15 @@ const GridBody: FC<GridBodyProps> = ({
         selectType={selectionInfo.type}
         radioGroup={gridId}
         tabIndex={isFocused ? 0 : -1}
-        className={classNames("rbdg-grid-cell", {
-          "z-2": isFocused,
-          "rbdg-focusable-cell": isFocused,
-        })}
+        className={classNames(
+          "rbdg-grid-cell",
+          cellVariantVal && `${CSS_PREFIX}-${cellVariantVal}`,
+          cellFocusVariantVal && `focus-ring-${cellFocusVariantVal}`,
+          {
+            "z-2": isFocused,
+            "rbdg-focusable-cell": isFocused,
+          },
+        )}
       />
     );
   }
@@ -100,7 +117,7 @@ const GridBody: FC<GridBodyProps> = ({
                 : getRowKeydownHandler!(row.id)
             }
           >
-            {getSelectCellContent(row.id, displayRowIndex)}
+            {getSelectCellContent(row.id, displayRowIndex, displayRowArrayIndex, row)}
             {row.contents.map(({ formattedValue, width }, index) => {
               const ariaColIndex =
                 index +

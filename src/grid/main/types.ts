@@ -47,6 +47,25 @@ export type HeaderCellVariantFn = (
 ) => string | null;
 
 /**
+ * The type of the function used to specify color variants on a grid body on a
+ * per-row level of granularity.
+ *
+ * @param row - details about the row
+ * @param displayIndex - the zero-based index of the row that the cell is in.
+ * The index is based on how the cell is actually displayed after pagination,
+ * filtering, and sorting are applied.
+ *
+ * @returns - a string that is name of the color variant or null for no color
+ * variant
+ *
+ * @public
+ */
+export type BodyRowVariantFn = (
+  row: FormattedRow,
+  displayIndex: number,
+) => string | null;
+
+/**
  * The type of the props passed to the {@link Grid} component.
  *
  * @public
@@ -144,7 +163,7 @@ export interface GridSpecificProps {
    *
    * @defaultValue `undefined` - no variant will be specified.
    */
-  bodyRowVariant?: (row: FormattedRow, displayIndex: number) => string | null;
+  bodyRowVariant?: BodyRowVariantFn;
 
   /**
    * Function to set the color variant of body cells on a per-cell basis.
@@ -167,6 +186,38 @@ export interface GridSpecificProps {
    * @defaultValue `undefined` - no variant will be specified.
    */
   bodyCellFocusVariant?: BodyCellVariantFn;
+
+  /**
+   * The variant of the cell in the grid header row that contains the checkbox
+   * to toggle the selection of the entire grid
+   *
+   * @defaultValue `undefined` - no variant will be specified.
+   */
+  headerSelectionCellVariant?: string;
+
+  /**
+   * The variant of the focus ring of the cell in the grid header row that
+   * contains the checkbox to toggle the selection of the entire grid
+   *
+   * @defaultValue `undefined` - no variant will be specified.
+   */
+  headerSelectionCellFocusVariant?: string;
+
+  /**
+   * The variant of the cells in the grid body that contain the checkboxes or
+   * radio buttons to toggle the selection of a row.
+   *
+   * @defaultValue `undefined` - no variant will be specified.
+   */
+  bodySelectionCellVariant?: BodyRowVariantFn;
+
+  /**
+   * The variant of the focus rings of the cells in the grid body that contain
+   * the checkboxes or radio buttons to toggle the selection of a row.
+   *
+   * @defaultValue `undefined` - no variant will be specified.
+   */
+  bodySelectionCellFocusVariant?: BodyRowVariantFn;
 
   /**
    * Enables and configures pagination for the grid
