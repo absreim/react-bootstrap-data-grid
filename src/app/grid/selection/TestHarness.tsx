@@ -23,8 +23,6 @@ const selectModeOptions: Record<string, string> = {
 };
 
 // TODO: write tests for active row styles
-// TODO: active row styles seem to override color variants. Investigate if this
-// behavior is intended.
 const headerSelectionCellVariant = "success";
 const headerSelectionCellFocusVariant = "warning";
 const bodySelectionCellVariant: BodyRowVariantFn = (row, displayIndex) => {

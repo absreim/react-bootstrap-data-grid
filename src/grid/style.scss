@@ -184,7 +184,7 @@ $rbdg-prefix: "rbdg-";
 }
 
 .rbdg-grid-active {
-  --#{$rbdg-prefix}grid-color-state: var(--#{$prefix}grid-active-color);
+  --#{$rbdg-prefix}grid-color-state: var(--#{$rbdg-prefix}grid-active-color);
   --#{$rbdg-prefix}grid-bg-state: var(--#{$rbdg-prefix}grid-active-bg);
 }
 

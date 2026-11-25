@@ -55,6 +55,7 @@ const GridBody: FC<GridBodyProps> = ({
     const cellFocusVariantVal =
       selectionCellFocusVariant &&
       selectionCellFocusVariant(row, displayRowArrayIndex);
+    const rowIsSelected = selectionInfo.getRowIsSelected(rowId);
 
     return (
       <SelectBodyCell
@@ -63,7 +64,7 @@ const GridBody: FC<GridBodyProps> = ({
             ? selectionInfo.getToggleHandler(rowId)
             : undefined
         }
-        isSelected={selectionInfo.getRowIsSelected(rowId)}
+        isSelected={rowIsSelected}
         selectType={selectionInfo.type}
         radioGroup={gridId}
         tabIndex={isFocused ? 0 : -1}
@@ -74,6 +75,7 @@ const GridBody: FC<GridBodyProps> = ({
           {
             "z-2": isFocused,
             "rbdg-focusable-cell": isFocused,
+            "rbdg-grid-active": rowIsSelected,
           },
         )}
       />
@@ -102,9 +104,6 @@ const GridBody: FC<GridBodyProps> = ({
               rowVariant &&
                 rowVariant(row, displayRowArrayIndex) &&
                 `${CSS_PREFIX}-${rowVariant(row, displayRowArrayIndex)}`,
-              {
-                "rbdg-grid-active": rowIsSelected,
-              },
             )}
             onClick={
               !selectionInfo || selectionInfo.mode === "column"
@@ -156,6 +155,7 @@ const GridBody: FC<GridBodyProps> = ({
                     {
                       "z-2": isFocused,
                       "rbdg-focusable-cell": isFocused,
+                      "rbdg-grid-active": rowIsSelected,
                     },
                   )}
                   aria-colindex={ariaColIndex}
