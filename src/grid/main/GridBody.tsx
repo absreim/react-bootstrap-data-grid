@@ -27,7 +27,7 @@ const GridBody: FC<GridBodyProps> = ({
         return (event) => {
           switch (event.code) {
             case "Space": {
-              selectionInfo.getRowSelectHandler(id)();
+              selectionInfo.getToggleHandler(id)();
               break;
             }
             default:
@@ -60,7 +60,7 @@ const GridBody: FC<GridBodyProps> = ({
       <SelectBodyCell
         handleSelect={
           selectionInfo && selectionInfo.mode === "column"
-            ? selectionInfo.getRowSelectHandler(rowId)
+            ? selectionInfo.getToggleHandler(rowId)
             : undefined
         }
         isSelected={selectionInfo.getRowIsSelected(rowId)}
@@ -109,7 +109,7 @@ const GridBody: FC<GridBodyProps> = ({
             onClick={
               !selectionInfo || selectionInfo.mode === "column"
                 ? undefined
-                : selectionInfo.getRowSelectHandler(row.id)
+                : selectionInfo.getToggleHandler(row.id)
             }
             onKeyDown={
               !selectionInfo || selectionInfo.mode === "column"

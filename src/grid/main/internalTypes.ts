@@ -15,7 +15,7 @@ export interface GridBodySelectionInfo {
   type: "single" | "multi";
   mode: SelectMode;
   getRowIsSelected: (id: RowId) => boolean;
-  getRowSelectHandler: (id: RowId) => () => void;
+  getToggleHandler: (id: RowId) => () => void;
 }
 
 /**

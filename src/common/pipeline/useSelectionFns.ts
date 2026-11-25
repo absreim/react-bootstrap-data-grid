@@ -152,19 +152,24 @@ const useSelectionFns: (
     };
   }, [selectModel, selectionExists, rows]);
 
-  const getRowSelectHandler: (rowId: RowId) => () => void =
-    (rowId) => () => {
-      if (!rowsAreSelectable) {
-        return;
-      }
+  // Like getRowSelectHandler, but also works when the mode is `"column"`.
+  // Useful if column selection is enforced externally.
+  const getToggleHandler: (rowId: RowId) => () => void = (rowId) => () => {
+    if (selectedSet.has(rowId)) {
+      getDeselectHandler(rowId)();
+      return;
+    }
 
-      if (selectedSet.has(rowId)) {
-        getDeselectHandler(rowId)();
-        return;
-      }
+    getSelectHandler(rowId)();
+  };
 
-      getSelectHandler(rowId)();
-    };
+  const getRowSelectHandler: (rowId: RowId) => () => void = (rowId) => () => {
+    if (!rowsAreSelectable) {
+      return;
+    }
+
+    getToggleHandler(rowId)();
+  };
 
   const getAriaSelectedValue: (id: RowId) => "true" | "false" | undefined = (
     id,
@@ -185,6 +190,7 @@ const useSelectionFns: (
     getSelectInputModel,
     getAriaSelectedValue,
     getRowSelectHandler,
+    getToggleHandler,
   };
 };
 

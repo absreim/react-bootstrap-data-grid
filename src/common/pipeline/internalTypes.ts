@@ -25,4 +25,5 @@ export interface SelectionFns {
   ) => SelectionInputModel;
   getAriaSelectedValue: (id: RowId) => "true" | "false" | undefined;
   getRowSelectHandler: (index: RowId) => () => void;
+  getToggleHandler: (index: RowId) => () => void;
 }

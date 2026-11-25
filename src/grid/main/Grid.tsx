@@ -151,7 +151,7 @@ const Grid: FC<GridProps> = ({
     );
   }, []);
 
-  const { getSelectHandler, selectedSet, selectAllHandler, selectionInfo } =
+  const { getToggleHandler, selectedSet, selectAllHandler, selectionInfo } =
     useSelectionFns(selectModel, rows);
   const getRowIsSelected: (id: RowId) => boolean = useCallback(
     (id: RowId) => selectedSet.has(id),
@@ -177,10 +177,9 @@ const Grid: FC<GridProps> = ({
       type: selectModel.type,
       mode: selectModel.mode,
       getRowIsSelected,
-      // GridBody itself enforces selectability of rows vs column only
-      getRowSelectHandler: getSelectHandler,
+      getToggleHandler,
     };
-  }, [getRowIsSelected, getSelectHandler, selectModel]);
+  }, [getRowIsSelected, getToggleHandler, selectModel]);
   const gridId = useId();
 
   const mainGridComponent = (
