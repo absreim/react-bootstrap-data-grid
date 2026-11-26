@@ -37,7 +37,7 @@ const bodySelectionCellVariant: BodyRowVariantFn = (row, displayIndex) => {
   return null;
 }
 const bodySelectionCellFocusVariant: BodyRowVariantFn = (row, displayIndex) => {
-  if ((row.contents[0].value as string).includes("First")) {
+  if ((row.contents[0].value as string).includes("1st")) {
     return "warning";
   }
 
