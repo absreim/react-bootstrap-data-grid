@@ -22,19 +22,28 @@ test.beforeEach(async ({ page }) => {
       await row6StrCell.click();
     });
 
-    test(`select by clicking on a row works`, async ({
+    test(`select and deselect by clicking on a row works`, async ({
       page,
     }) => {
       const row6 = page.getByRole("row", { name: "6th row string" });
       await expect(row6).toHaveAttribute("aria-selected", "true");
+
+      const row6StrCell = page.getByRole("gridcell", {
+        name: "6th row string",
+      });
+      await row6StrCell.click();
+      await expect(row6).toHaveAttribute("aria-selected", "false");
     });
 
-    test(`select via keyboard works`, async ({ page }) => {
+    test(`select and deselect via keyboard works`, async ({ page }) => {
       await page.keyboard.press("ArrowDown");
       await page.keyboard.press("Space");
 
       const row7 = page.getByRole("row", { name: "7th row string" });
       await expect(row7).toHaveAttribute("aria-selected", "true");
+
+      await page.keyboard.press("Space");
+      await expect(row7).toHaveAttribute("aria-selected", "false");
     });
   })
 });
@@ -56,17 +65,26 @@ test.beforeEach(async ({ page }) => {
       await row25Cell.click();
     });
 
-    test("select by clicking on a selection input works", async ({ page }) => {
+    test("select and deselect by clicking on a selection input works", async ({ page }) => {
       const row25 = page.getByRole("row", { name: "25th row string" });
       await expect(row25).toHaveAttribute("aria-selected", "true");
+
+      const row25Cell = page.getByRole("gridcell", {
+        name: "Select row 26",
+      });
+      await row25Cell.click();
+      await expect(row25).toHaveAttribute("aria-selected", "false");
     });
 
-    test(`select via keyboard works`, async ({ page }) => {
+    test(`select and deselect via keyboard works`, async ({ page }) => {
       await page.keyboard.press("ArrowUp");
       await page.keyboard.press("Space");
 
       const row24 = page.getByRole("row", { name: "24th row string" });
       await expect(row24).toHaveAttribute("aria-selected", "true");
+
+      await page.keyboard.press("Space");
+      await expect(row24).toHaveAttribute("aria-selected", "false");
     });
 
     test("deselect by clicking on the header input works", async ({ page }) => {
