@@ -6,6 +6,7 @@ export type SelectBodyCellProps = {
   isSelected: boolean;
   selectType: "single" | "multi";
   radioGroup: string;
+  label: string;
 } & Pick<HTMLAttributes<HTMLDivElement>, "className" | "tabIndex">;
 
 export type SelectHeaderCellProps = {

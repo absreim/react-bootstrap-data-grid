@@ -56,6 +56,7 @@ const GridBody: FC<GridBodyProps> = ({
       selectionCellFocusVariant &&
       selectionCellFocusVariant(row, displayRowArrayIndex);
     const rowIsSelected = selectionInfo.getRowIsSelected(rowId);
+    const ariaRowIndex = row.prePaginationIndex + 2;
 
     return (
       <SelectBodyCell
@@ -78,6 +79,7 @@ const GridBody: FC<GridBodyProps> = ({
             "rbdg-grid-active": rowIsSelected,
           },
         )}
+        label={`Select row ${ariaRowIndex}`}
       />
     );
   }

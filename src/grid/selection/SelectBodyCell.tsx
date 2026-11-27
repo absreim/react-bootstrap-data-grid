@@ -8,6 +8,7 @@ const SelectBodyCell: FC<SelectBodyCellProps> = ({
   className,
   tabIndex,
   radioGroup,
+  label,
 }) => {
   const onKeyDown: KeyboardEventHandler<HTMLDivElement> | undefined =
     handleSelect === undefined
@@ -39,6 +40,7 @@ const SelectBodyCell: FC<SelectBodyCellProps> = ({
         checked={isSelected}
         radioGroup={radioGroup}
         readOnly
+        aria-label={label}
       />
     </div>
   );

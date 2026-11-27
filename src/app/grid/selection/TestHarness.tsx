@@ -22,7 +22,6 @@ const selectModeOptions: Record<string, string> = {
   both: "Both",
 };
 
-// TODO: write tests for active row styles
 const headerSelectionCellVariant = "success";
 const headerSelectionCellFocusVariant = "warning";
 const bodySelectionCellVariant: BodyRowVariantFn = (row, displayIndex) => {
