@@ -4,12 +4,13 @@ import {
   cols,
   generateBasicTestRows,
 } from "../../../test-tools/basic-test-data";
-import { FC, useState } from "react";
+import { FC, useMemo, useState } from "react";
 import Grid, {
   BodyRowVariantFn,
   RowId,
   SelectMode,
   SelectModel,
+  SortModel,
 } from "../../../grid";
 import Form from "react-bootstrap/Form";
 import { getRadioGroup } from "../../../test-tools/interface-options";
@@ -49,11 +50,30 @@ const bodySelectionCellFocusVariant: BodyRowVariantFn = (row, displayIndex) => {
 
 const TestHarness: FC = () => {
   const [allowMultiSelect, setAllowMultiSelect] = useState(false);
+  const [sortable, setSortable] = useState(false);
   const [singleSelectedRow, setSingleSelectedRow] = useState<RowId | null>(
     null,
   );
   const [multiSelectedRows, setMultiSelectedRows] = useState<RowId[]>([]);
   const [selectMode, setSelectMode] = useState("both");
+
+  const modifiedCols = useMemo(() => {
+    if (!sortable) {
+      return cols;
+    }
+
+    return cols.map((col) => ({
+      ...col,
+        sortable: true,
+    }))
+  }, [sortable])
+  const sortModel: SortModel | undefined = useMemo(() => {
+    if (!sortable) {
+      return undefined;
+    }
+
+    return { type: "uncontrolled", initialSortColDef: null }
+  }, [sortable])
 
   const selectModel: SelectModel = allowMultiSelect
     ? {
@@ -79,6 +99,13 @@ const TestHarness: FC = () => {
           checked={allowMultiSelect}
           onChange={({ target }) => setAllowMultiSelect(target.checked)}
         />
+        <Form.Check
+          type="switch"
+          id="sortableToggle"
+          label="Allow Sorting"
+          checked={sortable}
+          onChange={({ target }) => setSortable(target.checked)}
+        />
         {getRadioGroup(
           "Selection Mode",
           selectModeOptions,
@@ -89,12 +116,13 @@ const TestHarness: FC = () => {
       </Form>
       <Grid
         rows={testRows}
-        cols={cols}
+        cols={modifiedCols}
         selectModel={selectModel}
         pagination={{
           type: "uncontrolled",
           pageSizeOptions: [5, 10],
         }}
+        sortModel={sortModel}
         variant="info"
         bodySelectionCellVariant={bodySelectionCellVariant}
         bodySelectionCellFocusVariant={bodySelectionCellFocusVariant}

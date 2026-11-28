@@ -121,16 +121,18 @@ const Grid: FC<GridProps> = ({
 
   const vertScrollable = height !== undefined && height !== "auto";
   const gridRef = useRef<HTMLDivElement>(null);
+  const ariaColIndexOffset = selectModel && selectModel.mode !== "row" ? 1 : 0;
   const sortableColIndices = sortModel
     ? cols
         .map((_, index) => index + 1)
         .filter((ariaColIndex) => cols[ariaColIndex - 1].sortable)
+        .map((ariaColIndex) => ariaColIndex + ariaColIndexOffset)
     : [];
   const { effectiveCoords, gridClickHandler, gridKeydownHandler } =
     useGridFocus(
       gridRef,
       displayRows.length + 1,
-      cols.length + (selectModel && selectModel.mode !== "row" ? 1 : 0),
+      cols.length + ariaColIndexOffset,
       sortableColIndices,
     );
 
