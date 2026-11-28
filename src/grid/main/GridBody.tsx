@@ -118,7 +118,12 @@ const GridBody: FC<GridBodyProps> = ({
                 : getRowKeydownHandler!(row.id)
             }
           >
-            {getSelectCellContent(row.id, displayRowIndex, displayRowArrayIndex, row)}
+            {getSelectCellContent(
+              row.id,
+              displayRowIndex,
+              displayRowArrayIndex,
+              row,
+            )}
             {row.contents.map(({ formattedValue, width }, index) => {
               const ariaColIndex =
                 index +

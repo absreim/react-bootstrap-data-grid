@@ -55,7 +55,10 @@ test("header select cell styles work correctly", async ({ page }) => {
     'div[aria-rowindex="1"] > div[aria-colindex="1"]',
   );
 
-  await expect(headerRowSelectCell).toHaveCSS("background-color", successBgColor);
+  await expect(headerRowSelectCell).toHaveCSS(
+    "background-color",
+    successBgColor,
+  );
   await headerRowSelectCell.click();
   await expect(headerRowSelectCell).toHaveCSS(
     "box-shadow",

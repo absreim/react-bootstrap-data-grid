@@ -4,11 +4,13 @@ test.beforeEach(async ({ page }) => {
   await page.goto("grid/selection");
 });
 
-["both", "row"].forEach(mode => {
+["both", "row"].forEach((mode) => {
   test.describe(`row selection tests for ${mode} mode`, () => {
     test.beforeEach(async ({ page }) => {
       if (mode === "row") {
-        const selectModeGroup = page.getByRole("group", { name: "Selection Mode"});
+        const selectModeGroup = page.getByRole("group", {
+          name: "Selection Mode",
+        });
         const rowRadio = selectModeGroup.getByRole("radio", { name: "Row" });
         await rowRadio.check();
       }
@@ -22,9 +24,7 @@ test.beforeEach(async ({ page }) => {
       await row6StrCell.click();
     });
 
-    test(`select and deselect by clicking on a row works`, async ({
-      page,
-    }) => {
+    test(`select and deselect by clicking on a row works`, async ({ page }) => {
       const row6 = page.getByRole("row", { name: "6th row string" });
       await expect(row6).toHaveAttribute("aria-selected", "true");
 
@@ -45,10 +45,10 @@ test.beforeEach(async ({ page }) => {
       await page.keyboard.press("Space");
       await expect(row7).toHaveAttribute("aria-selected", "false");
     });
-  })
+  });
 });
 
-["both", "column"].forEach(mode => {
+["both", "column"].forEach((mode) => {
   test.describe(`column selection tests for ${mode} mode`, () => {
     test.beforeEach(async ({ page }) => {
       if (mode === "column") {
@@ -65,7 +65,9 @@ test.beforeEach(async ({ page }) => {
       await row25Cell.click();
     });
 
-    test("select and deselect by clicking on a selection input works", async ({ page }) => {
+    test("select and deselect by clicking on a selection input works", async ({
+      page,
+    }) => {
       const row25 = page.getByRole("row", { name: "25th row string" });
       await expect(row25).toHaveAttribute("aria-selected", "true");
 
@@ -88,20 +90,28 @@ test.beforeEach(async ({ page }) => {
     });
 
     test("deselect by clicking on the header input works", async ({ page }) => {
-      const deselectAllInput = page.getByRole("checkbox", { name: "Deselect all rows" });
+      const deselectAllInput = page.getByRole("checkbox", {
+        name: "Deselect all rows",
+      });
       await expect(deselectAllInput).toBeChecked();
 
       await deselectAllInput.click();
 
-      const disabledSelectAllInput = page.getByRole("checkbox", { name: "Select all (disabled)" });
+      const disabledSelectAllInput = page.getByRole("checkbox", {
+        name: "Select all (disabled)",
+      });
       await expect(disabledSelectAllInput).not.toBeChecked();
 
       const row25 = page.getByRole("row", { name: "25th row string" });
       await expect(row25).toHaveAttribute("aria-selected", "false");
     });
 
-    test("deselect by using the keyboard on the header input works", async ({ page }) => {
-      const stringColHeaderCell = page.getByRole("columnheader", { name: "String Column" });
+    test("deselect by using the keyboard on the header input works", async ({
+      page,
+    }) => {
+      const stringColHeaderCell = page.getByRole("columnheader", {
+        name: "String Column",
+      });
       await stringColHeaderCell.click();
       await expect(stringColHeaderCell).toBeFocused();
 
@@ -114,7 +124,9 @@ test.beforeEach(async ({ page }) => {
   });
 });
 
-test("deselect works by keyboard on a column header cell when in both mode", async ({ page }) => {
+test("deselect works by keyboard on a column header cell when in both mode", async ({
+  page,
+}) => {
   const nextPageLink = page.getByRole("link", { name: "Next" });
   await nextPageLink.click();
 
@@ -135,10 +147,12 @@ test("deselect works by keyboard on a column header cell when in both mode", asy
   await page.keyboard.press("Space");
 
   await expect(row8).toHaveAttribute("aria-selected", "false");
-})
+});
 
 test("deselect works even with sorting enabled", async ({ page }) => {
-  const allowSortingCheckbox = page.getByRole("checkbox", { name: "Allow Sorting" });
+  const allowSortingCheckbox = page.getByRole("checkbox", {
+    name: "Allow Sorting",
+  });
   await allowSortingCheckbox.click();
 
   const row1StrCell = page.getByRole("gridcell", { name: "1st row string" });
@@ -147,7 +161,9 @@ test("deselect works even with sorting enabled", async ({ page }) => {
   const row1 = page.getByRole("row", { name: "1st row string" });
   await expect(row1).toHaveAttribute("aria-selected", "true");
 
-  const numberHeaderCell = page.getByRole("columnheader", { name: "Number Column" });
+  const numberHeaderCell = page.getByRole("columnheader", {
+    name: "Number Column",
+  });
   await numberHeaderCell.click();
   await page.keyboard.press("Space");
 
@@ -156,7 +172,9 @@ test("deselect works even with sorting enabled", async ({ page }) => {
   await row1StrCell.click();
   await expect(row1).toHaveAttribute("aria-selected", "true");
 
-  const stringHeaderCell = page.getByRole("columnheader", { name: "String Column" });
+  const stringHeaderCell = page.getByRole("columnheader", {
+    name: "String Column",
+  });
   await stringHeaderCell.click();
   await page.keyboard.press("Space");
   await page.keyboard.press("Space");

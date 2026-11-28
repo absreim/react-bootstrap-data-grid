@@ -159,17 +159,21 @@ const Grid: FC<GridProps> = ({
     (id: RowId) => selectedSet.has(id),
     [selectedSet],
   );
-  const headerSelectionInfo: GridHeaderSelectionInfo | undefined = useMemo(() => {
-    if (!selectModel) {
-      return undefined;
-    }
+  const headerSelectionInfo: GridHeaderSelectionInfo | undefined =
+    useMemo(() => {
+      if (!selectModel) {
+        return undefined;
+      }
 
-    return {
-      mode: selectModel.mode,
-      selectAllHandler,
-      selectCheckboxState: getSelectionCheckboxState(selectionInfo!, rows.length === 0),
-    };
-  }, [rows.length, selectAllHandler, selectModel, selectionInfo])
+      return {
+        mode: selectModel.mode,
+        selectAllHandler,
+        selectCheckboxState: getSelectionCheckboxState(
+          selectionInfo!,
+          rows.length === 0,
+        ),
+      };
+    }, [rows.length, selectAllHandler, selectModel, selectionInfo]);
   const bodySelectionInfo: GridBodySelectionInfo | undefined = useMemo(() => {
     if (!selectModel) {
       return undefined;

@@ -35,7 +35,7 @@ const bodySelectionCellVariant: BodyRowVariantFn = (row, displayIndex) => {
   }
 
   return null;
-}
+};
 const bodySelectionCellFocusVariant: BodyRowVariantFn = (row, displayIndex) => {
   if ((row.contents[0].value as string).includes("1st")) {
     return "warning";
@@ -66,14 +66,14 @@ const TestHarness: FC = () => {
       ...col,
       sortable: col.name === "strCol" || col.name === "date",
     }));
-  }, [sortable])
+  }, [sortable]);
   const sortModel: SortModel | undefined = useMemo(() => {
     if (!sortable) {
       return undefined;
     }
 
-    return { type: "uncontrolled", initialSortColDef: null }
-  }, [sortable])
+    return { type: "uncontrolled", initialSortColDef: null };
+  }, [sortable]);
 
   const selectModel: SelectModel = allowMultiSelect
     ? {

@@ -140,7 +140,7 @@ const displayIndexToOrigIndex: Record<0 | 1, number> = {
         const td = tr.locator('td[aria-colindex="1"]');
         await expect(td).toHaveClass("");
         const input = td.getByRole("checkbox");
-        await expect(input).toHaveClass("");
+        await expect(input).toHaveClass("form-check-input");
       }
     });
 

@@ -75,7 +75,9 @@ test.beforeEach(async ({ page }) => {
       await expect(row12).toHaveAttribute("aria-selected", "false");
     });
 
-    test("select and deselect all works via keyboard on the header row", async ({ page }) => {
+    test("select and deselect all works via keyboard on the header row", async ({
+      page,
+    }) => {
       const stringColHeaderCell = page.getByRole("columnheader", {
         name: "String Column",
       });
@@ -84,7 +86,9 @@ test.beforeEach(async ({ page }) => {
 
       await page.keyboard.press("Space");
 
-      const page3BodyRows = await page.getByRole("row", { name: "row string" }).all();
+      const page3BodyRows = await page
+        .getByRole("row", { name: "row string" })
+        .all();
       for (const row of page3BodyRows) {
         await expect(row).toHaveAttribute("aria-selected", "true");
       }
@@ -112,7 +116,7 @@ test.beforeEach(async ({ page }) => {
       for (const row of page3BodyRows) {
         await expect(row).toHaveAttribute("aria-selected", "false");
       }
-    })
+    });
   });
 });
 
@@ -178,7 +182,9 @@ test.beforeEach(async ({ page }) => {
       await expect(row16).toHaveAttribute("aria-selected", "false");
     });
 
-    test("deselect all works by clicking on the input cell", async ({ page }) => {
+    test("deselect all works by clicking on the input cell", async ({
+      page,
+    }) => {
       const row18Cell = page.getByRole("gridcell", {
         name: "Select row 19",
       });
@@ -210,7 +216,9 @@ test.beforeEach(async ({ page }) => {
       await expect(row19).toHaveAttribute("aria-selected", "false");
     });
 
-    test("deselect all works by using the keyboard on the input cell", async ({ page }) => {
+    test("deselect all works by using the keyboard on the input cell", async ({
+      page,
+    }) => {
       const row17Cell = page.getByRole("gridcell", {
         name: "Select row 18",
       });

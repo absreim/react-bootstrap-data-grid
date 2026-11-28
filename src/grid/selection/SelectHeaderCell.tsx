@@ -13,9 +13,7 @@ const SelectHeaderCell: FC<SelectHeaderCellProps> = ({
     inputRef.current!.indeterminate = indeterminate;
   }, [indeterminate]);
 
-  const onKeyDown: KeyboardEventHandler<HTMLDivElement> = (
-    event,
-  ) => {
+  const onKeyDown: KeyboardEventHandler<HTMLDivElement> = (event) => {
     switch (event.code) {
       case "Space": {
         handleSelectAll();
