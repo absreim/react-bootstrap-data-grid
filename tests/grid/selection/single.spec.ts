@@ -136,3 +136,30 @@ test("deselect works by keyboard on a column header cell when in both mode", asy
 
   await expect(row8).toHaveAttribute("aria-selected", "false");
 })
+
+test("deselect works even with sorting enabled", async ({ page }) => {
+  const allowSortingCheckbox = page.getByRole("checkbox", { name: "Allow Sorting" });
+  await allowSortingCheckbox.click();
+
+  const row1StrCell = page.getByRole("gridcell", { name: "1st row string" });
+  await row1StrCell.click();
+
+  const row1 = page.getByRole("row", { name: "1st row string" });
+  await expect(row1).toHaveAttribute("aria-selected", "true");
+
+  const numberHeaderCell = page.getByRole("columnheader", { name: "Number Column" });
+  await numberHeaderCell.click();
+  await page.keyboard.press("Space");
+
+  await expect(row1).toHaveAttribute("aria-selected", "false");
+
+  await row1StrCell.click();
+  await expect(row1).toHaveAttribute("aria-selected", "true");
+
+  const stringHeaderCell = page.getByRole("columnheader", { name: "String Column" });
+  await stringHeaderCell.click();
+  await page.keyboard.press("Space");
+  await page.keyboard.press("Space");
+
+  await expect(row1).toHaveAttribute("aria-selected", "false");
+});

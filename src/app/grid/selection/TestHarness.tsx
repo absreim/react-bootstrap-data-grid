@@ -64,8 +64,8 @@ const TestHarness: FC = () => {
 
     return cols.map((col) => ({
       ...col,
-        sortable: true,
-    }))
+      sortable: col.name === "strCol" || col.name === "date",
+    }));
   }, [sortable])
   const sortModel: SortModel | undefined = useMemo(() => {
     if (!sortable) {
